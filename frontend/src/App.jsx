@@ -8,6 +8,7 @@ import { ErpProvider } from './context/ErpContext';
 import { HrProvider } from './context/HrContext';
 import { SupportProvider } from './context/SupportContext';
 import { OalProvider } from './context/OalContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { AppRoutes } from './routes/AppRoutes';
 
 import './styles/variables.css';
@@ -24,8 +25,9 @@ export function App() {
         v7_relativeSplatPath: true,
       }}
     >
-      <ThemeProvider>
-        <AuthProvider>
+      <LanguageProvider>
+        <ThemeProvider>
+          <AuthProvider>
           <ToastProvider>
             <CrmProvider>
               <ErpProvider>
@@ -41,6 +43,7 @@ export function App() {
           </ToastProvider>
         </AuthProvider>
       </ThemeProvider>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }
