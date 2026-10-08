@@ -438,7 +438,7 @@ export const BestieAi = () => {
       {/* Top Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', flexShrink: 0 }}>
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'AI SuperHouse' }, { label: 'Bestie AI Agent' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI', href: '/crm/dashboard' }, { label: 'AI SuperHouse', href: '/crm/ai-studio' }, { label: 'Bestie AI Agent' }]} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
             <h1 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               Bestie — My AI Agent
