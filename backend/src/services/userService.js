@@ -63,6 +63,15 @@ class UserService {
   }
 
   async updateProfile(userId, tenantId, data) {
+    const currentUser = await prisma.user.findFirst({
+      where: { id: userId, tenantId },
+    });
+    if (!currentUser) {
+      const err = new Error('User profile not found or access denied.');
+      err.statusCode = 404;
+      throw err;
+    }
+
     const { name, email, avatar } = data;
     const updateData = {};
     if (name) updateData.name = name.trim();

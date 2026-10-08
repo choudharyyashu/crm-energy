@@ -1,9 +1,25 @@
 const prisma = require('../config/prisma');
 
 class ContactService {
-  async getAll(tenantId, query = {}) {
+  async getAll(tenantId, query = {}, user = null) {
     const { search, status, type, assignedUserId } = query;
     const where = { tenantId };
+
+    // Scope for CUSTOMER role: only contacts related to this customer account
+    if (user && user.role === 'CUSTOMER') {
+      where.OR = [
+        { email: user.email || '__no_email__' },
+        { assignedUserId: user.userId },
+      ];
+    } else {
+      if (search) {
+        where.OR = [
+          { name: { contains: search } },
+          { company: { contains: search } },
+          { email: { contains: search } },
+        ];
+      }
+    }
 
     if (status && status !== 'all') {
       where.status = status;
@@ -17,14 +33,6 @@ class ContactService {
       where.assignedUserId = assignedUserId;
     }
 
-    if (search) {
-      where.OR = [
-        { name: { contains: search } },
-        { company: { contains: search } },
-        { email: { contains: search } },
-      ];
-    }
-
     return await prisma.contact.findMany({
       where,
       orderBy: { createdAt: 'desc' },
@@ -35,7 +43,7 @@ class ContactService {
     });
   }
 
-  async getById(tenantId, id) {
+  async getById(tenantId, id, user = null) {
     const contact = await prisma.contact.findFirst({
       where: { id, tenantId },
       include: {
@@ -51,6 +59,16 @@ class ContactService {
       const err = new Error('Contact not found or access denied.');
       err.statusCode = 404;
       throw err;
+    }
+
+    // Customer scoping check
+    if (user && user.role === 'CUSTOMER') {
+      const isOwner = contact.email === user.email || contact.assignedUserId === user.userId;
+      if (!isOwner) {
+        const err = new Error('Contact not found or access denied.');
+        err.statusCode = 404;
+        throw err;
+      }
     }
 
     return contact;

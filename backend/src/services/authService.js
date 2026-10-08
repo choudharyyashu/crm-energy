@@ -64,6 +64,7 @@ class AuthService {
       userId: result.user.id,
       tenantId: result.tenant.id,
       role: result.user.role,
+      email: result.user.email,
     });
 
     return {
@@ -131,6 +132,7 @@ class AuthService {
       userId: user.id,
       tenantId: user.tenantId,
       role: user.role,
+      email: user.email,
     });
 
     return {
