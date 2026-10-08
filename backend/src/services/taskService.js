@@ -137,10 +137,12 @@ class TaskService {
     const existing = await this.getById(tenantId, id, user);
 
     const isAdmin = user && ['SUPER_ADMIN', 'BUSINESS_OWNER', 'OPERATIONS_SALES_ADMIN'].includes(user.role);
-    if (user && !isAdmin && existing.assignedUserId && existing.assignedUserId !== user.userId) {
-      const err = new Error('Forbidden. You may only modify tasks assigned to you.');
-      err.statusCode = 403;
-      throw err;
+    if (user && !isAdmin) {
+      if (!existing.assignedUserId || existing.assignedUserId !== user.userId) {
+        const err = new Error('Forbidden. You may only modify tasks assigned to you. Unassigned tasks require administrative authorization.');
+        err.statusCode = 403;
+        throw err;
+      }
     }
 
     const updateData = {};
@@ -165,10 +167,12 @@ class TaskService {
     const task = await this.getById(tenantId, id, user);
 
     const isAdmin = user && ['SUPER_ADMIN', 'BUSINESS_OWNER', 'OPERATIONS_SALES_ADMIN'].includes(user.role);
-    if (user && !isAdmin && task.assignedUserId && task.assignedUserId !== user.userId) {
-      const err = new Error('Forbidden. You may only toggle tasks assigned to you.');
-      err.statusCode = 403;
-      throw err;
+    if (user && !isAdmin) {
+      if (!task.assignedUserId || task.assignedUserId !== user.userId) {
+        const err = new Error('Forbidden. You may only toggle tasks assigned to you. Unassigned tasks require administrative authorization.');
+        err.statusCode = 403;
+        throw err;
+      }
     }
 
     const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
@@ -186,10 +190,12 @@ class TaskService {
     const task = await this.getById(tenantId, id, user);
 
     const isAdmin = user && ['SUPER_ADMIN', 'BUSINESS_OWNER', 'OPERATIONS_SALES_ADMIN'].includes(user.role);
-    if (user && !isAdmin && task.assignedUserId && task.assignedUserId !== user.userId) {
-      const err = new Error('Forbidden. You may only delete tasks assigned to you.');
-      err.statusCode = 403;
-      throw err;
+    if (user && !isAdmin) {
+      if (!task.assignedUserId || task.assignedUserId !== user.userId) {
+        const err = new Error('Forbidden. You may only delete tasks assigned to you. Unassigned tasks require administrative authorization.');
+        err.statusCode = 403;
+        throw err;
+      }
     }
 
     return await prisma.task.delete({

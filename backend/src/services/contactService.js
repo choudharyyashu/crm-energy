@@ -7,10 +7,19 @@ class ContactService {
 
     // Scope for CUSTOMER role: only contacts related to this customer account
     if (user && user.role === 'CUSTOMER') {
-      where.OR = [
-        { email: user.email || '__no_email__' },
-        { assignedUserId: user.userId },
-      ];
+      const customerEmail = user.email ? String(user.email).trim().toLowerCase() : null;
+      if (customerEmail && user.userId) {
+        where.OR = [
+          { email: customerEmail },
+          { assignedUserId: user.userId },
+        ];
+      } else if (customerEmail) {
+        where.email = customerEmail;
+      } else if (user.userId) {
+        where.assignedUserId = user.userId;
+      } else {
+        where.id = '__no_access__';
+      }
     } else {
       if (search) {
         where.OR = [
@@ -61,9 +70,15 @@ class ContactService {
       throw err;
     }
 
-    // Customer scoping check
+    // Customer scoping check: prevent null === null from granting ownership
     if (user && user.role === 'CUSTOMER') {
-      const isOwner = contact.email === user.email || contact.assignedUserId === user.userId;
+      const customerEmail = user.email ? String(user.email).trim().toLowerCase() : null;
+      const contactEmail = contact.email ? String(contact.email).trim().toLowerCase() : null;
+
+      const hasMatchingEmail = Boolean(customerEmail && contactEmail && contactEmail === customerEmail);
+      const isAssignedUser = Boolean(user.userId && contact.assignedUserId && contact.assignedUserId === user.userId);
+
+      const isOwner = hasMatchingEmail || isAssignedUser;
       if (!isOwner) {
         const err = new Error('Contact not found or access denied.');
         err.statusCode = 404;
