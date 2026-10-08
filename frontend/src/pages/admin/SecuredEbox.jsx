@@ -142,7 +142,7 @@ export const SecuredEbox = () => {
   const [fetchError, setFetchError] = useState(null);
   const messagesEndRef = useRef(null);
 
-  // Initialize messages from localStorage or default
+  // Initialize messages from localStorage or empty store
   const [threadStore, setThreadStore] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -150,7 +150,7 @@ export const SecuredEbox = () => {
     } catch (e) {
       console.warn('eBox storage read error:', e);
     }
-    return INITIAL_CONVERSATIONS;
+    return {};
   });
 
   // Fetch real encrypted messages from MySQL database on mount
