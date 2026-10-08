@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Boxes,
   Package,
@@ -33,8 +33,14 @@ import { useErp } from '../../../context/ErpContext';
 import { useToast } from '../../../context/ToastContext';
 
 export const ErpInventory = () => {
-  const { inventory, addInventoryItem } = useErp();
+  const { inventory, addInventoryItem, fetchErpData } = useErp();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchErpData) {
+      fetchErpData();
+    }
+  }, [fetchErpData]);
   const [selectedWarehouse, setSelectedWarehouse] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);

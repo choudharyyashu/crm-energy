@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Megaphone,
   Mail,
@@ -19,9 +19,15 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Select, KPICard, ProgressBar } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import { useCrm } from '../../../context/CrmContext';
 
 export const AiMarketing = () => {
   const { addToast } = useToast();
+  const { refreshLeads } = useCrm();
+
+  useEffect(() => {
+    if (refreshLeads) refreshLeads();
+  }, [refreshLeads]);
 
   const [activeTab, setActiveTab] = useState('campaigns');
   const [wizardStep, setWizardStep] = useState(1);

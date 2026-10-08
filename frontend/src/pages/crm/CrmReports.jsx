@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, Download, Filter as FilterIcon, Calendar, User, CheckCircle2, Clock, ShieldCheck } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Select, Input, KPICard } from '../../components/ui';
 import { useToast } from '../../context/ToastContext';
+import { useCrm } from '../../context/CrmContext';
 
 const reportsList = [
   { id: 'REP-101', title: 'Q1 Enterprise Revenue & MRR Audit', category: 'Finance', user: 'Alexander Wright', date: '2026-02-25', status: 'Approved', format: 'CSV / PDF' },
@@ -13,6 +14,12 @@ const reportsList = [
 
 export const CrmReports = () => {
   const { addToast } = useToast();
+  const { refreshActivities, refreshDeals } = useCrm();
+
+  useEffect(() => {
+    if (refreshActivities) refreshActivities();
+    if (refreshDeals) refreshDeals();
+  }, [refreshActivities, refreshDeals]);
 
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [userFilter, setUserFilter] = useState('all');

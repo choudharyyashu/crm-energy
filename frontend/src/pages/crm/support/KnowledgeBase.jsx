@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BookOpen,
   Search,
@@ -23,6 +23,12 @@ import { useToast } from '../../../context/ToastContext';
 export const KnowledgeBase = () => {
   const { kbArticles, addArticle, isLoading, fetchSupportData } = useSupport();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchSupportData) {
+      fetchSupportData();
+    }
+  }, [fetchSupportData]);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');

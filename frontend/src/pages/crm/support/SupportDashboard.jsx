@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LifeBuoy, MessageSquare, BookOpen, CheckCircle2, Plus, ArrowRight } from 'lucide-react';
 import { Breadcrumb, Button, KPICard, Card, Badge } from '../../../components/ui';
@@ -6,7 +6,13 @@ import { useSupport } from '../../../context/SupportContext';
 
 export const SupportDashboard = () => {
   const navigate = useNavigate();
-  const { tickets, kbArticles } = useSupport();
+  const { tickets, kbArticles, fetchSupportData } = useSupport();
+
+  useEffect(() => {
+    if (fetchSupportData) {
+      fetchSupportData();
+    }
+  }, [fetchSupportData]);
 
   const openCount = tickets.filter((t) => t.status === 'Open' || t.status === 'In Progress').length;
   const resolvedCount = tickets.filter((t) => t.status === 'Resolved' || t.status === 'Closed').length;

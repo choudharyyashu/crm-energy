@@ -154,6 +154,130 @@ export const CrmProvider = ({ children }) => {
     }
   }, []);
 
+  // Granular route-level refresh methods for real-time SWR on-mount sync
+  const refreshDeals = useCallback(async () => {
+    try {
+      const data = await crmService.getDeals();
+      if (Array.isArray(data)) {
+        const mappedDeals = data.map((d) => ({
+          ...d,
+          id: d.id,
+          value: formatCurrency(d.value),
+          owner: d.assignedUser?.name || 'Alexander Wright',
+          probability: d.probability ? `${d.probability}%` : '50%',
+          stage: typeof d.stage === 'string'
+            ? d.stage
+                .split('_')
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                .join(' ')
+            : 'Qualified',
+          contact: typeof d.contact === 'object' && d.contact !== null ? d.contact.name : (d.contact || ''),
+          contactObj: d.contact,
+        }));
+        setDeals(mappedDeals);
+      }
+    } catch (e) {
+      console.warn('Live refresh deals error:', e);
+    }
+  }, []);
+
+  const refreshContacts = useCallback(async () => {
+    try {
+      const data = await crmService.getContacts();
+      if (Array.isArray(data)) {
+        const mappedContacts = data.map((c) => ({
+          ...c,
+          id: c.id,
+          totalValue: formatCurrency(c.totalValue),
+          owner: c.assignedUser?.name || 'Alexander Wright',
+          dealsCount: c._count?.deals || 0,
+          notesCount: c._count?.notes || 0,
+        }));
+        setContacts(mappedContacts);
+      }
+    } catch (e) {
+      console.warn('Live refresh contacts error:', e);
+    }
+  }, []);
+
+  const refreshLeads = useCallback(async () => {
+    try {
+      const data = await crmService.getLeads();
+      if (Array.isArray(data)) {
+        const mappedLeads = data.map((l) => ({
+          ...l,
+          id: l.id,
+          value: formatCurrency(l.estimatedValue),
+          status: typeof l.status === 'string' ? l.status.charAt(0) + l.status.slice(1).toLowerCase() : 'New',
+          owner: l.assignedUser?.name || 'Alexander Wright',
+        }));
+        setLeads(mappedLeads);
+      }
+    } catch (e) {
+      console.warn('Live refresh leads error:', e);
+    }
+  }, []);
+
+  const refreshTasks = useCallback(async () => {
+    try {
+      const data = await crmService.getTasks();
+      if (Array.isArray(data)) {
+        const mappedTasks = data.map((t) => ({
+          ...t,
+          id: t.id,
+          status:
+            t.status === 'COMPLETED'
+              ? 'Completed'
+              : t.status === 'IN_PROGRESS'
+              ? 'In Progress'
+              : t.status === 'CANCELLED'
+              ? 'Cancelled'
+              : 'Pending',
+          priority: typeof t.priority === 'string' ? t.priority.charAt(0) + t.priority.slice(1).toLowerCase() : 'Medium',
+          assignedTo: t.assignedUser?.name || 'Alexander Wright',
+          contact: typeof t.contact === 'object' && t.contact !== null ? t.contact.name : (t.contact || ''),
+          lead: typeof t.lead === 'object' && t.lead !== null ? t.lead.name : (t.lead || ''),
+          deal: typeof t.deal === 'object' && t.deal !== null ? t.deal.title : (t.deal || ''),
+          contactObj: t.contact,
+          leadObj: t.lead,
+          dealObj: t.deal,
+        }));
+        setTasks(mappedTasks);
+      }
+    } catch (e) {
+      console.warn('Live refresh tasks error:', e);
+    }
+  }, []);
+
+  const refreshActivities = useCallback(async () => {
+    try {
+      const data = await crmService.getActivities();
+      if (Array.isArray(data)) {
+        const mappedActivities = data.map((a) => ({
+          ...a,
+          userName: a.user?.name || 'Alexander Wright',
+          leadName: a.lead?.name || '',
+          contactName: a.contact?.name || '',
+          dealTitle: a.deal?.title || '',
+        }));
+        setActivities(mappedActivities);
+      }
+    } catch (e) {
+      console.warn('Live refresh activities error:', e);
+    }
+  }, []);
+
+  const refreshNotes = useCallback(async () => {
+    try {
+      const data = await crmService.getNotes();
+      if (Array.isArray(data)) {
+        setNotes(data);
+      }
+    } catch (e) {
+      console.warn('Live refresh notes error:', e);
+    }
+  }, []);
+
   const { isCrmAuthenticated, crmUser } = useAuth();
 
   // Initial load & trigger on login/auth change
@@ -706,6 +830,12 @@ export const CrmProvider = ({ children }) => {
         sendMessage,
         isLoading,
         refetchCrmData: fetchCrmData,
+        refreshDeals,
+        refreshContacts,
+        refreshLeads,
+        refreshTasks,
+        refreshActivities,
+        refreshNotes,
       }}
     >
       {children}

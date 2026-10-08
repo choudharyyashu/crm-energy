@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Search,
   Sparkles,
@@ -16,11 +16,18 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Input } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import { useCrm } from '../../../context/CrmContext';
 import { useNavigate } from 'react-router-dom';
 
 export const InternalAiSearch = () => {
   const { addToast } = useToast();
+  const { refreshContacts, refreshDeals } = useCrm();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (refreshContacts) refreshContacts();
+    if (refreshDeals) refreshDeals();
+  }, [refreshContacts, refreshDeals]);
 
   const [query, setQuery] = useState('Apex Global contract SLA and delivery schedule');
   const [activeFilter, setActiveFilter] = useState('All');

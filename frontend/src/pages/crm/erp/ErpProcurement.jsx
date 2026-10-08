@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FileText,
   ShoppingBag,
@@ -32,8 +32,14 @@ import { useErp } from '../../../context/ErpContext';
 import { useToast } from '../../../context/ToastContext';
 
 export const ErpProcurement = () => {
-  const { purchaseOrders, addPurchaseOrder } = useErp();
+  const { purchaseOrders, addPurchaseOrder, fetchErpData } = useErp();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchErpData) {
+      fetchErpData();
+    }
+  }, [fetchErpData]);
   const [activeTab, setActiveTab] = useState('orders');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({

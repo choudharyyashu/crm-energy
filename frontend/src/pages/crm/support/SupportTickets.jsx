@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   LifeBuoy,
@@ -40,6 +40,12 @@ export const SupportTickets = () => {
   const navigate = useNavigate();
   const { tickets, addTicket, updateTicketStatus, isLoading, fetchSupportData } = useSupport();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchSupportData) {
+      fetchSupportData();
+    }
+  }, [fetchSupportData]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
