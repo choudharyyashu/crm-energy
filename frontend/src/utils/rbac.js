@@ -91,6 +91,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/knowledge-base',
       '/crm/tasks',
       '/crm/communication',
+      '/crm/bestie',
       '/crm/settings',
       '/crm/profile',
       '/showcase',
@@ -173,6 +174,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/leads',
       '/crm/tasks',
       '/crm/communication',
+      '/crm/bestie',
       '/crm/my-apps',
       '/crm/settings',
       '/crm/profile',
@@ -201,6 +203,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/pipeline',
       '/crm/tasks',
       '/crm/communication',
+      '/crm/bestie',
       '/crm/settings',
       '/crm/profile',
       '/showcase',
@@ -262,6 +265,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/hr/jobs',
       '/crm/hr/interviews',
       '/crm/hr/reports',
+      '/crm/bestie',
       '/crm/analytics',
       '/crm/reports',
       '/crm/settings',
@@ -297,6 +301,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/communication',
       '/crm/territory',
       '/crm/erp',
+      '/crm/bestie',
       '/omp/executive/central-office',
       '/omp',
       '/crm/erp/projects',
@@ -332,6 +337,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/pipeline',
       '/crm/tasks',
       '/crm/erp',
+      '/crm/bestie',
       '/omp/executive/central-office',
       '/omp',
       '/crm/erp/finance',
@@ -380,6 +386,7 @@ export const CRM_ROLE_CONFIG = {
       '/crm/support/kb',
       '/crm/support/reports',
       '/crm/knowledge-base',
+      '/crm/bestie',
       '/crm/settings',
       '/crm/profile',
       '/showcase',
@@ -682,6 +689,11 @@ export const isRouteAllowed = (path, product = 'crm', userOrRoleId) => {
 
   // Clean path (strip trailing slashes and query strings)
   const cleanPath = path.split('?')[0].replace(/\/$/, '') || '/';
+
+  // Common shared CRM platform features accessible to all authenticated CRM roles
+  if (product === 'crm' && (cleanPath === '/crm/bestie' || cleanPath === '/crm/profile' || cleanPath === '/showcase')) {
+    return true;
+  }
 
   // Check direct match or route prefix match
   return config.allowedRoutes.some((allowed) => {
