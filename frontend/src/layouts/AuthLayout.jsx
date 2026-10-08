@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { Button } from '../components/ui/Button';
 import { Sun, Moon } from 'lucide-react';
 import { ToastContainer } from '../components/ui/Toast';
+import { LanguageToggle } from '../components/common/LanguageToggle';
 
 export const AuthLayout = () => {
   const { theme, toggleTheme } = useTheme();
@@ -22,7 +23,8 @@ export const AuthLayout = () => {
         boxSizing: 'border-box',
       }}
     >
-      <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 10 }}>
+      <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 10, display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <LanguageToggle />
         <Button
           variant="outline"
           size="sm"

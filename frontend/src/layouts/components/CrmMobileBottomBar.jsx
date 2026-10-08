@@ -7,32 +7,34 @@ import {
   Lock,
   Menu,
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const CrmMobileBottomBar = ({ onOpenDrawer, product = 'crm' }) => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const isCrm = product === 'crm';
 
   const tabs = [
     {
       path: isCrm ? '/crm/dashboard' : '/oal/borrower/dashboard',
-      label: 'Dashboard',
+      label: t('Dashboard'),
       icon: LayoutDashboard,
     },
     {
       path: isCrm ? '/crm/leads' : '/oal/borrower/application',
-      label: isCrm ? 'Leads' : 'Apply',
+      label: isCrm ? t('Leads Directory') : t('Loan Application'),
       icon: Target,
     },
     {
       path: '/crm/ai-studio',
-      label: 'AI Studio',
+      label: t('AI Content Studio'),
       icon: Sparkles,
       isAction: true,
     },
     {
-      path: '/crm/admin/ebox',
-      label: 'eBox',
+      path: '/crm/ebox',
+      label: t('Secured eBox (SEA)'),
       icon: Lock,
       badge: 'SEA',
     },
@@ -119,11 +121,22 @@ export const CrmMobileBottomBar = ({ onOpenDrawer, product = 'crm' }) => {
               textDecoration: 'none',
               color: isActive ? '#38bdf8' : 'var(--text-secondary)',
               position: 'relative',
-              padding: '6px 12px',
+              padding: '6px 10px',
+              maxWidth: '80px',
             }}
           >
             <Icon size={19} color={isActive ? '#38bdf8' : 'var(--text-secondary)'} />
-            <span style={{ fontSize: '10.5px', fontWeight: isActive ? 800 : 600 }}>
+            <span
+              style={{
+                fontSize: '10px',
+                fontWeight: isActive ? 800 : 600,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '75px',
+                textAlign: 'center',
+              }}
+            >
               {tab.label}
             </span>
 
@@ -161,13 +174,13 @@ export const CrmMobileBottomBar = ({ onOpenDrawer, product = 'crm' }) => {
           gap: '3px',
           color: 'var(--text-secondary)',
           cursor: 'pointer',
-          padding: '6px 12px',
+          padding: '6px 10px',
         }}
         aria-label="Open Navigation Drawer"
       >
         <Menu size={20} />
-        <span style={{ fontSize: '10.5px', fontWeight: 600 }}>
-          All Tools
+        <span style={{ fontSize: '10px', fontWeight: 600 }}>
+          {t('Menu', 'Menu')}
         </span>
       </button>
     </nav>

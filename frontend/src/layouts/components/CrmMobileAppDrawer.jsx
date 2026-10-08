@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { LanguageToggle } from '../../components/common/LanguageToggle';
 import { crmNavigation, oalNavigation } from '../../data/mockData';
 import { getFilteredNavigation } from '../../utils/rbac';
 
@@ -21,6 +23,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
   const location = useLocation();
   const { crmUser, oalUser, logout } = useAuth();
   const { addToast } = useToast();
+  const { t } = useLanguage();
 
   if (!isOpen) return null;
 
@@ -44,8 +47,8 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
   const handleLogout = () => {
     logout(product);
     addToast({
-      title: 'Logged Out',
-      message: `Signed out of ${product === 'crm' ? 'CRM nErgy AI' : 'OAL Network'}.`,
+      title: t('Logged Out'),
+      message: `${t('Sign Out (' + product.toUpperCase() + ')')}.`,
       type: 'info',
     });
     onClose();
@@ -59,7 +62,6 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
 
   const displayName = currentUser?.name || currentUser?.role || 'Executive User';
   const displayRole = currentUser?.role || (product === 'crm' ? 'Business Owner' : 'Borrower');
-  const displayBadge = currentUser?.badge || 'Enterprise AI Access';
   const initial = displayName.charAt(0).toUpperCase();
 
   return (
@@ -99,7 +101,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
         {/* Top Profile Banner */}
         <div
           style={{
-            padding: '18px 16px',
+            padding: '16px 14px',
             backgroundColor: 'var(--surface-secondary)',
             borderBottom: '1px solid var(--border)',
             display: 'flex',
@@ -111,8 +113,8 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div
                 style={{
-                  width: '42px',
-                  height: '42px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '12px',
                   background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)',
                   display: 'flex',
@@ -120,7 +122,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
                   justifyContent: 'center',
                   color: '#ffffff',
                   fontWeight: 900,
-                  fontSize: '17px',
+                  fontSize: '16px',
                   boxShadow: '0 4px 12px rgba(6, 182, 212, 0.4)',
                 }}
               >
@@ -129,7 +131,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
               <div style={{ minWidth: 0 }}>
                 <div
                   style={{
-                    fontSize: '14px',
+                    fontSize: '13.5px',
                     fontWeight: 800,
                     color: 'var(--text-primary)',
                     whiteSpace: 'nowrap',
@@ -140,7 +142,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
                   {displayName}
                 </div>
                 <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 700 }}>
-                  {displayRole}
+                  {t(displayRole)}
                 </div>
               </div>
             </div>
@@ -163,6 +165,14 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
             >
               <X size={20} />
             </button>
+          </div>
+
+          {/* Language Selector inside Drawer */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '2px' }}>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 600 }}>
+              Language / Idioma:
+            </span>
+            <LanguageToggle />
           </div>
 
           {/* Quick Search Bar Trigger */}
@@ -190,7 +200,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Search size={14} color="#38bdf8" />
-                <span>Search modules, AI tools...</span>
+                <span>{t('Search...')}</span>
               </div>
               <span
                 style={{
@@ -202,7 +212,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
                   color: 'var(--text-tertiary)',
                 }}
               >
-                Cmd+K
+                ⌘K
               </span>
             </button>
           )}
@@ -231,7 +241,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
                   letterSpacing: '0.06em',
                 }}
               >
-                {sectionTitle}
+                {t(sectionTitle)}
               </div>
 
               {items.map((item) => {
@@ -266,7 +276,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <Icon size={17} color={isActive ? '#38bdf8' : 'var(--text-secondary)'} />
-                      <span>{item.label}</span>
+                      <span>{t(item.label)}</span>
                     </div>
 
                     {item.badge && (
@@ -320,7 +330,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
             }}
           >
             <User size={14} color="#38bdf8" />
-            <span>Switch Persona</span>
+            <span>Switch Role</span>
           </button>
 
           <button
@@ -341,7 +351,7 @@ export const CrmMobileAppDrawer = ({ isOpen, onClose, product = 'crm', onOpenSea
             }}
           >
             <LogOut size={14} />
-            <span>Logout</span>
+            <span>{t(`Log Out (${product.toUpperCase()})`)}</span>
           </button>
         </div>
       </div>

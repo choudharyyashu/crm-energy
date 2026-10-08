@@ -387,25 +387,53 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           <button
             type="button"
             onClick={() => navigate('/crm/bestie')}
-            className="hidden-mobile flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all"
+            className="hidden-mobile"
             style={{
-              background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%)',
-              border: '1px solid rgba(6, 182, 212, 0.4)',
-              color: '#0284c7',
+              display: 'inline-flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '7px',
+              height: '36px',
+              padding: '0 12px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%)',
+              border: 'none',
+              color: '#ffffff',
+              fontSize: '12px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+              boxShadow: '0 2px 8px -1px rgba(99, 102, 241, 0.45), 0 1px 3px rgba(236, 72, 153, 0.3)',
+              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#0284c7';
-              e.currentTarget.style.boxShadow = '0 0 10px rgba(6, 182, 212, 0.3)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 16px 0 rgba(99, 102, 241, 0.6), 0 2px 8px rgba(236, 72, 153, 0.4)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.4)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px -1px rgba(99, 102, 241, 0.45), 0 1px 3px rgba(236, 72, 153, 0.3)';
             }}
             title="Ask Bestie AI Agent"
           >
-            <Sparkles size={14} style={{ color: '#0ea5e9' }} />
-            <span>{t('Ask Bestie')}</span>
-            <span style={{ fontSize: '9px', background: '#0284c7', color: '#fff', padding: '1px 4px', borderRadius: '4px' }}>AI</span>
+            <Sparkles size={14} style={{ color: '#fef08a', flexShrink: 0 }} />
+            <span style={{ letterSpacing: '-0.01em', lineHeight: 1 }}>{t('Ask Bestie')}</span>
+            <span
+              style={{
+                fontSize: '9px',
+                fontWeight: 800,
+                background: 'rgba(255, 255, 255, 0.22)',
+                color: '#ffffff',
+                padding: '2px 5px',
+                borderRadius: '5px',
+                backdropFilter: 'blur(4px)',
+                letterSpacing: '0.04em',
+                lineHeight: 1,
+              }}
+            >
+              AI
+            </span>
           </button>
         )}
 
@@ -525,16 +553,30 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
         <Dropdown
           trigger={
             <div
-              className="flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-lg transition-colors hover:bg-surface-hover"
+              className="flex items-center gap-1.5 cursor-pointer px-2 sm:px-3 py-1.5 rounded-lg transition-colors hover:bg-surface-hover"
               style={{ backgroundColor: 'var(--surface-secondary)', border: '1px solid var(--border)' }}
             >
-              <div className="flex flex-col text-left">
+              <div
+                className="visible-mobile items-center justify-center rounded-full font-bold text-xs"
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  background: 'linear-gradient(135deg, #0284c7, #6366f1)',
+                  color: '#ffffff',
+                  fontSize: '11px',
+                  display: 'none',
+                  flexShrink: 0,
+                }}
+              >
+                {(currentUser?.name || 'A').charAt(0).toUpperCase()}
+              </div>
+              <div className="hidden-mobile flex-col text-left">
                 <span className="font-bold text-xs text-primary leading-tight">{currentUser?.name || 'Alexander Wright'}</span>
                 <span className="text-tertiary text-xs leading-none" style={{ fontSize: '10px', marginTop: '2px' }}>
                   {t(currentUser?.role || 'Company Owner')}
                 </span>
               </div>
-              <ChevronDown size={14} className="text-tertiary ml-1 flex-shrink-0" />
+              <ChevronDown size={14} className="text-tertiary ml-0.5 sm:ml-1 flex-shrink-0" />
             </div>
           }
         >
