@@ -251,10 +251,13 @@ export const SupportTickets = () => {
               ]}
             />
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Issue Details / Description</label>
+          <div className="form-group">
+            <label className="form-label">
+              <span>Issue Details / Description</span>
+            </label>
             <textarea
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500 min-h-[100px]"
+              className="form-control"
+              style={{ minHeight: '100px', resize: 'vertical', paddingTop: '0.75rem', paddingBottom: '0.75rem' }}
               placeholder="Describe the problem, steps to reproduce, or error codes..."
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}

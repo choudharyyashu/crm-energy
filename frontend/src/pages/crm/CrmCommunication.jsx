@@ -375,10 +375,13 @@ export const CrmCommunication = () => {
               onChange={(e) => setComposeData({ ...composeData, subject: e.target.value })}
             />
           )}
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Message Body *</label>
+          <div className="form-group">
+            <label className="form-label">
+              <span>Message Body <span style={{ color: 'var(--error)' }}>*</span></span>
+            </label>
             <textarea
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500 min-h-[120px]"
+              className="form-control"
+              style={{ minHeight: '120px', resize: 'vertical', paddingTop: '0.75rem', paddingBottom: '0.75rem' }}
               placeholder="Type your message content here..."
               value={composeData.body}
               onChange={(e) => setComposeData({ ...composeData, body: e.target.value })}

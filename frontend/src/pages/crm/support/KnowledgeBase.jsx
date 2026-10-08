@@ -184,10 +184,13 @@ export const KnowledgeBase = () => {
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           />
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Documentation Content *</label>
+          <div className="form-group">
+            <label className="form-label">
+              <span>Documentation Content <span style={{ color: 'var(--error)' }}>*</span></span>
+            </label>
             <textarea
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500 min-h-[140px]"
+              className="form-control"
+              style={{ minHeight: '140px', resize: 'vertical', paddingTop: '0.75rem', paddingBottom: '0.75rem' }}
               placeholder="Write the full documentation guide, markdown formatting is supported..."
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
