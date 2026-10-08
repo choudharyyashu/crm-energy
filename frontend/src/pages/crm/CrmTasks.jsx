@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Plus,
   Calendar,
@@ -41,8 +41,14 @@ import { useToast } from '../../context/ToastContext';
 const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const CrmTasks = () => {
-  const { tasks, addTask, toggleTaskCompletion, deleteTask } = useCrm();
+  const { tasks, addTask, toggleTaskCompletion, deleteTask, refreshTasks } = useCrm();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (refreshTasks) {
+      refreshTasks();
+    }
+  }, [refreshTasks]);
 
   const [viewMode, setViewMode] = useState('calendar'); // 'calendar' or 'list'
   const [filterPriority, setFilterPriority] = useState('all');

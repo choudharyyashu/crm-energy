@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Target, Plus, Search, Filter as FilterIcon, ArrowRight, ExternalLink, Sparkles, CheckCircle2, Briefcase } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Input, Select, Modal } from '../../components/ui';
@@ -8,8 +8,14 @@ import { SHOW_OAL } from '../../config/features';
 
 export const CrmLeads = () => {
   const navigate = useNavigate();
-  const { leads, addLead, convertLeadToContact } = useCrm();
+  const { leads, addLead, convertLeadToContact, refreshLeads } = useCrm();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (refreshLeads) {
+      refreshLeads();
+    }
+  }, [refreshLeads]);
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Plus,
   ArrowRight,
@@ -44,9 +44,15 @@ const pipelineColumns = [
 
 export const CrmPipeline = () => {
   const navigate = useNavigate();
-  const { deals, addDeal, moveDealStage } = useCrm();
+  const { deals, addDeal, moveDealStage, refreshDeals } = useCrm();
   const { projects: erpProjects, createFromDeal } = useErp();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (refreshDeals) {
+      refreshDeals();
+    }
+  }, [refreshDeals]);
 
   const [selectedMobileStage, setSelectedMobileStage] = useState('All');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);

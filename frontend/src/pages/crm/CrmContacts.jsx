@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Plus,
@@ -38,8 +38,14 @@ import { useToast } from '../../context/ToastContext';
 
 export const CrmContacts = () => {
   const navigate = useNavigate();
-  const { contacts, addContact, editContact, deleteContact, bulkDeleteContacts } = useCrm();
+  const { contacts, addContact, editContact, deleteContact, bulkDeleteContacts, refreshContacts } = useCrm();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (refreshContacts) {
+      refreshContacts();
+    }
+  }, [refreshContacts]);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');

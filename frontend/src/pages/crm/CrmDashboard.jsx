@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Users,
@@ -65,6 +65,12 @@ export const CrmDashboard = () => {
     refetchCrmData,
   } = useCrm();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (refetchCrmData) {
+      refetchCrmData();
+    }
+  }, [refetchCrmData]);
 
   // Primary Dashboard State
   const [activeRange, setActiveRange] = useState('30 Days');

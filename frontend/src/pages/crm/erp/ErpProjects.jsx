@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FolderGit2, Plus, Eye } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Modal, Input, Select } from '../../../components/ui';
@@ -7,8 +7,14 @@ import { useToast } from '../../../context/ToastContext';
 
 export const ErpProjects = () => {
   const navigate = useNavigate();
-  const { projects, addProject } = useErp();
+  const { projects, addProject, fetchErpData } = useErp();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchErpData) {
+      fetchErpData();
+    }
+  }, [fetchErpData]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', client: '', budget: '$300,000', manager: 'Alexander Wright', deadline: '2026-07-01' });

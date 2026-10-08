@@ -78,6 +78,37 @@ export const CrmSettings = () => {
         role: user.role || prev.role,
       }));
     }
+
+    // Live Server Sync on Settings mount
+    const fetchLiveSettings = async () => {
+      try {
+        const [meRes, tenantRes] = await Promise.allSettled([
+          apiClient.get('/auth/me'),
+          apiClient.get('/tenants/settings'),
+        ]);
+
+        if (meRes.status === 'fulfilled' && meRes.value?.data) {
+          const u = meRes.value.data;
+          setProfileData((prev) => ({
+            ...prev,
+            name: u.name || prev.name,
+            email: u.email || prev.email,
+            role: u.role || prev.role,
+          }));
+        }
+
+        if (tenantRes.status === 'fulfilled' && tenantRes.value?.data) {
+          const t = tenantRes.value.data;
+          setCompanyForm((prev) => ({
+            ...prev,
+            companyName: t.name || prev.companyName,
+            domain: t.domain || prev.domain,
+          }));
+        }
+      } catch (_) {}
+    };
+
+    fetchLiveSettings();
   }, [user]);
 
   const handlePhotoUpload = async (e) => {

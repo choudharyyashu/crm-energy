@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserCheck, Users, Briefcase, Calendar, Plus, Search, Eye, Filter, CheckCircle2 } from 'lucide-react';
 import { Breadcrumb, Button, KPICard, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Modal, Input, Select, Avatar } from '../../../components/ui';
@@ -7,8 +7,14 @@ import { useToast } from '../../../context/ToastContext';
 
 export const HrDashboard = () => {
   const navigate = useNavigate();
-  const { employees, addEmployee, candidates } = useHr();
+  const { employees, addEmployee, candidates, fetchHrData } = useHr();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchHrData) {
+      fetchHrData();
+    }
+  }, [fetchHrData]);
 
   const [activeTab, setActiveTab] = useState('employees'); // 'employees' | 'candidates' | 'jobs' | 'interviews'
   const [isModalOpen, setIsModalOpen] = useState(false);
