@@ -104,9 +104,15 @@ const DEFAULT_CONVERSATION = [
 
 export const BestieAi = () => {
   const { addToast } = useToast();
-  const { addLead, addTask } = useCrm();
+  const { addLead, addTask, refreshDeals, refreshTasks, refreshLeads } = useCrm();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (refreshDeals) refreshDeals();
+    if (refreshTasks) refreshTasks();
+    if (refreshLeads) refreshLeads();
+  }, [refreshDeals, refreshTasks, refreshLeads]);
 
   const [inputPrompt, setInputPrompt] = useState('');
   const [isTyping, setIsTyping] = useState(false);

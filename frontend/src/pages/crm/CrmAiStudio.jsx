@@ -40,14 +40,21 @@ import {
 } from 'lucide-react';
 import { Breadcrumb } from '../../components/ui';
 import { useToast } from '../../context/ToastContext';
+import { useCrm } from '../../context/CrmContext';
 import { useNavigate } from 'react-router-dom';
 import { generateStudioContent } from '../../services/geminiService';
 import { generateElevenLabsSpeech, ELEVEN_VOICES, stopBrowserSpeech, playWithWebSpeech } from '../../services/elevenLabsService';
 
 export const CrmAiStudio = () => {
   const { addToast } = useToast();
+  const { refreshDeals, refreshActivities } = useCrm();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+
+  React.useEffect(() => {
+    if (refreshDeals) refreshDeals();
+    if (refreshActivities) refreshActivities();
+  }, [refreshDeals, refreshActivities]);
 
   // The Client-Specified 15 Sub-Studios with Nova Drive #006742 Palette Alignment
   const subStudios = [

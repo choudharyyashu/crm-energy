@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Boxes,
@@ -35,8 +35,14 @@ import { useToast } from '../../../context/ToastContext';
 
 export const ErpDashboard = () => {
   const navigate = useNavigate();
-  const { projects, addProject, purchaseOrders, inventory } = useErp();
+  const { projects, addProject, purchaseOrders, inventory, fetchErpData } = useErp();
   const { addToast } = useToast();
+
+  useEffect(() => {
+    if (fetchErpData) {
+      fetchErpData();
+    }
+  }, [fetchErpData]);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [formData, setFormData] = useState({

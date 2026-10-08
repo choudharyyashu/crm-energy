@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Star,
@@ -22,9 +22,19 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Input } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import apiClient from '../../../services/apiClient';
 
 export const MyFavApps = () => {
   const { addToast } = useToast();
+
+  useEffect(() => {
+    const fetchAppConfig = async () => {
+      try {
+        await apiClient.get('/tenants/settings');
+      } catch (_) {}
+    };
+    fetchAppConfig();
+  }, []);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');

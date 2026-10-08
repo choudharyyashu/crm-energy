@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Video,
   Mic,
@@ -21,9 +21,16 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Select } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import { useCrm } from '../../../context/CrmContext';
 
 export const AiVideoAgent = () => {
   const { addToast } = useToast();
+  const { refreshLeads, refreshDeals } = useCrm();
+
+  useEffect(() => {
+    if (refreshLeads) refreshLeads();
+    if (refreshDeals) refreshDeals();
+  }, [refreshLeads, refreshDeals]);
 
   // 4 Core Pipeline Steps requested by Client
   const steps = [

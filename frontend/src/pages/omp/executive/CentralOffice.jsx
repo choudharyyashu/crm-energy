@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
   Building2,
@@ -25,10 +25,20 @@ import {
   Sparkles
 } from 'lucide-react';
 import { toast } from '../../../utils/ompToast';
+import apiClient from '../../../services/apiClient';
 
 export const CentralOffice = () => {
   const { selectedStore, currentStoreObj } = useOutletContext() || { selectedStore: 'all', currentStoreObj: { name: 'All Locations' } };
   const [selectedFilter, setSelectedFilter] = useState('all');
+
+  useEffect(() => {
+    const fetchOmpDeals = async () => {
+      try {
+        await apiClient.get('/deals');
+      } catch (_) {}
+    };
+    fetchOmpDeals();
+  }, []);
   
   // Modals state
   const [isProvisionModalOpen, setIsProvisionModalOpen] = useState(false);
