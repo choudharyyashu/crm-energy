@@ -8,6 +8,7 @@ import { ErpProvider } from './context/ErpContext';
 import { HrProvider } from './context/HrContext';
 import { SupportProvider } from './context/SupportContext';
 import { OalProvider } from './context/OalContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { AppRoutes } from './routes/AppRoutes';
 
 import './styles/variables.css';
@@ -18,9 +19,15 @@ import './styles/responsive.css';
 
 export function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
+      <LanguageProvider>
+        <ThemeProvider>
+          <AuthProvider>
           <ToastProvider>
             <CrmProvider>
               <ErpProvider>
@@ -36,6 +43,7 @@ export function App() {
           </ToastProvider>
         </AuthProvider>
       </ThemeProvider>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }

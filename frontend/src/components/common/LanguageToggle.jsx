@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Globe } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 /**
  * LanguageToggle — 1-Click English ↔ Spanish UI Toggle (P-01 / P-11)
@@ -8,12 +9,12 @@ import { useToast } from '../../context/ToastContext';
  * hover states, and keyboard accessibility.
  */
 export const LanguageToggle = () => {
-  const [lang, setLang] = useState('EN');
+  const { language, setLanguage } = useLanguage();
   const { addToast } = useToast();
 
   const handleSelectLang = (newLang) => {
-    if (newLang === lang) return;
-    setLang(newLang);
+    if (newLang === language) return;
+    setLanguage(newLang);
     addToast({
       title: newLang === 'ES' ? 'Idioma Cambiado' : 'Language Updated',
       message: newLang === 'ES' ? 'Plataforma cambiada a Español (ES).' : 'Platform switched to English (EN).',
@@ -41,9 +42,9 @@ export const LanguageToggle = () => {
         className="px-2 py-1 rounded-md transition-all cursor-pointer font-bold"
         style={{
           border: 'none',
-          backgroundColor: lang === 'EN' ? '#0284c7' : 'transparent',
-          color: lang === 'EN' ? '#ffffff' : 'var(--text-secondary, #64748b)',
-          boxShadow: lang === 'EN' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
+          backgroundColor: language === 'EN' ? '#0284c7' : 'transparent',
+          color: language === 'EN' ? '#ffffff' : 'var(--text-secondary, #64748b)',
+          boxShadow: language === 'EN' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}
         title="Switch to English"
@@ -59,9 +60,9 @@ export const LanguageToggle = () => {
         className="px-2 py-1 rounded-md transition-all cursor-pointer font-bold"
         style={{
           border: 'none',
-          backgroundColor: lang === 'ES' ? '#0284c7' : 'transparent',
-          color: lang === 'ES' ? '#ffffff' : 'var(--text-secondary, #64748b)',
-          boxShadow: lang === 'ES' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
+          backgroundColor: language === 'ES' ? '#0284c7' : 'transparent',
+          color: language === 'ES' ? '#ffffff' : 'var(--text-secondary, #64748b)',
+          boxShadow: language === 'ES' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}
         title="Cambiar a Español"
@@ -73,4 +74,3 @@ export const LanguageToggle = () => {
 };
 
 export default LanguageToggle;
-

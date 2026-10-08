@@ -44,6 +44,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { isRouteAllowed, getDefaultRouteForRole } from '../../utils/rbac';
 import { AiEnergyLogo } from '../../components/common/AiEnergyLogo';
 import { LanguageToggle } from '../../components/common/LanguageToggle';
+import { useLanguage } from '../../context/LanguageContext';
 import iconLogo from '../../assets/crm_nergy_ai_icon.png';
 
 export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
@@ -51,6 +52,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
   const { crmUser, oalUser, switchRole, logout } = useAuth();
   const { activities = [], contacts = [], deals = [], leads = [] } = useCrm() || {};
   const { addToast } = useToast();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const searchInputRef = useRef(null);
@@ -354,7 +356,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           <div className="flex items-center gap-3">
             <Search size={15} style={{ color: 'var(--text-secondary)', flexShrink: 0 }} />
             <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>
-              Search...
+              {t('Search...')}
             </span>
           </div>
           <span
@@ -402,7 +404,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
             title="Ask Bestie AI Agent"
           >
             <Sparkles size={14} style={{ color: '#0ea5e9' }} />
-            <span>Ask Bestie</span>
+            <span>{t('Ask Bestie')}</span>
             <span style={{ fontSize: '9px', background: '#0284c7', color: '#fff', padding: '1px 4px', borderRadius: '4px' }}>AI</span>
           </button>
         )}
@@ -476,9 +478,9 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
             </button>
           }
         >
-          <DropdownHeader>System Notifications ({activities.length})</DropdownHeader>
+          <DropdownHeader>{t('System Notifications')} ({activities.length})</DropdownHeader>
           {activities.length === 0 ? (
-            <div className="p-3 text-center text-xs text-tertiary">No unread notifications</div>
+            <div className="p-3 text-center text-xs text-tertiary">{t('No unread notifications')}</div>
           ) : (
             activities.slice(0, 5).map((n) => (
               <DropdownItem
@@ -494,7 +496,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           )}
           <DropdownDivider />
           <DropdownItem onClick={() => addToast({ title: 'Notifications', message: 'All notifications marked as read.', type: 'success' })}>
-            Mark all as read
+            {t('Mark all as read')}
           </DropdownItem>
         </Dropdown>
 
@@ -511,7 +513,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
             color: 'var(--text-primary)',
             padding: 0,
           }}
-          title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+          title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
         >
           {theme === 'light' ? (
             <Moon size={20} style={{ color: 'var(--text-primary)' }} />
@@ -529,7 +531,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
               <div className="flex flex-col text-left">
                 <span className="font-bold text-xs text-primary leading-tight">{currentUser?.name || 'Alexander Wright'}</span>
                 <span className="text-tertiary text-xs leading-none" style={{ fontSize: '10px', marginTop: '2px' }}>
-                  {currentUser?.role || 'Company Owner'}
+                  {t(currentUser?.role || 'Company Owner')}
                 </span>
               </div>
               <ChevronDown size={14} className="text-tertiary ml-1 flex-shrink-0" />
@@ -544,16 +546,16 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           </DropdownHeader>
 
           <DropdownItem icon={User} onClick={() => navigate(product === 'crm' ? '/crm/profile' : '/oal/borrower/profile')}>
-            Account Profile
+            {t('Account Profile')}
           </DropdownItem>
           <DropdownItem icon={Building2} onClick={() => addToast({ title: 'Tenant Vault', message: `Tenant ID: ${currentUser?.tenantId || 'TENANT-08492'}`, type: 'info' })}>
-            Workspace Vault
+            {t('Workspace Vault')}
           </DropdownItem>
 
           <DropdownDivider />
 
           <DropdownItem icon={LogOut} danger onClick={handleLogout}>
-            Log Out ({product.toUpperCase()})
+            {t(`Log Out (${product.toUpperCase()})`)}
           </DropdownItem>
         </Dropdown>
       </div>

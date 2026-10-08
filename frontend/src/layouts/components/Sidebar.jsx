@@ -4,6 +4,7 @@ import { LogOut, Shield } from 'lucide-react';
 import { crmNavigation, oalNavigation } from '../../data/mockData';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { getFilteredNavigation, getRoleConfig } from '../../utils/rbac';
 
 export const Sidebar = ({
@@ -15,6 +16,7 @@ export const Sidebar = ({
   const navigate = useNavigate();
   const { logout, crmUser, oalUser } = useAuth();
   const { addToast } = useToast();
+  const { t } = useLanguage();
 
   const currentUser = product === 'crm' ? crmUser : oalUser;
   const roleConfig = getRoleConfig(currentUser, product);
@@ -75,7 +77,7 @@ export const Sidebar = ({
                   letterSpacing: '0.05em',
                 }}
               >
-                {sectionTitle}
+                {t(sectionTitle)}
               </div>
             )}
 
@@ -88,7 +90,7 @@ export const Sidebar = ({
                   key={item.id}
                   to={item.path}
                   onClick={onCloseMobile}
-                  title={isCollapsed ? item.label : undefined}
+                  title={isCollapsed ? t(item.label) : undefined}
                   style={({ isActive: isLinkActive }) => {
                     const currentActive = isLinkActive || isActive;
                     return {
@@ -138,7 +140,7 @@ export const Sidebar = ({
                       transition: 'color 200ms ease',
                     }}
                   />
-                  {!isCollapsed && <span>{item.label}</span>}
+                  {!isCollapsed && <span>{t(item.label)}</span>}
                 </NavLink>
               );
             })}
@@ -181,10 +183,10 @@ export const Sidebar = ({
             e.currentTarget.style.borderColor = 'transparent';
             e.currentTarget.style.color = '#ef4444';
           }}
-          title={isCollapsed ? `Sign Out (${product.toUpperCase()})` : undefined}
+          title={isCollapsed ? t(`Sign Out (${product.toUpperCase()})`) : undefined}
         >
           <LogOut size={16} className="flex-shrink-0" style={{ color: '#ef4444' }} />
-          {!isCollapsed && <span style={{ fontSize: '12.5px', fontWeight: 600 }}>Sign Out ({product.toUpperCase()})</span>}
+          {!isCollapsed && <span style={{ fontSize: '12.5px', fontWeight: 600 }}>{t(`Sign Out (${product.toUpperCase()})`)}</span>}
         </button>
       </div>
     </aside>
