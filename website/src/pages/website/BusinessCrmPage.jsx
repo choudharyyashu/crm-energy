@@ -77,14 +77,7 @@ export const BusinessCrmPage = () => {
         borderBottom: '1px solid var(--web-border)',
         padding: '0.875rem 1.25rem'
       }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: '12.5px'
-        }}>
+        <div className="website-breadcrumb-bar">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
             <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
             <span>/</span>

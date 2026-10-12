@@ -4,7 +4,7 @@ import { ShieldCheck, MessageSquare, LogIn } from 'lucide-react';
 import { AiEnergyLogo } from '../common/AiEnergyLogo';
 import { useLanguage } from '../../context/LanguageContext';
 
-export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
+export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
@@ -23,10 +23,10 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
     <footer style={{
       backgroundColor: 'var(--web-surface)',
       borderTop: '1px solid var(--web-border)',
-      padding: '3.5rem 1.25rem 2rem 1.25rem',
+      padding: '3.5rem clamp(1.25rem, 3.5vw, 2.5rem) 2rem clamp(1.25rem, 3.5vw, 2.5rem)',
       marginTop: 'auto'
     }}>
-      <div style={{ maxWidth: '1380px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem', width: '100%', boxSizing: 'border-box' }}>
         
         {/* Top Section: Brand & Executive Access */}
         <div style={{
@@ -65,7 +65,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="website-footer-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               type="button"
               onClick={onOpenSales}
@@ -115,12 +115,15 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
 
         {/* 4 Client-Specified Columns */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '2.5rem'
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          gap: '2rem',
+          width: '100%'
         }}>
           {/* Column 1: Help Center */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '160px', flex: '0 1 auto' }}>
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Help Center')}
             </span>
@@ -149,7 +152,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
           </div>
 
           {/* Column 2: Check It Out */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '170px', flex: '0 1 auto' }}>
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Check It Out')}
             </span>
@@ -168,7 +171,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
           </div>
 
           {/* Column 3: Business Solutions */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '180px', flex: '0 1 auto' }}>
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Business Solutions')}
             </span>
@@ -187,7 +190,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
           </div>
 
           {/* Column 4: CRM nErgy */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '160px', flex: '0 1 auto' }}>
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('CRM nErgy')}
             </span>

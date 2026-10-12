@@ -5,15 +5,18 @@ import { WebsiteFooter } from '../components/website/WebsiteFooter';
 import { AskMyZunmeModal } from '../components/website/AskMyZunmeModal';
 import { SalesChatEboxModal } from '../components/website/SalesChatEboxModal';
 import { ItemDetailModal } from '../components/website/ItemDetailModal';
+import { SignupModal } from '../components/website/SignupModal';
 import '../styles/website.css';
 
 export const WebsiteLayout = () => {
   const [isZunmeOpen, setIsZunmeOpen] = useState(false);
   const [isSalesOpen, setIsSalesOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleOpenZunme = () => setIsZunmeOpen(true);
   const handleOpenSales = () => setIsSalesOpen(true);
+  const handleOpenSignup = () => setIsSignupOpen(true);
   const handleSelectItem = (item) => setSelectedItem(item);
 
   return (
@@ -22,6 +25,7 @@ export const WebsiteLayout = () => {
       <WebsiteNavbar
         onOpenZunme={handleOpenZunme}
         onOpenSales={handleOpenSales}
+        onOpenSignup={handleOpenSignup}
         onSelectItem={handleSelectItem}
       />
 
@@ -31,6 +35,7 @@ export const WebsiteLayout = () => {
           context={{
             onOpenZunme: handleOpenZunme,
             onOpenSales: handleOpenSales,
+            onOpenSignup: handleOpenSignup,
             onSelectItem: handleSelectItem,
           }}
         />
@@ -40,6 +45,13 @@ export const WebsiteLayout = () => {
       <WebsiteFooter
         onOpenZunme={handleOpenZunme}
         onOpenSales={handleOpenSales}
+        onOpenSignup={handleOpenSignup}
+      />
+
+      {/* Sign Up / Create Account Form Modal */}
+      <SignupModal
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
       />
 
       {/* Ask My Zunme — VA Virtual Assistant Modal */}

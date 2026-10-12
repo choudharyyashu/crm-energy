@@ -261,21 +261,45 @@
 
 /* Highlight CTA: Ask My Zunme - VA Virtual Assistant >> */
 .website-cta-zunme {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%) !important;
-  color: #ffffff !important;
-  border: none !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  color: #4f46e5 !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 6px -2px rgba(99, 102, 241, 0.4);
-  padding: 1px 6px !important;
-  border-radius: 5px !important;
-  font-size: 9px !important;
-  height: 20px !important;
-  min-height: 20px !important;
-  max-height: 20px !important;
+  box-shadow: none !important;
+  padding: 6px 12px !important;
+  border-radius: 9px !important;
+  font-size: 12.5px !important;
+  height: 32px !important;
   line-height: 1 !important;
-  gap: 3px !important;
+  gap: 6px !important;
   display: inline-flex !important;
   align-items: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.website-cta-zunme:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.website-cta-zunme:hover .website-zunme-sparkle {
+  color: #fef08a !important;
+}
+
+[data-theme="dark"] .website-cta-zunme {
+  background: rgba(129, 140, 248, 0.12) !important;
+  border-color: rgba(129, 140, 248, 0.35) !important;
+  color: #a5b4fc !important;
+}
+
+[data-theme="dark"] .website-cta-zunme:hover {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
 }
 
 /* Hero CTA Keep Large Size */
@@ -767,3 +791,109 @@
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.25rem;
 }
+
+/* ======================================================== */
+/* Responsive Table Grids & Two-Column Split Adaptations    */
+/* ======================================================== */
+.website-responsive-table-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(260px, 2fr);
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .website-responsive-table-grid {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  .website-responsive-table-header {
+    display: none !important;
+  }
+}
+
+/* Breadcrumb Bar Responsiveness */
+.website-breadcrumb-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+}
+
+@media (max-width: 480px) {
+  .website-breadcrumb-bar {
+    font-size: 11.5px;
+  }
+}
+
+/* Footer Responsive Adaptations */
+.website-footer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .website-footer-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .website-footer-header-actions > button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* Mobile Screen Navbar Adjustments (< 480px) */
+@media (max-width: 480px) {
+  .website-header-sticky {
+    height: 62px;
+  }
+  .website-nav-inner {
+    padding: 0 0.6rem;
+    gap: 4px;
+  }
+  .website-brand-title {
+    font-size: 15px !important;
+  }
+  .website-brand-sub {
+    display: none !important;
+  }
+  .website-signin-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .website-mobile-toggle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 360px) {
+  .website-brand-title {
+    font-size: 13.5px !important;
+  }
+  .website-signin-btn {
+    padding: 4px 6px;
+    font-size: 10.5px;
+  }
+}
+
+/* Mobile Modal Enhancements */
+@media (max-width: 480px) {
+  .website-modal-backdrop {
+    padding: 0.5rem;
+  }
+  .website-modal-window {
+    max-height: 94vh;
+    border-radius: 12px;
+    width: 100% !important;
+  }
+}
+

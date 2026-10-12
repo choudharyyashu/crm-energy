@@ -31,6 +31,7 @@ import {
 export const WebsiteNavbar = ({
   onOpenZunme,
   onOpenSales,
+  onOpenSignup,
   onSelectItem,
   activeSection = ''
 }) => {
@@ -130,7 +131,7 @@ export const WebsiteNavbar = ({
         >
           <AiEnergyLogo size={34} showText={false} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{
+            <span className="website-brand-title" style={{
               fontSize: '17px',
               fontWeight: 800,
               fontFamily: 'var(--font-display)',
@@ -190,21 +191,10 @@ export const WebsiteNavbar = ({
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
             title={t('Ask My Zunme — VA Virtual Assistant')}
-            style={{
-              padding: '1px 6px',
-              height: '20px',
-              minHeight: '20px',
-              maxHeight: '20px',
-              fontSize: '9px',
-              borderRadius: '5px',
-              gap: '3px',
-              display: 'inline-flex',
-              alignItems: 'center'
-            }}
           >
-            <Sparkles size={10} style={{ color: '#fef08a', flexShrink: 0 }} />
-            <span style={{ fontSize: '9px', whiteSpace: 'nowrap' }}>{t('Ask My Zunme — VA Virtual Assistant')}</span>
-            <span style={{ letterSpacing: '0.02em', fontWeight: 900, fontSize: '8px', flexShrink: 0 }}>&gt;&gt;</span>
+            <Sparkles size={14} className="website-zunme-sparkle" style={{ color: '#4f46e5', flexShrink: 0, transition: 'color 0.2s ease' }} />
+            <span>{isEs ? 'Preguntar a My Zunme — Asistente Virtual VA' : 'Ask My Zunme — VA Virtual Assistant'}</span>
+            <span style={{ letterSpacing: '0.02em', fontWeight: 900, fontSize: '11px', flexShrink: 0, marginLeft: '2px' }}>&gt;&gt;</span>
           </button>
 
           {/* 6. SALES - chat eBox */}
@@ -263,31 +253,15 @@ export const WebsiteNavbar = ({
             {theme === 'light' ? <Moon size={16} /> : <Sun size={16} style={{ color: '#f59e0b' }} />}
           </button>
 
-          {/* DISTINCT LOGIN BUTTON */}
-          <button
-            type="button"
-            onClick={handleLoginRedirect}
-            className="website-signin-btn"
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--web-border)',
-              color: 'var(--web-text-main)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              padding: '6px 8px',
-              fontSize: '11.5px',
-              flexShrink: 0,
-            }}
-          >
-            <LogIn size={13} />
-            <span>{t('Login')}</span>
-          </button>
 
-          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          {/* DISTINCT SIGN UP BUTTON */}
           <button
             type="button"
-            onClick={handleSignupRedirect}
+            onClick={() => {
+              setActiveMenu(null);
+              if (onOpenSignup) onOpenSignup();
+              else handleSignupRedirect();
+            }}
             className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -296,13 +270,16 @@ export const WebsiteNavbar = ({
               boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '4px',
-              padding: '6px 9px',
-              fontSize: '11.5px',
+              gap: '5px',
+              padding: '6px 12px',
+              fontSize: '12px',
+              fontWeight: 700,
+              borderRadius: '8px',
               flexShrink: 0,
+              cursor: 'pointer'
             }}
           >
-            <span>{t('Create Account')}</span>
+            <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
             <ArrowRight size={13} />
           </button>
 
@@ -679,7 +656,11 @@ export const WebsiteNavbar = ({
 
                 <button
                   type="button"
-                  onClick={handleSignupRedirect}
+                  onClick={() => {
+                    setMobileDrawerOpen(false);
+                    if (onOpenSignup) onOpenSignup();
+                    else handleSignupRedirect();
+                  }}
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -696,7 +677,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>{t('Create Account')}</span>
+                  <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
