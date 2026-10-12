@@ -30,6 +30,7 @@ import { useCrm } from '../../context/CrmContext';
 import { useErp } from '../../context/ErpContext';
 import { useToast } from '../../context/ToastContext';
 import { useCurrency } from '../../context/CurrencyContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 
 const pipelineColumns = [
@@ -44,6 +45,7 @@ const pipelineColumns = [
 ];
 
 export const CrmPipeline = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { deals, addDeal, moveDealStage, refreshDeals } = useCrm();
   const { projects: erpProjects, createFromDeal } = useErp();
@@ -165,8 +167,8 @@ export const CrmPipeline = () => {
       {/* 1. Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Sales Pipeline' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>Commercial Sales Pipeline</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Sales Pipeline') }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>{t('Commercial Sales Pipeline')}</h1>
         </div>
 
         <div className="header-actions-right">
@@ -177,7 +179,7 @@ export const CrmPipeline = () => {
             className="w-full md:w-auto justify-center"
             onClick={() => setIsAddModalOpen(true)}
           >
-            Add New Opportunity
+            {t('+ Add New Opportunity')}
           </Button>
         </div>
       </div>
@@ -185,41 +187,41 @@ export const CrmPipeline = () => {
       {/* 2. Pipeline Summary Metrics Strip */}
       <div className="grid-responsive-kpi">
         <KPICard
-          title="TOTAL PIPELINE VALUE"
+          title={t('TOTAL PIPELINE VALUE')}
           value={`$${(totalPipelineValue / 1000000).toFixed(2)}M`}
           change="18.4%"
           changeType="positive"
-          changePeriod="across 8 stages"
+          changePeriod={t('across 8 stages')}
           icon={TrendingUp}
           iconBg="rgba(22, 163, 74, 0.1)"
           iconColor="#16a34a"
         />
         <KPICard
-          title="WEIGHTED VALUE"
+          title={t('WEIGHTED VALUE')}
           value={`$${(weightedPipelineValue / 1000000).toFixed(2)}M`}
           change="52% Avg"
           changeType="neutral"
-          changePeriod="prob. adj."
+          changePeriod={t('prob. adj.')}
           icon={DollarSign}
           iconBg="rgba(29, 78, 216, 0.1)"
           iconColor="#1d4ed8"
         />
         <KPICard
-          title="TOTAL ACTIVE DEALS"
+          title={t('TOTAL ACTIVE DEALS')}
           value={`${totalDealsCount}`}
-          change="3 Deals"
+          change={`3 ${t('Deals')}`}
           changeType="positive"
-          changePeriod="this month"
+          changePeriod={t('this month')}
           icon={Kanban}
           iconBg="rgba(147, 51, 234, 0.1)"
           iconColor="#9333ea"
         />
         <KPICard
-          title="WIN CONVERSION"
+          title={t('WIN CONVERSION')}
           value={`${winRate}%`}
           change="4.2%"
           changeType="positive"
-          changePeriod="closed deals"
+          changePeriod={t('closed deals')}
           icon={CheckCircle2}
           iconBg="rgba(234, 88, 12, 0.1)"
           iconColor="#ea580c"
@@ -232,7 +234,7 @@ export const CrmPipeline = () => {
         style={{ width: '100%', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}
       >
         <span className="text-xs font-bold text-secondary flex items-center gap-1 flex-shrink-0">
-          <Filter size={14} /> Stage:
+          <Filter size={14} /> {t('Stage:')}
         </span>
         {['All', ...pipelineColumns].map((stage) => (
           <button
@@ -253,7 +255,7 @@ export const CrmPipeline = () => {
               transition: 'all 0.15s ease',
             }}
           >
-            {stage}
+            {stage === 'All' ? t('All') : t(stage)}
           </button>
         ))}
       </div>
@@ -315,7 +317,7 @@ export const CrmPipeline = () => {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-xs text-primary">{col}</span>
+                  <span className="font-bold text-xs text-primary">{t(col)}</span>
                   <Badge variant={col === 'Won' ? 'success' : col === 'Lost' ? 'error' : 'primary'}>
                     {colDeals.length}
                   </Badge>
@@ -332,7 +334,7 @@ export const CrmPipeline = () => {
                     className="text-center p-4 text-xs text-tertiary rounded-md"
                     style={{ border: '1px dashed var(--border)', backgroundColor: 'var(--surface)' }}
                   >
-                    No deals in {col}
+                    {t('No deals in')} {t(col)}
                   </div>
                 ) : (
                   colDeals.map((deal) => (
@@ -365,7 +367,7 @@ export const CrmPipeline = () => {
                         <span className="font-mono text-xs font-semibold text-tertiary" style={{ fontSize: '11px' }} title={`Database ID: ${deal.id}`}>
                           {deal.displayId || (deal.id ? `DEL-${String(deals.indexOf(deal) + 1).padStart(3, '0')}` : '-')}
                         </span>
-                        <Badge variant="default" style={{ fontSize: '10px' }}>{deal.probability || '50%'} Prob</Badge>
+                        <Badge variant="default" style={{ fontSize: '10px' }}>{deal.probability || '50%'} {t('Prob')}</Badge>
                       </div>
 
                       {/* Deal Title */}
@@ -381,7 +383,7 @@ export const CrmPipeline = () => {
 
                       {/* Owner Info */}
                       <div className="text-tertiary" style={{ fontSize: '11px' }}>
-                        Owner: <strong className="text-secondary">{deal.owner}</strong>
+                        {t('Owner:')} <strong className="text-secondary">{deal.owner}</strong>
                       </div>
 
                       {/* ERP Handoff Action on Won Deals */}
@@ -392,7 +394,7 @@ export const CrmPipeline = () => {
                         >
                           {erpProjects.some((p) => p.dealId === deal.id) ? (
                             <div className="flex items-center justify-between w-full">
-                              <span className="text-tertiary" style={{ fontSize: '11px' }}>ERP Operations:</span>
+                              <span className="text-tertiary" style={{ fontSize: '11px' }}>{t('ERP Operations:')}</span>
                               <Button
                                 variant="ghost"
                                 size="sm"
@@ -400,7 +402,7 @@ export const CrmPipeline = () => {
                                 onClick={() => navigate('/crm/erp/projects')}
                                 style={{ color: 'var(--success)', fontSize: '11px', padding: '2px 6px' }}
                               >
-                                Project Active
+                                {t('Project Active')}
                               </Button>
                             </div>
                           ) : (
@@ -415,7 +417,7 @@ export const CrmPipeline = () => {
                                 setIsErpHandoffOpen(true);
                               }}
                             >
-                              Create ERP Project
+                              {t('Create ERP Project')}
                             </Button>
                           )}
                         </div>
@@ -434,9 +436,9 @@ export const CrmPipeline = () => {
                           style={{ background: 'none', border: 'none', padding: 0, fontSize: '11px' }}
                           title="Move to Previous Stage"
                         >
-                          <ArrowLeft size={12} /> Prev
+                          <ArrowLeft size={12} /> {t('Prev')}
                         </button>
-                        <span className="text-tertiary font-semibold" style={{ fontSize: '10px' }}>Move Stage</span>
+                        <span className="text-tertiary font-semibold" style={{ fontSize: '10px' }}>{t('Move Stage')}</span>
                         <button
                           type="button"
                           disabled={pipelineColumns.indexOf(col) === pipelineColumns.length - 1}
@@ -445,7 +447,7 @@ export const CrmPipeline = () => {
                           style={{ background: 'none', border: 'none', padding: 0, fontSize: '11px' }}
                           title="Move to Next Stage"
                         >
-                          Next <ArrowRight size={12} />
+                          {t('Next')} <ArrowRight size={12} />
                         </button>
                       </div>
                     </div>
@@ -461,7 +463,7 @@ export const CrmPipeline = () => {
       <Modal
         isOpen={isErpHandoffOpen}
         onClose={() => { if (!isCreatingErp) setIsErpHandoffOpen(false); }}
-        title="Create ERP Project & Sales Order"
+        title={t("Create ERP Project & Sales Order")}
         footer={
           <>
             <Button
@@ -470,7 +472,7 @@ export const CrmPipeline = () => {
               disabled={isCreatingErp}
               onClick={() => setIsErpHandoffOpen(false)}
             >
-              Skip for Now
+              {t("Skip for Now")}
             </Button>
             <Button
               variant="primary"
@@ -479,7 +481,7 @@ export const CrmPipeline = () => {
               loading={isCreatingErp}
               onClick={handleConfirmErpHandoff}
             >
-              Generate ERP Project & Order
+              {t("Generate ERP Project & Order")}
             </Button>
           </>
         }
@@ -494,26 +496,26 @@ export const CrmPipeline = () => {
             style={{ backgroundColor: 'var(--surface-secondary)', borderColor: 'var(--border)' }}
           >
             <div className="flex items-center justify-between pb-2 border-b" style={{ borderColor: 'var(--border)' }}>
-              <span className="text-tertiary">Opportunity:</span>
+              <span className="text-tertiary">{t('Opportunity:')}</span>
               <strong className="text-primary">{dealForErp?.title}</strong>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-tertiary">Client Account:</span>
+              <span className="text-tertiary">{t('Client Account:')}</span>
               <strong className="text-primary">{dealForErp?.customer}</strong>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-tertiary">Contract Value / Budget:</span>
+              <span className="text-tertiary">{t('Contract Value / Budget:')}</span>
               <strong className="text-success">{dealForErp?.value}</strong>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-tertiary">Assigned Delivery Manager:</span>
+              <span className="text-tertiary">{t('Assigned Delivery Manager:')}</span>
               <strong className="text-primary">{dealForErp?.owner || 'Alexander Wright'}</strong>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5 p-3 rounded-lg bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/50 dark:border-blue-800/30 text-secondary">
             <div className="font-semibold text-primary flex items-center gap-1.5">
-              <Sparkles size={13} className="text-primary" /> Automated ERP Delivery Workflow:
+              <Sparkles size={13} className="text-primary" /> {t('Automated ERP Delivery Workflow:')}
             </div>
             <ul className="margin-0 pl-4 space-y-1">
               <li>Creates <strong>ERP Project</strong> in directory with allocated budget and milestone roadmap.</li>
@@ -529,43 +531,43 @@ export const CrmPipeline = () => {
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        title="Add New Opportunity"
+        title={t("Add New Opportunity")}
         footer={
           <>
             <Button variant="outline" size="sm" onClick={() => setIsAddModalOpen(false)}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button variant="primary" size="sm" onClick={handleCreateDeal}>
-              Create Opportunity
+              {t("Create Opportunity")}
             </Button>
           </>
         }
       >
         <form className="flex flex-col gap-4">
           <Input
-            label="Opportunity Title"
+            label={t("Opportunity Title")}
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            placeholder="e.g. Enterprise Fleet Expansion"
+            placeholder={t("e.g. Enterprise Fleet Expansion")}
             required
           />
           <Input
-            label="Customer / Account"
+            label={t("Customer / Account")}
             value={formData.customer}
             onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
-            placeholder="e.g. Apex Global Technologies"
+            placeholder={t("e.g. Apex Global Technologies")}
             required
           />
           <Input
-            label="Estimated Deal Value ($)"
+            label={t("Estimated Deal Value ($)")}
             value={formData.value}
             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
           />
           <Select
-            label="Target Stage"
+            label={t("Target Stage")}
             value={formData.stage}
             onChange={(e) => setFormData({ ...formData, stage: e.target.value })}
-            options={pipelineColumns}
+            options={pipelineColumns.map((c) => ({ label: t(c), value: c }))}
           />
         </form>
       </Modal>
