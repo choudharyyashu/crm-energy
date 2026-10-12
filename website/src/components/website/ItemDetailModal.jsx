@@ -5,7 +5,8 @@ import { X, Sparkles, MessageSquare, CheckCircle2, ArrowRight, HelpCircle, Chevr
 
 export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunme }) => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   if (!isOpen || !item) return null;
@@ -45,10 +46,10 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
             </div>
             <div>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                {item.category || item.groupTitle || t('CRM nErgy Enterprise')}
+                {(isEs && (item.categoryEs || item.groupTitleEs)) ? (item.categoryEs || item.groupTitleEs) : t(item.category || item.groupTitle || 'CRM nErgy Enterprise')}
               </span>
               <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
-                {item.name}
+                {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
               </h3>
             </div>
           </div>
@@ -76,7 +77,7 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
               {t('Module Overview')}
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--web-text-muted)', lineHeight: 1.55, margin: 0 }}>
-              {item.clientOverview || item.desc}
+              {(isEs && (item.clientOverviewEs || item.descEs)) ? (item.clientOverviewEs || item.descEs) : t(item.clientOverview || item.desc)}
             </p>
           </div>
 
