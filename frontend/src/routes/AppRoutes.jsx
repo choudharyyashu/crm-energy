@@ -9,6 +9,11 @@ import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 
 import { WebsiteLayout } from '../layouts/WebsiteLayout';
 import { WebsiteHome } from '../pages/website/WebsiteHome';
+import { BusinessCrmPage } from '../pages/website/BusinessCrmPage';
+import { FranchiseCrmPage } from '../pages/website/FranchiseCrmPage';
+import { StartupsCrmPage } from '../pages/website/StartupsCrmPage';
+import { MidSizeCrmPage } from '../pages/website/MidSizeCrmPage';
+import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 
 // Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
@@ -136,6 +141,13 @@ export const AppRoutes = () => {
         <Route path="/solutions" element={<WebsiteHome />} />
         <Route path="/industries" element={<WebsiteHome />} />
         <Route path="/faqs" element={<WebsiteHome />} />
+
+        {/* Phase 3: Dedicated CRM nErgy Content Pages */}
+        <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
+        <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
+        <Route path="/solutions/startups" element={<StartupsCrmPage />} />
+        <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+        <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
       </Route>
 
       {/* Gateway Login Pages */}

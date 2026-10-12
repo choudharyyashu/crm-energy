@@ -89,6 +89,10 @@ export const WebsiteNavbar = ({
   const handleCardClick = (item) => {
     setActiveMenu(null);
     setMobileDrawerOpen(false);
+    if (item && item.route) {
+      navigate(item.route);
+      return;
+    }
     if (onSelectItem) {
       onSelectItem(item);
     }
@@ -115,7 +119,7 @@ export const WebsiteNavbar = ({
               CRM nErgy AI
             </span>
             <span className="website-brand-sub" style={{ fontSize: '10px', fontWeight: 600, color: 'var(--web-text-muted)', lineHeight: 1.1 }}>
-              Enterprise Platform
+              {t('Enterprise Platform')}
             </span>
           </div>
         </div>
@@ -207,9 +211,9 @@ export const WebsiteNavbar = ({
           </button>
         </nav>
 
-        {/* Right Side Controls: Language Toggle, Theme Toggle & Sign In */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {/* Instant 1-Click Language Switcher (EN / ES) */}
+        {/* Right Side Controls: Language Switcher, Theme Toggle & Sign In */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* 1-Click English ↔ Spanish Language Selector */}
           <LanguageToggle />
 
           {/* Theme Toggle */}
@@ -233,14 +237,41 @@ export const WebsiteNavbar = ({
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
           </button>
 
-          {/* Safe Sign In Button pointing to /crm/login */}
+          {/* DISTINCT LOGIN BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/crm/login')}
+            onClick={() => navigate('/login')}
             className="website-signin-btn"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--web-border)',
+              color: 'var(--web-text-main)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
           >
             <LogIn size={14} />
             <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
+          </button>
+
+          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          <button
+            type="button"
+            onClick={() => navigate('/crm/signup')}
+            className="website-signin-btn"
+            style={{
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              color: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <span>{t('Create Account')}</span>
+            <ArrowRight size={14} />
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -361,8 +392,26 @@ export const WebsiteNavbar = ({
                     }}>
                       {col.badge}
                     </span>
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
-                      {col.groupTitle}
+                    <h4
+                      onClick={() => {
+                        if (col.route) {
+                          setActiveMenu(null);
+                          navigate(col.route);
+                        }
+                      }}
+                      style={{
+                        fontSize: '14.5px',
+                        fontWeight: 800,
+                        color: 'var(--web-text-main)',
+                        margin: '2px 0 0 0',
+                        cursor: col.route ? 'pointer' : 'default',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{col.groupTitle}</span>
+                      {col.route && <ArrowRight size={13} style={{ color: '#0284c7' }} />}
                     </h4>
                     <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{col.subtitle}</span>
                   </div>
@@ -583,18 +632,21 @@ export const WebsiteNavbar = ({
                   CRM nErgy AI
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={() => setMobileDrawerOpen(false)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--web-text-muted)'
-                }}
-              >
-                <X size={20} />
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <LanguageToggle />
+                <button
+                  type="button"
+                  onClick={() => setMobileDrawerOpen(false)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--web-text-muted)'
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
             </div>
 
             <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -792,16 +844,42 @@ export const WebsiteNavbar = ({
                 FAQs
               </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)' }}>
+              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => {
                     setMobileDrawerOpen(false);
-                    navigate('/crm/login');
+                    navigate('/login');
                   }}
                   style={{
                     width: '100%',
-                    background: '#0f2b5c',
+                    background: 'transparent',
+                    border: '1px solid var(--web-border)',
+                    color: 'var(--web-text-main)',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <LogIn size={15} />
+                  <span>Login</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileDrawerOpen(false);
+                    navigate('/crm/signup');
+                  }}
+                  style={{
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '8px',
@@ -815,8 +893,8 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <LogIn size={15} />
-                  <span>Sign In / Portal</span>
+                  <span>Create Account</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
             </div>

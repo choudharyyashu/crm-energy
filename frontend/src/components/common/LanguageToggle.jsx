@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Sparkles } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -25,8 +25,8 @@ export const LanguageToggle = ({ variant = 'default' }) => {
     <div
       className="inline-flex items-center p-0.5 rounded-lg border text-xs select-none"
       style={{
-        backgroundColor: 'var(--surface-secondary, rgba(15, 23, 42, 0.6))',
-        borderColor: 'var(--border, rgba(148, 163, 184, 0.2))',
+        backgroundColor: 'var(--web-surface-subtle, var(--surface-secondary, rgba(15, 23, 42, 0.6)))',
+        borderColor: 'var(--web-border, var(--border, rgba(148, 163, 184, 0.2)))',
       }}
       role="group"
       aria-label="Instant Language Selector"
@@ -43,7 +43,7 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         style={{
           border: 'none',
           backgroundColor: language === 'EN' ? '#0ea5e9' : 'transparent',
-          color: language === 'EN' ? '#ffffff' : 'var(--text-secondary, #94a3b8)',
+          color: language === 'EN' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #94a3b8))',
           boxShadow: language === 'EN' ? '0 1px 6px rgba(14, 165, 233, 0.4)' : 'none',
           fontSize: '11px',
         }}
@@ -53,7 +53,7 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         <span>EN</span>
       </button>
 
-      <span style={{ color: 'var(--border, rgba(148, 163, 184, 0.3))', fontSize: '10px', padding: '0 1px' }}>|</span>
+      <span style={{ color: 'var(--web-border, var(--border, rgba(148, 163, 184, 0.3)))', fontSize: '10px', padding: '0 1px' }}>|</span>
 
       <button
         type="button"
@@ -62,7 +62,7 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         style={{
           border: 'none',
           backgroundColor: language === 'ES' ? '#0ea5e9' : 'transparent',
-          color: language === 'ES' ? '#ffffff' : 'var(--text-secondary, #94a3b8)',
+          color: language === 'ES' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #94a3b8))',
           boxShadow: language === 'ES' ? '0 1px 6px rgba(14, 165, 233, 0.4)' : 'none',
           fontSize: '11px',
         }}

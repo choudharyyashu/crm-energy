@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, Sparkles, MessageSquare, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunme }) => {
+  const navigate = useNavigate();
   if (!isOpen || !item) return null;
 
   const Icon = item.icon || Sparkles;
@@ -84,6 +86,35 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
               <li>Turnkey deployment ready for enterprise workloads</li>
             </ul>
           </div>
+
+          {item.route && (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                navigate(item.route);
+              }}
+              style={{
+                width: '100%',
+                padding: '10px 16px',
+                borderRadius: '8px',
+                background: 'rgba(79, 70, 229, 0.08)',
+                border: '1px solid rgba(79, 70, 229, 0.3)',
+                color: '#4f46e5',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <span>Explore Dedicated Page</span>
+              <ArrowRight size={15} />
+            </button>
+          )}
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '0.25rem' }}>
             <button

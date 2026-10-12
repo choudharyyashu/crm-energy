@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   Sparkles,
   ArrowRight,
@@ -26,6 +27,8 @@ import {
 } from '../../data/websiteNavData';
 
 export const WebsiteHome = () => {
+  const navigate = useNavigate();
+  const { t } = useLanguage();
   const { onOpenZunme, onOpenSales, onSelectItem } = useOutletContext() || {};
 
   // Features filter tab
@@ -75,7 +78,7 @@ export const WebsiteHome = () => {
             color: '#4f46e5'
           }}>
             <Sparkles size={14} style={{ color: '#f59e0b' }} />
-            <span>CRM Solutions Every Business Needs • “Make AI Your Bestie”</span>
+            <span>{t('CRM Solutions Every Business Needs • “Make AI Your Bestie”')}</span>
           </div>
 
           <h1 style={{
@@ -86,7 +89,7 @@ export const WebsiteHome = () => {
             color: 'var(--web-text-main)',
             margin: 0
           }}>
-            CRM Solutions Every Business Needs
+            {t('CRM Solutions Every Business Needs')}
           </h1>
 
           <blockquote style={{
@@ -100,7 +103,7 @@ export const WebsiteHome = () => {
             padding: '0 1rem',
             borderLeft: 'none'
           }}>
-            “Delivering the most relevant CRM ERP software for your business to thrive and honing our AAI development to effectively prepare you to scale.”
+            {t('“Delivering the most relevant CRM ERP software for your business to thrive and honing our AAI development to effectively prepare you to scale.”')}
           </blockquote>
 
           <p style={{
@@ -110,7 +113,7 @@ export const WebsiteHome = () => {
             maxWidth: '740px',
             margin: 0
           }}>
-            A complete operating system combining all <strong>23 core CRM features</strong>, <strong>4 tailored solution frameworks</strong>, and <strong>23 industry modules</strong> with the autonomous power of the ZUNME AI Studio.
+            {t('A complete operating system combining all 23 core CRM features, 4 tailored solution frameworks, and 23 industry modules with the autonomous power of the ZUNME AI Studio.')}
           </p>
 
           {/* Action Buttons */}
@@ -133,7 +136,7 @@ export const WebsiteHome = () => {
                 transition: 'transform 0.2s ease'
               }}
             >
-              <span>Explore 23 Features</span>
+              <span>{t('Explore 23 Features')}</span>
               <ArrowRight size={16} />
             </a>
 
@@ -190,15 +193,15 @@ export const WebsiteHome = () => {
           }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               <ShieldCheck size={16} style={{ color: '#10b981' }} />
-              Enterprise Data Vault
+              {t('Enterprise Data Vault')}
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               <Zap size={16} style={{ color: '#f59e0b' }} />
-              Real-time Workflows
+              {t('Real-time Workflows')}
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               <Globe size={16} style={{ color: '#0284c7' }} />
-              23 Industry Configurations
+              {t('23 Industry Configurations')}
             </span>
           </div>
         </div>
@@ -222,10 +225,10 @@ export const WebsiteHome = () => {
             textTransform: 'uppercase',
             letterSpacing: '0.06em'
           }}>
-            CRM Solutions Every Business Needs
+            {t('CRM Solutions Every Business Needs')}
           </span>
           <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-            CRM NERGY Software Features (23 Modules)
+            {t('CRM NERGY Software Features (23 Modules)')}
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
             CRM software is essential for various industries to manage customer relationships and enhance operational efficiency. Every module is styled with CRM nErgy icon buttons inspired by the Dolibarr benchmark architecture.
@@ -328,10 +331,10 @@ export const WebsiteHome = () => {
               padding: '3px 10px',
               borderRadius: '20px'
             }}>
-              Branding and Customization
+              {t('Branding and Customization')}
             </span>
             <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
-              “Make AI Your Friend”
+              {t('“Make AI Your Friend”')}
             </span>
           </div>
 
@@ -342,7 +345,7 @@ export const WebsiteHome = () => {
             margin: 0,
             lineHeight: 1.3
           }}>
-            It’s Your Business, Displaying Your Brand, powered by CRM nErgy Software Customization
+            {t('It’s Your Business, Displaying Your Brand, powered by CRM nErgy Software Customization')}
           </h3>
 
           <p style={{
@@ -352,7 +355,7 @@ export const WebsiteHome = () => {
             margin: 0,
             maxWidth: '1020px'
           }}>
-            The CRM nErgy drag-and-drop feature in customizable CRM software greatly enhances usability and efficiency, enabling users to customize their systems according to their specific business processes without requiring any coding skills. This functionality is crucial for contemporary CRM solutions, rendering them more flexible and user-friendly.
+            {t('The CRM nErgy drag-and-drop feature in customizable CRM software greatly enhances usability and efficiency, enabling users to customize their systems according to their specific business processes without requiring any coding skills. This functionality is crucial for contemporary CRM solutions, rendering them more flexible and user-friendly.')}
           </p>
 
           <div style={{
@@ -365,7 +368,7 @@ export const WebsiteHome = () => {
             borderTop: '1px solid var(--web-border)'
           }}>
             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-              CRM NERGY — “Make AI Your Friend”
+              CRM NERGY — {t('“Make AI Your Friend”')}
             </span>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -389,7 +392,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                <span>White Label Customization</span>
+                <span>{t('White Label Customization')}</span>
                 <ArrowRight size={14} />
               </button>
 
@@ -412,7 +415,7 @@ export const WebsiteHome = () => {
                 }}
               >
                 <MessageSquare size={14} />
-                <span>Contact Us</span>
+                <span>{t('Contact Us')}</span>
               </button>
             </div>
           </div>
@@ -431,10 +434,10 @@ export const WebsiteHome = () => {
         <div style={{ maxWidth: '1380px', margin: '0 auto', width: '100%' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Strategic Business Alignment
+              {t('Strategic Business Alignment')}
             </span>
             <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-              CRM Solutions (4 Solution Groups)
+              {t('CRM Solutions (4 Solution Groups)')}
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
               Structured frameworks addressing 4 Types of CRM Software, Business CRM Software, Solutions for Entrepreneurs, and Third Party Integration.
@@ -462,19 +465,19 @@ export const WebsiteHome = () => {
                 color: '#0284c7',
                 letterSpacing: '0.06em'
               }}>
-                White Label Enterprise Opportunity
+                {t('White Label Enterprise Opportunity')}
               </span>
               <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--web-text-muted)' }}>
-                “Make AI Your Bestie”
+                {t('“Make AI Your Bestie”')}
               </span>
             </div>
 
             <h3 style={{ fontSize: '19px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0, lineHeight: 1.3 }}>
-              Build & Promote Your Brand with the White Label CRM or ERP Software
+              {t('Build & Promote Your Brand with the White Label CRM or ERP Software')}
             </h3>
 
             <p style={{ fontSize: '13.5px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: 0, maxWidth: '1080px' }}>
-              CRM nErgy White Label CRM or ERP software includes customizable branding, client portals, sales and marketing automation, project management tools and much more. These platforms help businesses create new revenue streams by reselling the CRM solution under their own brand.
+              {t('CRM nErgy White Label CRM or ERP software includes customizable branding, client portals, sales and marketing automation, project management tools and much more. These platforms help businesses create new revenue streams by reselling the CRM solution under their own brand.')}
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginTop: '0.5rem' }}>
@@ -497,7 +500,7 @@ export const WebsiteHome = () => {
                   gap: '4px'
                 }}
               >
-                <span>READ MORE &gt;&gt; continue on the White Label Feature Page</span>
+                <span>{t('READ MORE >> continue on the White Label Feature Page')}</span>
               </button>
 
               <button
@@ -517,7 +520,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                <span>Contact Us</span>
+                <span>{t('Contact Us')}</span>
                 <ArrowRight size={13} />
               </button>
             </div>
@@ -548,8 +551,23 @@ export const WebsiteHome = () => {
                   }}>
                     {group.badge}
                   </span>
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
-                    {group.groupTitle}
+                  <h3
+                    onClick={() => {
+                      if (group.route) navigate(group.route);
+                    }}
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: 800,
+                      color: 'var(--web-text-main)',
+                      margin: '2px 0 0 0',
+                      cursor: group.route ? 'pointer' : 'default',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <span>{group.groupTitle}</span>
+                    {group.route && <ArrowRight size={14} style={{ color: '#0284c7' }} />}
                   </h3>
                   <span style={{ fontSize: '11.5px', color: 'var(--web-text-muted)' }}>{group.subtitle}</span>
                 </div>
