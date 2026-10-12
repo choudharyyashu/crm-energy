@@ -392,14 +392,24 @@
 /* Mobile Slide-out Drawer */
 .website-mobile-drawer {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 1100;
   display: flex;
 }
 
 .website-drawer-backdrop {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -409,9 +419,11 @@
   max-width: 360px;
   margin-left: auto;
   background: var(--web-surface);
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
+  z-index: 1;
 }
