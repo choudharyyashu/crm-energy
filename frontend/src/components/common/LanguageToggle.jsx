@@ -26,8 +26,8 @@ export const LanguageToggle = () => {
     <div
       className="inline-flex items-center p-0.5 rounded-lg border text-xs select-none"
       style={{
-        backgroundColor: 'var(--surface-secondary, #f8fafc)',
-        borderColor: 'var(--border, #e2e8f0)',
+        backgroundColor: 'var(--web-surface-subtle, var(--surface-secondary, #f8fafc))',
+        borderColor: 'var(--web-border, var(--border, #e2e8f0))',
       }}
       role="group"
       aria-label="Language Selector"
@@ -43,7 +43,7 @@ export const LanguageToggle = () => {
         style={{
           border: 'none',
           backgroundColor: language === 'EN' ? '#0284c7' : 'transparent',
-          color: language === 'EN' ? '#ffffff' : 'var(--text-secondary, #64748b)',
+          color: language === 'EN' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #64748b))',
           boxShadow: language === 'EN' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}
@@ -52,7 +52,7 @@ export const LanguageToggle = () => {
         EN
       </button>
 
-      <span style={{ color: 'var(--border, #cbd5e1)', fontSize: '10px', padding: '0 1px' }}>|</span>
+      <span style={{ color: 'var(--web-border, var(--border, #cbd5e1))', fontSize: '10px', padding: '0 1px' }}>|</span>
 
       <button
         type="button"
@@ -61,7 +61,7 @@ export const LanguageToggle = () => {
         style={{
           border: 'none',
           backgroundColor: language === 'ES' ? '#0284c7' : 'transparent',
-          color: language === 'ES' ? '#ffffff' : 'var(--text-secondary, #64748b)',
+          color: language === 'ES' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #64748b))',
           boxShadow: language === 'ES' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}

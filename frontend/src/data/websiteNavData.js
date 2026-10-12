@@ -84,7 +84,8 @@ export const CRM_FEATURES_DATA = [
     category: 'Finance & Operations',
     icon: PieChart,
     desc: 'Multi-dimensional cost center ledger, project margin tracking, and financial analytics.',
-    tag: 'Finance'
+    tag: 'Finance',
+    route: '/features/analytic-accounting'
   },
   {
     id: 'contact-management',
@@ -293,6 +294,7 @@ export const CRM_SOLUTIONS_DATA = [
     groupTitle: 'Business CRM Software',
     subtitle: 'Operational Scale',
     badge: 'Business',
+    route: '/solutions/business-crm',
     items: [
       {
         id: 'contact-ai',
@@ -304,7 +306,8 @@ export const CRM_SOLUTIONS_DATA = [
         id: 'franchise',
         name: 'Franchise',
         icon: Building2,
-        desc: 'Multi-location franchise governance, royalties tracking, and centralized brand standard compliance.'
+        desc: 'Multi-location franchise governance, royalties tracking, and centralized brand standard compliance.',
+        route: '/solutions/franchise'
       },
       {
         id: 'influencers',
@@ -316,13 +319,15 @@ export const CRM_SOLUTIONS_DATA = [
         id: 'startup-business',
         name: 'Startup Business',
         icon: Rocket,
-        desc: 'Lean sales automation, investor updates, rapid customer acquisition, and cash runway tracking.'
+        desc: 'Lean sales automation, investor updates, rapid customer acquisition, and cash runway tracking.',
+        route: '/solutions/startups'
       },
       {
         id: 'small-to-mid-size-biz',
         name: 'Small to Mid-Size Biz',
         icon: Store,
-        desc: 'Turnkey all-in-one suite designed to minimize overhead and maximize operational efficiency.'
+        desc: 'Turnkey all-in-one suite designed to minimize overhead and maximize operational efficiency.',
+        route: '/solutions/mid-size'
       }
     ]
   },
