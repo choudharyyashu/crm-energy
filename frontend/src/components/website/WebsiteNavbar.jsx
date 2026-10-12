@@ -179,10 +179,11 @@ export const WebsiteNavbar = ({
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title="Launch My Zunme VA Virtual Assistant"
+            title={t('Ask My Zunme — VA Virtual Assistant')}
           >
             <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
+            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
+            <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
           </button>
 
           {/* 6. SALES - chat eBox */}
@@ -236,7 +237,7 @@ export const WebsiteNavbar = ({
               justifyContent: 'center',
               cursor: 'pointer'
             }}
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
           </button>
@@ -274,8 +275,8 @@ export const WebsiteNavbar = ({
               boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px',
-              padding: '6px 11px',
+              gap: '4px',
+              padding: '6px 10px',
               fontSize: '12px',
               flexShrink: 0,
             }}
@@ -678,8 +679,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <Sparkles size={16} />
-                <span>Ask My Zunme — VA Assistant</span>
-                <span>&gt;&gt;</span>
+                <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
               </button>
 
               {/* SALES button */}
@@ -701,7 +701,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <MessageSquare size={16} />
-                <span>SALES — chat eBox</span>
+                <span>{t('SALES — chat eBox')}</span>
               </button>
 
               <div style={{ height: '1px', background: 'var(--web-border)', margin: '8px 0' }} />
@@ -725,7 +725,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Features (23)</span>
+                  <span>{t('CRM Features')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'features' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -771,7 +771,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Solutions (4 Groups)</span>
+                  <span>{t('CRM Solutions')} (4)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'solutions' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -816,7 +816,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>Industries (23)</span>
+                  <span>{t('Industries')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'industries' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -851,7 +851,7 @@ export const WebsiteNavbar = ({
                   cursor: 'pointer'
                 }}
               >
-                FAQs
+                {t('FAQs')}
               </div>
 
               <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -878,7 +878,7 @@ export const WebsiteNavbar = ({
                   }}
                 >
                   <LogIn size={15} />
-                  <span>Login</span>
+                  <span>{t('Sign In')} / {t('Portal')}</span>
                 </button>
 
                 <button

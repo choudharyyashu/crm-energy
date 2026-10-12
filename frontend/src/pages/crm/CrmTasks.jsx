@@ -37,10 +37,10 @@ import {
 } from '../../components/ui';
 import { useCrm } from '../../context/CrmContext';
 import { useToast } from '../../context/ToastContext';
-
-const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+import { useLanguage } from '../../context/LanguageContext';
 
 export const CrmTasks = () => {
+  const { t, language } = useLanguage();
   const { tasks, addTask, toggleTaskCompletion, deleteTask, refreshTasks } = useCrm();
   const { addToast } = useToast();
 
@@ -129,15 +129,18 @@ export const CrmTasks = () => {
     const y = currentMonth === 11 ? currentYear + 1 : currentYear;
     const dateStr = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     nextMonthCells.push({
-      dayNum: d,
+      dayNum,
       dateStr,
       isCurrentMonth: false,
     });
   }
 
   const allCalendarGridCells = [...prevMonthCells, ...currentMonthCells, ...nextMonthCells];
-  const monthName = currentDate.toLocaleString('default', { month: 'long' });
-  const monthYearLabel = `${monthName} ${currentYear}`;
+  const monthName = currentDate.toLocaleString(language === 'ES' ? 'es-ES' : 'en-US', { month: 'long' });
+  const monthYearLabel = `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${currentYear}`;
+  const DAYS_OF_WEEK = language === 'ES'
+    ? ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+    : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const handleOpenAddModalForDate = (dateStr) => {
     setFormData({
@@ -173,8 +176,8 @@ export const CrmTasks = () => {
       {/* 1. Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Tasks & Reminders' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>Tasks & Calendar Reminders</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Tasks & Reminders') }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>{t('Tasks & Calendar Reminders')}</h1>
         </div>
 
         <div className="header-actions-right">
@@ -207,7 +210,7 @@ export const CrmTasks = () => {
               }}
             >
               <Calendar size={14} />
-              Calendar View
+              {t('Calendar View')}
             </button>
             <button
               type="button"
@@ -228,7 +231,7 @@ export const CrmTasks = () => {
               }}
             >
               <List size={14} />
-              List View
+              {t('List View')}
             </button>
           </div>
 
@@ -239,7 +242,7 @@ export const CrmTasks = () => {
             className="w-full md:w-auto justify-center"
             onClick={() => handleOpenAddModalForDate(selectedDate)}
           >
-            Create Task
+            {t('Create Task')}
           </Button>
         </div>
       </div>
@@ -247,30 +250,30 @@ export const CrmTasks = () => {
       {/* 2. KPI Cards Strip */}
       <div className="grid-responsive-kpi">
         <KPICard
-          title="TOTAL TASKS"
+          title={t('TOTAL TASKS')}
           value={`${tasks.length}`}
-          change="Live Sync"
+          change={t("Live Sync")}
           changeType="positive"
           icon={CheckSquare}
         />
         <KPICard
-          title="PENDING TASKS"
+          title={t('PENDING TASKS')}
           value={`${tasks.filter((t) => t.status === 'Pending').length}`}
-          change="Action Required"
+          change={t("Action Required")}
           changeType="warning"
           icon={Clock}
         />
         <KPICard
-          title="HIGH PRIORITY"
+          title={t('HIGH PRIORITY')}
           value={`${tasks.filter((t) => t.priority === 'High' && t.status === 'Pending').length}`}
-          change="Due Soon"
+          change={t("Due Soon")}
           changeType="error"
           icon={AlertCircle}
         />
         <KPICard
-          title="COMPLETED RATE"
+          title={t('COMPLETED RATE')}
           value={`${tasks.length > 0 ? Math.round((tasks.filter((t) => t.status === 'Completed').length / tasks.length) * 100) : 0}%`}
-          change="Sprint Progress"
+          change={t("Sprint Progress")}
           changeType="positive"
           icon={CheckCircle2}
         />
@@ -282,7 +285,7 @@ export const CrmTasks = () => {
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tasks by title or contact..."
+            placeholder={t("Search tasks by title or contact...")}
             startIcon={Search}
             style={{ height: '36px' }}
           />
@@ -293,10 +296,10 @@ export const CrmTasks = () => {
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
             options={[
-              { label: 'All Priorities', value: 'all' },
-              { label: 'High Priority', value: 'High' },
-              { label: 'Medium Priority', value: 'Medium' },
-              { label: 'Low Priority', value: 'Low' },
+              { label: t('All Priorities'), value: 'all' },
+              { label: t('High Priority'), value: 'High' },
+              { label: t('Medium Priority'), value: 'Medium' },
+              { label: t('Low Priority'), value: 'Low' },
             ]}
             style={{ height: '36px', fontSize: '13px' }}
           />
@@ -314,12 +317,12 @@ export const CrmTasks = () => {
                   {monthYearLabel}
                 </h2>
                 <Button variant="outline" size="sm" onClick={handleToday} style={{ fontSize: '11px', padding: '2px 8px' }}>
-                  Today
+                  {t('Today')}
                 </Button>
               </div>
 
               <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" icon={ChevronLeft} onClick={handlePrevMonth} title="Previous Month" />
+                <Button variant="ghost" size="sm" icon={ChevronLeft} onClick={handlePrevMonth} title={t("Previous Month")} />
                 <Button variant="ghost" size="sm" icon={ChevronRight} onClick={handleNextMonth} title="Next Month" />
               </div>
             </div>

@@ -142,7 +142,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
             <button type="button" onClick={onOpenZunme} style={{ ...btnLinkStyle, color: '#4f46e5', fontWeight: 700 }}>
               {t('Virtual Assistant >>')}
             </button>
-            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Contact Center AI')}</button>
+            <a href="/solutions/contact-ai" onClick={(e) => { e.preventDefault(); navigate('/solutions/contact-ai'); }} style={linkStyle}>{t('Contact Center AI')}</a>
           </div>
 
           {/* Column 2: Check It Out */}
@@ -174,7 +174,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
             <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Manufacturing')}</a>
             <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Generating Leads')}</a>
             <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Inventory Management')}</a>
-            <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('SM / Influencer Management')}</a>
+            <a href="/solutions/influencers" onClick={(e) => { e.preventDefault(); navigate('/solutions/influencers'); }} style={linkStyle}>{t('SM / Influencer Management')}</a>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Best Sales Commission')}</button>
             <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Affiliate Marketing')}</a>
             <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('White Label Software')}</a>

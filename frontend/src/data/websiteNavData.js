@@ -59,6 +59,7 @@ import {
   FileCode,
   Rocket
 } from 'lucide-react';
+import { INDUSTRY_CLIENT_DETAILS } from './industryDetailsData';
 
 // 23 CRM FEATURES specified in client document
 export const CRM_FEATURES_DATA = [
@@ -300,7 +301,8 @@ export const CRM_SOLUTIONS_DATA = [
         id: 'contact-ai',
         name: 'Contact AI',
         icon: Bot,
-        desc: 'Autonomous AI contact enrichment, sentiment analysis, and smart response generation.'
+        desc: 'Autonomous AI contact enrichment, sentiment analysis, and smart response generation.',
+        route: '/solutions/contact-ai'
       },
       {
         id: 'franchise',
@@ -313,7 +315,8 @@ export const CRM_SOLUTIONS_DATA = [
         id: 'influencers',
         name: 'Influencers',
         icon: Tv,
-        desc: 'Campaign collaboration, sponsored content management, affiliate links, and brand outreach.'
+        desc: 'Campaign collaboration, sponsored content management, affiliate links, and brand outreach.',
+        route: '/solutions/influencers'
       },
       {
         id: 'startup-business',
@@ -384,7 +387,7 @@ export const CRM_SOLUTIONS_DATA = [
 ];
 
 // 23 INDUSTRIES specified in client document
-export const INDUSTRIES_DATA = [
+const BASE_INDUSTRIES_DATA = [
   { id: 'ind-home', name: 'Industries Homepage', icon: Globe, desc: 'Centralized directory of specialized sector frameworks.' },
   { id: 'automotive', name: 'Automotive', icon: Car, desc: 'Dealership management, vehicle inventory sync, desking & repair center.' },
   { id: 'construction', name: 'Construction', icon: Building, desc: 'Jobsite bidding, subcontractor agreements, equipment and material logistics.' },
@@ -409,6 +412,19 @@ export const INDUSTRIES_DATA = [
   { id: 'travel', name: 'Travel', icon: Plane, desc: 'Itinerary builders, airline/hotel partner APIs, and traveler support.' },
   { id: 'unique-service-biz', name: 'Unique Service Business', icon: Sparkles, desc: 'Bespoke custom workflow configurations for niche enterprise operations.' }
 ];
+
+export const INDUSTRIES_DATA = BASE_INDUSTRIES_DATA.map(item => {
+  const extra = INDUSTRY_CLIENT_DETAILS && INDUSTRY_CLIENT_DETAILS[item.id];
+  if (extra) {
+    return {
+      ...item,
+      clientOverview: extra.overview || item.desc,
+      capabilities: extra.capabilities || [],
+      clientFaqs: extra.faqs || []
+    };
+  }
+  return item;
+});
 
 // FAQS DATA as required by client document
 export const FAQ_QUESTIONS_DATA = [

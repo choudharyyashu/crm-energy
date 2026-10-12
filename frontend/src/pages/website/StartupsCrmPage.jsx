@@ -31,9 +31,9 @@ export const StartupsCrmPage = () => {
   };
 
   const siblingSolutions = [
-    { name: 'Contact AI', path: '/#solutions', tag: 'AI' },
+    { name: 'Contact AI', path: '/solutions/contact-ai', tag: 'AI' },
     { name: 'Franchise', path: '/solutions/franchise', tag: 'Multi-Location' },
-    { name: 'Influencers', path: '/#solutions', tag: 'Creator' },
+    { name: 'Influencers', path: '/solutions/influencers', tag: 'Creator' },
     { name: 'Startup Business', path: '/solutions/startups', tag: 'Active' },
     { name: 'Small to Mid – Size Biz', path: '/solutions/mid-size', tag: 'Scale' }
   ];
@@ -475,7 +475,7 @@ export const StartupsCrmPage = () => {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', paddingTop: '0.5rem', borderTop: '1px solid var(--web-border)' }}>
             <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#ec4899' }}>
-              READ MORE &gt;&gt; continue on the White Label Feature Page
+              {t('READ MORE >> continue on the White Label Feature Page')}
             </span>
 
             <button
@@ -495,7 +495,7 @@ export const StartupsCrmPage = () => {
                 cursor: 'pointer'
               }}
             >
-              <span>[ Contact Us ]</span>
+              <span>{t('[ Contact Us ]')}</span>
             </button>
           </div>
         </div>
@@ -582,7 +582,7 @@ export const StartupsCrmPage = () => {
                           padding: 0
                         }}
                       >
-                        Let’s Get Started [ Contact Us ]
+                        {t('Let’s Get Started')} {t('[ Contact Us ]')}
                       </button>
                     </div>
                   </div>

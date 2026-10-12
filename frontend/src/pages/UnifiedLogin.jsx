@@ -493,7 +493,7 @@ export const UnifiedLogin = ({ mode }) => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  AI POWERED
+                  {t('AI POWERED')}
                 </span>
               </div>
               <span style={{ fontSize: '11px', color: '#94a3b8' }}>
@@ -552,10 +552,10 @@ export const UnifiedLogin = ({ mode }) => {
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
               }}
-              title={isSuperAdminHidden ? 'Click to Show Super Admin Button' : 'Click to Hide Super Admin Button'}
+              title={isSuperAdminHidden ? t('Click to Show Super Admin Button') : t('Click to Hide Super Admin Button')}
             >
               {isSuperAdminHidden ? <EyeOff size={13} /> : <Eye size={13} />}
-              <span>Super Admin: {isSuperAdminHidden ? 'HIDDEN' : 'VISIBLE'}</span>
+              <span>{t('Super Admin')}: {isSuperAdminHidden ? t('HIDDEN') : t('VISIBLE')}</span>
             </button>
           </div>
         </div>
@@ -629,7 +629,7 @@ export const UnifiedLogin = ({ mode }) => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  ENTERPRISE CRM &bull; ERP &bull; AI SUPERHOUSE
+                  {t('ENTERPRISE CRM • ERP • AI SUPERHOUSE')}
                 </span>
                 <span style={{ fontSize: '11px', color: '#64748b', marginTop: '0.1rem' }}>
                   {t('Sign in to continue to your CRM workspace.')}
@@ -656,7 +656,7 @@ export const UnifiedLogin = ({ mode }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="Enter email address"
+                    placeholder={t('Enter email address')}
                     style={{
                       width: '100%',
                       height: '38px',
@@ -697,7 +697,7 @@ export const UnifiedLogin = ({ mode }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder="Enter password"
+                    placeholder={t('Enter password')}
                     style={{
                       width: '100%',
                       height: '38px',
@@ -737,7 +737,7 @@ export const UnifiedLogin = ({ mode }) => {
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#38bdf8'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
                     tabIndex={-1}
-                    title={showPassword ? "Hide password" : "Show password"}
+                    title={showPassword ? t('Hide password') : t('Show password')}
                   >
                     {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
@@ -759,11 +759,11 @@ export const UnifiedLogin = ({ mode }) => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>Authenticated as</span>
-                  <span style={{ fontWeight: 600, color: '#f8fafc' }}>{selectedRole.name}</span>
+                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>{t('Authenticated as')}</span>
+                  <span style={{ fontWeight: 600, color: '#f8fafc' }}>{t(selectedRole.name)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>Organization</span>
+                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>{t('Organization')}</span>
                   <span style={{ fontWeight: 600, color: '#38bdf8' }}>{selectedRole.company}</span>
                 </div>
               </div>
@@ -809,7 +809,7 @@ export const UnifiedLogin = ({ mode }) => {
               }}
             >
               <ShieldCheck size={13} style={{ color: '#10b981' }} />
-              <span>Secure enterprise session &bull; Tenant-isolated workspace</span>
+              <span>{t('Secure enterprise session • Tenant-isolated workspace')}</span>
             </div>
           </div>
 
@@ -926,7 +926,7 @@ export const UnifiedLogin = ({ mode }) => {
                               marginTop: '0px',
                             }}
                           >
-                            Secure Access
+                            {t('Secure Access')}
                           </span>
                         </div>
                       </div>
@@ -1011,7 +1011,7 @@ export const UnifiedLogin = ({ mode }) => {
                               marginTop: '0px',
                             }}
                           >
-                            Secure Access
+                            {t('Secure Access')}
                           </span>
                         </div>
                       </div>
@@ -1045,10 +1045,10 @@ export const UnifiedLogin = ({ mode }) => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <ShieldCheck size={13} style={{ color: '#10b981' }} />
-                <span>Encrypted RBAC Security Layer Active</span>
+                <span>{t('Encrypted RBAC Security Layer Active')}</span>
               </div>
               <span style={{ color: '#38bdf8', fontWeight: 600 }}>
-                12 Roles Configured &bull; Click to switch persona
+                {t('12 Roles Configured • Click to switch persona')}
               </span>
             </div>
           </div>

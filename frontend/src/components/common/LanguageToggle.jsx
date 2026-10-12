@@ -7,7 +7,7 @@ import { useLanguage } from '../../context/LanguageContext';
  * LanguageToggle — 1-Click English ↔ Spanish UI Toggle
  * Clean segmented pill switcher without broken Windows flag emojis
  */
-export const LanguageToggle = ({ variant = 'default' }) => {
+export const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
   const { addToast } = useToast();
 
