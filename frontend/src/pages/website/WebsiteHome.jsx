@@ -155,7 +155,7 @@ export const WebsiteHome = () => {
               }}
             >
               <Bot size={17} style={{ color: '#fef08a', flexShrink: 0 }} />
-              <span>Ask My Zunme — VA Assistant</span>
+              <span>{t('Ask My Zunme — VA Assistant')}</span>
               <span style={{ fontWeight: 900 }}>&gt;&gt;</span>
             </button>
 
@@ -175,7 +175,7 @@ export const WebsiteHome = () => {
               }}
             >
               <MessageSquare size={17} style={{ flexShrink: 0 }} />
-              <span>SALES — chat eBox</span>
+              <span>{t('SALES — chat eBox')}</span>
             </button>
           </div>
 
@@ -227,7 +227,7 @@ export const WebsiteHome = () => {
             {t('CRM NERGY Software Features (23 Modules)')}
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
-            CRM software is essential for various industries to manage customer relationships and enhance operational efficiency. Every module is styled with CRM nErgy icon buttons inspired by the Dolibarr benchmark architecture.
+            {t('CRM software is essential for various industries to manage customer relationships and enhance operational efficiency. Every module is styled with CRM nErgy icon buttons inspired by the Dolibarr benchmark architecture.')}
           </p>
 
           {/* Category Filter Pills */}
@@ -414,7 +414,7 @@ export const WebsiteHome = () => {
               {t('CRM Solutions (4 Solution Groups)')}
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
-              Structured frameworks addressing 4 Types of CRM Software, Business CRM Software, Solutions for Entrepreneurs, and Third Party Integration.
+              {t('Structured frameworks addressing 4 Types of CRM Software, Business CRM Software, Solutions for Entrepreneurs, and Third Party Integration.')}
             </p>
           </div>
 
@@ -934,7 +934,7 @@ export const WebsiteHome = () => {
                       style={{ padding: '8px 18px', fontSize: '13px' }}
                     >
                       <Sparkles size={14} />
-                      <span>Launch Ask My Zunme Assistant &gt;&gt;</span>
+                      <span>{t('Launch Ask My Zunme Assistant >>')}</span>
                     </button>
                     <button
                       type="button"
@@ -942,7 +942,7 @@ export const WebsiteHome = () => {
                       className="website-btn-sales"
                       style={{ padding: '8px 18px', fontSize: '13px', borderRadius: '8px' }}
                     >
-                      <span>Inquire About Zunme Licensing</span>
+                      <span>{t('Inquire About Zunme Licensing')}</span>
                     </button>
                   </div>
                 </div>

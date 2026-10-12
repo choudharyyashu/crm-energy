@@ -86,21 +86,49 @@ export const CrmSignup = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full" style={{ maxWidth: '440px', width: '100%', margin: '0 auto' }}>
+    <div className="w-full" style={{ maxWidth: '460px', margin: '0 auto' }}>
+      <style>{`
+        .crm-signup-card .form-group {
+          gap: 0.15rem;
+        }
+        .crm-signup-card .form-label {
+          font-size: 0.73rem;
+          font-weight: 600;
+          line-height: 1.2;
+        }
+        .crm-signup-card .form-control {
+          height: 35px;
+          font-size: 0.8125rem;
+          padding: 0 0.75rem;
+        }
+        .crm-signup-card .form-control-wrapper .input-icon-start {
+          left: 0.65rem;
+        }
+        .crm-signup-card .form-control-has-icon-start {
+          padding-left: 2.1rem;
+        }
+        .crm-signup-card .form-helper,
+        .crm-signup-card .form-error-msg {
+          font-size: 0.68rem;
+          line-height: 1;
+          margin-top: 0.1rem;
+        }
+      `}</style>
       <Card
-        className="p-4 sm:p-5"
+        className="crm-signup-card"
         style={{
           width: '100%',
           boxSizing: 'border-box',
           boxShadow: 'var(--shadow-card)',
           borderRadius: '14px',
+          padding: '0.85rem 1.35rem',
         }}
       >
-        <div className="flex flex-col items-center text-center mb-3 sm:mb-4">
+        <div className="flex flex-col items-center text-center" style={{ marginBottom: '0.45rem' }}>
           <div
             style={{
-              width: '40px',
-              height: '40px',
+              width: '34px',
+              height: '34px',
               borderRadius: 'var(--radius-md)',
               backgroundColor: 'var(--primary)',
               color: '#ffffff',
@@ -108,22 +136,22 @@ export const CrmSignup = () => {
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '17px',
+              fontSize: '15px',
               fontFamily: 'var(--font-display)',
-              marginBottom: '0.4rem',
+              marginBottom: '0.25rem',
             }}
           >
             nE
           </div>
-          <h2 style={{ fontSize: 'clamp(1.15rem, 2.5vw, 1.35rem)', fontWeight: 800, marginBottom: '0.15rem', color: 'var(--text-primary)' }}>
+          <h2 style={{ fontSize: '1.18rem', fontWeight: 800, margin: 0, marginBottom: '0.1rem', color: 'var(--text-primary)' }}>
             Create Company Account
           </h2>
-          <p className="text-xs text-secondary margin-0" style={{ fontSize: '11px' }}>
+          <p className="text-secondary" style={{ fontSize: '11px', margin: 0 }}>
             Step 1 of 6: Provision isolated company workspace
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
+        <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.35rem' }}>
           <Input
             label="Company Name"
             value={formData.companyName}
@@ -162,7 +190,7 @@ export const CrmSignup = () => {
             required
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '0.45rem' }}>
             <Input
               label="Password"
               type="password"
@@ -192,14 +220,17 @@ export const CrmSignup = () => {
             isLoading={isLoading}
             icon={ArrowRight}
             iconPosition="right"
-            className="w-full mt-1.5"
-            style={{ minHeight: '40px', fontSize: '13.5px', fontWeight: 700 }}
+            className="w-full"
+            style={{ minHeight: '36px', height: '36px', fontSize: '13px', fontWeight: 700, marginTop: '0.2rem' }}
           >
             Create Account & Verify
           </Button>
         </form>
 
-        <div className="mt-3 pt-3 border-t border-subtle text-center text-xs text-secondary">
+        <div
+          className="border-t border-subtle text-center text-secondary"
+          style={{ marginTop: '0.45rem', paddingTop: '0.35rem', fontSize: '11.5px' }}
+        >
           Already registered?{' '}
           <Link to="/crm/login" className="font-semibold text-primary">
             Sign in to workspace

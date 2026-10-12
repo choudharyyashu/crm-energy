@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { LifeBuoy, MessageSquare, BookOpen, CheckCircle2, Plus, ArrowRight } from 'lucide-react';
 import { Breadcrumb, Button, KPICard, Card, Badge } from '../../../components/ui';
 import { useSupport } from '../../../context/SupportContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const SupportDashboard = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { tickets, kbArticles, fetchSupportData } = useSupport();
 
@@ -65,9 +67,9 @@ export const SupportDashboard = () => {
       {/* 1. Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Customer Support' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Customer Support') }]} />
           <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>
-            Customer Support Desk
+            {t('Customer Support Desk')}
           </h1>
         </div>
         <div className="header-actions-right">
@@ -78,7 +80,7 @@ export const SupportDashboard = () => {
             onClick={() => navigate('/crm/support/tickets')}
             style={{ borderRadius: '8px', padding: '0.6rem 1.25rem' }}
           >
-            Create Ticket
+            {t('Create Ticket')}
           </Button>
         </div>
       </div>
@@ -86,37 +88,37 @@ export const SupportDashboard = () => {
       {/* 2. KPI Cards Strip */}
       <div className="grid-responsive-kpi">
         <KPICard
-          title="ACTIVE TICKETS"
+          title={t('ACTIVE TICKETS')}
           value={openCount}
           change="SLA 99.4%"
-          changePeriod="vs last 7 days"
+          changePeriod={t('vs last 7 days')}
           changeType="positive"
           icon={LifeBuoy}
           onClick={() => navigate('/crm/support/tickets')}
         />
         <KPICard
-          title="RESOLVED"
+          title={t('RESOLVED')}
           value={resolvedCount}
           change="Avg 4.2h"
-          changePeriod="vs last 7 days"
+          changePeriod={t('vs last 7 days')}
           changeType="positive"
           icon={CheckCircle2}
           onClick={() => navigate('/crm/support/tickets')}
         />
         <KPICard
-          title="SUPPORT CHAT"
-          value="Gateway"
-          change="Live 24/7"
-          changePeriod="vs last 7 days"
+          title={t('SUPPORT CHAT')}
+          value={t('Gateway')}
+          change={t('Live 24/7')}
+          changePeriod={t('vs last 7 days')}
           changeType="neutral"
           icon={MessageSquare}
           onClick={() => navigate('/crm/support/chat')}
         />
         <KPICard
-          title="KNOWLEDGE BASE"
-          value={`${kbArticles.length} Articles`}
-          change="3,050 views"
-          changePeriod="vs last 7 days"
+          title={t('KNOWLEDGE BASE')}
+          value={`${kbArticles.length} ${t('Articles')}`}
+          change={`3,050 ${t('views')}`}
+          changePeriod={t('vs last 7 days')}
           changeType="positive"
           icon={BookOpen}
           onClick={() => navigate('/crm/support/kb')}
@@ -136,9 +138,9 @@ export const SupportDashboard = () => {
               margin: 0,
             }}
           >
-            Support Suite Sub-Modules
+            {t('Support Suite Sub-Modules')}
           </h3>
-          <span className="text-xs text-tertiary font-medium">4 Active Modules</span>
+          <span className="text-xs text-tertiary font-medium">{t('4 Active Modules')}</span>
         </div>
 
         <div className="support-submodules-grid">
@@ -191,10 +193,10 @@ export const SupportDashboard = () => {
                   </div>
                   <div className="flex flex-col min-w-0 flex-1" style={{ gap: '2px' }}>
                     <span className="font-bold text-xs sm:text-sm text-primary truncate" style={{ fontSize: '13.5px', lineHeight: 1.2 }}>
-                      {mod.label}
+                      {t(mod.label)}
                     </span>
                     <span className="text-tertiary font-medium truncate" style={{ fontSize: '11.5px' }}>
-                      {mod.subtitle}
+                      {t(mod.subtitle)}
                     </span>
                   </div>
                 </div>
@@ -209,7 +211,7 @@ export const SupportDashboard = () => {
                     marginLeft: 'auto',
                   }}
                 >
-                  {mod.badge}
+                  {t(mod.badge)}
                 </Badge>
               </div>
             );

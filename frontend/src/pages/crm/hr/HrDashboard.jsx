@@ -4,8 +4,10 @@ import { UserCheck, Users, Briefcase, Calendar, Plus, Search, Eye, Filter, Check
 import { Breadcrumb, Button, KPICard, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Modal, Input, Select, Avatar } from '../../../components/ui';
 import { useHr } from '../../../context/HrContext';
 import { useToast } from '../../../context/ToastContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const HrDashboard = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { employees, addEmployee, candidates, fetchHrData } = useHr();
   const { addToast } = useToast();
@@ -80,8 +82,8 @@ export const HrDashboard = () => {
       {/* Page Header Row: Title on Left, Add Employee Button on Top Right */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="flex flex-col gap-1">
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'HR & Recruiting' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>HR & Recruiting Platform</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('HR & Recruiting') }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>{t('HR & Recruiting Platform')}</h1>
         </div>
 
         <Button
@@ -91,7 +93,7 @@ export const HrDashboard = () => {
           onClick={() => setIsModalOpen(true)}
           style={{ borderRadius: '8px', padding: '0.6rem 1.25rem' }}
         >
-          Add Employee
+          {t('Add Employee')}
         </Button>
       </div>
 
@@ -99,11 +101,11 @@ export const HrDashboard = () => {
       <div className="grid-responsive-kpi">
         <div onClick={() => setActiveTab('employees')} className="cursor-pointer">
           <KPICard
-            title="TOTAL WORKFORCE"
+            title={t('TOTAL WORKFORCE')}
             value={String(employees.length)}
-            change="100% Active"
+            change={t('100% Active')}
             changeType="positive"
-            changePeriod="vs last 7 days"
+            changePeriod={t('vs last 7 days')}
             icon={Users}
             iconBg="rgba(22, 163, 74, 0.1)"
             iconColor="#16a34a"
@@ -111,11 +113,11 @@ export const HrDashboard = () => {
         </div>
         <div onClick={() => setActiveTab('candidates')} className="cursor-pointer">
           <KPICard
-            title="ACTIVE CANDIDATES"
+            title={t('ACTIVE CANDIDATES')}
             value={String(candidates.length)}
-            change="2 Scheduled"
+            change={t('2 Scheduled')}
             changeType="positive"
-            changePeriod="Interview Stage"
+            changePeriod={t('Interview Stage')}
             icon={UserCheck}
             iconBg="rgba(29, 78, 216, 0.1)"
             iconColor="#1d4ed8"
@@ -123,11 +125,11 @@ export const HrDashboard = () => {
         </div>
         <div onClick={() => setActiveTab('jobs')} className="cursor-pointer">
           <KPICard
-            title="OPEN ROLES"
-            value={`${jobsList.length} Postings`}
-            change="Engineering & Sales"
+            title={t('OPEN ROLES')}
+            value={`${jobsList.length} ${t('Postings')}`}
+            change={t('Engineering & Sales')}
             changeType="neutral"
-            changePeriod="Active Recruiting"
+            changePeriod={t('Active Recruiting')}
             icon={Briefcase}
             iconBg="rgba(147, 51, 234, 0.1)"
             iconColor="#9333ea"
@@ -135,11 +137,11 @@ export const HrDashboard = () => {
         </div>
         <div onClick={() => setActiveTab('interviews')} className="cursor-pointer">
           <KPICard
-            title="SCHEDULED INTERVIEWS"
-            value={`${interviewsList.length} Today`}
-            change="100% Attendance"
+            title={t('SCHEDULED INTERVIEWS')}
+            value={`${interviewsList.length} ${t('Today')}`}
+            change={t('100% Attendance')}
             changeType="positive"
-            changePeriod="On Schedule"
+            changePeriod={t('On Schedule')}
             icon={Calendar}
             iconBg="rgba(234, 88, 12, 0.1)"
             iconColor="#ea580c"
@@ -163,7 +165,7 @@ export const HrDashboard = () => {
           }}
         >
           <Users size={15} />
-          <span>Employees Directory ({employees.length})</span>
+          <span>{t('Employees Directory')} ({employees.length})</span>
         </button>
 
         <button
@@ -180,7 +182,7 @@ export const HrDashboard = () => {
           }}
         >
           <UserCheck size={15} />
-          <span>Candidates Pool ({candidates.length})</span>
+          <span>{t('Candidates Pool')} ({candidates.length})</span>
         </button>
 
         <button
@@ -197,7 +199,7 @@ export const HrDashboard = () => {
           }}
         >
           <Briefcase size={15} />
-          <span>Job Openings ({jobsList.length})</span>
+          <span>{t('Job Openings')} ({jobsList.length})</span>
         </button>
 
         <button
@@ -214,7 +216,7 @@ export const HrDashboard = () => {
           }}
         >
           <Calendar size={15} />
-          <span>Interview Schedule ({interviewsList.length})</span>
+          <span>{t('Interview Schedule')} ({interviewsList.length})</span>
         </button>
       </div>
 
@@ -226,7 +228,7 @@ export const HrDashboard = () => {
             <div className="w-full md:w-80 flex-1 max-w-md">
               <Input
                 type="text"
-                placeholder="Search employees by name, role, email, ID..."
+                placeholder={t('Search employees by name, role, email, ID...')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 startIcon={Search}
@@ -237,19 +239,19 @@ export const HrDashboard = () => {
             <div className="flex items-center gap-3 w-full md:w-auto justify-start md:justify-end">
               <div className="flex items-center gap-1.5 whitespace-nowrap">
                 <Filter size={14} className="text-tertiary" />
-                <span className="text-xs text-tertiary font-bold">Department:</span>
+                <span className="text-xs text-tertiary font-bold">{t('Department:')}</span>
               </div>
               <Select
                 value={departmentFilter}
                 onChange={(e) => setDepartmentFilter(e.target.value)}
                 options={[
-                  { value: 'all', label: 'All Departments' },
-                  { value: 'Executive', label: 'Executive' },
-                  { value: 'Sales', label: 'Sales' },
-                  { value: 'Finance', label: 'Finance' },
-                  { value: 'Human Resources', label: 'Human Resources' },
-                  { value: 'Engineering', label: 'Engineering' },
-                  { value: 'Operations', label: 'Operations' },
+                  { value: 'all', label: t('All Departments') },
+                  { value: 'Executive', label: t('Executive') },
+                  { value: 'Sales', label: t('Sales') },
+                  { value: 'Finance', label: t('Finance') },
+                  { value: 'Human Resources', label: t('Human Resources') },
+                  { value: 'Engineering', label: t('Engineering') },
+                  { value: 'Operations', label: t('Operations') },
                 ]}
                 style={{ minWidth: '170px', height: '38px' }}
               />
@@ -260,14 +262,14 @@ export const HrDashboard = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableCell isHeader>Employee ID</TableCell>
-                  <TableCell isHeader>Full Name</TableCell>
-                  <TableCell isHeader>Department</TableCell>
-                  <TableCell isHeader>Job Title</TableCell>
-                  <TableCell isHeader>Corporate Email</TableCell>
-                  <TableCell isHeader>Salary</TableCell>
-                  <TableCell isHeader>Status</TableCell>
-                  <TableCell isHeader align="right">Actions</TableCell>
+                  <TableCell isHeader>{t('Employee ID')}</TableCell>
+                  <TableCell isHeader>{t('Full Name')}</TableCell>
+                  <TableCell isHeader>{t('Department')}</TableCell>
+                  <TableCell isHeader>{t('Job Title')}</TableCell>
+                  <TableCell isHeader>{t('Corporate Email')}</TableCell>
+                  <TableCell isHeader>{t('Salary')}</TableCell>
+                  <TableCell isHeader>{t('Status')}</TableCell>
+                  <TableCell isHeader align="right">{t('Actions')}</TableCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -275,7 +277,7 @@ export const HrDashboard = () => {
                   <TableRow>
                     <TableCell colSpan={8} align="center">
                       <div className="py-8 text-center text-tertiary text-xs">
-                        No employees found matching filter criteria.
+                        {t('No employees found matching filter criteria.')}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -312,7 +314,7 @@ export const HrDashboard = () => {
                         <span className="text-xs font-bold text-primary">{emp.salary || '$130,000'}</span>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="success">Active</Badge>
+                        <Badge variant="success">{t('Active')}</Badge>
                       </TableCell>
                       <TableCell align="right">
                         <Button

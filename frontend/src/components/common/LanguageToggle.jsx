@@ -46,6 +46,7 @@ export const LanguageToggle = () => {
       </div>
 
       <button
+        id="lang-toggle-en"
         type="button"
         onClick={() => handleSelectLang('EN')}
         style={{
@@ -69,6 +70,7 @@ export const LanguageToggle = () => {
       </button>
 
       <button
+        id="lang-toggle-es"
         type="button"
         onClick={() => handleSelectLang('ES')}
         style={{

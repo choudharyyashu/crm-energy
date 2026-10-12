@@ -22,8 +22,10 @@ import {
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Select } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
 import { useCrm } from '../../../context/CrmContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const AiVideoAgent = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const { refreshLeads, refreshDeals } = useCrm();
 
@@ -89,22 +91,22 @@ export const AiVideoAgent = () => {
       {/* Page Header */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'AI SuperHouse' }, { label: 'AI Video Agent' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('AI SuperHouse') }, { label: t('AI Video Agent') }]} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
             <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              AI Video Agent Pipeline
+              {t('AI Video Agent Pipeline')}
             </h1>
             <Badge variant="primary" style={{ backgroundColor: '#0284c7', color: '#ffffff', fontWeight: 700, fontSize: '11px', letterSpacing: '0.05em' }}>
-              SAY IT → SEE IT → SHAPE IT → SHIP IT
+              {t('SAY IT • SEE IT • SHAPE IT • SHIP IT')}
             </Badge>
           </div>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: '0.25rem 0 0 0' }}>
-            Turn words, ideas, and URLs into broadcast-quality 4K enterprise videos in four structured stages.
+            {t('Turn words, ideas, and URLs into broadcast-quality 4K enterprise videos in four structured stages.')}
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '12px', fontWeight: 600 }}>
-          <span style={{ color: 'var(--text-tertiary)' }}>Rendering Engine:</span>
+          <span style={{ color: 'var(--text-tertiary)' }}>{t('Rendering Engine:')}</span>
           <span style={{ padding: '0.35rem 0.65rem', borderRadius: '8px', backgroundColor: 'var(--surface-secondary)', border: '1px solid var(--border)', fontFamily: 'var(--font-mono)', color: 'var(--text-primary)', fontWeight: 700 }}>
             Bestie CinemaCore 4.0
           </span>
@@ -169,10 +171,10 @@ export const AiVideoAgent = () => {
               </div>
               <div style={{ minWidth: 0 }}>
                 <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.04em', display: 'block', color: isCurrent ? '#0284c7' : 'var(--text-primary)' }}>
-                  {step.label}
+                  {t(step.label)}
                 </span>
                 <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
-                  {step.subtitle}
+                  {t(step.subtitle)}
                 </span>
               </div>
             </div>
@@ -196,12 +198,12 @@ export const AiVideoAgent = () => {
           {/* STEP 1: SAY IT */}
           {currentStep === 1 && (
             <Card className="border shadow-sm" style={{ width: '100%' }}>
-              <CardHeader title="Stage 1: SAY IT" subtitle="Define the source input and voice script" />
+              <CardHeader title={t('Stage 1: SAY IT')} subtitle={t('Define the source input and voice script')} />
               <CardBody style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {/* Input Mode Selector */}
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'block' }}>
-                    Select Creative Input Source
+                    {t('Select Creative Input Source')}
                   </label>
                   <div
                     style={{
@@ -232,9 +234,9 @@ export const AiVideoAgent = () => {
                           }}
                         >
                           <Icon size={16} style={{ color: isSelected ? '#0284c7' : 'var(--text-secondary)' }} />
-                          <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>{m.label}</span>
+                          <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>{t(m.label)}</span>
                           <span style={{ fontSize: '10px', color: 'var(--text-tertiary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {m.desc}
+                            {t(m.desc)}
                           </span>
                         </button>
                       );
@@ -246,9 +248,9 @@ export const AiVideoAgent = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                      Narrator Script / Storyboard Prompt
+                      {t('Narrator Script / Storyboard Prompt')}
                     </label>
-                    <span style={{ color: 'var(--text-tertiary)', fontSize: '11px' }}>{scriptText.length} characters</span>
+                    <span style={{ color: 'var(--text-tertiary)', fontSize: '11px' }}>{scriptText.length} {t('characters')}</span>
                   </div>
                   <textarea
                     rows={4}
@@ -305,7 +307,7 @@ export const AiVideoAgent = () => {
 
                 <div style={{ paddingTop: '0.5rem', display: 'flex', justifyContent: 'flex-end' }}>
                   <Button variant="primary" icon={ChevronRight} onClick={handleNext}>
-                    Proceed to SEE IT (Storyboard)
+                    {t('Proceed to SEE IT (Storyboard)')}
                   </Button>
                 </div>
               </CardBody>
@@ -315,7 +317,7 @@ export const AiVideoAgent = () => {
           {/* STEP 2: SEE IT */}
           {currentStep === 2 && (
             <Card className="border shadow-sm" style={{ width: '100%' }}>
-              <CardHeader title="Stage 2: SEE IT" subtitle="Inspect generated visual scenes and camera directions" />
+              <CardHeader title={t('Stage 2: SEE IT')} subtitle={t('Inspect generated visual scenes and camera directions')} />
               <CardBody style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {scenes.map((sc) => (
@@ -337,24 +339,24 @@ export const AiVideoAgent = () => {
                         style={{ width: '80px', height: '56px', borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', display: 'block' }}>{sc.title}</span>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', display: 'block' }}>{t(sc.title)}</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem', fontSize: '11px', color: 'var(--text-tertiary)' }}>
                           <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><Clock size={12} /> {sc.duration}</span>
                           <span>•</span>
-                          <span style={{ color: '#10b981', fontWeight: 700 }}>{sc.status}</span>
+                          <span style={{ color: '#10b981', fontWeight: 700 }}>{t(sc.status)}</span>
                         </div>
                       </div>
-                      <Badge variant="success">Scene Locked</Badge>
+                      <Badge variant="success">{t('Scene Locked')}</Badge>
                     </div>
                   ))}
                 </div>
 
                 <div style={{ paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Button variant="outline" icon={ArrowLeft} onClick={() => setCurrentStep(1)}>
-                    Back to SAY IT
+                    {t('Back to SAY IT')}
                   </Button>
                   <Button variant="primary" icon={ChevronRight} onClick={handleNext}>
-                    Proceed to SHAPE IT (Audio & Style)
+                    {t('Proceed to SHAPE IT (Audio & Style)')}
                   </Button>
                 </div>
               </CardBody>
@@ -364,11 +366,11 @@ export const AiVideoAgent = () => {
           {/* STEP 3: SHAPE IT */}
           {currentStep === 3 && (
             <Card className="border shadow-sm" style={{ width: '100%' }}>
-              <CardHeader title="Stage 3: SHAPE IT" subtitle="Audio synthesis, voiceover narrator and sonic identity" />
+              <CardHeader title={t('Stage 3: SHAPE IT')} subtitle={t('Audio synthesis, voiceover narrator and sonic identity')} />
               <CardBody style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem', display: 'block' }}>
-                    Neural Voiceover Narrator
+                    {t('Neural Voiceover Narrator')}
                   </label>
                   <Select
                     value={voiceModel}
@@ -395,17 +397,17 @@ export const AiVideoAgent = () => {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', fontSize: '12px', color: 'var(--text-primary)' }}>
                     <Volume2 size={16} style={{ color: '#0284c7' }} />
-                    <span>Background Audio: <strong>AAI Muzik Corporate Anthem #4</strong></span>
+                    <span>{t('Background Audio:')} <strong>AAI Muzik Corporate Anthem #4</strong></span>
                   </div>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#0284c7' }}>Volume: 24%</span>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#0284c7' }}>{t('Volume:')} 24%</span>
                 </div>
 
                 <div style={{ paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Button variant="outline" icon={ArrowLeft} onClick={() => setCurrentStep(2)}>
-                    Back to SEE IT
+                    {t('Back to SEE IT')}
                   </Button>
                   <Button variant="primary" icon={ChevronRight} onClick={handleNext}>
-                    Proceed to SHIP IT (Final Render)
+                    {t('Proceed to SHIP IT (Final Render)')}
                   </Button>
                 </div>
               </CardBody>
@@ -415,7 +417,7 @@ export const AiVideoAgent = () => {
           {/* STEP 4: SHIP IT */}
           {currentStep === 4 && (
             <Card className="border shadow-sm" style={{ width: '100%' }}>
-              <CardHeader title="Stage 4: SHIP IT" subtitle="Export 4K master asset and trigger multi-channel distribution" />
+              <CardHeader title={t('Stage 4: SHIP IT')} subtitle={t('Export 4K master asset and trigger multi-channel distribution')} />
               <CardBody style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div
                   style={{
@@ -431,16 +433,16 @@ export const AiVideoAgent = () => {
                   <AlertTriangle size={24} style={{ color: '#f59e0b', flexShrink: 0 }} />
                   <div>
                     <h4 style={{ fontSize: '12px', fontWeight: 800, color: '#d97706', margin: 0 }}>
-                      AI Storyboard & Script Rendered (GPU Cluster Unconfigured)
+                      {t('AI Storyboard & Script Rendered (GPU Cluster Unconfigured)')}
                     </h4>
                     <p style={{ fontSize: '11px', color: '#b45309', margin: '0.25rem 0 0 0' }}>
-                      Scene storyboards and audio script ready. Direct 4K video rendering provider is currently unconfigured in system settings.
+                      {t('Scene storyboards and audio script ready. Direct 4K video rendering provider is currently unconfigured in system settings.')}
                     </p>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>Select Distribution Destination</label>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>{t('Select Distribution Destination')}</label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem' }}>
                     {['YouTube 4K Channel', 'Enterprise Client Portal', 'LinkedIn Corporate Feed', 'Email Campaign Video Embed'].map((dest, i) => (
                       <div
@@ -459,7 +461,7 @@ export const AiVideoAgent = () => {
                         }}
                       >
                         <CheckCircle2 size={14} style={{ color: '#0284c7' }} />
-                        <span>{dest}</span>
+                        <span>{t(dest)}</span>
                       </div>
                     ))}
                   </div>
@@ -467,10 +469,10 @@ export const AiVideoAgent = () => {
 
                 <div style={{ paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Button variant="outline" icon={ArrowLeft} onClick={() => setCurrentStep(3)}>
-                    Back to SHAPE IT
+                    {t('Back to SHAPE IT')}
                   </Button>
                   <Button variant="primary" icon={Share2} onClick={handleShip}>
-                    Ship & Publish Asset Now
+                    {t('Ship & Publish Asset Now')}
                   </Button>
                 </div>
               </CardBody>
@@ -481,7 +483,7 @@ export const AiVideoAgent = () => {
         {/* Right Canvas Monitor (42%) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
           <Card className="border shadow-sm" style={{ width: '100%' }}>
-            <CardHeader title="Live Monitor Viewport" subtitle="Real-time rendering canvas" />
+            <CardHeader title={t('Live Monitor Viewport')} subtitle={t('Real-time rendering canvas')} />
             <CardBody style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
               <div
                 style={{
@@ -569,18 +571,18 @@ export const AiVideoAgent = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Active Mode:</span>
-                  <span style={{ fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase' }}>{videoMode}</span>
+                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{t('Active Mode:')}</span>
+                  <span style={{ fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase' }}>{t(videoMode)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Voice Model:</span>
+                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{t('Voice Model:')}</span>
                   <span style={{ fontWeight: 700, color: 'var(--text-primary)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {voiceModel}
+                    {t(voiceModel)}
                   </span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Format:</span>
-                  <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{aspectRatio} Widescreen</span>
+                  <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{t('Format:')}</span>
+                  <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{aspectRatio} {t('Widescreen')}</span>
                 </div>
               </div>
             </CardBody>
