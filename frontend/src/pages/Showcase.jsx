@@ -69,6 +69,8 @@ import {
 } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageToggle } from '../components/common/LanguageToggle';
 
 export const Showcase = () => {
   const navigate = useNavigate();
@@ -111,6 +113,7 @@ export const Showcase = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <LanguageToggle />
             <Button variant="outline" onClick={toggleTheme}>
               Current Theme: <strong className="ml-1 uppercase">{theme}</strong>
             </Button>
