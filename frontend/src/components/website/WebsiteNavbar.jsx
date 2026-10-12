@@ -251,30 +251,7 @@ export const WebsiteNavbar = ({
             }}
           >
             <LogIn size={14} />
-<<<<<<< HEAD
             <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
-=======
-            <span>Login</span>
-          </button>
-
-          {/* DISTINCT CREATE ACCOUNT BUTTON */}
-          <button
-            type="button"
-            onClick={() => navigate('/crm/signup')}
-            className="website-signin-btn"
-            style={{
-              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-              color: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <span>Create Account</span>
-            <ArrowRight size={14} />
->>>>>>> e6c800c2a31f6cb60d6ed63a544ac403cd777d18
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -671,8 +648,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <Sparkles size={16} />
-                <span>Ask My Zunme — VA Assistant</span>
-                <span>&gt;&gt;</span>
+                <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
               </button>
 
               {/* SALES button */}
@@ -694,7 +670,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <MessageSquare size={16} />
-                <span>SALES — chat eBox</span>
+                <span>{t('SALES — chat eBox')}</span>
               </button>
 
               <div style={{ height: '1px', background: 'var(--web-border)', margin: '8px 0' }} />
@@ -718,7 +694,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Features (23)</span>
+                  <span>{t('CRM Features')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'features' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -764,7 +740,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Solutions (4 Groups)</span>
+                  <span>{t('CRM Solutions')} (4)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'solutions' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -809,7 +785,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>Industries (23)</span>
+                  <span>{t('Industries')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'industries' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -844,7 +820,7 @@ export const WebsiteNavbar = ({
                   cursor: 'pointer'
                 }}
               >
-                FAQs
+                {t('FAQs')}
               </div>
 
               <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -871,7 +847,7 @@ export const WebsiteNavbar = ({
                   }}
                 >
                   <LogIn size={15} />
-                  <span>Login</span>
+                  <span>{t('Sign In')} / {t('Portal')}</span>
                 </button>
 
                 <button
