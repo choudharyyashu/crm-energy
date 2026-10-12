@@ -214,7 +214,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
           color: 'var(--web-text-muted)'
         }}>
           <div>
-            © {new Date().getFullYear()} CRM nErgy AI & ZUNME AI SuperHouse. All rights reserved.
+            © {new Date().getFullYear()} CRM nErgy AI & ZUNME AI SuperHouse. {t('All rights reserved.')}
           </div>
           <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
             <span style={{ cursor: 'pointer' }} onClick={() => handleAnchor('#about')}>{t('Privacy Policy')}</span>
