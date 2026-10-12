@@ -54,7 +54,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
 
   return (
     <div className="website-modal-backdrop" onClick={onClose}>
-      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ height: '620px' }}>
+      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ height: 'min(620px, 92vh)', display: 'flex', flexDirection: 'column' }}>
         {/* Header */}
         <div style={{
           padding: '1.1rem 1.25rem',

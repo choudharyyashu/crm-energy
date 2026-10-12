@@ -98,13 +98,15 @@ export const FranchiseCrmPage = () => {
         borderBottom: '1px solid var(--web-border)',
         padding: '0.875rem 1.25rem'
       }}>
-        <div style={{
+        <div className="website-breadcrumb-bar" style={{
           maxWidth: '1280px',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          fontSize: '12.5px'
+          fontSize: '12.5px',
+          flexWrap: 'wrap',
+          gap: '8px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
             <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
@@ -289,7 +291,7 @@ export const FranchiseCrmPage = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {franchisePillars.map((pillar, idx) => {

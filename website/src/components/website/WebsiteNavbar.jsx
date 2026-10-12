@@ -130,7 +130,7 @@ export const WebsiteNavbar = ({
         >
           <AiEnergyLogo size={34} showText={false} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{
+            <span className="website-brand-title" style={{
               fontSize: '17px',
               fontWeight: 800,
               fontFamily: 'var(--font-display)',

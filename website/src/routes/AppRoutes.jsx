@@ -10,6 +10,7 @@ import { ContactAiPage } from '../pages/website/ContactAiPage';
 import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
 import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 import { ProfessionalServicesPage } from '../pages/website/ProfessionalServicesPage';
+import { CustomizableDashboardsPage } from '../pages/website/CustomizableDashboardsPage';
 
 export const AppRoutes = () => {
   return (
@@ -29,6 +30,8 @@ export const AppRoutes = () => {
 
         {/* Dedicated Features Pages */}
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
+        <Route path="/features/customizable-dashboards" element={<CustomizableDashboardsPage />} />
+        <Route path="/features/dashboards" element={<CustomizableDashboardsPage />} />
 
         {/* Dedicated Industries Pages */}
         <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
