@@ -7,19 +7,21 @@ export const AuthLayout = () => {
     <div
       style={{
         minHeight: '100vh',
+        height: '100vh',
         backgroundColor: 'var(--background)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 'clamp(1.25rem, 4vw, 2.5rem) clamp(0.75rem, 3vw, 1.5rem)',
+        padding: '0.75rem 1rem',
         position: 'relative',
         boxSizing: 'border-box',
         width: '100%',
         overflowX: 'hidden',
+        overflowY: 'auto',
       }}
     >
-      <main style={{ width: '100%', maxWidth: '580px', display: 'flex', justifyContent: 'center' }}>
+      <main style={{ width: '100%', maxWidth: '540px', display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </main>
 
