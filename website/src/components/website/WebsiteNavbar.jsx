@@ -76,15 +76,22 @@ export const WebsiteNavbar = ({
     setActiveMenu((prev) => (prev === menuName ? null : menuName));
   };
 
-  const scrollToFaq = () => {
+  const scrollToSection = (sectionId) => {
     setActiveMenu(null);
+    setMobileDrawerOpen(false);
     if (location.pathname !== '/') {
-      navigate('/#faqs');
+      navigate(`/#${sectionId}`);
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     } else {
-      const el = document.getElementById('faqs');
+      const el = document.getElementById(sectionId);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const scrollToFaq = () => scrollToSection('faqs');
 
   const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
 
@@ -143,47 +150,35 @@ export const WebsiteNavbar = ({
           {/* 1. CRM Features */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'features' ? 'active' : ''}`}
-            onClick={() => toggleMenu('features')}
+            className="website-nav-btn"
+            onClick={() => scrollToSection('features')}
           >
             <span>{t('CRM Features')}</span>
-            <ChevronDown size={14} style={{
-              transform: activeMenu === 'features' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
           </button>
 
           {/* 2. CRM Solutions */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'solutions' ? 'active' : ''}`}
-            onClick={() => toggleMenu('solutions')}
+            className="website-nav-btn"
+            onClick={() => scrollToSection('solutions')}
           >
             <span>{t('CRM Solutions')}</span>
-            <ChevronDown size={14} style={{
-              transform: activeMenu === 'solutions' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
           </button>
 
           {/* 3. Industries */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'industries' ? 'active' : ''}`}
-            onClick={() => toggleMenu('industries')}
+            className="website-nav-btn"
+            onClick={() => scrollToSection('industries')}
           >
             <span>{t('Industries')}</span>
-            <ChevronDown size={14} style={{
-              transform: activeMenu === 'industries' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
           </button>
 
           {/* 4. FAQs */}
           <button
             type="button"
             className="website-nav-btn"
-            onClick={scrollToFaq}
+            onClick={() => scrollToSection('faqs')}
           >
             <span>{t('FAQs')}</span>
           </button>
@@ -194,10 +189,21 @@ export const WebsiteNavbar = ({
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
             title={t('Ask My Zunme — VA Virtual Assistant')}
+            style={{
+              padding: '1px 6px',
+              height: '20px',
+              minHeight: '20px',
+              maxHeight: '20px',
+              fontSize: '9px',
+              borderRadius: '5px',
+              gap: '3px',
+              display: 'inline-flex',
+              alignItems: 'center'
+            }}
           >
-            <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
-            <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
+            <Sparkles size={10} style={{ color: '#fef08a', flexShrink: 0 }} />
+            <span style={{ fontSize: '9px', whiteSpace: 'nowrap' }}>{t('Ask My Zunme — VA Virtual Assistant')}</span>
+            <span style={{ letterSpacing: '0.02em', fontWeight: 900, fontSize: '8px', flexShrink: 0 }}>&gt;&gt;</span>
           </button>
 
           {/* 6. SALES - chat eBox */}
@@ -311,230 +317,9 @@ export const WebsiteNavbar = ({
         </div>
       </div>
 
-      {/* ======================================================== */}
-      {/* 1. MEGA MENU: CRM FEATURES (23 Dolibarr-style Cards)    */}
-      {/* ======================================================== */}
-      {activeMenu === 'features' && (
-        <div className="mega-menu-overlay">
-          <div className="mega-menu-inner">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  CRM Features Directory (23 Modules)
-                </h3>
-                <p style={{ fontSize: '12px', color: 'var(--web-text-muted)', margin: '2px 0 0 0' }}>
-                  Complete all-in-one suite of business, ERP, accounting, logistics, and AI workflows.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setActiveMenu(null)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--web-text-muted)',
-                  padding: '4px'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
 
-            <div className="features-mega-grid">
-              {CRM_FEATURES_DATA.map((feat) => {
-                const Icon = feat.icon;
-                return (
-                  <div
-                    key={feat.id}
-                    className="dolibarr-card"
-                    onClick={() => handleCardClick(feat)}
-                  >
-                    <div className="dolibarr-icon-box">
-                      <Icon size={20} />
-                    </div>
-                    <span className="dolibarr-title">{feat.name}</span>
-                    <span className="dolibarr-desc">{feat.desc}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
 
-      {/* ======================================================== */}
-      {/* 2. MEGA MENU: CRM SOLUTIONS (4 Categorized Columns)     */}
-      {/* ======================================================== */}
-      {activeMenu === 'solutions' && (
-        <div className="mega-menu-overlay">
-          <div className="mega-menu-inner">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  CRM Solutions Frameworks
-                </h3>
-                <p style={{ fontSize: '12px', color: 'var(--web-text-muted)', margin: '2px 0 0 0' }}>
-                  Targeted business solutions engineered for distinct corporate operational requirements.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setActiveMenu(null)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--web-text-muted)',
-                  padding: '4px'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
 
-            <div className="solutions-mega-grid">
-              {CRM_SOLUTIONS_DATA.map((col, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                    background: 'var(--web-surface-subtle)',
-                    padding: '1rem',
-                    borderRadius: '12px',
-                    border: '1px solid var(--web-border)'
-                  }}
-                >
-                  <div style={{ borderBottom: '1px solid var(--web-border)', paddingBottom: '0.65rem' }}>
-                    <span style={{
-                      fontSize: '10px',
-                      fontWeight: 800,
-                      textTransform: 'uppercase',
-                      color: '#4f46e5',
-                      letterSpacing: '0.06em'
-                    }}>
-                      {col.badge}
-                    </span>
-                    <h4
-                      onClick={() => {
-                        if (col.route) {
-                          setActiveMenu(null);
-                          navigate(col.route);
-                        }
-                      }}
-                      style={{
-                        fontSize: '14.5px',
-                        fontWeight: 800,
-                        color: 'var(--web-text-main)',
-                        margin: '2px 0 0 0',
-                        cursor: col.route ? 'pointer' : 'default',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}
-                    >
-                      <span>{col.groupTitle}</span>
-                      {col.route && <ArrowRight size={13} style={{ color: '#0284c7' }} />}
-                    </h4>
-                    <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{col.subtitle}</span>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {col.items.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <div
-                          key={item.id}
-                          className="dolibarr-card"
-                          style={{ padding: '0.75rem' }}
-                          onClick={() => handleCardClick({ ...item, groupTitle: col.groupTitle })}
-                        >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                            <div style={{
-                              width: '26px',
-                              height: '26px',
-                              borderRadius: '6px',
-                              background: 'rgba(99, 102, 241, 0.1)',
-                              color: '#4f46e5',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              flexShrink: 0
-                            }}>
-                              <Icon size={14} />
-                            </div>
-                            <span style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                              {item.name}
-                            </span>
-                          </div>
-                          <span className="dolibarr-desc" style={{ fontSize: '11px' }}>{item.desc}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* 3. MEGA MENU: INDUSTRIES (23 Sector Cards)               */}
-      {/* ======================================================== */}
-      {activeMenu === 'industries' && (
-        <div className="mega-menu-overlay">
-          <div className="mega-menu-inner">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  Industries Served (23 Sectors)
-                </h3>
-                <p style={{ fontSize: '12px', color: 'var(--web-text-muted)', margin: '2px 0 0 0' }}>
-                  Pre-configured compliance pipelines and operational templates tailored for each vertical.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setActiveMenu(null)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--web-text-muted)',
-                  padding: '4px'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="industries-mega-grid">
-              {INDUSTRIES_DATA.map((ind) => {
-                const Icon = ind.icon;
-                return (
-                  <div
-                    key={ind.id}
-                    className="dolibarr-card"
-                    style={{ padding: '0.85rem' }}
-                    onClick={() => handleCardClick(ind)}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                      <div className="dolibarr-icon-box" style={{ width: '32px', height: '32px', marginBottom: 0 }}>
-                        <Icon size={16} />
-                      </div>
-                      <span className="dolibarr-title" style={{ fontSize: '13px', margin: 0 }}>{ind.name}</span>
-                    </div>
-                    <span className="dolibarr-desc">{ind.desc}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ======================================================== */}
       {/* 4. MORE DROPDOWN                                         */}

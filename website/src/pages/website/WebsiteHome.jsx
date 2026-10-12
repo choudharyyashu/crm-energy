@@ -144,7 +144,7 @@ export const WebsiteHome = () => {
             <button
               type="button"
               onClick={onOpenZunme}
-              className="website-cta-zunme"
+              className="website-cta-zunme hero-cta-zunme"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
