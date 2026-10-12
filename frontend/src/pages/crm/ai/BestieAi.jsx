@@ -34,6 +34,7 @@ import {
 import { Breadcrumb, Badge } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
 import { useCrm } from '../../../context/CrmContext';
+import { useLanguage } from '../../../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { generateBestieChat } from '../../../services/geminiService';
 
@@ -103,6 +104,7 @@ const DEFAULT_CONVERSATION = [
 ];
 
 export const BestieAi = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const { addLead, addTask, refreshDeals, refreshTasks, refreshLeads } = useCrm();
   const navigate = useNavigate();
@@ -144,13 +146,13 @@ export const BestieAi = () => {
   }, [conversation]);
 
   const quickActionPrompts = [
-    { label: 'Create New Lead', icon: PlusCircle, query: 'Create a high-priority enterprise lead for Jordan Reed at Apex Logistics, budget $120,000.' },
-    { label: 'Executive Priorities', icon: Bot, query: 'What are the top 3 priorities for our executive leadership team today?' },
-    { label: 'Analyze Deals', icon: TrendingUp, query: 'Run AI Win-Probability scoring on all open opportunities in Negotiation stage.' },
-    { label: 'Automate Tasks', icon: Zap, query: 'Schedule an automated SLA follow-up trigger for enterprise customer inquiries.' },
-    { label: 'Open Pipeline', icon: ArrowRight, query: 'Take me to the sales pipeline deals kanban.' },
-    { label: 'ERP Inventory Audit', icon: Boxes, query: 'Scan ERP warehouse inventory for parts below minimum threshold reorder point.' },
-    { label: 'HR Screening', icon: Users, query: 'Review active applicants for Senior Supply Chain Manager and rank top 3 candidates.' },
+    { label: t('Create New Lead'), icon: PlusCircle, query: 'Create a high-priority enterprise lead for Jordan Reed at Apex Logistics, budget $120,000.' },
+    { label: t('Executive Priorities'), icon: Bot, query: 'What are the top 3 priorities for our executive leadership team today?' },
+    { label: t('Analyze Deals'), icon: TrendingUp, query: 'Run AI Win-Probability scoring on all open opportunities in Negotiation stage.' },
+    { label: t('Automate Tasks'), icon: Zap, query: 'Schedule an automated SLA follow-up trigger for enterprise customer inquiries.' },
+    { label: t('Open Pipeline'), icon: ArrowRight, query: 'Take me to the sales pipeline deals kanban.' },
+    { label: t('ERP Inventory Audit'), icon: Boxes, query: 'Scan ERP warehouse inventory for parts below minimum threshold reorder point.' },
+    { label: t('HR Screening'), icon: Users, query: 'Review active applicants for Senior Supply Chain Manager and rank top 3 candidates.' },
   ];
 
   const scrollToBottom = () => {
@@ -444,17 +446,17 @@ export const BestieAi = () => {
       {/* Top Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', flexShrink: 0 }}>
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI', href: '/crm/dashboard' }, { label: 'AI SuperHouse', href: '/crm/ai-studio' }, { label: 'Bestie AI Agent' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI', href: '/crm/dashboard' }, { label: t('AI SuperHouse'), href: '/crm/ai-studio' }, { label: t('Bestie AI Agent') }]} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
             <h1 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Bestie — My AI Agent
+              {t('Bestie — My AI Agent')}
             </h1>
             <Badge variant="primary" style={{ backgroundColor: '#0284c7', color: '#ffffff', fontWeight: 700, fontSize: '11px', letterSpacing: '0.04em' }}>
-              Autonomous Operating Partner
+              {t('Autonomous Operating Partner')}
             </Badge>
           </div>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: '0.15rem 0 0 0' }}>
-            Your 24/7 autonomous operating partner & AI agent with live speech recognition, voice synthesis, CRM lead dispatch, and task automation.
+            {t('Your 24/7 autonomous operating partner & AI agent with live speech recognition, voice synthesis, CRM lead dispatch, and task automation.')}
           </p>
         </div>
 
@@ -468,8 +470,8 @@ export const BestieAi = () => {
               setIsVoiceOutputEnabled(next);
               if (!next && window.speechSynthesis) window.speechSynthesis.cancel();
               addToast({
-                title: next ? 'Voice Output Enabled' : 'Voice Output Muted',
-                message: next ? 'Bestie will read responses aloud.' : 'Bestie responses are now silent.',
+                title: next ? t('Voice Output Enabled') : t('Voice Output Muted'),
+                message: next ? t('Bestie will read responses aloud.') : t('Bestie responses are now silent.'),
                 type: 'info',
               });
             }}
@@ -487,10 +489,10 @@ export const BestieAi = () => {
               cursor: 'pointer',
               transition: 'all 150ms ease',
             }}
-            title={isVoiceOutputEnabled ? 'Click to Mute Voice' : 'Click to Enable Voice'}
+            title={isVoiceOutputEnabled ? t('Click to Mute Voice') : t('Click to Enable Voice')}
           >
             {isVoiceOutputEnabled ? <Volume2 size={14} color="#0284c7" /> : <VolumeX size={14} />}
-            <span>{isVoiceOutputEnabled ? 'Voice: On' : 'Voice: Muted'}</span>
+            <span>{isVoiceOutputEnabled ? t('Voice: On') : t('Voice: Muted')}</span>
           </button>
 
           {/* Reset Memory Button */}
@@ -510,10 +512,10 @@ export const BestieAi = () => {
               fontWeight: 600,
               cursor: 'pointer',
             }}
-            title="Clear Chat History"
+            title={t('Clear Chat History')}
           >
             <Trash2 size={13} />
-            <span>Clear Chat</span>
+            <span>{t('Clear Chat')}</span>
           </button>
 
           {/* Status Badge */}
@@ -532,9 +534,9 @@ export const BestieAi = () => {
             }}
           >
             <span style={{ width: '8px', height: '8px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }} />
-            <span>Vault Live</span>
+            <span>{t('Vault Live')}</span>
             <span style={{ color: 'var(--text-tertiary)', opacity: 0.6 }}>|</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700 }}>Autonomous v4.0</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700 }}>{t('Autonomous v4.0')}</span>
           </div>
         </div>
       </div>
@@ -1224,17 +1226,17 @@ export const BestieAi = () => {
                           cursor: 'pointer',
                           fontWeight: 600,
                         }}
-                        title={currentlySpeakingId === msg.id ? 'Stop audio' : 'Listen to response'}
+                        title={currentlySpeakingId === msg.id ? t('Stop Audio') : t('Listen')}
                       >
                         {currentlySpeakingId === msg.id ? (
                           <>
                             <VolumeX size={13} color="#0284c7" />
-                            <span style={{ color: '#0284c7' }}>Stop Audio</span>
+                            <span style={{ color: '#0284c7' }}>{t('Stop Audio')}</span>
                           </>
                         ) : (
                           <>
                             <Volume2 size={13} />
-                            <span>Listen</span>
+                            <span>{t('Listen')}</span>
                           </>
                         )}
                       </button>
@@ -1253,7 +1255,7 @@ export const BestieAi = () => {
                         }}
                       >
                         {copiedId === msg.id ? <Check size={13} style={{ color: '#10b981' }} /> : <Copy size={13} />}
-                        <span>{copiedId === msg.id ? 'Copied!' : 'Copy'}</span>
+                        <span>{copiedId === msg.id ? t('Copied!') : t('Copy')}</span>
                       </button>
 
                       {/* Download Markdown */}
@@ -1267,7 +1269,7 @@ export const BestieAi = () => {
                           document.body.appendChild(element);
                           element.click();
                           document.body.removeChild(element);
-                          addToast({ title: 'Exported', message: 'Brief saved as Markdown.', type: 'info' });
+                          addToast({ title: t('Exported'), message: t('Brief saved as Markdown.'), type: 'info' });
                         }}
                         style={{
                           display: 'flex',
@@ -1277,10 +1279,10 @@ export const BestieAi = () => {
                           cursor: 'pointer',
                           fontWeight: 600,
                         }}
-                        title="Download Markdown"
+                        title={t('Download Markdown')}
                       >
                         <Download size={13} />
-                        <span>Export</span>
+                        <span>{t('Export')}</span>
                       </button>
 
                       {/* Regenerate */}
@@ -1297,7 +1299,7 @@ export const BestieAi = () => {
                         }}
                       >
                         <RotateCw size={13} />
-                        <span>Regenerate</span>
+                        <span>{t('Regenerate')}</span>
                       </button>
                     </div>
 
@@ -1440,7 +1442,7 @@ export const BestieAi = () => {
               type="text"
               value={inputPrompt}
               onChange={(e) => setInputPrompt(e.target.value)}
-              placeholder={isListening ? 'Listening to speech...' : 'Ask Bestie anything, create leads, schedule tasks, or use the mic to speak...'}
+              placeholder={isListening ? t('Listening to speech...') : t('Ask Bestie anything, create leads, schedule tasks, or use the mic to speak...')}
               style={{
                 flex: 1,
                 backgroundColor: 'transparent',
@@ -1470,7 +1472,7 @@ export const BestieAi = () => {
                 justifyContent: 'center',
                 transition: 'all 150ms ease',
               }}
-              title={isListening ? 'Stop listening' : 'Start speaking (Web Speech)'}
+              title={isListening ? t('Stop listening') : t('Start speaking (Web Speech)')}
             >
               {isListening ? <MicOff size={18} /> : <Mic size={18} />}
             </button>
@@ -1494,7 +1496,7 @@ export const BestieAi = () => {
                 transition: 'all 150ms ease',
               }}
             >
-              <span>Send</span>
+              <span>{t('Send')}</span>
               <CornerDownLeft size={14} />
             </button>
           </form>
@@ -1512,8 +1514,8 @@ export const BestieAi = () => {
               gap: '0.5rem',
             }}
           >
-            <span>Autonomous CRM AI Agent • 2-Way Voice Active</span>
-            <span>Press Enter ↵ or Speak into Mic • Local Storage Vault Connected</span>
+            <span>{t('Autonomous CRM AI Agent • 2-Way Voice Active')}</span>
+            <span>{t('Press Enter ↵ or Speak into Mic • Local Storage Vault Connected')}</span>
           </div>
         </div>
       </div>
