@@ -212,9 +212,11 @@ export const WebsiteNavbar = ({
         </nav>
 
         {/* Right Side Controls: Language Switcher, Theme Toggle & Sign In */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
           {/* 1-Click English ↔ Spanish Language Selector */}
-          <LanguageToggle />
+          <div style={{ flexShrink: 0 }}>
+            <LanguageToggle />
+          </div>
 
           {/* Theme Toggle */}
           <button
@@ -223,6 +225,9 @@ export const WebsiteNavbar = ({
             style={{
               width: '36px',
               height: '36px',
+              minWidth: '36px',
+              minHeight: '36px',
+              flexShrink: 0,
               borderRadius: '50%',
               background: 'var(--web-surface-subtle)',
               border: '1px solid var(--web-border)',
@@ -248,18 +253,21 @@ export const WebsiteNavbar = ({
               color: 'var(--web-text-main)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '5px',
+              padding: '6px 10px',
+              fontSize: '12px',
+              flexShrink: 0,
             }}
           >
-            <LogIn size={14} />
-            <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
+            <LogIn size={13} />
+            <span>{t('Login')}</span>
           </button>
 
           {/* DISTINCT CREATE ACCOUNT BUTTON */}
           <button
             type="button"
             onClick={() => navigate('/crm/signup')}
-            className="website-signin-btn"
+            className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
               color: '#ffffff',
@@ -267,11 +275,14 @@ export const WebsiteNavbar = ({
               boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '4px',
+              padding: '6px 10px',
+              fontSize: '12px',
+              flexShrink: 0,
             }}
           >
             <span>{t('Create Account')}</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={13} />
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
