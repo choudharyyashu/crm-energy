@@ -25,7 +25,6 @@ export const CRM_ROLE_CONFIG = {
       'ai',
       'ai-video',
       'marketing',
-      'omp-deals',
       'hr',
       'support',
       'knowledge-base',
@@ -304,7 +303,6 @@ export const CRM_ROLE_CONFIG = {
       'communication',
       'territory',
       'erp',
-      'omp-deals',
       'reports',
       'settings',
     ],
@@ -342,7 +340,6 @@ export const CRM_ROLE_CONFIG = {
       'pipeline',
       'tasks',
       'erp',
-      'omp-deals',
       'search',
       'reports',
       'settings',
@@ -431,7 +428,6 @@ export const CRM_ROLE_CONFIG = {
       'ai',
       'ai-video',
       'marketing',
-      'omp-deals',
       'hr',
       'support',
       'knowledge-base',
@@ -483,7 +479,7 @@ export const CRM_ROLE_CONFIG = {
     defaultRoute: '/crm/dashboard',
     allowedNavIds: [
       'dashboard', 'contacts', 'leads', 'pipeline', 'tasks', 'communication', 'territory',
-      'erp', 'bestie', 'ai', 'ai-video', 'marketing', 'omp-deals', 'hr', 'support',
+      'erp', 'bestie', 'ai', 'ai-video', 'marketing', 'hr', 'support',
       'knowledge-base', 'my-apps', 'search', 'reports', 'admin', 'settings',
     ],
     allowedRoutes: [
@@ -500,7 +496,7 @@ export const CRM_ROLE_CONFIG = {
     roleName: 'Admin I',
     badge: 'Operations Desk Control',
     defaultRoute: '/crm/leads',
-    allowedNavIds: ['dashboard', 'contacts', 'leads', 'pipeline', 'tasks', 'communication', 'erp', 'omp-deals', 'reports', 'settings'],
+    allowedNavIds: ['dashboard', 'contacts', 'leads', 'pipeline', 'tasks', 'communication', 'erp', 'reports', 'settings'],
     allowedRoutes: ['/crm/dashboard', '/crm/contacts', '/crm/leads', '/crm/pipeline', '/crm/tasks', '/crm/communication', '/crm/erp', '/omp/executive/central-office', '/omp', '/crm/analytics', '/crm/reports', '/crm/settings', '/crm/profile', '/showcase'],
   },
   finance: {
@@ -509,7 +505,7 @@ export const CRM_ROLE_CONFIG = {
     roleName: 'Admin II',
     badge: 'ERP & Financial Controller',
     defaultRoute: '/crm/erp/finance',
-    allowedNavIds: ['dashboard', 'contacts', 'pipeline', 'tasks', 'erp', 'omp-deals', 'reports', 'settings'],
+    allowedNavIds: ['dashboard', 'contacts', 'pipeline', 'tasks', 'erp', 'reports', 'settings'],
     allowedRoutes: ['/crm/dashboard', '/crm/contacts', '/crm/pipeline', '/crm/tasks', '/crm/erp', '/omp/executive/central-office', '/omp', '/crm/erp/finance', '/crm/erp/reports', '/crm/analytics', '/crm/reports', '/crm/settings', '/crm/profile', '/showcase'],
   },
   employee: {

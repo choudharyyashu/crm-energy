@@ -1,14 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
-import { Button } from '../components/ui/Button';
-import { Sun, Moon } from 'lucide-react';
 import { ToastContainer } from '../components/ui/Toast';
-import { LanguageToggle } from '../components/common/LanguageToggle';
 
 export const AuthLayout = () => {
-  const { theme, toggleTheme } = useTheme();
-
   return (
     <div
       style={{
@@ -18,24 +12,14 @@ export const AuthLayout = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem',
+        padding: 'clamp(1rem, 2.5vw, 1.75rem) clamp(0.75rem, 2vw, 1.25rem)',
         position: 'relative',
         boxSizing: 'border-box',
+        width: '100%',
+        overflowX: 'hidden',
       }}
     >
-      <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 10, display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <LanguageToggle />
-        <Button
-          variant="outline"
-          size="sm"
-          isIconOnly
-          icon={theme === 'light' ? Moon : Sun}
-          onClick={toggleTheme}
-          title="Toggle Theme"
-        />
-      </div>
-
-      <main style={{ width: '100%', maxWidth: '1240px', display: 'flex', justifyContent: 'center' }}>
+      <main style={{ width: '100%', maxWidth: '460px', display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </main>
 

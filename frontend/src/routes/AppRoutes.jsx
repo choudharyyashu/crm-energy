@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+// CRM nErgy Enterprise Routing Hub
 import { CrmLayout } from '../layouts/CrmLayout';
 import { OalLayout } from '../layouts/OalLayout';
 import { AuthLayout } from '../layouts/AuthLayout';
@@ -9,6 +10,13 @@ import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 
 import { WebsiteLayout } from '../layouts/WebsiteLayout';
 import { WebsiteHome } from '../pages/website/WebsiteHome';
+import { BusinessCrmPage } from '../pages/website/BusinessCrmPage';
+import { FranchiseCrmPage } from '../pages/website/FranchiseCrmPage';
+import { StartupsCrmPage } from '../pages/website/StartupsCrmPage';
+import { MidSizeCrmPage } from '../pages/website/MidSizeCrmPage';
+import { ContactAiPage } from '../pages/website/ContactAiPage';
+import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
+import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 
 // Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
@@ -136,6 +144,15 @@ export const AppRoutes = () => {
         <Route path="/solutions" element={<WebsiteHome />} />
         <Route path="/industries" element={<WebsiteHome />} />
         <Route path="/faqs" element={<WebsiteHome />} />
+
+        {/* Phase 3: Dedicated CRM nErgy Content Pages */}
+        <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
+        <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
+        <Route path="/solutions/startups" element={<StartupsCrmPage />} />
+        <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
+        <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
+        <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
       </Route>
 
       {/* Gateway Login Pages */}

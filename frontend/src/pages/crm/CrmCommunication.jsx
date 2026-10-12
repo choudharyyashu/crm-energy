@@ -34,9 +34,11 @@ import {
 } from '../../components/ui';
 import { useCrm } from '../../context/CrmContext';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 import communicationService from '../../services/communicationService';
 
 export const CrmCommunication = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const fileInputRef = useRef(null);
   const chatScrollRef = useRef(null);
@@ -156,36 +158,36 @@ export const CrmCommunication = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Core Modules' }, { label: 'Communication Hub' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Core Modules') }, { label: t('Communication Hub') }]} />
           <div className="flex items-center gap-3 mt-1">
             <h1 className="text-2xl font-bold font-display tracking-tight text-primary flex items-center gap-2">
-              Multi-Channel Customer Communications
+              {t('Multi-Channel Customer Communications')}
             </h1>
             <Badge variant="warning" className="bg-amber-500 text-white font-bold text-xs uppercase tracking-wider">
-              Internal Logging Mode
+              {t('Internal Logging Mode')}
             </Badge>
           </div>
           <p className="text-xs text-secondary mt-0.5">
-            Messages are logged to the CRM database. External delivery (SendGrid / Twilio) requires provider configuration in Workspace Settings.
+            {t('Messages are logged to the CRM database. External delivery (SendGrid / Twilio) requires provider configuration in Workspace Settings.')}
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" icon={RefreshCw} onClick={fetchMessages} disabled={isLoading}>
-            Refresh
+            {t('Refresh')}
           </Button>
           <Button variant="primary" size="sm" icon={Plus} onClick={() => setIsComposeModalOpen(true)}>
-            Compose Message
+            {t('Compose Message')}
           </Button>
         </div>
       </div>
 
       {/* KPI Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <KPICard title="Total Messages" value={String(messages.length)} change="CRM Database Logged" changeType="positive" icon={Mail} />
-        <KPICard title="Email Records" value={String(messages.filter((m) => m.channel === 'EMAIL').length)} change="Internal Log (No SMTP)" changeType="neutral" icon={CheckCheck} />
-        <KPICard title="SMS Records" value={String(messages.filter((m) => m.channel === 'SMS').length)} change="Internal Log (No Twilio)" changeType="neutral" icon={PhoneCall} />
-        <KPICard title="External Delivery" value="Unconfigured" change="Configure in Settings" changeType="negative" icon={ShieldCheck} />
+        <KPICard title={t("TOTAL MESSAGES")} value={String(messages.length)} change={t("CRM Database Logged")} changeType="positive" icon={Mail} />
+        <KPICard title={t("EMAIL RECORDS")} value={String(messages.filter((m) => m.channel === 'EMAIL').length)} change={t("Internal Log (No SMTP)")} changeType="neutral" icon={CheckCheck} />
+        <KPICard title={t("SMS RECORDS")} value={String(messages.filter((m) => m.channel === 'SMS').length)} change={t("Internal Log (No Twilio)")} changeType="neutral" icon={PhoneCall} />
+        <KPICard title={t("EXTERNAL DELIVERY")} value={t("Unconfigured")} change={t("Configure in Settings")} changeType="negative" icon={ShieldCheck} />
       </div>
 
       {/* Main Communication Interface */}
@@ -194,8 +196,8 @@ export const CrmCommunication = () => {
         <div className="lg:col-span-5 flex flex-col gap-4">
           <Card className="border shadow-sm">
             <CardHeader
-              title="Inbox & Transmissions"
-              subtitle="All persisted messages in this company workspace"
+              title={t("Inbox & Transmissions")}
+              subtitle={t("All persisted messages in this company workspace")}
             />
             <CardBody className="p-4 flex flex-col gap-3">
               {/* Channel Switcher */}
@@ -206,7 +208,7 @@ export const CrmCommunication = () => {
                     activeChannel === 'EMAIL' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <Mail className="w-3.5 h-3.5" /> Email
+                  <Mail className="w-3.5 h-3.5" /> {t('Email')}
                 </button>
                 <button
                   onClick={() => setActiveChannel('SMS')}
@@ -214,13 +216,13 @@ export const CrmCommunication = () => {
                     activeChannel === 'SMS' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <MessageSquare className="w-3.5 h-3.5" /> SMS Text
+                  <MessageSquare className="w-3.5 h-3.5" /> {t('SMS Text')}
                 </button>
               </div>
 
               {/* Search Bar */}
               <Input
-                placeholder="Search recipient or content..."
+                placeholder={t("Search recipient or content...")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 icon={Search}
@@ -230,10 +232,10 @@ export const CrmCommunication = () => {
               {/* Message List Items */}
               <div className="flex flex-col gap-2 max-h-[420px] overflow-y-auto mt-2">
                 {isLoading ? (
-                  <div className="p-8 text-center text-xs text-secondary">Loading messages from database...</div>
+                  <div className="p-8 text-center text-xs text-secondary">{t("Loading messages from database...")}</div>
                 ) : filteredMessages.length === 0 ? (
                   <div className="p-8 text-center text-xs text-secondary">
-                    No {activeChannel} messages found. Click 'Compose Message' to start a new communication thread.
+                    {t("No messages found. Click 'Compose Message' to start a new communication thread.")}
                   </div>
                 ) : (
                   filteredMessages.map((msg) => (
@@ -277,11 +279,11 @@ export const CrmCommunication = () => {
         <div className="lg:col-span-7">
           <Card className="border shadow-sm min-h-[520px] flex flex-col justify-between">
             <CardHeader
-              title={activeMessage ? `Recipient: ${activeMessage.recipient}` : 'Conversation Detail'}
+              title={activeMessage ? `${t('Recipient:')} ${activeMessage.recipient}` : t('Conversation Detail')}
               subtitle={
                 activeMessage?.subject
                   ? activeMessage.subject
-                  : 'Select a conversation from the left to view message details'
+                  : t('Select a conversation from the left to view message details')
               }
             />
             <CardBody className="p-4 flex flex-col justify-between flex-1">
@@ -335,7 +337,7 @@ export const CrmCommunication = () => {
               ) : (
                 <div className="p-16 text-center text-xs text-secondary flex flex-col items-center justify-center my-auto">
                   <Mail className="w-12 h-12 text-slate-600 mb-3" />
-                  <p>No conversation selected. Choose a message or compose a new one.</p>
+                  <p>{t('No conversation selected. Choose a message or compose a new one.')}</p>
                 </div>
               )}
             </CardBody>

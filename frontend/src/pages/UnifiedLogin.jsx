@@ -7,6 +7,7 @@ import {
   Lock,
   Mail,
   ArrowRight,
+  ArrowLeft,
   TrendingUp,
   DollarSign,
   Users,
@@ -31,7 +32,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useLanguage } from '../context/LanguageContext';
-import { LanguageToggle } from '../components/common/LanguageToggle';
+import { useTheme } from '../context/ThemeContext';
 import { SHOW_OAL } from '../config/features';
 import { AiEnergyLogo } from '../components/common/AiEnergyLogo';
 
@@ -300,6 +301,8 @@ export const UnifiedLogin = ({ mode }) => {
   const { login } = useAuth();
   const { addToast } = useToast();
   const { t } = useLanguage();
+  const { theme } = useTheme();
+  const isDark = theme !== 'light';
 
   const currentPlatform = !SHOW_OAL ? 'crm' : (mode || (location.pathname.includes('/oal') ? 'oal' : 'crm'));
   const roleList = currentPlatform === 'crm' ? crmRoles : oalRoles;
@@ -403,10 +406,11 @@ export const UnifiedLogin = ({ mode }) => {
         minHeight: '100vh',
         height: '100vh',
         maxHeight: '100vh',
-        backgroundColor: '#070b19',
-        backgroundImage:
-          'radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.15) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.12) 0%, transparent 45%), radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0.95) 0%, #070b19 100%)',
-        color: '#f8fafc',
+        backgroundColor: isDark ? '#070b19' : '#f1f5f9',
+        backgroundImage: isDark
+          ? 'radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.15) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.12) 0%, transparent 45%), radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0.95) 0%, #070b19 100%)'
+          : 'radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.1) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 45%), radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 100%)',
+        color: isDark ? '#f8fafc' : '#0f172a',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -415,6 +419,7 @@ export const UnifiedLogin = ({ mode }) => {
         boxSizing: 'border-box',
         overflowY: 'auto',
         fontFamily: 'var(--font-sans, system-ui, sans-serif)',
+        transition: 'background-color 0.2s ease, color 0.2s ease',
       }}
       className="unified-login-root"
     >
@@ -431,7 +436,7 @@ export const UnifiedLogin = ({ mode }) => {
           .portal-left-panel {
             grid-column: span 1 !important;
             border-right: none !important;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.12) !important;
+            border-bottom: 1px solid ${isDark ? 'rgba(148, 163, 184, 0.12)' : '#e2e8f0'} !important;
             padding: 1.5rem 1.25rem !important;
           }
           .portal-right-panel {
@@ -445,8 +450,8 @@ export const UnifiedLogin = ({ mode }) => {
           }
         }
         .portal-role-card:hover {
-          background-color: rgba(30, 41, 59, 0.85) !important;
-          border-color: rgba(56, 189, 248, 0.4) !important;
+          background-color: ${isDark ? 'rgba(30, 41, 59, 0.85)' : '#e2e8f0'} !important;
+          border-color: ${isDark ? 'rgba(56, 189, 248, 0.4)' : '#0284c7'} !important;
           transform: translateY(-1px);
         }
       `}</style>
@@ -477,7 +482,7 @@ export const UnifiedLogin = ({ mode }) => {
             <AiEnergyLogo size={34} showText={false} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <span style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em' }}>
+                <span style={{ fontSize: '16px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', letterSpacing: '-0.02em' }}>
                   CRM nErgy
                 </span>
                 <span
@@ -493,18 +498,48 @@ export const UnifiedLogin = ({ mode }) => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  AI POWERED
+                  {t('AI POWERED')}
                 </span>
               </div>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+              <span style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b' }}>
                 {t('Enterprise Portal Gateway')} &bull; {t('12 Autonomous User Hubs')}
               </span>
             </div>
           </div>
 
-          {/* Action Bar (1-Click Instant Language Switcher + Super Admin toggle) */}
+          {/* Action Bar (Back to Home button + Super Admin toggle) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <LanguageToggle />
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.35rem 0.75rem',
+                borderRadius: '6px',
+                backgroundColor: isDark ? 'rgba(30, 41, 59, 0.8)' : '#ffffff',
+                border: isDark ? '1px solid rgba(148, 163, 184, 0.25)' : '1px solid #cbd5e1',
+                color: isDark ? '#cbd5e1' : '#334155',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#0284c7';
+                e.currentTarget.style.color = '#0284c7';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = isDark ? 'rgba(148, 163, 184, 0.25)' : '#cbd5e1';
+                e.currentTarget.style.color = isDark ? '#cbd5e1' : '#334155';
+              }}
+              title="Back to Landing Page"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Home</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setIsSuperAdminHidden(!isSuperAdminHidden)}
@@ -514,18 +549,18 @@ export const UnifiedLogin = ({ mode }) => {
                 gap: '0.35rem',
                 padding: '0.35rem 0.75rem',
                 borderRadius: '6px',
-                backgroundColor: isSuperAdminHidden ? 'rgba(239, 68, 68, 0.15)' : 'rgba(30, 41, 59, 0.8)',
-                border: isSuperAdminHidden ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(148, 163, 184, 0.2)',
-                color: isSuperAdminHidden ? '#f87171' : '#cbd5e1',
+                backgroundColor: isSuperAdminHidden ? (isDark ? 'rgba(239, 68, 68, 0.15)' : 'rgba(239, 68, 68, 0.1)') : (isDark ? 'rgba(30, 41, 59, 0.8)' : '#ffffff'),
+                border: isSuperAdminHidden ? (isDark ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(239, 68, 68, 0.3)') : (isDark ? '1px solid rgba(148, 163, 184, 0.2)' : '1px solid #cbd5e1'),
+                color: isSuperAdminHidden ? (isDark ? '#f87171' : '#dc2626') : (isDark ? '#cbd5e1' : '#334155'),
                 fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
               }}
-              title={isSuperAdminHidden ? 'Click to Show Super Admin Button' : 'Click to Hide Super Admin Button'}
+              title={isSuperAdminHidden ? t('Click to Show Super Admin Button') : t('Click to Hide Super Admin Button')}
             >
               {isSuperAdminHidden ? <EyeOff size={13} /> : <Eye size={13} />}
-              <span>Super Admin: {isSuperAdminHidden ? 'HIDDEN' : 'VISIBLE'}</span>
+              <span>{t('Super Admin')}: {isSuperAdminHidden ? t('HIDDEN') : t('VISIBLE')}</span>
             </button>
           </div>
         </div>
@@ -535,11 +570,13 @@ export const UnifiedLogin = ({ mode }) => {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            backgroundColor: 'rgba(15, 23, 42, 0.75)',
+            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.75)' : '#ffffff',
             backdropFilter: 'blur(24px)',
             borderRadius: '16px',
-            border: '1px solid rgba(56, 189, 248, 0.2)',
-            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(14, 165, 233, 0.08)',
+            border: isDark ? '1px solid rgba(56, 189, 248, 0.2)' : '1px solid #e2e8f0',
+            boxShadow: isDark
+              ? '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(14, 165, 233, 0.08)'
+              : '0 20px 45px -10px rgba(15, 23, 42, 0.1), 0 0 1px rgba(15, 23, 42, 0.05)',
             overflow: 'hidden',
           }}
           className="portal-login-main-container"
@@ -548,8 +585,8 @@ export const UnifiedLogin = ({ mode }) => {
           <div
             style={{
               gridColumn: 'span 5 / span 5',
-              borderRight: '1px solid rgba(148, 163, 184, 0.12)',
-              backgroundColor: 'rgba(10, 17, 34, 0.75)',
+              borderRight: isDark ? '1px solid rgba(148, 163, 184, 0.12)' : '1px solid #e2e8f0',
+              backgroundColor: isDark ? 'rgba(10, 17, 34, 0.75)' : '#f8fafc',
               padding: '1.25rem 1.5rem',
               display: 'flex',
               flexDirection: 'column',
@@ -568,12 +605,12 @@ export const UnifiedLogin = ({ mode }) => {
                   textAlign: 'center',
                   gap: '0.25rem',
                   paddingBottom: '0.625rem',
-                  borderBottom: '1px solid rgba(148, 163, 184, 0.15)',
+                  borderBottom: isDark ? '1px solid rgba(148, 163, 184, 0.15)' : '1px solid #e2e8f0',
                 }}
               >
                 <AiEnergyLogo size={52} showText={false} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: '0.15rem' }}>
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', letterSpacing: '-0.01em' }}>
                     CRM nErgy
                   </span>
                   <span
@@ -594,21 +631,21 @@ export const UnifiedLogin = ({ mode }) => {
                   style={{
                     fontSize: '10px',
                     fontWeight: 700,
-                    color: '#94a3b8',
+                    color: isDark ? '#94a3b8' : '#64748b',
                     letterSpacing: '0.05em',
                     textTransform: 'uppercase',
                   }}
                 >
-                  ENTERPRISE CRM &bull; ERP &bull; AI SUPERHOUSE
+                  {t('ENTERPRISE CRM • ERP • AI SUPERHOUSE')}
                 </span>
-                <span style={{ fontSize: '11px', color: '#64748b', marginTop: '0.1rem' }}>
+                <span style={{ fontSize: '11px', color: isDark ? '#64748b' : '#94a3b8', marginTop: '0.1rem' }}>
                   {t('Sign in to continue to your CRM workspace.')}
                 </span>
               </div>
 
               {/* Input: Email Address */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textAlign: 'left' }}>
-                <label style={{ fontSize: '11px', fontWeight: 600, color: '#e2e8f0' }}>
+                <label style={{ fontSize: '11px', fontWeight: 600, color: isDark ? '#e2e8f0' : '#334155' }}>
                   {t('Business Email')}
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -626,30 +663,30 @@ export const UnifiedLogin = ({ mode }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="Enter email address"
+                    placeholder={t('Enter email address')}
                     style={{
                       width: '100%',
                       height: '38px',
                       paddingLeft: '34px',
                       paddingRight: '12px',
                       borderRadius: '8px',
-                      border: '1px solid rgba(56, 189, 248, 0.28)',
-                      backgroundColor: 'rgba(30, 41, 59, 0.7)',
-                      color: '#f8fafc',
+                      border: isDark ? '1px solid rgba(56, 189, 248, 0.28)' : '1px solid #cbd5e1',
+                      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.7)' : '#ffffff',
+                      color: isDark ? '#f8fafc' : '#0f172a',
                       fontSize: '12px',
                       outline: 'none',
                       boxSizing: 'border-box',
                       transition: 'border-color 0.2s ease',
                     }}
-                    onFocus={(e) => { e.target.style.borderColor = '#38bdf8'; }}
-                    onBlur={(e) => { e.target.style.borderColor = 'rgba(56, 189, 248, 0.28)'; }}
+                    onFocus={(e) => { e.target.style.borderColor = '#0284c7'; }}
+                    onBlur={(e) => { e.target.style.borderColor = isDark ? 'rgba(56, 189, 248, 0.28)' : '#cbd5e1'; }}
                   />
                 </div>
               </div>
 
               {/* Input: Password */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textAlign: 'left' }}>
-                <label style={{ fontSize: '11px', fontWeight: 600, color: '#e2e8f0' }}>
+                <label style={{ fontSize: '11px', fontWeight: 600, color: isDark ? '#e2e8f0' : '#334155' }}>
                   {t('Password')}
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -667,23 +704,23 @@ export const UnifiedLogin = ({ mode }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder="Enter password"
+                    placeholder={t('Enter password')}
                     style={{
                       width: '100%',
                       height: '38px',
                       paddingLeft: '34px',
                       paddingRight: '36px',
                       borderRadius: '8px',
-                      border: '1px solid rgba(56, 189, 248, 0.28)',
-                      backgroundColor: 'rgba(30, 41, 59, 0.7)',
-                      color: '#f8fafc',
+                      border: isDark ? '1px solid rgba(56, 189, 248, 0.28)' : '1px solid #cbd5e1',
+                      backgroundColor: isDark ? 'rgba(30, 41, 59, 0.7)' : '#ffffff',
+                      color: isDark ? '#f8fafc' : '#0f172a',
                       fontSize: '12px',
                       outline: 'none',
                       boxSizing: 'border-box',
                       transition: 'border-color 0.2s ease',
                     }}
-                    onFocus={(e) => { e.target.style.borderColor = '#38bdf8'; }}
-                    onBlur={(e) => { e.target.style.borderColor = 'rgba(56, 189, 248, 0.28)'; }}
+                    onFocus={(e) => { e.target.style.borderColor = '#0284c7'; }}
+                    onBlur={(e) => { e.target.style.borderColor = isDark ? 'rgba(56, 189, 248, 0.28)' : '#cbd5e1'; }}
                   />
                   <button
                     type="button"
@@ -695,7 +732,7 @@ export const UnifiedLogin = ({ mode }) => {
                       transform: 'translateY(-50%)',
                       background: 'none',
                       border: 'none',
-                      color: '#94a3b8',
+                      color: isDark ? '#94a3b8' : '#64748b',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
@@ -704,10 +741,10 @@ export const UnifiedLogin = ({ mode }) => {
                       borderRadius: '4px',
                       transition: 'color 0.2s ease',
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = '#38bdf8'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#0284c7'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = isDark ? '#94a3b8' : '#64748b'; }}
                     tabIndex={-1}
-                    title={showPassword ? "Hide password" : "Show password"}
+                    title={showPassword ? t('Hide password') : t('Show password')}
                   >
                     {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
@@ -719,8 +756,8 @@ export const UnifiedLogin = ({ mode }) => {
                 style={{
                   padding: '0.55rem 0.85rem',
                   borderRadius: '8px',
-                  backgroundColor: 'rgba(30, 41, 59, 0.55)',
-                  border: '1px solid rgba(148, 163, 184, 0.16)',
+                  backgroundColor: isDark ? 'rgba(30, 41, 59, 0.55)' : '#ffffff',
+                  border: isDark ? '1px solid rgba(148, 163, 184, 0.16)' : '1px solid #e2e8f0',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.25rem',
@@ -729,12 +766,12 @@ export const UnifiedLogin = ({ mode }) => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>Authenticated as</span>
-                  <span style={{ fontWeight: 600, color: '#f8fafc' }}>{selectedRole.name}</span>
+                  <span style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '10.5px' }}>{t('Authenticated as')}</span>
+                  <span style={{ fontWeight: 600, color: isDark ? '#f8fafc' : '#0f172a' }}>{t(selectedRole.name)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '10.5px' }}>Organization</span>
-                  <span style={{ fontWeight: 600, color: '#38bdf8' }}>{selectedRole.company}</span>
+                  <span style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '10.5px' }}>{t('Organization')}</span>
+                  <span style={{ fontWeight: 600, color: isDark ? '#38bdf8' : '#0284c7' }}>{selectedRole.company}</span>
                 </div>
               </div>
 
@@ -773,13 +810,13 @@ export const UnifiedLogin = ({ mode }) => {
                 justifyContent: 'center',
                 gap: '0.35rem',
                 fontSize: '11px',
-                color: '#94a3b8',
+                color: isDark ? '#94a3b8' : '#64748b',
                 paddingTop: '0.5rem',
-                borderTop: '1px solid rgba(148, 163, 184, 0.16)',
+                borderTop: isDark ? '1px solid rgba(148, 163, 184, 0.16)' : '1px solid #e2e8f0',
               }}
             >
               <ShieldCheck size={13} style={{ color: '#10b981' }} />
-              <span>Secure enterprise session &bull; Tenant-isolated workspace</span>
+              <span>{t('Secure enterprise session • Tenant-isolated workspace')}</span>
             </div>
           </div>
 
@@ -801,7 +838,7 @@ export const UnifiedLogin = ({ mode }) => {
                 style={{
                   fontSize: '18px',
                   fontWeight: 800,
-                  color: '#f8fafc',
+                  color: isDark ? '#f8fafc' : '#0f172a',
                   margin: 0,
                   letterSpacing: '-0.02em',
                 }}
@@ -811,7 +848,7 @@ export const UnifiedLogin = ({ mode }) => {
               <p
                 style={{
                   fontSize: '12px',
-                  color: '#94a3b8',
+                  color: isDark ? '#94a3b8' : '#64748b',
                   margin: '2px 0 0 0',
                 }}
               >
@@ -845,13 +882,13 @@ export const UnifiedLogin = ({ mode }) => {
                         padding: '0.5rem 0.75rem',
                         borderRadius: '9px',
                         backgroundColor: isSelected
-                          ? 'rgba(14, 165, 233, 0.18)'
-                          : 'rgba(30, 41, 59, 0.55)',
+                          ? (isDark ? 'rgba(14, 165, 233, 0.18)' : 'rgba(14, 165, 233, 0.12)')
+                          : (isDark ? 'rgba(30, 41, 59, 0.55)' : '#f8fafc'),
                         border: isSelected
-                          ? '1px solid #38bdf8'
-                          : '1px solid rgba(148, 163, 184, 0.15)',
+                          ? (isDark ? '1px solid #38bdf8' : '1px solid #0284c7')
+                          : (isDark ? '1px solid rgba(148, 163, 184, 0.15)' : '1px solid #e2e8f0'),
                         boxShadow: isSelected
-                          ? '0 0 12px rgba(56, 189, 248, 0.22)'
+                          ? (isDark ? '0 0 12px rgba(56, 189, 248, 0.22)' : '0 2px 8px rgba(2, 132, 199, 0.15)')
                           : 'none',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
@@ -866,8 +903,8 @@ export const UnifiedLogin = ({ mode }) => {
                             borderRadius: '7px',
                             backgroundColor: isSelected
                               ? '#0284c7'
-                              : 'rgba(51, 65, 85, 0.7)',
-                            color: isSelected ? '#ffffff' : '#94a3b8',
+                              : (isDark ? 'rgba(51, 65, 85, 0.7)' : '#e2e8f0'),
+                            color: isSelected ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -881,7 +918,7 @@ export const UnifiedLogin = ({ mode }) => {
                             style={{
                               fontSize: '12px',
                               fontWeight: 700,
-                              color: isSelected ? '#38bdf8' : '#f8fafc',
+                              color: isSelected ? (isDark ? '#38bdf8' : '#0284c7') : (isDark ? '#f8fafc' : '#0f172a'),
                               whiteSpace: 'nowrap',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
@@ -892,11 +929,11 @@ export const UnifiedLogin = ({ mode }) => {
                           <span
                             style={{
                               fontSize: '10px',
-                              color: '#64748b',
+                              color: isDark ? '#64748b' : '#94a3b8',
                               marginTop: '0px',
                             }}
                           >
-                            Secure Access
+                            {t('Secure Access')}
                           </span>
                         </div>
                       </div>
@@ -904,7 +941,7 @@ export const UnifiedLogin = ({ mode }) => {
                       <ChevronRight
                         size={14}
                         style={{
-                          color: isSelected ? '#38bdf8' : '#475569',
+                          color: isSelected ? (isDark ? '#38bdf8' : '#0284c7') : (isDark ? '#475569' : '#cbd5e1'),
                           flexShrink: 0,
                         }}
                       />
@@ -930,13 +967,13 @@ export const UnifiedLogin = ({ mode }) => {
                         padding: '0.5rem 0.75rem',
                         borderRadius: '9px',
                         backgroundColor: isSelected
-                          ? 'rgba(14, 165, 233, 0.18)'
-                          : 'rgba(30, 41, 59, 0.55)',
+                          ? (isDark ? 'rgba(14, 165, 233, 0.18)' : 'rgba(14, 165, 233, 0.12)')
+                          : (isDark ? 'rgba(30, 41, 59, 0.55)' : '#f8fafc'),
                         border: isSelected
-                          ? '1px solid #38bdf8'
-                          : '1px solid rgba(148, 163, 184, 0.15)',
+                          ? (isDark ? '1px solid #38bdf8' : '1px solid #0284c7')
+                          : (isDark ? '1px solid rgba(148, 163, 184, 0.15)' : '1px solid #e2e8f0'),
                         boxShadow: isSelected
-                          ? '0 0 12px rgba(56, 189, 248, 0.22)'
+                          ? (isDark ? '0 0 12px rgba(56, 189, 248, 0.22)' : '0 2px 8px rgba(2, 132, 199, 0.15)')
                           : 'none',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
@@ -951,8 +988,8 @@ export const UnifiedLogin = ({ mode }) => {
                             borderRadius: '7px',
                             backgroundColor: isSelected
                               ? '#0284c7'
-                              : 'rgba(51, 65, 85, 0.7)',
-                            color: isSelected ? '#ffffff' : '#94a3b8',
+                              : (isDark ? 'rgba(51, 65, 85, 0.7)' : '#e2e8f0'),
+                            color: isSelected ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -966,7 +1003,7 @@ export const UnifiedLogin = ({ mode }) => {
                             style={{
                               fontSize: '12px',
                               fontWeight: 700,
-                              color: isSelected ? '#38bdf8' : '#f8fafc',
+                              color: isSelected ? (isDark ? '#38bdf8' : '#0284c7') : (isDark ? '#f8fafc' : '#0f172a'),
                               whiteSpace: 'nowrap',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
@@ -977,11 +1014,11 @@ export const UnifiedLogin = ({ mode }) => {
                           <span
                             style={{
                               fontSize: '10px',
-                              color: '#64748b',
+                              color: isDark ? '#64748b' : '#94a3b8',
                               marginTop: '0px',
                             }}
                           >
-                            Secure Access
+                            {t('Secure Access')}
                           </span>
                         </div>
                       </div>
@@ -989,7 +1026,7 @@ export const UnifiedLogin = ({ mode }) => {
                       <ChevronRight
                         size={14}
                         style={{
-                          color: isSelected ? '#38bdf8' : '#475569',
+                          color: isSelected ? (isDark ? '#38bdf8' : '#0284c7') : (isDark ? '#475569' : '#cbd5e1'),
                           flexShrink: 0,
                         }}
                       />
@@ -1006,19 +1043,19 @@ export const UnifiedLogin = ({ mode }) => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: '0.5rem',
-                borderTop: '1px solid rgba(148, 163, 184, 0.12)',
+                borderTop: isDark ? '1px solid rgba(148, 163, 184, 0.12)' : '1px solid #e2e8f0',
                 fontSize: '11px',
-                color: '#64748b',
+                color: isDark ? '#64748b' : '#64748b',
                 flexWrap: 'wrap',
                 gap: '0.4rem',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <ShieldCheck size={13} style={{ color: '#10b981' }} />
-                <span>Encrypted RBAC Security Layer Active</span>
+                <span>{t('Encrypted RBAC Security Layer Active')}</span>
               </div>
-              <span style={{ color: '#38bdf8', fontWeight: 600 }}>
-                12 Roles Configured &bull; Click to switch persona
+              <span style={{ color: isDark ? '#38bdf8' : '#0284c7', fontWeight: 600 }}>
+                {t('12 Roles Configured • Click to switch persona')}
               </span>
             </div>
           </div>

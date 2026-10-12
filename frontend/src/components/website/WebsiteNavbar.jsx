@@ -19,6 +19,8 @@ import {
   Briefcase
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { LanguageToggle } from '../common/LanguageToggle';
 import { AiEnergyLogo } from '../common/AiEnergyLogo';
 import {
   CRM_FEATURES_DATA,
@@ -33,6 +35,7 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -86,6 +89,10 @@ export const WebsiteNavbar = ({
   const handleCardClick = (item) => {
     setActiveMenu(null);
     setMobileDrawerOpen(false);
+    if (item && item.route) {
+      navigate(item.route);
+      return;
+    }
     if (onSelectItem) {
       onSelectItem(item);
     }
@@ -112,7 +119,7 @@ export const WebsiteNavbar = ({
               CRM nErgy AI
             </span>
             <span className="website-brand-sub" style={{ fontSize: '10px', fontWeight: 600, color: 'var(--web-text-muted)', lineHeight: 1.1 }}>
-              Enterprise Platform
+              {t('Enterprise Platform')}
             </span>
           </div>
         </div>
@@ -125,7 +132,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'features' ? 'active' : ''}`}
             onClick={() => toggleMenu('features')}
           >
-            <span>CRM Features</span>
+            <span>{t('CRM Features')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'features' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -138,7 +145,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'solutions' ? 'active' : ''}`}
             onClick={() => toggleMenu('solutions')}
           >
-            <span>CRM Solutions</span>
+            <span>{t('CRM Solutions')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'solutions' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -151,7 +158,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'industries' ? 'active' : ''}`}
             onClick={() => toggleMenu('industries')}
           >
-            <span>Industries</span>
+            <span>{t('Industries')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'industries' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -164,7 +171,7 @@ export const WebsiteNavbar = ({
             className="website-nav-btn"
             onClick={scrollToFaq}
           >
-            <span>FAQs</span>
+            <span>{t('FAQs')}</span>
           </button>
 
           {/* 5. Ask My Zunme – VA Virtual Assistant >> */}
@@ -172,10 +179,10 @@ export const WebsiteNavbar = ({
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title="Launch My Zunme VA Virtual Assistant"
+            title={t('Ask My Zunme — VA Virtual Assistant')}
           >
             <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>Ask My Zunme — VA Virtual Assistant</span>
+            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
             <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
           </button>
 
@@ -187,7 +194,7 @@ export const WebsiteNavbar = ({
             title="Open Sales Consultation chat eBox"
           >
             <MessageSquare size={14} />
-            <span>SALES</span>
+            <span>{t('SALES')}</span>
           </button>
 
           {/* 7. MORE */}
@@ -196,7 +203,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'more' ? 'active' : ''}`}
             onClick={() => toggleMenu('more')}
           >
-            <span>MORE</span>
+            <span>{t('MORE')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'more' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -204,15 +211,23 @@ export const WebsiteNavbar = ({
           </button>
         </nav>
 
-        {/* Right Side Controls: Theme Toggle & Sign In */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Right Side Controls: Language Switcher, Theme Toggle & Sign In */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+          {/* 1-Click English ↔ Spanish Language Selector */}
+          <div style={{ flexShrink: 0 }}>
+            <LanguageToggle />
+          </div>
+
           {/* Theme Toggle */}
           <button
             type="button"
             onClick={toggleTheme}
             style={{
-              width: '36px',
-              height: '36px',
+              width: '32px',
+              height: '32px',
+              minWidth: '32px',
+              minHeight: '32px',
+              flexShrink: 0,
               borderRadius: '50%',
               background: 'var(--web-surface-subtle)',
               border: '1px solid var(--web-border)',
@@ -222,19 +237,52 @@ export const WebsiteNavbar = ({
               justifyContent: 'center',
               cursor: 'pointer'
             }}
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
+            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} style={{ color: '#f59e0b' }} />}
           </button>
 
-          {/* Safe Sign In Button pointing to /crm/login */}
+          {/* DISTINCT LOGIN BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/crm/login')}
+            onClick={() => navigate('/login')}
             className="website-signin-btn"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--web-border)',
+              color: 'var(--web-text-main)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '6px 8px',
+              fontSize: '11.5px',
+              flexShrink: 0,
+            }}
           >
-            <LogIn size={14} />
-            <span>Sign In<span className="website-portal-text"> / Portal</span></span>
+            <LogIn size={13} />
+            <span>{t('Login')}</span>
+          </button>
+
+          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          <button
+            type="button"
+            onClick={() => navigate('/crm/signup')}
+            className="website-signin-btn website-create-btn"
+            style={{
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              color: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '6px 9px',
+              fontSize: '11.5px',
+              flexShrink: 0,
+            }}
+          >
+            <span>{t('Create Account')}</span>
+            <ArrowRight size={13} />
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -355,8 +403,26 @@ export const WebsiteNavbar = ({
                     }}>
                       {col.badge}
                     </span>
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
-                      {col.groupTitle}
+                    <h4
+                      onClick={() => {
+                        if (col.route) {
+                          setActiveMenu(null);
+                          navigate(col.route);
+                        }
+                      }}
+                      style={{
+                        fontSize: '14.5px',
+                        fontWeight: 800,
+                        color: 'var(--web-text-main)',
+                        margin: '2px 0 0 0',
+                        cursor: col.route ? 'pointer' : 'default',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{col.groupTitle}</span>
+                      {col.route && <ArrowRight size={13} style={{ color: '#0284c7' }} />}
                     </h4>
                     <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{col.subtitle}</span>
                   </div>
@@ -577,18 +643,21 @@ export const WebsiteNavbar = ({
                   CRM nErgy AI
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={() => setMobileDrawerOpen(false)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--web-text-muted)'
-                }}
-              >
-                <X size={20} />
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <LanguageToggle />
+                <button
+                  type="button"
+                  onClick={() => setMobileDrawerOpen(false)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--web-text-muted)'
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
             </div>
 
             <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -610,8 +679,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <Sparkles size={16} />
-                <span>Ask My Zunme — VA Assistant</span>
-                <span>&gt;&gt;</span>
+                <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
               </button>
 
               {/* SALES button */}
@@ -633,7 +701,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <MessageSquare size={16} />
-                <span>SALES — chat eBox</span>
+                <span>{t('SALES — chat eBox')}</span>
               </button>
 
               <div style={{ height: '1px', background: 'var(--web-border)', margin: '8px 0' }} />
@@ -657,7 +725,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Features (23)</span>
+                  <span>{t('CRM Features')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'features' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -703,7 +771,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>CRM Solutions (4 Groups)</span>
+                  <span>{t('CRM Solutions')} (4)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'solutions' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -748,7 +816,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>Industries (23)</span>
+                  <span>{t('Industries')} (23)</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'industries' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -783,19 +851,45 @@ export const WebsiteNavbar = ({
                   cursor: 'pointer'
                 }}
               >
-                FAQs
+                {t('FAQs')}
               </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)' }}>
+              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => {
                     setMobileDrawerOpen(false);
-                    navigate('/crm/login');
+                    navigate('/login');
                   }}
                   style={{
                     width: '100%',
-                    background: '#0f2b5c',
+                    background: 'transparent',
+                    border: '1px solid var(--web-border)',
+                    color: 'var(--web-text-main)',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <LogIn size={15} />
+                  <span>{t('Sign In')} / {t('Portal')}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileDrawerOpen(false);
+                    navigate('/crm/signup');
+                  }}
+                  style={{
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '8px',
@@ -809,8 +903,8 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <LogIn size={15} />
-                  <span>Sign In / Portal</span>
+                  <span>Create Account</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
             </div>
