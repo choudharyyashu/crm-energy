@@ -48,8 +48,6 @@ export const crmNavigation = [
   { id: 'ai-video', label: 'AI Video Agent', icon: Video, path: '/crm/ai-video', section: 'AI SuperHouse' },
   { id: 'marketing', label: 'AI Marketing Hub', icon: Megaphone, path: '/crm/marketing', section: 'AI SuperHouse' },
 
-  // Industry Solutions (OMP Deals Suite)
-  { id: 'omp-deals', label: 'OMP Deals (Auto DMS)', icon: Car, path: '/omp/executive/central-office', section: 'Industry Solutions' },
 
   // Business Solutions
   { id: 'hr', label: 'HR & Recruiting', icon: UserCheck, path: '/crm/hr', section: 'Business Solutions' },

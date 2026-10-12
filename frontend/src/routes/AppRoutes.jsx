@@ -7,9 +7,6 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { SHOW_OAL } from '../config/features';
 import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 
-// Public Pages & Gateway Login
-import { CrmLanding } from '../pages/CrmLanding';
-import { PublicTopicPage } from '../pages/PublicTopicPage';
 import { WebsiteLayout } from '../layouts/WebsiteLayout';
 import { WebsiteHome } from '../pages/website/WebsiteHome';
 
@@ -131,26 +128,13 @@ const OalDashboardDispatcher = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* CRM nErgy Public Home Landing Page & Dedicated Topic Pages */}
-      <Route path="/" element={<CrmLanding />} />
-      <Route path="/home" element={<CrmLanding />} />
-      <Route path="/topic/:slug" element={<PublicTopicPage />} />
-      <Route path="/what-is-a-crm" element={<PublicTopicPage slug="what-is-a-crm" />} />
-      <Route path="/what-is-an-erp" element={<PublicTopicPage slug="what-is-an-erp" />} />
-      <Route path="/what-is-an-erp-crm" element={<PublicTopicPage slug="what-is-an-erp-crm" />} />
-      <Route path="/pricing" element={<PublicTopicPage slug="pricing" />} />
-      <Route path="/contact" element={<PublicTopicPage slug="contact" />} />
-      <Route path="/faqs" element={<PublicTopicPage slug="faqs" />} />
-      <Route path="/help-center" element={<PublicTopicPage slug="help-center" />} />
-      <Route path="/knowledge-base" element={<PublicTopicPage slug="knowledge-base" />} />
-      <Route path="/commission-calculator" element={<PublicTopicPage slug="commission-calculator" />} />
-
-      {/* Alternate Public Website Layout Routes */}
+      {/* CRM nErgy Public Website Routes */}
       <Route element={<WebsiteLayout />}>
-        <Route path="/website" element={<WebsiteHome />} />
+        <Route path="/" element={<WebsiteHome />} />
         <Route path="/features" element={<WebsiteHome />} />
         <Route path="/solutions" element={<WebsiteHome />} />
         <Route path="/industries" element={<WebsiteHome />} />
+        <Route path="/faqs" element={<WebsiteHome />} />
       </Route>
 
       {/* Gateway Login Pages */}
