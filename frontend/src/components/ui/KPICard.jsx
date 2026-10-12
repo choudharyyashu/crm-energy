@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
 import { Skeleton } from './Skeleton';
 import { cx } from '../../utils/classNames';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const KPICard = ({
   title,
@@ -17,6 +18,8 @@ export const KPICard = ({
   onClick,
   tooltip = '',
 }) => {
+  const { t } = useLanguage();
+
   if (isLoading) {
     return (
       <div
@@ -97,7 +100,7 @@ export const KPICard = ({
             letterSpacing: '0.05em',
           }}
         >
-          {title}
+          {t ? t(title) : title}
         </span>
 
         {Icon && (
@@ -178,7 +181,7 @@ export const KPICard = ({
           )}
           {changePeriod && (
             <span className="truncate" style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-              {changePeriod}
+              {t ? t(changePeriod) : changePeriod}
             </span>
           )}
         </div>

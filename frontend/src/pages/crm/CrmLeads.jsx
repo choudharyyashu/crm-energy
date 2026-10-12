@@ -4,9 +4,11 @@ import { Target, Plus, Search, Filter as FilterIcon, ArrowRight, ExternalLink, S
 import { Breadcrumb, Button, Card, CardBody, Table, TableHeader, TableBody, TableRow, TableCell, Badge, Input, Select, Modal } from '../../components/ui';
 import { useCrm } from '../../context/CrmContext';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { SHOW_OAL } from '../../config/features';
 
 export const CrmLeads = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { leads, addLead, convertLeadToContact, refreshLeads } = useCrm();
   const { addToast } = useToast();
@@ -110,9 +112,9 @@ export const CrmLeads = () => {
       {/* Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Leads Directory' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Leads Directory') }]} />
           <h1 style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--text-primary)', margin: '2px 0 0 0' }}>
-            Commercial Sales Leads
+            {t('Commercial Sales Leads')}
           </h1>
         </div>
         <div className="header-actions-right">
@@ -122,19 +124,18 @@ export const CrmLeads = () => {
             icon={Plus}
             onClick={() => setIsAddLeadOpen(true)}
           >
-            Add New Lead
+            {t('+ Add New Lead')}
           </Button>
         </div>
       </div>
 
-      {/* Filter Bar */}
       {/* Filter Bar */}
       <div className="table-toolbar">
         <div className="table-toolbar-search">
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search leads by contact or company name..."
+            placeholder={t("Search leads by contact or company name...")}
             startIcon={Search}
             style={{ height: '36px' }}
           />
@@ -145,11 +146,11 @@ export const CrmLeads = () => {
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             options={[
-              { label: 'All Lead Statuses', value: 'all' },
-              { label: 'New', value: 'New' },
-              { label: 'Contacted', value: 'Contacted' },
-              { label: 'Qualified', value: 'Qualified' },
-              { label: 'Proposal', value: 'Proposal' },
+              { label: t('All Lead Statuses'), value: 'all' },
+              { label: t('New'), value: 'New' },
+              { label: t('Contacted'), value: 'Contacted' },
+              { label: t('Qualified'), value: 'Qualified' },
+              { label: t('Proposal'), value: 'Proposal' },
             ]}
             style={{ height: '36px', fontSize: '13px' }}
           />
@@ -180,25 +181,25 @@ export const CrmLeads = () => {
             <thead>
               <tr style={{ backgroundColor: 'var(--surface-secondary)', borderBottom: '1px solid var(--border)' }}>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '12%', minWidth: '95px' }}>
-                  Lead ID
+                  {t('Lead ID')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '18%', minWidth: '150px' }}>
-                  Contact Name
+                  {t('Contact Name')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '20%', minWidth: '160px' }}>
-                  Company Entity
+                  {t('Company Entity')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '14%', minWidth: '120px' }}>
-                  Estimated Value
+                  {t('Estimated Value')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '12%', minWidth: '110px' }}>
-                  Lead Score
+                  {t('Lead Score')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '10%', minWidth: '90px' }}>
-                  Status
+                  {t('Status')}
                 </th>
                 <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right', width: '14%', minWidth: '130px' }}>
-                  Actions
+                  {t('Actions')}
                 </th>
               </tr>
             </thead>

@@ -293,11 +293,13 @@ export const DICTIONARY = {
     'CRM Features': 'Características CRM',
     'CRM Solutions': 'Soluciones CRM',
     'Industries': 'Industrias',
-    'FAQs': 'Preguntas Frecuentes',
-    'Ask My Zunme — VA Virtual Assistant >>': 'Pregunta a My Zunme — Asistente Virtual VA >>',
+    'FAQs': 'FAQs',
+    'Ask My Zunme — VA Virtual Assistant >>': 'Ask My Zunme — Asistente VA >>',
     'SALES': 'VENTAS',
     'SALES — chat eBox': 'VENTAS — chat eBox',
     'MORE': 'MÁS',
+    'Login': 'Login',
+    'Create Account': 'Crear Cuenta',
     'Sign In': 'Iniciar Sesión',
     'Portal': 'Portal',
     'Sign In / Portal': 'Iniciar Sesión / Portal',
@@ -612,9 +614,85 @@ export const DICTIONARY = {
     'Audit actions and CRM events will appear here in real-time.': 'Las acciones de auditoría y eventos de CRM aparecerán aquí en tiempo real.',
     'Previous Month': 'Mes Anterior',
     'Next Month': 'Mes Siguiente',
-    'Loading messages from database...': 'Cargando mensajes de la base de datos...',
     "No messages found. Click 'Compose Message' to start a new communication thread.": "No se encontraron mensajes. Haga clic en 'Redactar Mensaje' para iniciar un nuevo hilo.",
-    'Recipient:': 'Destinatario:'
+    'Recipient:': 'Destinatario:',
+
+    // ==========================================
+    // Sales Pipeline & Deals Specifics
+    // ==========================================
+    'Commercial Sales Pipeline': 'Embudo de Ventas Comercial',
+    'Add New Opportunity': 'Agregar Nueva Oportunidad',
+    '+ Add New Opportunity': '+ Agregar Nueva Oportunidad',
+    'TOTAL PIPELINE VALUE': 'VALOR TOTAL DEL EMBUDO',
+    'across 8 stages': 'en 8 etapas',
+    'WEIGHTED VALUE': 'VALOR PONDERADO',
+    'prob. adj.': 'ajust. por prob.',
+    'TOTAL ACTIVE DEALS': 'TRATOS ACTIVOS TOTALES',
+    'this month': 'este mes',
+    'WIN CONVERSION': 'CONVERSIÓN DE GANANCIA',
+    'closed deals': 'tratos cerrados',
+    'Stage:': 'Etapa:',
+    'New Lead': 'Nuevo Prospecto',
+    'Contacted': 'Contactado',
+    'Qualified': 'Calificado',
+    'Opportunity': 'Oportunidad',
+    'Proposal': 'Propuesta',
+    'Negotiation': 'Negociación',
+    'Won': 'Ganado',
+    'Lost': 'Perdido',
+    'No deals in': 'Sin tratos en',
+    'No deals in New Lead': 'Sin tratos en Nuevo Prospecto',
+    'No deals in Contacted': 'Sin tratos en Contactado',
+    'No deals in Qualified': 'Sin tratos en Calificado',
+    'No deals in Opportunity': 'Sin tratos en Oportunidad',
+    'No deals in Proposal': 'Sin tratos en Propuesta',
+    'No deals in Negotiation': 'Sin tratos en Negociación',
+    'No deals in Won': 'Sin tratos en Ganado',
+    'No deals in Lost': 'Sin tratos en Perdido',
+    'Opportunity Title': 'Título de la Oportunidad',
+    'e.g. Enterprise Fleet Expansion': 'ej. Expansión de Flota Empresarial',
+    'Customer / Account': 'Cliente / Cuenta',
+    'e.g. Apex Global Technologies': 'ej. Apex Global Technologies',
+    'Estimated Deal Value ($)': 'Valor Estimado del Trato ($)',
+    'Target Stage': 'Etapa Objetivo',
+    'Create Opportunity': 'Crear Oportunidad',
+
+    // ==========================================
+    // Leads Directory Specifics
+    // ==========================================
+    '+ Add New Lead': '+ Agregar Nuevo Prospecto',
+    'Search leads by contact or company name...': 'Buscar prospectos por contacto o empresa...',
+    'Lead ID': 'ID de Prospecto',
+    'Contact Name': 'Nombre de Contacto',
+    'Company Entity': 'Entidad Empresarial',
+    'Estimated Value': 'Valor Estimado',
+    'Lead Score': 'Puntaje de Prospecto',
+    'Actions': 'Acciones',
+    'New': 'Nuevo',
+    '+ Add New Contact': '+ Agregar Nuevo Contacto',
+    'Search contacts by name, company, email...': 'Buscar contactos por nombre, empresa, correo...',
+    // Pipeline Card Actions & ERP Handoff
+    'Prev': 'Ant',
+    'Next': 'Sig',
+    'Move Stage': 'Cambiar Etapa',
+    'Owner:': 'Responsable:',
+    'Prob': 'Prob',
+    'Create ERP Project': 'Crear Proyecto ERP',
+    'Project Active': 'Proyecto Activo',
+    'ERP Operations:': 'Operaciones ERP:',
+    'Create ERP Project & Sales Order': 'Crear Proyecto y Orden de Venta ERP',
+    'Skip for Now': 'Omitir por Ahora',
+    'Generate ERP Project & Order': 'Generar Proyecto y Orden ERP',
+    'Opportunity:': 'Oportunidad:',
+    'Client Account:': 'Cuenta de Cliente:',
+    'Contract Value / Budget:': 'Valor de Contrato / Presupuesto:',
+    'Assigned Delivery Manager:': 'Gerente de Entrega Asignado:',
+    'Automated ERP Delivery Workflow:': 'Flujo de Trabajo Automatizado de Entrega ERP:',
+    'Total Revenue': 'Ingresos Totales',
+    'Total MRR Revenue': 'Ingresos MRR Totales',
+    'Sales Volume': 'Volumen de Ventas',
+    'Lead Conversion': 'Conversión de Prospectos',
+    'Customer LTV': 'LTV de Clientes',
   },
 };
 
@@ -742,7 +820,11 @@ export const LanguageProvider = ({ children }) => {
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    return {
+      language: 'EN',
+      setLanguage: () => {},
+      t: (key, fallback) => (DICTIONARY.EN && DICTIONARY.EN[key]) || fallback || key,
+    };
   }
   return context;
 };
