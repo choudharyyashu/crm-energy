@@ -508,5 +508,57 @@ export const INDUSTRY_CLIENT_DETAILS = {
         "a": "CRM nErgy is a powerful CRM platform. When integrated with ERP, it becomes AAI SynErgy—a unified Advanced Artificial Intelligence system designed for insurance carriers and MGAs that need; Insurance-specific CRM features, AI-ready workflows and insights Reliable integrations with core business systems."
       }
     ]
+  },
+  "professional-services": {
+    "overview": "CRM nErgy (PSA) software for Professional Services Automation helps manage projects, resources, and billing for accounting firms, law firms, consulting agencies, and engineering companies. This software is designed for product-centric businesses focusing on finance and operations.",
+    "capabilities": [
+      "Accounting Firms: Centralizes client records, financial details, deadlines, and compliance tasks.",
+      "Law Firms: Organizes matters, client communications, documents, and billable activity.",
+      "Consulting Agencies: Tracks clients, engagements, projects, deliverables, and measurable results.",
+      "Engineering Companies: Coordinates project updates, timelines, technical deliverables, and team communication.",
+      "Architecture Firms: Manages design work, client feedback, revisions, approvals, and team collaboration.",
+      "IT Services: Handles service requests, support tickets, renewals, and project progress.",
+      "Marketing Agencies: Tracks campaigns, client communication, performance metrics, approvals, and follow-ups.",
+      "Healthcare Providers: Coordinates patient relationships, appointments, outreach, follow-ups, and compliance needs."
+    ],
+    "faqs": [
+      {
+        "q": "How does CRM software benefit accounting firms?",
+        "a": "CRM nErgy software helps accounting firms centralize client information, improve communication, automate routine work, and protect sensitive financial data. These capabilities streamline workflows, improve service quality, and support stronger client retention. CRM, We create the nErgy in the room. [ Contact US ]"
+      },
+      {
+        "q": "How should law firms select the right CRM software?",
+        "a": "Law firms should choose CRM software that fits their workflows and growth goals, especially for client intake, relationship management, and automation. CRM nErgy is the right platform which provides support, improve client relationships and be practical for long-term use. We Are the nErgy in Teamwork make the CRM work! [ Contact US ]"
+      },
+      {
+        "q": "Which CRM features are most useful for consulting agencies?",
+        "a": "Consulting agencies benefit from CRM features for client and engagement tracking, project and task management, and resource planning. The CRM nErgy tools improve relationship management, streamline operations, and support stronger team collaboration. We Help You Create and Manage the nErgy In The workplace. [ Contact US ]"
+      },
+      {
+        "q": "What are the main benefits of white label CRM software for professional services firms?",
+        "a": "CRM nErgy White Label software lets professional services firms offer a branded platform, improve client engagement, and streamline operations. It also reduces development costs, allowing firms to focus more on their core services. We Are the nErgy in CRM, We Bring It Into the workplace. [ Contact US ]"
+      },
+      {
+        "q": "How does white-label CRM software improve the client’s experience?",
+        "a": "White Label CRM nErgy software lets agencies customize the platform with their own branding, creating a seamless and professional client experience. It also centralizes client interactions and project management, helping build trust and consistency. CRM, We create the nErgy in the room. [ Contact US ]"
+      },
+      {
+        "q": "What customization options are available in white label CRM software for professional services?",
+        "a": "CRM nErgy White Label platform offers custom logos, colors, domains, user interfaces, dashboards, and client portals. This helps firms match their brand and create a consistent client experience. We’re Here To Help You Elevate and Manage CRM nErgy In The workplace. [ Contact US ]"
+      },
+      {
+        "q": "What are the key differences between Professional Services Automation and ERP software?",
+        "a": "PSA software helps service businesses manage projects, resources, time, and billing, while ERP integrates broader functions such as accounting, procurement, and HR. PSA supports project profitability and client delivery; ERP manages overall operations. [ Contact US ]"
+      },
+      {
+        "q": "How can Professional Services Automation improve project management for service firms?",
+        "a": "PSA centralizes project management, time tracking, resources, and billing, improving visibility, efficiency, resource use, and profitability while reducing administrative work. [ Contact US ]"
+      },
+      {
+        "q": "What industries benefit most from using ERP software for operations and finance?",
+        "a": "Manufacturing, healthcare, retail, construction, and financial services use ERP to streamline operations, boost productivity, and improve financial management. [ Contact US ]"
+      }
+    ]
   }
 };
+

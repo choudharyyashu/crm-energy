@@ -403,7 +403,7 @@ const BASE_INDUSTRIES_DATA = [
   { id: 'marketing-ind', name: 'Marketing', icon: Megaphone, desc: 'Client account management, ad campaign analytics, and deliverable tracking.' },
   { id: 'media-ind', name: 'Media', icon: Radio, desc: 'Digital asset warehouses, broadcast syndication, and editorial calendars.' },
   { id: 'non-profit', name: 'Non-Profit', icon: Award, desc: 'Donor management, charitable grant tracking, and fundraising campaigns.' },
-  { id: 'professional-services', name: 'Professional Services', icon: FileCheck, desc: 'Client retainer billing, SLA tracking, and audit-ready reporting.' },
+  { id: 'professional-services', name: 'Professional Services', icon: FileCheck, desc: 'Client retainer billing, SLA tracking, and audit-ready reporting.', route: '/industries/professional-services' },
   { id: 'real-estate', name: 'Real Estate', icon: Building2, desc: 'Property listings, broker commission splits, and escrow pipeline.' },
   { id: 'retail', name: 'Retail', icon: Store, desc: 'Omnichannel POS, in-store inventory balances, and loyalty programs.' },
   { id: 'software-dev', name: 'Software Development', icon: FileCode, desc: 'Sprint planning, bug issue tracking, and client code delivery milestones.' },

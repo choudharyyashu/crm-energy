@@ -17,6 +17,7 @@ import { MidSizeCrmPage } from '../pages/website/MidSizeCrmPage';
 import { ContactAiPage } from '../pages/website/ContactAiPage';
 import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
 import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
+import { ProfessionalServicesPage } from '../pages/website/ProfessionalServicesPage';
 
 // Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
@@ -153,6 +154,7 @@ export const AppRoutes = () => {
         <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
         <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
+        <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
       </Route>
 
       {/* Gateway Login Pages */}
