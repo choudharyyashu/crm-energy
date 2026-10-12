@@ -687,7 +687,7 @@ export const DICTIONARY = {
     'Client Account:': 'Cuenta de Cliente:',
     'Contract Value / Budget:': 'Valor de Contrato / Presupuesto:',
     'Assigned Delivery Manager:': 'Gerente de Entrega Asignado:',
-    'Automated ERP Delivery Workflow:': 'Flujo de Trabajo Automatizado de Entrega ERP:',
+    'Automated ERP Delivery Workflow:': 'Flujo de Trabajo de Entrega ERP Automatizado:',
     'Total Revenue': 'Ingresos Totales',
     'Total MRR Revenue': 'Ingresos MRR Totales',
     'Sales Volume': 'Volumen de Ventas',
@@ -697,7 +697,6 @@ export const DICTIONARY = {
     // ==========================================
     // Territory Management & Field Optimization
     // ==========================================
-    'Territory Management & Field Optimization': 'Gestión de Territorios y Optimización de Campo',
     'Google Maps Powered': 'Potenciado por Google Maps',
     'Geographic sales mapping, route optimization, field rep scheduling, and prospect demographics intelligence.': 'Mapeo geográfico de ventas, optimización de rutas, programación de representantes y demografía de prospectos.',
     'Offline Field Mode': 'Modo de Campo Desconectado',
@@ -755,17 +754,13 @@ export const DICTIONARY = {
     '8 Integrated Suites': '8 Suites Integradas',
     'Projects List': 'Lista de Proyectos',
     'Milestones & Delivery': 'Hitos y Entregas',
-    'Procurement': 'Adquisiciones y Compras',
     'Vendor POs & Invoices': 'Órdenes de Compra y Facturas de Proveedores',
     'Inventory SKU': 'SKU de Inventario',
     'Stock & Warehouses': 'Stock y Almacenes',
     'Finance Ledgers': 'Libros Contables',
     'AP/AR & Expenses': 'Cuentas por Cobrar/Pagar y Gastos',
-    'Supply Chain': 'Cadena de Suministro',
     'Logistics & Freight': 'Logística y Flete',
-    'Manufacturing': 'Manufactura y Producción',
     'Assembly & Production': 'Ensamblaje y Producción',
-    'Sales Orders': 'Órdenes de Venta',
     'Commercial Fulfillment': 'Cumplimiento Comercial',
     'ERP Reports': 'Informes ERP',
     'Operational Analytics': 'Analítica Operativa',
@@ -777,9 +772,7 @@ export const DICTIONARY = {
     // Bestie AI Chat & Actions
     // ==========================================
     'Analyze Sales Velocity': 'Analizar Velocidad de Ventas',
-    'Analyze Sales Velocity >': 'Analizar Velocidad de Ventas >',
     'Schedule Follow-up Task': 'Programar Tarea de Seguimiento',
-    'Schedule Follow-up Task >': 'Programar Tarea de Seguimiento >',
     'Hello! I am Bestie': '¡Hola! Soy Bestie',
     "Hello! I'm Bestie, your CRM nErgy AI Autonomous Operating Partner. I'm connected to your enterprise platform to help you analyze deals, qualify leads, manage tasks, and optimize sales and ERP workflows.": "¡Hola! Soy Bestie, su Socio Operativo Autónomo de CRM nErgy IA. Estoy conectado a su plataforma empresarial para ayudarle a analizar acuerdos, calificar prospectos, administrar tareas y optimizar flujos de trabajo de ventas y ERP.",
     'How can I assist your business operations today?': '¿Cómo puedo asistir a sus operaciones comerciales hoy?',
@@ -787,7 +780,6 @@ export const DICTIONARY = {
     // ==========================================
     // AI Voice Agent
     // ==========================================
-    'AI Voice Agent': 'Agente de Voz IA',
     'Voice Pipeline Standby': 'Tubería de Voz en Espera',
     'Pipeline Streaming Live': 'Tubería Transmitiendo en Vivo',
     'Real-time conversational voice system powered by Speech-to-Text (STT) ➔ Large Language Model (LLM) ➔ Text-to-Speech (TTS) streaming architecture.': 'Sistema de voz conversacional en tiempo real impulsado por arquitectura de transmisión de Voz a Texto (STT) ➔ Modelo de Lenguaje (LLM) ➔ Texto a Voz (TTS).',
