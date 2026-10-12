@@ -7,6 +7,7 @@ import {
   Lock,
   Mail,
   ArrowRight,
+  ArrowLeft,
   TrendingUp,
   DollarSign,
   Users,
@@ -31,7 +32,6 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useLanguage } from '../context/LanguageContext';
-import { LanguageToggle } from '../components/common/LanguageToggle';
 import { SHOW_OAL } from '../config/features';
 import { AiEnergyLogo } from '../components/common/AiEnergyLogo';
 
@@ -502,9 +502,39 @@ export const UnifiedLogin = ({ mode }) => {
             </div>
           </div>
 
-          {/* Action Bar (1-Click Instant Language Switcher + Super Admin toggle) */}
+          {/* Action Bar (Back to Home button + Super Admin toggle) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <LanguageToggle />
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.35rem 0.75rem',
+                borderRadius: '6px',
+                backgroundColor: 'rgba(30, 41, 59, 0.8)',
+                border: '1px solid rgba(148, 163, 184, 0.25)',
+                color: '#cbd5e1',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#38bdf8';
+                e.currentTarget.style.color = '#38bdf8';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.25)';
+                e.currentTarget.style.color = '#cbd5e1';
+              }}
+              title="Back to Landing Page"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Home</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setIsSuperAdminHidden(!isSuperAdminHidden)}
