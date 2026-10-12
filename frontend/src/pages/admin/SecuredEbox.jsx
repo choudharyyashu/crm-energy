@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, Badge } from '../../components/ui';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 import eboxService from '../../services/eboxService';
 
 // Default seed conversations for the 3 confidential channels
@@ -133,6 +134,8 @@ const STORAGE_KEY = 'crm_nergy_secured_ebox_v3';
 
 export const SecuredEbox = () => {
   const { addToast } = useToast();
+  const { language } = useLanguage();
+  const isEs = language === 'ES';
   const [inputText, setInputText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeThreadId, setActiveThreadId] = useState('th-1');
@@ -244,10 +247,10 @@ export const SecuredEbox = () => {
   const threads = [
     {
       id: 'th-1',
-      title: 'KT Software Dev Team',
-      subtitle: 'Johnny (SEA) ↔ KT Software Dev Team',
-      badge: 'SEA ↔ KT Dev Hotline',
-      partnerName: 'KT Software Dev Team',
+      title: isEs ? 'Equipo de Desarrollo KT' : 'KT Software Dev Team',
+      subtitle: isEs ? 'Johnny (SEA) ↔ Equipo de Desarrollo KT' : 'Johnny (SEA) ↔ KT Software Dev Team',
+      badge: isEs ? 'Línea Directa SEA ↔ KT' : 'SEA ↔ KT Dev Hotline',
+      partnerName: isEs ? 'Equipo de Desarrollo KT' : 'KT Software Dev Team',
       partnerRole: 'ktt',
       color: '#0284c7',
       accentBg: 'rgba(2, 132, 199, 0.12)',
@@ -255,10 +258,10 @@ export const SecuredEbox = () => {
     },
     {
       id: 'th-2',
-      title: 'Attorney & Pitch Review',
-      subtitle: 'Johnny (SEA) ↔ Legal Diligence Team',
-      badge: 'Attorney Vault',
-      partnerName: 'Legal Diligence Counsel',
+      title: isEs ? 'Revisión Legal y Presentación' : 'Attorney & Pitch Review',
+      subtitle: isEs ? 'Johnny (SEA) ↔ Equipo de Diligencia Legal' : 'Johnny (SEA) ↔ Legal Diligence Team',
+      badge: isEs ? 'Bóveda Legal' : 'Attorney Vault',
+      partnerName: isEs ? 'Consejero de Diligencia Legal' : 'Legal Diligence Counsel',
       partnerRole: 'attorney',
       color: '#059669',
       accentBg: 'rgba(5, 150, 105, 0.12)',
@@ -266,10 +269,10 @@ export const SecuredEbox = () => {
     },
     {
       id: 'th-3',
-      title: 'Executive Roadmaps',
-      subtitle: 'Johnny (SEA) ↔ Systems Architect',
-      badge: 'Private Strategy',
-      partnerName: 'Lead Systems Architect',
+      title: isEs ? 'Hojas de Ruta Ejecutivas' : 'Executive Roadmaps',
+      subtitle: isEs ? 'Johnny (SEA) ↔ Arquitecto de Sistemas' : 'Johnny (SEA) ↔ Systems Architect',
+      badge: isEs ? 'Estrategia Privada' : 'Private Strategy',
+      partnerName: isEs ? 'Arquitecto Líder de Sistemas' : 'Lead Systems Architect',
       partnerRole: 'ktt',
       color: '#7c3aed',
       accentBg: 'rgba(124, 58, 237, 0.12)',
@@ -424,16 +427,34 @@ export const SecuredEbox = () => {
   // Quick chips based on persona
   const quickSuggestions =
     activePersona === 'johnny'
-      ? [
-          'Hello KTT, confirm attorney presentation status.',
-          'Please verify 15 AI Studio pipelines.',
-          'Confirm zero-leakage security is active.',
-        ]
+      ? isEs
+        ? [
+            'Hola KTT, confirme el estado de la presentación legal.',
+            'Por favor verifique los 15 pipelines de AI Studio.',
+            'Confirme que la seguridad de cero fugas está activa.',
+          ]
+        : [
+            'Hello KTT, confirm attorney presentation status.',
+            'Please verify 15 AI Studio pipelines.',
+            'Confirm zero-leakage security is active.',
+          ]
       : activePersona === 'ktt'
+      ? isEs
+        ? [
+            'Entendido Johnny, sprint de ingeniería desplegado.',
+            'Confirmado: entorno listo para revisión de abogados.',
+            'Todos los modelos conectados con cero fugas de datos.',
+          ]
+        : [
+            'Understood Johnny, engineering sprint deployed.',
+            'Confirmed: staging ready for attorney review.',
+            'All models connected with zero-data leakage.',
+          ]
+      : isEs
       ? [
-          'Understood Johnny, engineering sprint deployed.',
-          'Confirmed: staging ready for attorney review.',
-          'All models connected with zero-data leakage.',
+          'Memorando de diligencia legal archivado.',
+          'Todos los secretos comerciales y cláusulas NDA aprobados.',
+          'Listo para revisión ejecutiva de inversionistas.',
         ]
       : [
           'Attorney diligence memorandum filed.',
@@ -467,7 +488,7 @@ export const SecuredEbox = () => {
         }}
       >
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Executive Governance' }, { label: 'Secured eBox' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: isEs ? 'Gobernanza Ejecutiva' : 'Executive Governance' }, { label: isEs ? 'eBox Seguro' : 'Secured eBox' }]} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '6px', flexWrap: 'wrap' }}>
             <h1
               style={{
@@ -482,7 +503,7 @@ export const SecuredEbox = () => {
               }}
             >
               <Lock size={22} style={{ color: 'var(--energy-sky, #0284c7)' }} />
-              Secured Communications eBox
+              {isEs ? 'eBox de Comunicaciones Seguras' : 'Secured Communications eBox'}
             </h1>
             <span
               style={{
@@ -509,11 +530,13 @@ export const SecuredEbox = () => {
                   boxShadow: '0 0 8px #059669',
                 }}
               />
-              SEA ↔ KTT Restricted Vault
+              {isEs ? 'Bóveda Restringida SEA ↔ KTT' : 'SEA ↔ KTT Restricted Vault'}
             </span>
           </div>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
-            Direct encrypted channel between CRM nErgy’s <strong>Super Executive Admin [ SEA ]</strong> and <strong>KT software dev team</strong>. Non-SEA staff strictly isolated.
+            {isEs
+              ? 'Canal cifrado directo entre el Administrador Súper Ejecutivo [ SEA ] de CRM nErgy y el equipo de desarrollo de software KT. Personal no SEA estrictamente aislado.'
+              : 'Direct encrypted channel between CRM nErgy’s Super Executive Admin [ SEA ] and KT software dev team. Non-SEA staff strictly isolated.'}
           </p>
         </div>
 
@@ -538,7 +561,7 @@ export const SecuredEbox = () => {
             }}
           >
             <RotateCcw size={14} />
-            Reset History
+            {isEs ? 'Restablecer Historial' : 'Reset History'}
           </button>
 
           <button
@@ -560,7 +583,7 @@ export const SecuredEbox = () => {
             }}
           >
             <MessageCircle size={14} />
-            WhatsApp Hotline
+            {isEs ? 'Línea de WhatsApp' : 'WhatsApp Hotline'}
           </button>
         </div>
       </div>
@@ -611,7 +634,7 @@ export const SecuredEbox = () => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                Active Operator Identity:
+                {isEs ? 'Identidad de Operador Activo:' : 'Active Operator Identity:'}
               </span>
               <span
                 style={{
@@ -625,16 +648,20 @@ export const SecuredEbox = () => {
                 }}
               >
                 {activePersona === 'johnny'
-                  ? 'Johnny (Super Executive Admin [SEA])'
+                  ? (isEs ? 'Johnny (Administrador Súper Ejecutivo [SEA])' : 'Johnny (Super Executive Admin [SEA])')
                   : activePersona === 'ktt'
-                  ? 'Kiaan Tech Team (KTT - Lead Systems Architect)'
-                  : 'Corporate Legal Counsel (Attorney)'}
+                  ? (isEs ? 'Equipo de Tecnología Kiaan (KTT - Arquitecto Líder)' : 'Kiaan Tech Team (KTT - Lead Systems Architect)')
+                  : (isEs ? 'Asesor Legal Corporativo (Abogado)' : 'Corporate Legal Counsel (Attorney)')}
               </span>
             </div>
             <p style={{ fontSize: '11px', color: 'var(--text-secondary)', margin: '2px 0 0 0' }}>
               {activePersona === 'johnny'
-                ? 'Type instructions below to test sending to KTT. KTT will instantly acknowledge via real-time vault responder.'
-                : 'You are now viewing as the Recipient. You can read Johnny’s instructions and type custom replies.'}
+                ? (isEs
+                    ? 'Escriba instrucciones a continuación para probar el envío a KTT. KTT confirmará al instante mediante el respondedor en tiempo real.'
+                    : 'Type instructions below to test sending to KTT. KTT will instantly acknowledge via real-time vault responder.')
+                : (isEs
+                    ? 'Ahora está viendo como el Destinatario. Puede leer las instrucciones de Johnny y escribir respuestas personalizadas.'
+                    : 'You are now viewing as the Recipient. You can read Johnny’s instructions and type custom replies.')}
             </p>
           </div>
         </div>
@@ -694,7 +721,7 @@ export const SecuredEbox = () => {
             }}
           >
             <Shield size={13} />
-            KTT (Dev Team)
+            {isEs ? 'KTT (Equipo Dev)' : 'KTT (Dev Team)'}
           </button>
 
           <button
@@ -717,7 +744,7 @@ export const SecuredEbox = () => {
             }}
           >
             <Lock size={13} />
-            Attorney Desk
+            {isEs ? 'Mesa Legal' : 'Attorney Desk'}
           </button>
         </div>
       </div>
@@ -749,7 +776,7 @@ export const SecuredEbox = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Encrypted Vaults
+              {isEs ? 'Bóvedas Cifradas' : 'Encrypted Vaults'}
             </span>
             <span
               style={{
@@ -762,7 +789,7 @@ export const SecuredEbox = () => {
                 color: 'var(--text-secondary)',
               }}
             >
-              {threads.length} Channels
+              {threads.length} {isEs ? 'Canales' : 'Channels'}
             </span>
           </div>
 
@@ -773,7 +800,7 @@ export const SecuredEbox = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search encrypted history..."
+              placeholder={isEs ? 'Buscar en historial cifrado...' : 'Search encrypted history...'}
               style={{
                 width: '100%',
                 padding: '8px 12px 8px 32px',
@@ -860,7 +887,7 @@ export const SecuredEbox = () => {
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '10px', color: 'var(--text-tertiary)', marginTop: '2px' }}>
                     <span style={{ fontWeight: 600 }}>{th.badge}</span>
                     <span style={{ color: '#059669', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
-                      <CheckCheck size={11} /> E2EE Vault
+                      <CheckCheck size={11} /> {isEs ? 'Bóveda E2EE' : 'E2EE Vault'}
                     </span>
                   </div>
                 </div>
@@ -883,7 +910,7 @@ export const SecuredEbox = () => {
           >
             <KeyRound size={14} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
             <span>
-              <strong>Zero-Leakage Security:</strong> Strictly SEA cryptographic session tokens. Standard employees cannot decrypt.
+              <strong>{isEs ? 'Seguridad Cero Fugas:' : 'Zero-Leakage Security:'}</strong> {isEs ? 'Estrictamente tokens de sesión criptográfica SEA. Empleados estándar no pueden descifrar.' : 'Strictly SEA cryptographic session tokens. Standard employees cannot decrypt.'}
             </span>
           </div>
         </div>
@@ -932,7 +959,7 @@ export const SecuredEbox = () => {
                     borderRadius: '4px',
                   }}
                 >
-                  AES-256-GCM LIVE
+                  {isEs ? 'EN VIVO AES-256-GCM' : 'AES-256-GCM LIVE'}
                 </span>
               </div>
               <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
@@ -941,7 +968,7 @@ export const SecuredEbox = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>Chatting as:</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>{isEs ? 'Chateando como:' : 'Chatting as:'}</span>
               <span
                 style={{
                   fontSize: '11px',
@@ -953,7 +980,7 @@ export const SecuredEbox = () => {
                   color: '#ffffff',
                 }}
               >
-                {activePersona === 'johnny' ? 'Johnny (SEA)' : activePersona === 'ktt' ? 'KTT (Dev)' : 'Attorney'}
+                {activePersona === 'johnny' ? 'Johnny (SEA)' : activePersona === 'ktt' ? (isEs ? 'KTT (Dev)' : 'KTT (Dev)') : (isEs ? 'Abogado' : 'Attorney')}
               </span>
             </div>
           </div>
@@ -984,7 +1011,7 @@ export const SecuredEbox = () => {
             ) : filteredMessages.length === 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-tertiary)' }}>
                 <Search size={28} style={{ opacity: 0.4, marginBottom: '8px' }} />
-                <span style={{ fontSize: '13px', fontWeight: 600 }}>No secure messages found</span>
+                <span style={{ fontSize: '13px', fontWeight: 600 }}>{isEs ? 'No se encontraron mensajes seguros' : 'No secure messages found'}</span>
               </div>
             ) : (
               filteredMessages.map((m) => {
@@ -1136,7 +1163,7 @@ export const SecuredEbox = () => {
             }}
           >
             <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-tertiary)', textTransform: 'uppercase', flexShrink: 0 }}>
-              Quick Action:
+              {isEs ? 'Acción Rápida:' : 'Quick Action:'}
             </span>
             {quickSuggestions.map((text, idx) => (
               <button
@@ -1173,8 +1200,8 @@ export const SecuredEbox = () => {
                 type="button"
                 onClick={() =>
                   addToast({
-                    title: 'Attach Roadmap or Audit Brief',
-                    message: 'Encrypted document picker ready for SEA vault.',
+                    title: isEs ? 'Adjuntar Hoja de Ruta o Informe' : 'Attach Roadmap or Audit Brief',
+                    message: isEs ? 'Selector de documentos cifrados listo para la bóveda SEA.' : 'Encrypted document picker ready for SEA vault.',
                     type: 'info',
                   })
                 }
@@ -1189,7 +1216,7 @@ export const SecuredEbox = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
-                title="Attach encrypted file"
+                title={isEs ? 'Adjuntar archivo cifrado' : 'Attach encrypted file'}
               >
                 <Paperclip size={16} />
               </button>
@@ -1200,10 +1227,10 @@ export const SecuredEbox = () => {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={
                   activePersona === 'johnny'
-                    ? `Instruct ${currentThread.partnerName}... (e.g. "Confirm sprint update")`
+                    ? (isEs ? `Instruir a ${currentThread.partnerName}... (ej. "Confirmar actualización de sprint")` : `Instruct ${currentThread.partnerName}... (e.g. "Confirm sprint update")`)
                     : activePersona === 'ktt'
-                    ? 'Reply to Johnny (Super Executive Admin)...'
-                    : 'Send legal diligence reply to Johnny...'
+                    ? (isEs ? 'Responder a Johnny (Administrador Súper Ejecutivo)...' : 'Reply to Johnny (Super Executive Admin)...')
+                    : (isEs ? 'Enviar respuesta de diligencia legal a Johnny...' : 'Send legal diligence reply to Johnny...')
                 }
                 style={{
                   flex: 1,
@@ -1243,7 +1270,7 @@ export const SecuredEbox = () => {
                 }}
               >
                 <Send size={14} />
-                Send
+                {isEs ? 'Enviar' : 'Send'}
               </button>
             </form>
           </div>

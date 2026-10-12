@@ -46,6 +46,7 @@ export const CrmSettings = () => {
   const { addToast } = useToast();
   const { currency, setCurrency } = useCurrency();
   const { language, setLanguage } = useLanguage();
+  const isEs = language === 'ES';
 
   const [activeTab, setActiveTab] = useState('profile');
   const fileInputRef = useRef(null);
@@ -306,8 +307,10 @@ export const CrmSettings = () => {
       {/* 1. Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Settings' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>Account & Workspace Settings</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: isEs ? 'Configuración' : 'Settings' }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>
+            {isEs ? 'Configuración de Cuenta y Espacio de Trabajo' : 'Account & Workspace Settings'}
+          </h1>
         </div>
       </div>
 
@@ -315,12 +318,12 @@ export const CrmSettings = () => {
       <div className="flex items-center gap-2 overflow-x-auto">
         <Tabs
           tabs={[
-            { id: 'profile', label: 'User Profile', icon: User },
-            { id: 'company', label: 'Company Profile', icon: Building2 },
-            { id: 'security', label: 'Security & Password', icon: Lock },
-            { id: 'notifications', label: 'Notifications', icon: Bell },
-            { id: 'theme', label: 'Theme & Display', icon: Moon },
-            { id: 'preferences', label: 'Preferences', icon: SettingsIcon },
+            { id: 'profile', label: isEs ? 'Perfil de Usuario' : 'User Profile', icon: User },
+            { id: 'company', label: isEs ? 'Perfil de Empresa' : 'Company Profile', icon: Building2 },
+            { id: 'security', label: isEs ? 'Seguridad y Contraseña' : 'Security & Password', icon: Lock },
+            { id: 'notifications', label: isEs ? 'Notificaciones' : 'Notifications', icon: Bell },
+            { id: 'theme', label: isEs ? 'Tema y Visualización' : 'Theme & Display', icon: Moon },
+            { id: 'preferences', label: isEs ? 'Preferencias' : 'Preferences', icon: SettingsIcon },
           ]}
           activeTab={activeTab}
           onChange={setActiveTab}
@@ -362,7 +365,7 @@ export const CrmSettings = () => {
                   border: '2px solid var(--surface-card)',
                   boxShadow: 'var(--shadow-sm)',
                 }}
-                title="Click to Upload Profile Photo"
+                title={isEs ? 'Clic para subir foto de perfil' : 'Click to Upload Profile Photo'}
               >
                 {avatarImage ? (
                   <img
@@ -413,14 +416,14 @@ export const CrmSettings = () => {
           <form onSubmit={handleSaveProfile} className="flex flex-col gap-4 mt-5">
             <div className="grid-responsive-2col">
               <Input
-                label="Full Name"
+                label={isEs ? 'Nombre Completo *' : 'Full Name *'}
                 value={profileData.name}
                 onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                 placeholder="e.g. David Chen"
                 required
               />
               <Input
-                label="Email Address"
+                label={isEs ? 'Correo Electrónico *' : 'Email Address *'}
                 type="email"
                 value={profileData.email}
                 onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
@@ -431,13 +434,13 @@ export const CrmSettings = () => {
 
             <div className="grid-responsive-2col">
               <Input
-                label="Phone Number"
+                label={isEs ? 'Número de Teléfono' : 'Phone Number'}
                 value={profileData.phone}
                 onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                 placeholder="e.g. +1 (555) 382-9104"
               />
               <Input
-                label="Department / Unit"
+                label={isEs ? 'Departamento / Unidad' : 'Department / Unit'}
                 value={profileData.department}
                 onChange={(e) => setProfileData({ ...profileData, department: e.target.value })}
                 placeholder="e.g. Finance & Operations"
@@ -446,14 +449,14 @@ export const CrmSettings = () => {
 
             <div className="grid-responsive-2col">
               <Input
-                label="Assigned System Role"
+                label={isEs ? 'Rol Asignado en el Sistema' : 'Assigned System Role'}
                 value={profileData.role}
                 readOnly
                 disabled
-                title="System role managed by Organization Administrator"
+                title={isEs ? 'Rol del sistema gestionado por el administrador' : 'System role managed by Organization Administrator'}
               />
               <Select
-                label="Primary Timezone"
+                label={isEs ? 'Zona Horaria Principal' : 'Primary Timezone'}
                 value={profileData.timezone}
                 onChange={(e) => setProfileData({ ...profileData, timezone: e.target.value })}
                 options={[
@@ -469,7 +472,7 @@ export const CrmSettings = () => {
 
             <div className="flex justify-end pt-3">
               <Button variant="primary" size="sm" type="submit" icon={Save}>
-                Save Profile Changes
+                {isEs ? 'Guardar Cambios de Perfil' : 'Save Profile Changes'}
               </Button>
             </div>
           </form>
@@ -481,20 +484,20 @@ export const CrmSettings = () => {
         <Card style={{ padding: '1.5rem' }}>
           <div className="pb-3 mb-2">
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-              Enterprise Organization Details
+              {isEs ? 'Detalles de la Organización Empresarial' : 'Enterprise Organization Details'}
             </h2>
           </div>
 
           <form onSubmit={handleSaveCompany} className="flex flex-col gap-4">
             <div className="grid-responsive-2col">
               <Input
-                label="Company Trade Name"
+                label={isEs ? 'Nombre Comercial de la Empresa *' : 'Company Trade Name *'}
                 value={companyForm.name}
                 onChange={(e) => setCompanyForm({ ...companyForm, name: e.target.value })}
                 required
               />
               <Input
-                label="Registered Legal Entity"
+                label={isEs ? 'Razón Social Registrada *' : 'Registered Legal Entity *'}
                 value={companyForm.legalName}
                 onChange={(e) => setCompanyForm({ ...companyForm, legalName: e.target.value })}
                 required
@@ -503,12 +506,12 @@ export const CrmSettings = () => {
 
             <div className="grid-responsive-2col">
               <Input
-                label="Tax Identification / EIN"
+                label={isEs ? 'Identificación Fiscal / EIN' : 'Tax Identification / EIN'}
                 value={companyForm.taxId}
                 onChange={(e) => setCompanyForm({ ...companyForm, taxId: e.target.value })}
               />
               <Select
-                label="Primary Industry Sector"
+                label={isEs ? 'Sector Industrial Principal' : 'Primary Industry Sector'}
                 value={companyForm.industry}
                 onChange={(e) => setCompanyForm({ ...companyForm, industry: e.target.value })}
                 options={[
@@ -523,12 +526,12 @@ export const CrmSettings = () => {
 
             <div className="grid-responsive-2col">
               <Input
-                label="Corporate Contact Phone"
+                label={isEs ? 'Teléfono de Contacto Corporativo' : 'Corporate Contact Phone'}
                 value={companyForm.phone}
                 onChange={(e) => setCompanyForm({ ...companyForm, phone: e.target.value })}
               />
               <Input
-                label="Official Billing Email"
+                label={isEs ? 'Correo Oficial de Facturación' : 'Official Billing Email'}
                 type="email"
                 value={companyForm.email}
                 onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })}
@@ -536,14 +539,14 @@ export const CrmSettings = () => {
             </div>
 
             <Input
-              label="Headquarters Street Address"
+              label={isEs ? 'Dirección de la Sede Principal' : 'Headquarters Street Address'}
               value={companyForm.address}
               onChange={(e) => setCompanyForm({ ...companyForm, address: e.target.value })}
             />
 
             <div className="flex justify-end pt-3">
               <Button variant="primary" size="sm" type="submit" icon={Save}>
-                Save Company Changes
+                {isEs ? 'Guardar Cambios de Empresa' : 'Save Company Changes'}
               </Button>
             </div>
           </form>
@@ -557,16 +560,18 @@ export const CrmSettings = () => {
           <Card style={{ padding: '1.5rem' }}>
             <div className="pb-3 mb-2">
               <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-                Change Account Password
+                {isEs ? 'Cambiar Contraseña de la Cuenta' : 'Change Account Password'}
               </h2>
               <p className="text-xs text-secondary margin-0 mt-1">
-                Ensure your password is at least 8 characters with numbers and symbols
+                {isEs
+                  ? 'Asegúrese de que su contraseña tenga al menos 8 caracteres con números y símbolos'
+                  : 'Ensure your password is at least 8 characters with numbers and symbols'}
               </p>
             </div>
 
             <form onSubmit={handleSaveSecurity} className="flex flex-col gap-4">
               <Input
-                label="Current Password"
+                label={isEs ? 'Contraseña Actual *' : 'Current Password *'}
                 type="password"
                 value={passwordData.currentPassword}
                 onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
@@ -576,26 +581,26 @@ export const CrmSettings = () => {
 
               <div className="grid-responsive-2col">
                 <Input
-                  label="New Security Password"
+                  label={isEs ? 'Nueva Contraseña de Seguridad *' : 'New Security Password *'}
                   type="password"
                   value={passwordData.newPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                  placeholder="At least 8 characters"
+                  placeholder={isEs ? 'Al menos 8 caracteres' : 'At least 8 characters'}
                   required
                 />
                 <Input
-                  label="Confirm New Password"
+                  label={isEs ? 'Confirmar Nueva Contraseña *' : 'Confirm New Password *'}
                   type="password"
                   value={passwordData.confirmPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                  placeholder="Repeat new password"
+                  placeholder={isEs ? 'Repetir nueva contraseña' : 'Repeat new password'}
                   required
                 />
               </div>
 
               <div className="flex justify-end pt-2">
                 <Button variant="primary" size="sm" type="submit" icon={KeyRound}>
-                  Update Password
+                  {isEs ? 'Actualizar Contraseña' : 'Update Password'}
                 </Button>
               </div>
             </form>
@@ -623,14 +628,16 @@ export const CrmSettings = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-                      Two-Factor Authentication (2FA)
+                      {isEs ? 'Autenticación de Dos Factores (2FA)' : 'Two-Factor Authentication (2FA)'}
                     </h3>
                     <Badge variant={mfaEnabled ? 'success' : 'default'}>
-                      {mfaEnabled ? 'Protected' : 'Disabled'}
+                      {mfaEnabled ? (isEs ? 'Protegido' : 'Protected') : (isEs ? 'Desactivado' : 'Disabled')}
                     </Badge>
                   </div>
                   <p className="text-xs text-secondary margin-0 mt-1">
-                    Adds an extra layer of security using an authenticator app (Google Authenticator / Authy)
+                    {isEs
+                      ? 'Agrega una capa adicional de seguridad usando una app de autenticación (Google Authenticator / Authy)'
+                      : 'Adds an extra layer of security using an authenticator app (Google Authenticator / Authy)'}
                   </p>
                 </div>
               </div>
@@ -643,13 +650,13 @@ export const CrmSettings = () => {
                 onClick={() => {
                   setMfaEnabled(!mfaEnabled);
                   addToast({
-                    title: mfaEnabled ? '2FA Disabled' : '2FA Configured',
-                    message: mfaEnabled ? 'Two-factor protection turned off.' : 'Authenticator app registered successfully.',
+                    title: mfaEnabled ? (isEs ? '2FA Desactivado' : '2FA Disabled') : (isEs ? '2FA Configurado' : '2FA Configured'),
+                    message: mfaEnabled ? (isEs ? 'Protección de dos factores desactivada.' : 'Two-factor protection turned off.') : (isEs ? 'App de autenticación registrada con éxito.' : 'Authenticator app registered successfully.'),
                     type: mfaEnabled ? 'warning' : 'success',
                   });
                 }}
               >
-                {mfaEnabled ? 'Reconfigure 2FA' : 'Enable 2FA'}
+                {mfaEnabled ? (isEs ? 'Reconfigurar 2FA' : 'Reconfigure 2FA') : (isEs ? 'Habilitar 2FA' : 'Enable 2FA')}
               </Button>
             </div>
           </Card>
@@ -661,10 +668,12 @@ export const CrmSettings = () => {
         <Card style={{ padding: '1.5rem' }}>
           <div className="pb-3 mb-2">
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-              Notification & Alert Deliverability
+              {isEs ? 'Entrega de Notificaciones y Alertas' : 'Notification & Alert Deliverability'}
             </h2>
             <p className="text-xs text-secondary margin-0 mt-1">
-              Choose which critical business events trigger email and SMS communications
+              {isEs
+                ? 'Elija qué eventos comerciales críticos activan notificaciones por correo electrónico y SMS'
+                : 'Choose which critical business events trigger email and SMS communications'}
             </p>
           </div>
 
@@ -692,8 +701,8 @@ export const CrmSettings = () => {
                     <TrendingUp size={18} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-primary">Email Alerts for Deals & Conversions</div>
-                    <span className="text-xs text-secondary">Receive real-time notifications when high-value opportunities move stage</span>
+                    <div className="font-bold text-xs text-primary">{isEs ? 'Alertas por Correo para Tratos y Conversiones' : 'Email Alerts for Deals & Conversions'}</div>
+                    <span className="text-xs text-secondary">{isEs ? 'Reciba alertas en tiempo real cuando oportunidades cambien de etapa' : 'Receive real-time notifications when high-value opportunities move stage'}</span>
                   </div>
                 </div>
                 <Switch
@@ -724,8 +733,8 @@ export const CrmSettings = () => {
                     <User size={18} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-primary">Lead Assignment Notifications</div>
-                    <span className="text-xs text-secondary">Notify me immediately when inbound commercial leads are assigned to my desk</span>
+                    <div className="font-bold text-xs text-primary">{isEs ? 'Notificaciones de Asignación de Prospectos' : 'Lead Assignment Notifications'}</div>
+                    <span className="text-xs text-secondary">{isEs ? 'Notificar de inmediato cuando nuevos prospectos sean asignados a mi escritorio' : 'Notify me immediately when inbound commercial leads are assigned to my desk'}</span>
                   </div>
                 </div>
                 <Switch
@@ -756,8 +765,8 @@ export const CrmSettings = () => {
                     <Clock size={18} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-primary">Task Due Dates & Reminders</div>
-                    <span className="text-xs text-secondary">Get calendar alerts 1 hour before scheduled customer follow-up calls</span>
+                    <div className="font-bold text-xs text-primary">{isEs ? 'Fechas de Vencimiento y Recordatorios de Tareas' : 'Task Due Dates & Reminders'}</div>
+                    <span className="text-xs text-secondary">{isEs ? 'Recibir recordatorios 1 hora antes de llamadas o seguimientos programados' : 'Get calendar alerts 1 hour before scheduled customer follow-up calls'}</span>
                   </div>
                 </div>
                 <Switch
@@ -788,8 +797,8 @@ export const CrmSettings = () => {
                     <Bell size={18} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-primary">Weekly Executive Performance Digest</div>
-                    <span className="text-xs text-secondary">Receive a comprehensive PDF metrics summary every Monday morning</span>
+                    <div className="font-bold text-xs text-primary">{isEs ? 'Resumen Semanal de Rendimiento Ejecutivo' : 'Weekly Executive Performance Digest'}</div>
+                    <span className="text-xs text-secondary">{isEs ? 'Recibir un resumen integral en PDF todos los lunes por la mañana' : 'Receive a comprehensive PDF metrics summary every Monday morning'}</span>
                   </div>
                 </div>
                 <Switch
@@ -820,8 +829,8 @@ export const CrmSettings = () => {
                     <ShieldCheck size={18} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-primary">Security & Login Alerts</div>
-                    <span className="text-xs text-secondary">Instant alerts for new login sessions or credential changes</span>
+                    <div className="font-bold text-xs text-primary">{isEs ? 'Alertas de Seguridad e Inicio de Sesión' : 'Security & Login Alerts'}</div>
+                    <span className="text-xs text-secondary">{isEs ? 'Alertas instantáneas para nuevas sesiones o cambios de credenciales' : 'Instant alerts for new login sessions or credential changes'}</span>
                   </div>
                 </div>
                 <Switch
@@ -833,7 +842,7 @@ export const CrmSettings = () => {
 
             <div className="flex justify-end pt-3">
               <Button variant="primary" size="sm" type="submit" icon={Save}>
-                Save Notification Rules
+                {isEs ? 'Guardar Reglas de Notificaciones' : 'Save Notification Rules'}
               </Button>
             </div>
           </form>
@@ -845,10 +854,12 @@ export const CrmSettings = () => {
         <Card style={{ padding: '1.5rem' }}>
           <div className="pb-3 mb-2">
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-              Appearance & Workspace Theme
+              {isEs ? 'Apariencia y Tema del Espacio de Trabajo' : 'Appearance & Workspace Theme'}
             </h2>
             <p className="text-xs text-secondary margin-0 mt-1">
-              Customize visual styling, dark mode contrast, and interface layout density
+              {isEs
+                ? 'Personalice el estilo visual, el contraste del modo oscuro y la densidad de interfaz'
+                : 'Customize visual styling, dark mode contrast, and interface layout density'}
             </p>
           </div>
 
@@ -869,8 +880,8 @@ export const CrmSettings = () => {
                   <Sun size={20} className="text-warning" />
                   {theme === 'light' && <CheckCircle2 size={18} className="text-primary" />}
                 </div>
-                <div className="font-bold text-xs text-primary" style={{ color: '#0f172a' }}>Light Mode</div>
-                <span className="text-xs text-secondary" style={{ color: '#64748b', fontSize: '11px' }}>Clean crisp background</span>
+                <div className="font-bold text-xs text-primary" style={{ color: '#0f172a' }}>{isEs ? 'Modo Claro' : 'Light Mode'}</div>
+                <span className="text-xs text-secondary" style={{ color: '#64748b', fontSize: '11px' }}>{isEs ? 'Fondo nítido y claro' : 'Clean crisp background'}</span>
               </div>
 
               {/* Dark Mode */}
@@ -887,8 +898,8 @@ export const CrmSettings = () => {
                   <Moon size={20} className="text-primary" />
                   {theme === 'dark' && <CheckCircle2 size={18} className="text-primary" />}
                 </div>
-                <div className="font-bold text-xs" style={{ color: '#f8fafc' }}>Dark Mode</div>
-                <span className="text-xs" style={{ color: '#94a3b8', fontSize: '11px' }}>Deep obsidian contrast</span>
+                <div className="font-bold text-xs" style={{ color: '#f8fafc' }}>{isEs ? 'Modo Oscuro' : 'Dark Mode'}</div>
+                <span className="text-xs" style={{ color: '#94a3b8', fontSize: '11px' }}>{isEs ? 'Contraste obsidiana profundo' : 'Deep obsidian contrast'}</span>
               </div>
 
               {/* System Theme */}
@@ -900,19 +911,19 @@ export const CrmSettings = () => {
                 <div className="flex items-center justify-between mb-3">
                   <Monitor size={20} className="text-tertiary" />
                 </div>
-                <div className="font-bold text-xs text-primary">System Match</div>
-                <span className="text-xs text-secondary" style={{ fontSize: '11px' }}>Synchronize with OS</span>
+                <div className="font-bold text-xs text-primary">{isEs ? 'Sincronizar con Sistema' : 'System Match'}</div>
+                <span className="text-xs text-secondary" style={{ fontSize: '11px' }}>{isEs ? 'Sincronizar con el sistema operativo' : 'Synchronize with OS'}</span>
               </div>
             </div>
 
             {/* Quick Toggle Bar */}
             <div className="p-4 surface-secondary rounded-md border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <div className="font-bold text-xs text-primary">Current Active Mode: {theme?.toUpperCase() || 'LIGHT'}</div>
-                <span className="text-xs text-secondary">Click to switch color mode instantaneously</span>
+                <div className="font-bold text-xs text-primary">{isEs ? 'Modo Activo Actual:' : 'Current Active Mode:'} {theme?.toUpperCase() || 'LIGHT'}</div>
+                <span className="text-xs text-secondary">{isEs ? 'Clic para alternar el modo de color instantáneamente' : 'Click to switch color mode instantaneously'}</span>
               </div>
               <Button variant="outline" size="sm" icon={theme === 'dark' ? Sun : Moon} onClick={toggleTheme}>
-                Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+                {isEs ? `Cambiar a Modo ${theme === 'dark' ? 'Claro' : 'Oscuro'}` : `Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
               </Button>
             </div>
           </div>
@@ -924,17 +935,19 @@ export const CrmSettings = () => {
         <Card style={{ padding: '1.5rem' }}>
           <div className="pb-3 mb-2">
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-              System Localization & Formatting
+              {isEs ? 'Localización y Formato del Sistema' : 'System Localization & Formatting'}
             </h2>
             <p className="text-xs text-secondary margin-0 mt-1">
-              Configure default currency, language packs, date formatting, and grid density
+              {isEs
+                ? 'Configure la moneda predeterminada, paquetes de idioma, formato de fechas y densidad de cuadrícula'
+                : 'Configure default currency, language packs, date formatting, and grid density'}
             </p>
           </div>
 
           <form onSubmit={handleSavePreferences} className="flex flex-col gap-4">
             <div className="grid-responsive-2col">
               <Select
-                label="System Display Language"
+                label={isEs ? 'Idioma de Visualización del Sistema' : 'System Display Language'}
                 value={preferences.language}
                 onChange={(e) => setPreferences({ ...preferences, language: e.target.value })}
                 options={[
@@ -943,7 +956,7 @@ export const CrmSettings = () => {
                 ]}
               />
               <Select
-                label="Base Reporting Currency"
+                label={isEs ? 'Moneda de Informes Base' : 'Base Reporting Currency'}
                 value={preferences.currency}
                 onChange={(e) => setPreferences({ ...preferences, currency: e.target.value })}
                 options={[
@@ -955,7 +968,7 @@ export const CrmSettings = () => {
 
             <div className="grid-responsive-2col">
               <Select
-                label="Date Format System"
+                label={isEs ? 'Sistema de Formato de Fecha' : 'Date Format System'}
                 value={preferences.dateFormat}
                 onChange={(e) => setPreferences({ ...preferences, dateFormat: e.target.value })}
                 options={[
@@ -965,32 +978,32 @@ export const CrmSettings = () => {
                 ]}
               />
               <Select
-                label="First Day of Week"
+                label={isEs ? 'Primer Día de la Semana' : 'First Day of Week'}
                 value={preferences.startOfWeek}
                 onChange={(e) => setPreferences({ ...preferences, startOfWeek: e.target.value })}
                 options={[
-                  { label: 'Sunday', value: 'Sunday' },
-                  { label: 'Monday', value: 'Monday' },
+                  { label: isEs ? 'Domingo' : 'Sunday', value: 'Sunday' },
+                  { label: isEs ? 'Lunes' : 'Monday', value: 'Monday' },
                 ]}
               />
             </div>
 
             <div className="grid-responsive-2col">
               <Select
-                label="Workspace Table Density"
+                label={isEs ? 'Densidad de Tablas del Espacio de Trabajo' : 'Workspace Table Density'}
                 value={preferences.density}
                 onChange={(e) => setPreferences({ ...preferences, density: e.target.value })}
                 options={[
-                  { label: 'Standard (Comfortable)', value: 'Standard' },
-                  { label: 'Compact (Dense Data)', value: 'Compact' },
-                  { label: 'Spacious (Touch Ready)', value: 'Spacious' },
+                  { label: isEs ? 'Estándar (Cómodo)' : 'Standard (Comfortable)', value: 'Standard' },
+                  { label: isEs ? 'Compacto (Datos Densos)' : 'Compact (Dense Data)', value: 'Compact' },
+                  { label: isEs ? 'Espacioso (Listo para Táctil)' : 'Spacious (Touch Ready)', value: 'Spacious' },
                 ]}
               />
             </div>
 
             <div className="flex justify-end pt-3">
               <Button variant="primary" size="sm" type="submit" icon={Save}>
-                Save System Preferences
+                {isEs ? 'Guardar Preferencias del Sistema' : 'Save System Preferences'}
               </Button>
             </div>
           </form>
