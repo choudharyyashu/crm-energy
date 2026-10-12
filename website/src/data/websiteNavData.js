@@ -142,7 +142,8 @@ export const CRM_FEATURES_DATA = [
     desc: 'Drag-and-drop KPI widgets, executive telemetry, and role-based real-time visualizations.',
     descEs: 'Widgets de KPI arrastrar y soltar, telemetría ejecutiva y visualizaciones en tiempo real por roles.',
     tag: 'Analytics',
-    tagEs: 'Analítica'
+    tagEs: 'Analítica',
+    route: '/features/customizable-dashboards'
   },
   {
     id: 'data-management',

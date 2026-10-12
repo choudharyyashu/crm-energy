@@ -17,7 +17,11 @@ import {
   DollarSign,
   TrendingUp,
   Boxes,
-  HelpCircle
+  HelpCircle,
+  Move,
+  LayoutDashboard,
+  Bell,
+  Users
 } from 'lucide-react';
 import {
   CRM_FEATURES_DATA,
@@ -281,7 +285,13 @@ export const WebsiteHome = () => {
               <div
                 key={f.id}
                 className="dolibarr-card"
-                onClick={() => onSelectItem && onSelectItem(f)}
+                onClick={() => {
+                  if (f.route) {
+                    navigate(f.route);
+                  } else if (onSelectItem) {
+                    onSelectItem(f);
+                  }
+                }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                   <div className="dolibarr-icon-box">
@@ -408,6 +418,328 @@ export const WebsiteHome = () => {
               >
                 <MessageSquare size={14} />
                 <span>{t('Contact Us')}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 2C. SECTION: CUSTOMIZABLE DASHBOARDS & DRAG-AND-DROP     */}
+      {/* ======================================================== */}
+      <section id="customizable-dashboards" className="website-section-container" style={{ paddingTop: '0' }}>
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%)',
+          border: '1px solid rgba(79, 70, 229, 0.22)',
+          borderRadius: '20px',
+          padding: 'clamp(1.5rem, 4vw, 2.5rem)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
+        }}>
+          {/* Header & Badges */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <span style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                color: '#4f46e5',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                background: 'rgba(79, 70, 229, 0.1)',
+                padding: '4px 12px',
+                borderRadius: '20px'
+              }}>
+                {isEs ? 'Tableros Personalizables' : 'Customizable Dashboards'}
+              </span>
+              <span style={{
+                fontSize: '11.5px',
+                fontWeight: 700,
+                color: '#0284c7',
+                background: 'rgba(2, 132, 199, 0.1)',
+                padding: '4px 10px',
+                borderRadius: '20px'
+              }}>
+                {isEs ? '[ Interfaz Arrastrar y Soltar ]' : '[ Drag-and-Drop Interface ]'}
+              </span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
+                {isEs ? '“Haga de la IA su Amigo”' : '“Make AI Your Friend”'}
+              </span>
+            </div>
+
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)',
+              fontWeight: 900,
+              color: 'var(--web-text-main)',
+              margin: 0,
+              lineHeight: 1.25
+            }}>
+              {isEs
+                ? 'Tableros Personalizables con Interfaz Drag-and-Drop'
+                : 'Customizable Dashboards [ Drag-and-Drop Interface ]'}
+            </h2>
+
+            <p style={{
+              fontSize: 'clamp(14px, 1.8vw, 15.5px)',
+              color: 'var(--web-text-muted)',
+              lineHeight: 1.65,
+              margin: 0,
+              maxWidth: '980px'
+            }}>
+              {isEs
+                ? 'CRM fácil de navegar, una interfaz limpia y optimizada para el usuario que le permite acceder rápidamente a las funciones que necesita sin perderse en menús complejos. Los tableros personalizables y los marcadores inteligentes pueden mejorar la usabilidad y la eficiencia.'
+                : 'Easy to navigate CRM, a clean and streamlined user friendly interface that allows users to quickly access the features they need without getting lost in complex menus. Customizable dashboards and smart bookmarks can enhance usability and efficiency.'}
+            </p>
+          </div>
+
+          {/* Q&A Callout Box */}
+          <div style={{
+            background: 'var(--web-surface)',
+            border: '1px solid var(--web-border)',
+            borderRadius: '16px',
+            padding: 'clamp(1.25rem, 3vw, 1.75rem)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem'
+          }}>
+            <h3 style={{
+              fontSize: 'clamp(1.15rem, 2.5vw, 1.45rem)',
+              fontWeight: 800,
+              color: 'var(--web-text-main)',
+              margin: 0,
+              lineHeight: 1.3
+            }}>
+              {isEs
+                ? '¿Cómo mejoran los tableros personalizables la experiencia del usuario de CRM?'
+                : 'How do customizable dashboards enhance CRM user experience?'}
+            </h3>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.25rem'
+            }}>
+              <div style={{
+                background: 'var(--web-surface-subtle)',
+                borderRadius: '12px',
+                padding: '1rem',
+                border: '1px solid var(--web-border)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Move size={16} style={{ color: '#4f46e5' }} />
+                  <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--web-text-main)' }}>
+                    {isEs ? 'Mínimos Clics y Simplicidad' : 'Minimal Clicks & Intuitive Design'}
+                  </span>
+                </div>
+                <p style={{ fontSize: '13px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: 0 }}>
+                  {isEs
+                    ? 'Las funciones de CRM de fácil navegación cuentan con una interfaz de arrastrar y soltar (Drag-and-Drop), lo que permite a los usuarios organizar y gestionar fácilmente contactos, tareas y embudos de ventas con el mínimo de clics. Este diseño intuitivo mejora la experiencia del usuario y la productividad al simplificar las tareas comunes.'
+                    : 'Easy navigational CRM features Drag-and-Drop interface, which allows users to easily organize and manage contacts, tasks, and sales pipelines with minimal clicks. This intuitive design enhances user experience and productivity by simplifying common tasks.'}
+                </p>
+              </div>
+
+              <div style={{
+                background: 'var(--web-surface-subtle)',
+                borderRadius: '12px',
+                padding: '1rem',
+                border: '1px solid var(--web-border)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <LayoutDashboard size={16} style={{ color: '#06b6d4' }} />
+                  <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--web-text-main)' }}>
+                    {isEs ? 'Enfoque en Roles y KPIs Relevantes' : 'Role Tailoring & Key Metrics'}
+                  </span>
+                </div>
+                <p style={{ fontSize: '13px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: 0 }}>
+                  {isEs
+                    ? 'Los tableros personalizables mejoran la experiencia del usuario de CRM al permitirles adaptar la interfaz a sus roles y responsabilidades específicos, presentando solo la información más relevante. Este enfoque específico mejora la productividad y ayuda a los usuarios a concentrarse en los indicadores clave de rendimiento que más importan para sus tareas.'
+                    : 'Customizable dashboards enhance CRM user experience by allowing users to tailor the interface to their specific roles and responsibilities, presenting only the most relevant information. This targeted approach improves productivity and helps users focus on key performance indicators that matter most to their tasks.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison of CRM Features Table */}
+          <div>
+            <div style={{ marginBottom: '1rem' }}>
+              <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                {isEs ? 'Matriz Comparativa' : 'Feature Comparison Matrix'}
+              </span>
+              <h3 style={{ fontSize: '18px', fontWeight: 900, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
+                {isEs ? 'Comparación de Características de CRM' : 'Comparison of CRM Features'}
+              </h3>
+            </div>
+
+            <div style={{
+              background: 'var(--web-surface)',
+              border: '1px solid var(--web-border)',
+              borderRadius: '14px',
+              overflow: 'hidden'
+            }}>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
+                  <thead>
+                    <tr style={{ background: 'var(--web-surface-subtle)', borderBottom: '1px solid var(--web-border)' }}>
+                      <th style={{ padding: '12px 16px', fontSize: '11.5px', fontWeight: 800, color: 'var(--web-text-main)', textTransform: 'uppercase' }}>
+                        {isEs ? 'Característica' : 'Feature'}
+                      </th>
+                      <th style={{ padding: '12px 16px', fontSize: '11.5px', fontWeight: 800, color: 'var(--web-text-main)', textTransform: 'uppercase' }}>
+                        {isEs ? 'Descripción' : 'Description'}
+                      </th>
+                      <th style={{ padding: '12px 16px', fontSize: '11.5px', fontWeight: 800, color: 'var(--web-text-main)', textTransform: 'uppercase' }}>
+                        {isEs ? 'Beneficios' : 'Benefits'}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {
+                        featEn: 'Drag-and-Drop Interface',
+                        featEs: 'Interfaz Arrastrar y Soltar',
+                        descEn: 'Allows easy organization of tasks and contacts',
+                        descEs: 'Permite organizar fácilmente tareas y contactos',
+                        benEn: 'User-friendly, efficient',
+                        benEs: 'Fácil de usar, eficiente'
+                      },
+                      {
+                        featEn: 'Intuitive Dashboard',
+                        featEs: 'Tablero Intuitivo',
+                        descEn: 'Customizable view of key metrics and tasks',
+                        descEs: 'Vista personalizable de métricas clave y tareas',
+                        benEn: 'Quick access to important info',
+                        benEs: 'Acceso rápido a información importante'
+                      },
+                      {
+                        featEn: 'Streamlined Contact Management',
+                        featEs: 'Gestión de Contactos Optimizada',
+                        descEn: 'Easy addition and retrieval of contact information',
+                        descEs: 'Fácil adición y recuperación de información de contacto',
+                        benEn: 'Saves time, reduces frustration',
+                        benEs: 'Ahorra tiempo, reduce la frustración'
+                      },
+                      {
+                        featEn: 'Task Reminders',
+                        featEs: 'Recordatorios de Tareas',
+                        descEn: 'Automated notifications for follow ups',
+                        descEs: 'Notificaciones automatizadas para seguimientos',
+                        benEn: 'Ensures timely actions',
+                        benEs: 'Garantiza acciones oportunas'
+                      },
+                      {
+                        featEn: 'Pipeline Visibility',
+                        featEs: 'Visibilidad del Embudo',
+                        descEn: 'Visual representation of sales opportunities',
+                        descEs: 'Representación visual de oportunidades de venta',
+                        benEn: 'Enhances tracking and management',
+                        benEs: 'Mejora el seguimiento y la gestión'
+                      }
+                    ].map((row, rIdx) => (
+                      <tr
+                        key={rIdx}
+                        style={{ borderBottom: rIdx < 4 ? '1px solid var(--web-border)' : 'none' }}
+                      >
+                        <td style={{ padding: '12px 16px', fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
+                          {isEs ? row.featEs : row.featEn}
+                        </td>
+                        <td style={{ padding: '12px 16px', fontSize: '12.5px', color: 'var(--web-text-muted)' }}>
+                          {isEs ? row.descEs : row.descEn}
+                        </td>
+                        <td style={{ padding: '12px 16px' }}>
+                          <span style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            padding: '3px 10px',
+                            borderRadius: '12px',
+                            background: 'rgba(16, 185, 129, 0.1)',
+                            color: '#059669',
+                            fontSize: '11.5px',
+                            fontWeight: 700
+                          }}>
+                            <CheckCircle2 size={12} />
+                            {isEs ? row.benEs : row.benEn}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Summary Conclusion */}
+              <div style={{
+                padding: '12px 16px',
+                background: 'var(--web-surface-subtle)',
+                borderTop: '1px solid var(--web-border)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <Sparkles size={16} style={{ color: '#f59e0b', flexShrink: 0 }} />
+                <span style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--web-text-main)' }}>
+                  {isEs
+                    ? 'Estas características contribuyen colectivamente a una experiencia de usuario más eficiente y agradable, haciendo que los CRM sean más fáciles de adoptar y utilizar de forma eficaz.'
+                    : 'These features collectively contribute to a more efficient and enjoyable user experience, making CRMs easier to adopt and use effectively.'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
+              CRM NERGY AI — {isEs ? 'Tableros y Flujos Sin Código' : 'Code-Free Dynamic Dashboards'}
+            </span>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => navigate('/features/customizable-dashboards')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  background: '#4f46e5',
+                  color: '#ffffff',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(79, 70, 229, 0.25)'
+                }}
+              >
+                <span>{isEs ? 'Abrir Simulador Interactivo y Kanban' : 'Explore Interactive Sandbox & Kanban'}</span>
+                <ArrowRight size={14} />
+              </button>
+
+              <button
+                type="button"
+                onClick={onOpenSales}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  background: 'var(--web-surface)',
+                  border: '1px solid var(--web-border)',
+                  color: 'var(--web-text-main)',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                <MessageSquare size={14} />
+                <span>{isEs ? 'Consultar Asesor' : 'Talk to Advisor'}</span>
               </button>
             </div>
           </div>
