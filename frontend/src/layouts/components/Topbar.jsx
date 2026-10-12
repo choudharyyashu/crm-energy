@@ -132,16 +132,34 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
         { id: 'crm-reports', title: 'Reports & Executive Analytics', subtitle: 'Executive financial summaries & audit reports', category: 'Pages & Modules', icon: FileText, path: '/crm/reports', tags: 'charts metrics exports pdf revenue' },
         { id: 'crm-profile', title: 'My Profile & Avatar Settings', subtitle: 'Personal account details, photo upload & credentials', category: 'Pages & Modules', icon: User, path: '/crm/profile', tags: 'profile photo picture name email password' },
         
-        { id: 'deal-1', title: 'Apex Global SaaS Deal ($450,000)', subtitle: 'Negotiation Stage • Enterprise 3-Year Software Contract', category: 'Deals & Accounts', icon: Target, path: '/crm/pipeline', tags: 'apex 450k saas negotiation' },
-        { id: 'deal-2', title: 'Vanguard Capital Expansion ($1,200,000)', subtitle: 'Contract Signed • Tier 1 Financial Institutional Client', category: 'Deals & Accounts', icon: Target, path: '/crm/pipeline', tags: 'vanguard 1.2m expansion closed' },
-        { id: 'deal-3', title: 'Hyperion Logistics Automation ($850,000)', subtitle: 'Proposal Review • Supply Chain Enterprise Fleet', category: 'Deals & Accounts', icon: Target, path: '/crm/pipeline', tags: 'hyperion 850k logistics proposal' },
+        { id: 'deal-1', title: 'Apex Global SaaS Deal ($450,000)', subtitle: 'Negotiation Stage • Enterprise 3-Year Software Contract', category: 'Deals & ERP', icon: Target, path: '/crm/pipeline', tags: 'apex 450k saas negotiation' },
+        { id: 'deal-2', title: 'Vanguard Capital Expansion ($1,200,000)', subtitle: 'Contract Signed • Tier 1 Financial Institutional Client', category: 'Deals & ERP', icon: Target, path: '/crm/pipeline', tags: 'vanguard 1.2m expansion closed' },
+        { id: 'deal-3', title: 'Hyperion Logistics Automation ($850,000)', subtitle: 'Proposal Review • Supply Chain Enterprise Fleet', category: 'Deals & ERP', icon: Target, path: '/crm/pipeline', tags: 'hyperion 850k logistics proposal' },
 
-        { id: 'contact-sarah', title: 'Sarah Jenkins (VP of Sales)', subtitle: 's.jenkins@nergy.io • Lead Manager & Deal Closer', category: 'Team & Contacts', icon: Users, path: '/crm/contacts', tags: 'sarah sales vp email' },
-        { id: 'contact-david', title: 'David Chen (Finance Director)', subtitle: 'd.chen@nergy.io • Lead Controller & Treasury Audit', category: 'Team & Contacts', icon: Users, path: '/crm/contacts', tags: 'david finance director controller' },
-        { id: 'contact-elena', title: 'Elena Rostova (HR Manager)', subtitle: 'e.rostova@nergy.io • Talent Acquisition Lead', category: 'Team & Contacts', icon: Users, path: '/crm/contacts', tags: 'elena hr recruiting staff' },
+        // Docs Category
+        { id: 'doc-1', title: 'Master Services Agreement & Enterprise SLA', subtitle: 'Apex Global SaaS contract terms, uptime guarantees & liability', category: 'Docs', icon: FileText, path: '/crm/search', tags: 'doc document contract sla legal apex pdf' },
+        { id: 'doc-2', title: 'Mutual NDA & Proprietary AI IP Protection Brief', subtitle: 'Trade secrets, neural gateway algorithms & diligence brief', category: 'Docs', icon: FileCheck, path: '/crm/search', tags: 'doc document nda legal attorney ip brief confidential' },
+        { id: 'doc-3', title: 'Cryptographic Audit Certificate (AES-256 Vault)', subtitle: 'Super Executive Admin Secured eBox encryption audit seal', category: 'Docs', icon: ShieldCheck, path: '/crm/ebox', tags: 'doc document audit security vault ebox encryption' },
 
-        { id: 'act-theme', title: 'Switch Color Theme (Dark / Light)', subtitle: `Currently set to ${theme} mode`, category: 'Quick Actions', icon: Sun, action: toggleTheme, tags: 'theme dark light mode color' },
-        { id: 'act-photo', title: 'Upload / Change Profile Picture', subtitle: 'Set custom avatar photo and update profile credentials', category: 'Quick Actions', icon: User, path: '/crm/profile', tags: 'pic photo avatar upload' },
+        // Tasks Category
+        { id: 'task-1', title: 'Finalize Attorney Diligence Exhibits with KT Team', subtitle: 'Priority: High • Due today • Assigned to Johnny (SEA)', category: 'Tasks', icon: CheckSquare, path: '/crm/tasks', tags: 'task todo attorney ktt dev pitch sea exhibits' },
+        { id: 'task-2', title: 'Follow up on Apex Global SaaS Contract Execution', subtitle: 'Priority: Urgent • Eleanor Vance procurement review', category: 'Tasks', icon: CheckSquare, path: '/crm/tasks', tags: 'task todo apex sales follow up' },
+        { id: 'task-3', title: 'Execute Multi-Warehouse Stock Audit (SO-2026-402)', subtitle: 'Priority: Medium • Austin Central Warehouse inspection', category: 'Tasks', icon: Boxes, path: '/crm/tasks', tags: 'task todo erp warehouse stock audit' },
+
+        // Files Category
+        { id: 'file-1', title: 'Master_Roadmap_V3.pdf (2.4 MB)', subtitle: 'Q3/Q4 Enterprise software delivery timeline and sprint deck', category: 'Files', icon: FileText, path: '/crm/ebox', tags: 'file pdf roadmap download v3 presentation deck' },
+        { id: 'file-2', title: 'Enterprise_Pricing_Matrix_2026.xlsx (1.2 MB)', subtitle: 'Tiered multi-seat enterprise software license matrix', category: 'Files', icon: DollarSign, path: '/crm/search', tags: 'file excel pricing rates matrix sheet' },
+        { id: 'file-3', title: 'Logo_Brand_Asset_Pack_Digital_Glow.zip (14.8 MB)', subtitle: 'High-resolution digital plasma energy logos & marketing SVG/PNG', category: 'Files', icon: Download, path: '/crm/search', tags: 'file zip logo assets brand digital energy vector' },
+
+        { id: 'contact-sarah', title: 'Sarah Jenkins (VP of Sales)', subtitle: 's.jenkins@nergy.io • Lead Manager & Deal Closer', category: 'Contacts', icon: Users, path: '/crm/contacts', tags: 'sarah sales vp email' },
+        { id: 'contact-david', title: 'David Chen (Finance Director)', subtitle: 'd.chen@nergy.io • Lead Controller & Treasury Audit', category: 'Contacts', icon: Users, path: '/crm/contacts', tags: 'david finance director controller' },
+        { id: 'contact-elena', title: 'Elena Rostova (HR Manager)', subtitle: 'e.rostova@nergy.io • Talent Acquisition Lead', category: 'Contacts', icon: Users, path: '/crm/contacts', tags: 'elena hr recruiting staff' },
+
+        // Others Category
+        { id: 'oth-search', title: 'Internal AI Search Cognitive Engine', subtitle: 'Deep semantic neural RAG search bar across all workspaces', category: 'Others', icon: Search, path: '/crm/search', tags: 'others search rag cognitive neural engine' },
+        { id: 'oth-voice', title: 'AI Voice Agent Streaming Terminal', subtitle: 'Real-time STT ➔ LLM ➔ TTS speech streaming pipeline', category: 'Others', icon: Zap, path: '/crm/ai-voice', tags: 'others voice agent mic audio stream pipeline' },
+        { id: 'act-theme', title: 'Switch Color Theme (Dark / Light)', subtitle: `Currently set to ${theme} mode`, category: 'Others', icon: Sun, action: toggleTheme, tags: 'theme dark light mode color' },
+        { id: 'act-photo', title: 'Upload / Change Profile Picture', subtitle: 'Set custom avatar photo and update profile credentials', category: 'Others', icon: User, path: '/crm/profile', tags: 'pic photo avatar upload' },
       ];
     }
 
@@ -328,15 +346,15 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
         />
       </div>
 
-      {/* Middle: Crisp Global Search Input */}
-      <div className="hidden-mobile flex-1" style={{ maxWidth: '420px', margin: '0 1.5rem' }}>
+      {/* Middle: Internal Search Engine Bar */}
+      <div className="hidden-mobile flex-1" style={{ maxWidth: '480px', margin: '0 1.25rem' }}>
         <button
           type="button"
           onClick={() => setIsSearchOpen(true)}
           className="w-full flex items-center justify-between transition-all"
           style={{
             height: '38px',
-            padding: '0 1.15rem',
+            padding: '0 0.95rem',
             cursor: 'pointer',
             backgroundColor: 'var(--surface-secondary)',
             border: '1px solid var(--border)',
@@ -352,31 +370,48 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
             e.currentTarget.style.borderColor = 'var(--border)';
             e.currentTarget.style.backgroundColor = 'var(--surface-secondary)';
           }}
+          title="Internal Search Engine: Search docs, tasks, files and others with AI"
         >
-          <div className="flex items-center gap-3">
-            <Search size={15} style={{ color: 'var(--text-secondary)', flexShrink: 0 }} />
-            <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>
-              {t('Search...')}
+          <div className="flex items-center gap-2.5 overflow-hidden">
+            <Search size={15} style={{ color: '#0ea5e9', flexShrink: 0 }} />
+            <span style={{ fontSize: '12.5px', color: 'var(--text-secondary)', fontWeight: 500, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              Search docs, tasks, files and others with AI...
             </span>
           </div>
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 600,
-              color: 'var(--text-tertiary)',
-              backgroundColor: 'var(--surface)',
-              padding: '2px 6px',
-              borderRadius: '5px',
-              border: '1px solid var(--border)',
-              fontFamily: 'var(--font-mono)',
-              lineHeight: 1,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            ⌘K
-          </span>
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <span
+              style={{
+                fontSize: '9px',
+                fontWeight: 800,
+                color: '#ffffff',
+                background: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)',
+                padding: '2px 5px',
+                borderRadius: '4px',
+                letterSpacing: '0.04em',
+                lineHeight: 1,
+              }}
+            >
+              AI
+            </span>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--text-tertiary)',
+                backgroundColor: 'var(--surface)',
+                padding: '2px 5px',
+                borderRadius: '5px',
+                border: '1px solid var(--border)',
+                fontFamily: 'var(--font-mono)',
+                lineHeight: 1,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              ⌘K
+            </span>
+          </div>
         </button>
       </div>
 
@@ -644,23 +679,37 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
                 backgroundColor: 'var(--surface)',
               }}
             >
-              <Search size={20} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+              <Search size={20} style={{ color: '#0ea5e9', flexShrink: 0 }} />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
+                placeholder="Search docs, tasks, files and others with AI..."
                 style={{
                   width: '100%',
                   border: 'none',
                   outline: 'none',
                   backgroundColor: 'transparent',
                   color: 'var(--text-primary)',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: 500,
                 }}
               />
+              <span
+                style={{
+                  fontSize: '10px',
+                  fontWeight: 800,
+                  color: '#ffffff',
+                  background: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)',
+                  padding: '3px 8px',
+                  borderRadius: '6px',
+                  letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                AI SEARCH
+              </span>
               {searchQuery && (
                 <button
                   type="button"

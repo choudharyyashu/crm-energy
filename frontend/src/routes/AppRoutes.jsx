@@ -56,6 +56,7 @@ import { SupportChat, SupportKb, SupportReports } from '../pages/crm/support/Sup
 // Phase 5 AI SuperHouse & Extended Modules
 import { CrmAiStudio } from '../pages/crm/CrmAiStudio';
 import { BestieAi } from '../pages/crm/ai/BestieAi';
+import { AiVoiceAgent } from '../pages/crm/ai/AiVoiceAgent';
 import { AiVideoAgent } from '../pages/crm/ai/AiVideoAgent';
 import { AiMarketing } from '../pages/crm/ai/AiMarketing';
 import { TerritoryManagement } from '../pages/crm/territory/TerritoryManagement';
@@ -197,6 +198,7 @@ export const AppRoutes = () => {
 
           {/* AI SuperHouse & Extended Modules */}
           <Route path="/crm/bestie" element={<BestieAi />} />
+          <Route path="/crm/ai-voice" element={<AiVoiceAgent />} />
           <Route path="/crm/ai-studio" element={<CrmAiStudio />} />
           <Route path="/crm/ai-video" element={<AiVideoAgent />} />
           <Route path="/crm/marketing" element={<AiMarketing />} />

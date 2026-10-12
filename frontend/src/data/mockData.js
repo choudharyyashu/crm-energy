@@ -21,6 +21,7 @@ import {
   BookOpen,
   MapPin,
   Bot,
+  Mic,
   Video,
   Megaphone,
   Grid,
@@ -44,6 +45,7 @@ export const crmNavigation = [
 
   // AI SuperHouse
   { id: 'bestie', label: 'Bestie AI Agent', icon: Bot, path: '/crm/bestie', section: 'AI SuperHouse' },
+  { id: 'ai-voice', label: 'AI Voice Agent', icon: Mic, path: '/crm/ai-voice', section: 'AI SuperHouse' },
   { id: 'ai', label: 'AI Content Studio', icon: Sparkles, path: '/crm/ai-studio', section: 'AI SuperHouse' },
   { id: 'ai-video', label: 'AI Video Agent', icon: Video, path: '/crm/ai-video', section: 'AI SuperHouse' },
   { id: 'marketing', label: 'AI Marketing Hub', icon: Megaphone, path: '/crm/marketing', section: 'AI SuperHouse' },
