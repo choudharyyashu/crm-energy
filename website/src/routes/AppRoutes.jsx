@@ -22,6 +22,7 @@ export const AppRoutes = () => {
         <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
         <Route path="/solutions/startups" element={<StartupsCrmPage />} />
         <Route path="/solutions/midsize" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
         <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
         <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
         <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />

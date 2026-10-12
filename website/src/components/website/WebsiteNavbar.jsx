@@ -590,7 +590,7 @@ export const WebsiteNavbar = ({
           <div
             onClick={() => {
               setActiveMenu(null);
-              navigate('/oal');
+              window.location.href = `${CRM_APP_URL}/oal`;
             }}
             style={{
               display: 'flex',
