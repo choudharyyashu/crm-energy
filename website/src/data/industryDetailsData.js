@@ -1,6 +1,17 @@
 // Enriched Industry Details from Client Attachment Documents
 export const INDUSTRY_CLIENT_DETAILS = {
   "automotive": {
+    "title": "Automotive Industry",
+    "titleEs": "Industria Automotriz",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Auto Repair Workshops & Service Garages",
+      "New & Used Vehicle Dealerships",
+      "Electric Vehicle (EV) Manufacturers",
+      "Commercial Fleet Operators & Logistics",
+      "Auto Parts Wholesalers & Retail Networks",
+      "Vehicle Import / Export Brokers"
+    ],
     "overview": "CRM nErgy software for the Automotive Industry enables businesses to deliver a branded customer experience using a fully built CRM platform. It supports auto repair workshops, car dealerships, EV manufacturers, fleet operators, import/export businesses, parts retailers, and more.",
     "capabilities": [
       "Streamline service management, job tracking, and customer support.",
@@ -27,6 +38,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "construction": {
+    "title": "Construction Industry",
+    "titleEs": "Industria de la Construcción",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "General Contractors & Project Directors",
+      "Commercial & Residential Builders",
+      "Home & Commercial Remodeling Companies",
+      "Specialty Trade & Mechanical Subcontractors",
+      "Heavy Civil & Infrastructure Engineers",
+      "Material Suppliers & Equipment Leasing"
+    ],
     "overview": "CRM nErgy software for the Construction Industry and related services such as contractors, builders, remodeling companies, and specialty trade contractors, can use the CRM system to manage client relationships, project details, and communication more effectively.",
     "capabilities": [
       "Adapt the platform to match the company’s brand, workflows, services, and customer journey.",
@@ -50,6 +72,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "consulting-firms": {
+    "title": "Consulting Firms",
+    "titleEs": "Firmas de Consultoría",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Management & Strategy Consultancies",
+      "Corporate Legal Practices & Law Firms",
+      "Accounting, Audit & Tax Advisory",
+      "Environmental & Sustainability Engineering",
+      "IT Systems, Cloud & Enterprise Implementation",
+      "Marketing, Brand & Growth Advisory"
+    ],
     "overview": "CRM nErgy software for Consulting FirmsCRM nErgy software supports consulting firms in business, legal, accounting, environmental, and IT services by helping them manage client relationships, organize customer data, streamline workflows, improve communication, and convert more leads.CRM vs. ERPCRM systems focus on strengthening client relationships and increasing sales, while ERP systems improve internal operations and efficiency. Combined System BenefitsBy bringing the ERP and CRM systems together, AAI SynErgy software can help strengthen productivity and improve client service.",
     "capabilities": [
       "Oversee client matters, communications, case information, and billing.",
@@ -97,6 +130,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "e-commerce": {
+    "title": "E-commerce Industry",
+    "titleEs": "Industria del Comercio Electrónico",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Direct-to-Consumer (D2C) Retail Brands",
+      "Subscription Box & Membership Commerce",
+      "Multi-Vendor B2B & B2C Marketplaces",
+      "Digital Downloads, SaaS & Digital Products",
+      "Cross-Border International Sellers",
+      "Omnichannel Brand Retailing"
+    ],
     "overview": "Ecommerce businesses use CRM nErgy systems to manage customer relationships and sales activity, while ERP systems support back-office operations such as inventory, finance, and supply chain management. Connecting the two helps streamline workflows and improve data accuracy. CRM nErgy software for  E-Commerce Businesses—including online retailers, subscription services, and marketplaces—use CRM software to organize customer data, strengthen relationships, and improve sales workflows. By centralizing customer interactions and automating marketing tasks, CRM tools help teams operate more efficiently.",
     "capabilities": [
       "Sell physical products directly to customers online.",
@@ -158,6 +202,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "education": {
+    "title": "Education Industry",
+    "titleEs": "Sector Educativo",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Universities & Higher Education Colleges",
+      "K-12 Private & International Academies",
+      "Vocational, Trade & Technical Institutes",
+      "Coaching & Competitive Test Prep Centers",
+      "Online EdTech & Digital Learning Platforms",
+      "Corporate Training & Continuing Education"
+    ],
     "overview": "CRM nErgy software for Education Providers and related entities such as schools, universities, coaching institutes, and educational service providers. These organizations use CRM and ERP systems to manage relationships with students, parents, and alumni throughout the full student lifecycle—from inquiry and enrollment to engagement and long-term follow-up.",
     "capabilities": [
       "Strengthen communication among students, parents, faculty, and administrative teams.",
@@ -223,6 +278,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "entertainment": {
+    "title": "Entertainment Industry",
+    "titleEs": "Industria del Entretenimiento",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Streaming Platforms & OTT Video Networks",
+      "Film & Television Production Studios",
+      "Music Labels & Artist Talent Management",
+      "Event Promoters, Festivals & Live Concerts",
+      "Gaming Studios, Esports & Digital Creator Hubs",
+      "Venues, Theaters & Entertainment Arenas"
+    ],
     "overview": "CRM nErgy software helps entertainment businesses—including streaming platforms, film production companies, music labels, event planners, gaming companies, promoters, and venues—manage clients, customers, daily operations, events, commissions, and more.",
     "capabilities": [
       "Adapt to business needs, enabling more relevant client solutions.",
@@ -267,6 +333,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "financial-services": {
+    "title": "Financial Services Industry",
+    "titleEs": "Servicios Financieros",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Commercial, Retail & Digital Challenger Banks",
+      "Wealth & Private Asset Management Firms",
+      "Registered Investment Advisors (RIAs)",
+      "Mortgage Lending & Underwriting Originators",
+      "Credit Unions & Community Financial Institutions",
+      "FinTech Platforms & Payment Solution Gateways"
+    ],
     "overview": "CRM nErgy software for Financial Services, including banks, insurance providers, financial advisors, and investment firms—use the AAI SynErgy Financial Service software to manage client relationships, organize data, and improve customer relations. When CRM and ERP systems work together through the unified AAI SynErgy platform, these organizations gain a 360° view of client interactions and business operations.",
     "capabilities": [
       "Maintain detailed transaction records for regulatory compliance and internal audits.",
@@ -342,6 +419,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "healthcare": {
+    "title": "Healthcare Services Industry",
+    "titleEs": "Servicios de Salud y Hospitalarios",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Hospitals & Regional Medical Center Networks",
+      "Multi-Specialty & Outpatient Surgical Clinics",
+      "Diagnostic, Pathology & Clinical Laboratories",
+      "Private Physician & Dental Group Practices",
+      "Telemedicine & Virtual Care Providers",
+      "Rehabilitation, Therapy & Long-Term Care Centers"
+    ],
     "overview": "CRM nErgy software for Healthcare Organizations, healthcare industry, including hospitals, clinics, medical labs, research centers, and care providers—use CRM nErgy and AAI SynErgy software to manage patient relationships, improve communication, streamline operations, and support better care experiences.",
     "capabilities": [
       "Align staffing levels with patient demand and resource availability.",
@@ -423,6 +511,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "hospitality": {
+    "title": "Hospitality Industry",
+    "titleEs": "Industria Hotelera y Turística",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Luxury Hotels & Full-Service Destination Resorts",
+      "Boutique Hostels & Bed & Breakfasts (B&Bs)",
+      "Short-Term Vacation Rentals & AirBnB Property Portfolios",
+      "Fine Dining Restaurants & Multi-Unit Restaurant Groups",
+      "Convention Centers & Luxury Event Venues",
+      "Inns, Lodges & Concierge Travel Agencies"
+    ],
     "overview": "CRM nErgy software is commonly used across the Hospitality Industry to manage guest relationships, support targeted marketing, and improve service delivery. Typical users include Hotels, Resorts, Hostels, Property Management Companies, Short-Term Rental Operators, Air BnBs, B&Bs, Inns and Restaurants.",
     "capabilities": [
       "Automate routine tasks so staff can focus on guest service and revenue.",
@@ -463,6 +562,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "insurance": {
+    "title": "Insurance Industry",
+    "titleEs": "Industria de Seguros",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Independent Insurance Agencies & Brokerages",
+      "Commercial Lines Broker-Dealers",
+      "Managing General Agents (MGAs)",
+      "Direct Insurance Carriers & Underwriters",
+      "Third-Party Claims Administration Networks (TPAs)",
+      "Life, Health, Property & Casualty Specialists"
+    ],
     "overview": "CRM nErgy software is widely used in the insurance industry by brokers, agencies, carriers, and MGAs to manage client relationships and automate key workflows.",
     "capabilities": [
       "Automate routine tasks so agents can spend more time with clients.",
@@ -510,6 +620,17 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   },
   "professional-services": {
+    "title": "Professional Services Firms",
+    "titleEs": "Servicios Profesionales",
+    "tagline": "CRM Solutions Every Business Needs",
+    "subSectors": [
+      "Accounting & Certified CPA Firms",
+      "Law Firms & Corporate Legal Practices",
+      "Consulting Agencies & Management Advisory",
+      "Engineering & Architecture Firms",
+      "Managed IT & Cloud Technology Providers",
+      "Full-Service Marketing & Creative Agencies"
+    ],
     "overview": "CRM nErgy (PSA) software for Professional Services Automation helps manage projects, resources, and billing for accounting firms, law firms, consulting agencies, and engineering companies. This software is designed for product-centric businesses focusing on finance and operations.",
     "capabilities": [
       "Accounting Firms: Centralizes client records, financial details, deadlines, and compliance tasks.",
@@ -561,4 +682,3 @@ export const INDUSTRY_CLIENT_DETAILS = {
     ]
   }
 };
-
