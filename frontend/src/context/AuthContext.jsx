@@ -458,11 +458,19 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async (mode = 'crm') => {
     if (mode === 'crm') {
-      await authService.logout();
+      try {
+        await authService.logout();
+      } catch (_) {}
       setIsCrmAuthenticated(false);
+      setCrmUser(null);
       localStorage.removeItem('crm_token');
+      localStorage.removeItem('crm_user');
+      localStorage.removeItem('crm_is_authenticated');
     } else {
       setIsOalAuthenticated(false);
+      setOalUser(null);
+      localStorage.removeItem('oal_user');
+      localStorage.removeItem('oal_is_authenticated');
     }
   };
 

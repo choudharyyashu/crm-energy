@@ -204,8 +204,10 @@ export const CrmContactDetail = () => {
             <CardHeader title="Contact Metadata & Ownership" />
             <CardBody className="flex flex-col gap-0 text-xs">
               <div className="flex items-center justify-between py-2.5">
-                <span style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>Record ID:</span>
-                <span className="font-mono text-primary font-semibold" style={{ fontSize: '13px' }}>{contact?.id}</span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>Contact ID:</span>
+                <span className="font-mono text-primary font-semibold" style={{ fontSize: '13px' }} title={`Database ID: ${contact?.id}`}>
+                  {contact?.displayId || contact?.id}
+                </span>
               </div>
               <div className="flex items-center justify-between py-2.5">
                 <span style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>Account Owner:</span>

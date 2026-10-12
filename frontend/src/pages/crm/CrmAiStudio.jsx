@@ -45,6 +45,100 @@ import { useNavigate } from 'react-router-dom';
 import { generateStudioContent } from '../../services/geminiService';
 import { generateElevenLabsSpeech, ELEVEN_VOICES, stopBrowserSpeech, playWithWebSpeech } from '../../services/elevenLabsService';
 
+const categoryThemeMap = {
+  'AI Agent': {
+    primary: '#6366f1',
+    gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    bgTint: 'rgba(99, 102, 241, 0.06)',
+    border: 'rgba(99, 102, 241, 0.22)',
+    badgeBg: 'rgba(99, 102, 241, 0.1)',
+    text: '#4f46e5',
+    glow: 'rgba(99, 102, 241, 0.22)',
+  },
+  'Video Production': {
+    primary: '#0284c7',
+    gradient: 'linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)',
+    bgTint: 'rgba(6, 182, 212, 0.06)',
+    border: 'rgba(6, 182, 212, 0.22)',
+    badgeBg: 'rgba(6, 182, 212, 0.1)',
+    text: '#0284c7',
+    glow: 'rgba(6, 182, 212, 0.22)',
+  },
+  'Voice & Speech': {
+    primary: '#059669',
+    gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+    bgTint: 'rgba(16, 185, 129, 0.06)',
+    border: 'rgba(16, 185, 129, 0.22)',
+    badgeBg: 'rgba(16, 185, 129, 0.1)',
+    text: '#059669',
+    glow: 'rgba(16, 185, 129, 0.22)',
+  },
+  'Audio & Music': {
+    primary: '#e11d48',
+    gradient: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
+    bgTint: 'rgba(244, 63, 94, 0.06)',
+    border: 'rgba(244, 63, 94, 0.22)',
+    badgeBg: 'rgba(244, 63, 94, 0.1)',
+    text: '#e11d48',
+    glow: 'rgba(244, 63, 94, 0.22)',
+  },
+  'Image Studio': {
+    primary: '#d97706',
+    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    bgTint: 'rgba(245, 158, 11, 0.06)',
+    border: 'rgba(245, 158, 11, 0.22)',
+    badgeBg: 'rgba(245, 158, 11, 0.1)',
+    text: '#d97706',
+    glow: 'rgba(245, 158, 11, 0.22)',
+  },
+  'Avatar & 3D': {
+    primary: '#7c3aed',
+    gradient: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)',
+    bgTint: 'rgba(168, 85, 247, 0.06)',
+    border: 'rgba(168, 85, 247, 0.22)',
+    badgeBg: 'rgba(168, 85, 247, 0.1)',
+    text: '#7c3aed',
+    glow: 'rgba(168, 85, 247, 0.22)',
+  },
+  'Branding': {
+    primary: '#ea580c',
+    gradient: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+    bgTint: 'rgba(249, 115, 22, 0.06)',
+    border: 'rgba(249, 115, 22, 0.22)',
+    badgeBg: 'rgba(249, 115, 22, 0.1)',
+    text: '#ea580c',
+    glow: 'rgba(249, 115, 22, 0.22)',
+  },
+  'Automations': {
+    primary: '#16a34a',
+    gradient: 'linear-gradient(135deg, #84cc16 0%, #16a34a 100%)',
+    bgTint: 'rgba(132, 204, 22, 0.06)',
+    border: 'rgba(132, 204, 22, 0.22)',
+    badgeBg: 'rgba(132, 204, 22, 0.1)',
+    text: '#16a34a',
+    glow: 'rgba(132, 204, 22, 0.22)',
+  },
+  'Model Training': {
+    primary: '#9333ea',
+    gradient: 'linear-gradient(135deg, #c084fc 0%, #9333ea 100%)',
+    bgTint: 'rgba(192, 132, 252, 0.06)',
+    border: 'rgba(192, 132, 252, 0.22)',
+    badgeBg: 'rgba(192, 132, 252, 0.1)',
+    text: '#9333ea',
+    glow: 'rgba(192, 132, 252, 0.22)',
+  },
+};
+
+const defaultTheme = {
+  primary: '#0284c7',
+  gradient: 'linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)',
+  bgTint: 'rgba(6, 182, 212, 0.06)',
+  border: 'rgba(6, 182, 212, 0.22)',
+  badgeBg: 'rgba(6, 182, 212, 0.1)',
+  text: '#0284c7',
+  glow: 'rgba(6, 182, 212, 0.22)',
+};
+
 export const CrmAiStudio = () => {
   const { addToast } = useToast();
   const { refreshDeals, refreshActivities } = useCrm();
@@ -99,6 +193,7 @@ export const CrmAiStudio = () => {
     : subStudios.filter((s) => s.category === selectedCategory);
 
   const activeStudioObj = subStudios.find((s) => s.id === activeStudio) || subStudios[0];
+  const activeTheme = categoryThemeMap[activeStudioObj.category] || defaultTheme;
 
   const [monitorTab, setMonitorTab] = useState('output'); // 'output' | 'viewport'
   const [copiedText, setCopiedText] = useState(false);
@@ -343,86 +438,98 @@ export const CrmAiStudio = () => {
       color: '#1e293b',
       fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-      {/* 1. Nova Drive Themed Premium Banner / Header */}
+      {/* 1. Executive Multi-Modal AI Studio Command Deck */}
       <div style={{
-        background: 'linear-gradient(135deg, #006742 0%, #004d31 100%)',
-        borderRadius: '20px',
-        padding: '24px 28px',
+        background: 'linear-gradient(135deg, #090e17 0%, #0f172a 45%, #1e1b4b 100%)',
+        borderRadius: '24px',
+        padding: '28px 32px',
         color: '#ffffff',
-        boxShadow: '0 12px 28px -6px rgba(0, 103, 66, 0.35)',
+        boxShadow: '0 18px 40px -10px rgba(15, 23, 42, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
-        gap: '18px',
+        gap: '22px',
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Ambient watermark glow */}
+        {/* Ambient luminous glow spots */}
         <div style={{
           position: 'absolute',
-          right: '-40px',
-          top: '-40px',
-          width: '240px',
-          height: '240px',
+          top: '-60px',
+          right: '8%',
+          width: '320px',
+          height: '320px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.28) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '-60px',
+          left: '4%',
+          width: '280px',
+          height: '280px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '780px' }}>
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
             fontSize: '11px',
             fontWeight: 800,
-            letterSpacing: '1.2px',
+            letterSpacing: '1px',
             textTransform: 'uppercase',
-            color: '#a7f3d0',
-            marginBottom: '6px',
+            color: '#67e8f9',
+            padding: '4px 12px',
+            borderRadius: '20px',
+            backgroundColor: 'rgba(6, 182, 212, 0.12)',
+            border: '1px solid rgba(6, 182, 212, 0.25)',
+            marginBottom: '10px',
           }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#34d399', boxShadow: '0 0 10px #34d399' }} />
-            REAL-TIME AI PRODUCTION FEED • OPERATIONS CENTER
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22d3ee', boxShadow: '0 0 10px #22d3ee' }} />
+            <span>AI SuperHouse • Multi-Modal Studio Engine</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <h1 style={{
-              fontSize: '28px',
-              fontWeight: 900,
-              letterSpacing: '-0.5px',
-              margin: 0,
-              color: '#ffffff',
-            }}>
-              AI CONTENT STUDIO & PRODUCTION LABS
-            </h1>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '4px 12px',
-              borderRadius: '20px',
-              fontSize: '11px',
-              fontWeight: 800,
-              letterSpacing: '0.6px',
-              textTransform: 'uppercase',
-              backgroundColor: 'rgba(255, 255, 255, 0.18)',
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              backdropFilter: 'blur(8px)',
-            }}>
-              <Sparkles size={12} />
-              15 Specialized Studios
-            </span>
-          </div>
+          <h1 style={{
+            fontSize: '28px',
+            fontWeight: 900,
+            letterSpacing: '-0.6px',
+            margin: '0 0 8px 0',
+            background: 'linear-gradient(90deg, #ffffff 0%, #cbd5e1 60%, #93c5fd 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>
+            AI Content Studio & Production Labs
+          </h1>
 
-          <p style={{ fontSize: '13px', color: '#d1fae5', margin: '6px 0 0 0', maxWidth: '850px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '13.5px', color: '#94a3b8', margin: 0, lineHeight: 1.55 }}>
             Multi-modal generative engine: commercial cinema creation, talking avatars, neural voice synthesis, and sonic brand soundscapes.
           </p>
+
+          {/* Capability badges */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+              ⚡ 15 Specialized Studios
+            </span>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+              🎯 1.4s Tensor-Core Latency
+            </span>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+              🎙️ ElevenLabs Neural Audio
+            </span>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+              🎬 UltraCinema v4.2
+            </span>
+          </div>
         </div>
 
         {/* Action Header Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', position: 'relative', zIndex: 1, flexWrap: 'wrap' }}>
           <button
             type="button"
             onClick={() => navigate('/crm/bestie')}
@@ -430,21 +537,27 @@ export const CrmAiStudio = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 18px',
-              borderRadius: '12px',
-              fontSize: '12px',
-              fontWeight: 700,
-              backgroundColor: 'rgba(255, 255, 255, 0.14)',
+              padding: '11px 20px',
+              borderRadius: '13px',
+              fontSize: '12.5px',
+              fontWeight: 800,
+              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
               color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
               cursor: 'pointer',
-              backdropFilter: 'blur(8px)',
+              boxShadow: '0 8px 20px -4px rgba(99, 102, 241, 0.45)',
               transition: 'all 0.2s ease',
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.24)'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.14)'}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 10px 24px -4px rgba(99, 102, 241, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 20px -4px rgba(99, 102, 241, 0.45)';
+            }}
           >
-            <Sparkles size={14} color="#a7f3d0" />
+            <Sparkles size={15} />
             <span>Open Bestie AI</span>
           </button>
 
@@ -455,337 +568,213 @@ export const CrmAiStudio = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
-              borderRadius: '12px',
-              fontSize: '12px',
+              padding: '11px 22px',
+              borderRadius: '13px',
+              fontSize: '12.5px',
               fontWeight: 800,
-              backgroundColor: '#ffffff',
-              color: '#006742',
-              border: 'none',
+              background: 'linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
               cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+              boxShadow: '0 8px 20px -4px rgba(6, 182, 212, 0.45)',
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.25)';
+              e.currentTarget.style.boxShadow = '0 10px 24px -4px rgba(6, 182, 212, 0.6)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.15)';
+              e.currentTarget.style.boxShadow = '0 8px 20px -4px rgba(6, 182, 212, 0.45)';
             }}
           >
-            <Video size={14} color="#006742" />
+            <Video size={15} />
             <span>Launch 4-Step Video Agent</span>
           </button>
         </div>
       </div>
 
-      {/* Dynamic Keyframes & Hover Animations for Pic 1 Style Gradient Cards & 3D Isometric Cards */}
+      {/* Dynamic Keyframes & Studio Card Animations */}
       <style>{`
-        @keyframes float-bubble {
-          0%, 100% { transform: scale(1) translate(0, 0); }
-          50% { transform: scale(1.08) translate(-6px, -4px); }
-        }
-        .pic1-kpi-card {
+        .telemetry-kpi-card {
           position: relative;
-          overflow: hidden;
+          background-color: var(--surface, #ffffff);
           border-radius: 18px;
-          padding: 22px 24px;
+          padding: 20px 22px;
+          border: 1px solid var(--border, #e2e8f0);
+          box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+          overflow: hidden;
+          transition: all 0.25s ease;
+        }
+        .telemetry-kpi-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.08);
+          border-color: var(--border-strong, #cbd5e1) !important;
+        }
+        [data-theme="dark"] .telemetry-kpi-card {
+          background-color: var(--surface, #0f1523) !important;
+          border-color: var(--border, #1e293b) !important;
+          box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .studio-card-modern {
+          position: relative;
+          background-color: var(--surface, #ffffff);
+          border-radius: 18px;
+          padding: 18px 20px;
           display: flex;
           flex-direction: column;
           justifyContent: space-between;
-          min-height: 140px;
-          color: #ffffff;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          cursor: default;
-          border: none;
+          min-height: 204px;
+          cursor: pointer;
+          transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+          overflow: hidden;
+          border: 1px solid var(--border, #e2e8f0);
+          box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
         }
-        .pic1-kpi-card:hover {
-          transform: translateY(-6px) scale(1.015);
+        .studio-card-modern:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 16px 32px -6px rgba(15, 23, 42, 0.12);
         }
-        .pic1-watermark-1 {
-          position: absolute;
-          right: -30px;
-          bottom: -30px;
-          width: 140px;
-          height: 140px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.15);
-          pointer-events: none;
-          transition: all 0.4s ease;
+        .studio-card-modern.is-selected {
+          transform: translateY(-3px);
         }
-        .pic1-watermark-2 {
-          position: absolute;
-          right: 30px;
-          bottom: -60px;
-          width: 130px;
-          height: 130px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          pointer-events: none;
-          transition: all 0.4s ease;
+        [data-theme="dark"] .studio-card-modern {
+          background-color: var(--surface, #0f1523) !important;
+          border-color: var(--border, #1e293b) !important;
+          box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
         }
-        .pic1-kpi-card:hover .pic1-watermark-1 {
-          transform: scale(1.15) translate(-4px, -4px);
-        }
-        .pic1-kpi-card:hover .pic1-watermark-2 {
-          transform: scale(1.1) translate(6px, -2px);
+        [data-theme="dark"] .studio-card-modern:hover {
+          box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(99, 102, 241, 0.35) !important;
         }
 
-        /* 3D Isometric Perspective Card Styles Matching Reference - Compact & Responsive */
-        .card-3d-stage {
-          perspective: 1000px;
-          perspective-origin: center center;
-          padding: 4px 2px 10px 2px;
+        .category-nav-shell {
+          background-color: var(--surface, #ffffff);
+          border: 1px solid var(--border, #e2e8f0);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
-        .card-3d-container {
-          position: relative;
-          transform-style: preserve-3d;
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        [data-theme="dark"] .category-nav-shell {
+          background-color: var(--surface, #0f1523) !important;
+          border-color: var(--border, #1e293b) !important;
         }
-        /* Bottom Stacked Layer Underneath */
-        .card-3d-underlay {
-          position: absolute;
-          inset: 0;
-          border-radius: 18px;
-          background: #0f172a;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          transform: translate3d(-4px, 6px, -15px) rotateZ(-1.5deg);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
-          pointer-events: none;
-          z-index: 0;
-          overflow: hidden;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+        .studio-surface-card {
+          background-color: var(--surface, #ffffff);
+          border: 1px solid var(--border, #e2e8f0);
+          box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05);
         }
-        .card-3d-underlay-corner {
-          position: absolute;
-          bottom: -10px;
-          left: -10px;
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          background: #00e676;
+        [data-theme="dark"] .studio-surface-card {
+          background-color: var(--surface, #0f1523) !important;
+          border-color: var(--border, #1e293b) !important;
+          box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
         }
-        /* Main Floating 3D Card - Compact & Clean */
-        .card-3d-main {
-          position: relative;
-          z-index: 2;
-          background: #ffffff;
-          border-radius: 18px;
-          padding: 14px 14px;
-          border: 1.5px solid #e2e8f0;
-          box-shadow: -4px 8px 18px -2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
-          transform: rotateX(6deg) rotateY(-4deg) rotateZ(0.8deg);
-          transform-style: preserve-3d;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          cursor: pointer;
-          overflow: hidden;
+
+        .studio-action-idle {
+          background-color: var(--surface-secondary, #f8fafc);
+          border: 1px solid var(--border, #e2e8f0);
+          color: var(--text-primary, #334155);
         }
-        /* Interactive 3D Hover */
-        .card-3d-container:hover .card-3d-main {
-          transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-6px) scale(1.02);
-          box-shadow: 0 16px 30px -4px rgba(0, 103, 66, 0.22), 0 0 0 1px #006742;
-          border-color: #006742;
+        [data-theme="dark"] .studio-action-idle {
+          background-color: var(--surface-secondary, #161e31) !important;
+          border-color: var(--border, #1e293b) !important;
+          color: var(--text-primary, #f8fafc) !important;
         }
-        .card-3d-container:hover .card-3d-underlay {
-          transform: translate3d(-8px, 10px, -22px) rotateZ(-3deg);
-          box-shadow: 0 16px 26px rgba(0, 0, 0, 0.22);
-        }
-        .card-3d-main.is-active {
-          border-color: #006742;
-          box-shadow: 0 14px 28px -4px rgba(0, 103, 66, 0.26), 0 0 0 1.5px #006742;
-          transform: rotateX(2deg) rotateY(-1.5deg) rotateZ(0.3deg) translateY(-3px);
+
+        [data-theme="dark"] textarea,
+        [data-theme="dark"] select {
+          background-color: var(--surface-secondary, #161e31) !important;
+          color: var(--text-primary, #f8fafc) !important;
+          border-color: var(--border, #1e293b) !important;
         }
       `}</style>
 
-      {/* 2. KPI Cards Strip - Pic 1 Vibrant Animated Gradient Cards */}
+      {/* 2. Telemetry Metrics Cards */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: '18px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+        gap: '16px',
         width: '100%',
       }}>
-        {/* KPI 1: Coral / Peach Gradient (#FE9496 to #ff7582) */}
-        <div
-          className="pic1-kpi-card"
-          style={{
-            background: 'linear-gradient(135deg, #fe9496 0%, #ff6b7a 100%)',
-            boxShadow: '0 10px 25px -4px rgba(254, 148, 150, 0.45)',
-          }}
-        >
-          <div className="pic1-watermark-1" />
-          <div className="pic1-watermark-2" />
-
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255, 255, 255, 0.9)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
-              TOTAL STUDIOS
-            </span>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.22)',
-              backdropFilter: 'blur(4px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-            }}>
-              <Sparkles size={18} />
+        {/* KPI 1 */}
+        <div className="telemetry-kpi-card">
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>TOTAL STUDIOS</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(99, 102, 241, 0.12)', color: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Sparkles size={17} />
             </div>
           </div>
-
-          <div style={{ position: 'relative', zIndex: 1, marginTop: '8px' }}>
-            <div style={{ fontSize: '28px', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.5px' }}>
-              15 Sub-Studios
-            </div>
-            <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'rgba(255, 255, 255, 0.95)', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-              <span>All Neural Cores Online</span>
-            </div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>15 Sub-Studios</div>
+          <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#10b981', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+            <span>All Neural Cores Online</span>
           </div>
         </div>
 
-        {/* KPI 2: Sky Blue Gradient (#4BCBEB to #268bf0) */}
-        <div
-          className="pic1-kpi-card"
-          style={{
-            background: 'linear-gradient(135deg, #4bcbeb 0%, #1e87f0 100%)',
-            boxShadow: '0 10px 25px -4px rgba(75, 203, 235, 0.45)',
-          }}
-        >
-          <div className="pic1-watermark-1" />
-          <div className="pic1-watermark-2" />
-
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255, 255, 255, 0.9)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
-              AUDIO / VIDEO RENDERS
-            </span>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.22)',
-              backdropFilter: 'blur(4px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-            }}>
-              <Video size={18} />
+        {/* KPI 2 */}
+        <div className="telemetry-kpi-card">
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #06b6d4, #0284c7)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>AUDIO / VIDEO RENDERS</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(6, 182, 212, 0.12)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Video size={17} />
             </div>
           </div>
-
-          <div style={{ position: 'relative', zIndex: 1, marginTop: '8px' }}>
-            <div style={{ fontSize: '28px', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.5px' }}>
-              1,840 Assets
-            </div>
-            <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'rgba(255, 255, 255, 0.95)', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-              <Activity size={13} />
-              <span>+24% output this week</span>
-            </div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>1,840 Assets</div>
+          <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0284c7', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+            <Activity size={13} />
+            <span>+24% output this week</span>
           </div>
         </div>
 
-        {/* KPI 3: Purple / Violet Gradient (#A05AFF to #7c3aed) */}
-        <div
-          className="pic1-kpi-card"
-          style={{
-            background: 'linear-gradient(135deg, #a05aff 0%, #7026e8 100%)',
-            boxShadow: '0 10px 25px -4px rgba(160, 90, 255, 0.45)',
-          }}
-        >
-          <div className="pic1-watermark-1" />
-          <div className="pic1-watermark-2" />
-
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255, 255, 255, 0.9)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
-              AVG RENDER LATENCY
-            </span>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.22)',
-              backdropFilter: 'blur(4px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-            }}>
-              <Zap size={18} />
+        {/* KPI 3 */}
+        <div className="telemetry-kpi-card">
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #f59e0b, #ea580c)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>AVG RENDER LATENCY</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Zap size={17} />
             </div>
           </div>
-
-          <div style={{ position: 'relative', zIndex: 1, marginTop: '8px' }}>
-            <div style={{ fontSize: '28px', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.5px' }}>
-              1.4 Seconds
-            </div>
-            <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'rgba(255, 255, 255, 0.95)', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-              <span>Real-time Tensor Core GPU</span>
-            </div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>1.4 Seconds</div>
+          <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#d97706', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#f59e0b', boxShadow: '0 0 8px #f59e0b' }} />
+            <span>Real-time Tensor Core GPU</span>
           </div>
         </div>
 
-        {/* KPI 4: Mint / Teal Turquoise Gradient (#1BCFB4 to #0fa892) */}
-        <div
-          className="pic1-kpi-card"
-          style={{
-            background: 'linear-gradient(135deg, #1bcfb4 0%, #0fa892 100%)',
-            boxShadow: '0 10px 25px -4px rgba(27, 207, 180, 0.45)',
-          }}
-        >
-          <div className="pic1-watermark-1" />
-          <div className="pic1-watermark-2" />
-
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255, 255, 255, 0.9)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
-              STORAGE VAULT
-            </span>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.22)',
-              backdropFilter: 'blur(4px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-            }}>
-              <Database size={18} />
+        {/* KPI 4 */}
+        <div className="telemetry-kpi-card">
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #10b981, #059669)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>STORAGE VAULT</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.12)', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Database size={17} />
             </div>
           </div>
-
-          <div style={{ position: 'relative', zIndex: 1, marginTop: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '28px', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.5px' }}>482 GB</span>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255, 255, 255, 0.85)' }}>/ 2 TB (24%)</span>
-            </div>
-            {/* White translucent progress bar */}
-            <div style={{ width: '100%', height: '6px', backgroundColor: 'rgba(255, 255, 255, 0.25)', borderRadius: '4px', overflow: 'hidden', marginTop: '8px' }}>
-              <div style={{ width: '24%', height: '100%', backgroundColor: '#ffffff', borderRadius: '4px', boxShadow: '0 0 10px #ffffff' }} />
-            </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginTop: '10px' }}>
+            <span style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px' }}>482 GB</span>
+            <span style={{ fontSize: '11.5px', fontWeight: 800, color: 'var(--text-secondary, #64748b)' }}>/ 2 TB (24%)</span>
+          </div>
+          <div style={{ width: '100%', height: '6px', backgroundColor: 'var(--border, #e2e8f0)', borderRadius: '4px', overflow: 'hidden', marginTop: '10px' }}>
+            <div style={{ width: '24%', height: '100%', background: 'linear-gradient(90deg, #10b981, #059669)', borderRadius: '4px' }} />
           </div>
         </div>
       </div>
 
-      {/* 3. Category Filter Navigation Pills - #006742 Palette */}
-      <div style={{
+      {/* 3. Category Filter Navigation Segmented Control */}
+      <div className="category-nav-shell" style={{
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
         overflowX: 'auto',
-        padding: '6px',
+        padding: '6px 8px',
         borderRadius: '16px',
-        backgroundColor: '#ffffff',
-        border: '1px solid #e2e8f0',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
+        scrollbarWidth: 'none',
       }}>
         {categories.map((cat) => {
           const isCatActive = selectedCategory === cat;
+          const count = cat === 'All' ? subStudios.length : subStudios.filter((s) => s.category === cat).length;
           return (
             <button
               key={cat}
@@ -794,29 +783,29 @@ export const CrmAiStudio = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '8px 16px',
-                borderRadius: '12px',
+                gap: '7px',
+                padding: '8px 14px',
+                borderRadius: '11px',
                 fontSize: '12px',
                 fontWeight: isCatActive ? 800 : 600,
-                border: isCatActive ? '1px solid #006742' : '1px solid transparent',
-                backgroundColor: isCatActive ? '#006742' : 'transparent',
-                color: isCatActive ? '#ffffff' : '#64748b',
+                border: isCatActive ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
+                background: isCatActive ? 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' : 'transparent',
+                color: isCatActive ? '#ffffff' : 'var(--text-secondary, #64748b)',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease',
-                boxShadow: isCatActive ? '0 4px 12px rgba(0, 103, 66, 0.25)' : 'none',
+                boxShadow: isCatActive ? '0 4px 14px rgba(99, 102, 241, 0.35)' : 'none',
               }}
               onMouseEnter={(e) => {
                 if (!isCatActive) {
-                  e.currentTarget.style.backgroundColor = 'rgba(0, 103, 66, 0.06)';
-                  e.currentTarget.style.color = '#006742';
+                  e.currentTarget.style.backgroundColor = 'var(--surface-secondary, #f8fafc)';
+                  e.currentTarget.style.color = 'var(--text-primary, #0f172a)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isCatActive) {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#64748b';
+                  e.currentTarget.style.color = 'var(--text-secondary, #64748b)';
                 }
               }}
             >
@@ -830,6 +819,16 @@ export const CrmAiStudio = () => {
               {cat === 'Automations' && <Workflow size={13} />}
               {cat === 'Model Training' && <Cpu size={13} />}
               <span>{cat}</span>
+              <span style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                padding: '1px 6px',
+                borderRadius: '8px',
+                backgroundColor: isCatActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(128, 128, 128, 0.12)',
+                color: isCatActive ? '#ffffff' : 'var(--text-secondary, #64748b)',
+              }}>
+                {count}
+              </span>
             </button>
           );
         })}
@@ -837,182 +836,180 @@ export const CrmAiStudio = () => {
 
       {/* 4. The 15 Sub-Studio Grid */}
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', padding: '0 4px' }}>
-          <h2 style={{
-            fontSize: '13px',
-            fontWeight: 900,
-            color: '#006742',
-            textTransform: 'uppercase',
-            letterSpacing: '0.8px',
-            margin: 0,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
-            <span>SELECT PRODUCTION STUDIO</span>
-            <span style={{
-              backgroundColor: 'rgba(0, 103, 66, 0.1)',
-              color: '#006742',
-              padding: '2px 8px',
-              borderRadius: '6px',
-              fontSize: '11px',
-              fontWeight: 800,
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', padding: '0 4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h2 style={{
+              fontSize: '13.5px',
+              fontWeight: 900,
+              color: 'var(--text-primary, #0f172a)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.8px',
+              margin: 0,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
             }}>
-              {filteredStudios.length} Available
-            </span>
-          </h2>
-          <span style={{ fontSize: '11.5px', color: '#64748b' }}>Click any studio node to mount workspace</span>
+              <span>SELECT PRODUCTION STUDIO</span>
+              <span style={{
+                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                color: '#ffffff',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 800,
+                boxShadow: '0 2px 8px rgba(99, 102, 241, 0.25)',
+              }}>
+                {filteredStudios.length} Available
+              </span>
+            </h2>
+          </div>
+          <span style={{ fontSize: '11.5px', color: 'var(--text-secondary, #64748b)', fontWeight: 600 }}>Click any studio node to mount workspace</span>
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(215px, 1fr))',
-          gap: '14px',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(235px, 1fr))',
+          gap: '16px',
           width: '100%',
         }}>
           {filteredStudios.map((studio) => {
             const Icon = studio.icon;
             const isSelected = activeStudio === studio.id;
+            const theme = categoryThemeMap[studio.category] || defaultTheme;
+
             return (
-              <div key={studio.id} className="card-3d-stage">
-                <div
-                  className="card-3d-container"
-                  onClick={() => {
-                    setActiveStudio(studio.id);
-                    if (studio.id === 'bestie') navigate('/crm/bestie');
-                    if (studio.id === 'video-agent') navigate('/crm/ai-video');
-                  }}
-                >
-                  {/* Bottom Stacked 3D Card */}
-                  <div className="card-3d-underlay">
-                    <div className="card-3d-underlay-corner" />
+              <div
+                key={studio.id}
+                onClick={() => {
+                  setActiveStudio(studio.id);
+                  if (studio.id === 'bestie') navigate('/crm/bestie');
+                  if (studio.id === 'video-agent') navigate('/crm/ai-video');
+                }}
+                className={`studio-card-modern ${isSelected ? 'is-selected' : ''}`}
+                style={{
+                  border: isSelected ? `2px solid ${theme.primary}` : undefined,
+                  boxShadow: isSelected
+                    ? `0 14px 30px -4px ${theme.glow}, 0 0 0 1px ${theme.primary}`
+                    : undefined,
+                }}
+              >
+                {/* Luminous top accent strip */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3.5px',
+                  background: theme.gradient,
+                  opacity: isSelected ? 1 : 0.85,
+                }} />
+
+                {/* Subtle ambient corner radial glow */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-25px',
+                  right: '-25px',
+                  width: '90px',
+                  height: '90px',
+                  borderRadius: '50%',
+                  background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)`,
+                  pointerEvents: 'none',
+                  opacity: isSelected ? 0.9 : 0.4,
+                  transition: 'opacity 0.3s ease',
+                }} />
+
+                {/* Top Header: Icon + Rating Badge */}
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    {/* Domain Icon Container */}
+                    <div style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '12px',
+                      background: isSelected ? theme.gradient : theme.bgTint,
+                      border: `1px solid ${isSelected ? 'transparent' : theme.border}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: isSelected ? '#ffffff' : theme.primary,
+                      boxShadow: isSelected ? `0 6px 16px -2px ${theme.glow}` : 'none',
+                      transition: 'all 0.2s ease',
+                    }}>
+                      <Icon size={19} color={isSelected ? '#ffffff' : theme.primary} strokeWidth={2.4} />
+                    </div>
+
+                    {/* Compact Rating Tag */}
+                    <div style={{
+                      padding: '3px 9px',
+                      borderRadius: '20px',
+                      backgroundColor: theme.badgeBg,
+                      border: `1px solid ${theme.border}`,
+                      fontSize: '10px',
+                      fontWeight: 800,
+                      color: theme.text,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      letterSpacing: '0.2px',
+                    }}>
+                      <span style={{ fontSize: '9px' }}>★</span>
+                      <span>{studio.badge}</span>
+                    </div>
                   </div>
 
-                  {/* Top Main 3D Tilted Card */}
-                  <div className={`card-3d-main ${isSelected ? 'is-active' : ''}`}>
-                    {/* 1. Proportional Curved Green Circle Backdrop */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '-20px',
-                      right: '-20px',
-                      width: '85px',
-                      height: '85px',
-                      borderRadius: '50%',
-                      background: isSelected
-                        ? 'linear-gradient(135deg, #006742 0%, #00e676 100%)'
-                        : 'linear-gradient(135deg, rgba(0, 103, 66, 0.85) 0%, rgba(0, 230, 118, 0.75) 100%)',
-                      boxShadow: '0 4px 14px rgba(0, 103, 66, 0.2)',
-                      pointerEvents: 'none',
-                      zIndex: 0,
-                      transition: 'all 0.3s ease',
-                    }} />
+                  {/* Title & Description */}
+                  <div style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    color: 'var(--text-primary, #0f172a)',
+                    letterSpacing: '-0.3px',
+                    lineHeight: 1.3,
+                    marginBottom: '5px',
+                  }}>
+                    {studio.name}
+                  </div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: 'var(--text-secondary, #64748b)',
+                    lineHeight: 1.45,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}>
+                    {studio.desc}
+                  </div>
+                </div>
 
-                    {/* 2. Top Header with Icon & Rating Badge */}
-                    <div style={{ position: 'relative', zIndex: 1 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                        {/* Compact Icon */}
-                        <div style={{
-                          width: '34px',
-                          height: '34px',
-                          borderRadius: '10px',
-                          backgroundColor: '#ffffff',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          border: '1px solid rgba(255, 255, 255, 0.9)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#006742',
-                          transform: 'translateZ(14px)',
-                        }}>
-                          <Icon size={17} color="#006742" strokeWidth={2.4} />
-                        </div>
-
-                        {/* Compact Rating Tag */}
-                        <div style={{
-                          padding: '2px 8px',
-                          borderRadius: '14px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
-                          backdropFilter: 'blur(4px)',
-                          fontSize: '9.5px',
-                          fontWeight: 800,
-                          color: '#006742',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '3px',
-                          transform: 'translateZ(10px)',
-                        }}>
-                          <span style={{ color: '#006742' }}>★</span>
-                          <span>{studio.badge}</span>
-                        </div>
-                      </div>
-
-                      {/* Title & Description */}
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.2px', lineHeight: 1.25 }}>
-                        {studio.name}
-                      </div>
-                      <div style={{ fontSize: '10.5px', color: '#64748b', marginTop: '4px', lineHeight: 1.35, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {studio.desc}
-                      </div>
-                    </div>
-
-                    {/* 3. Compact Dual Pill Buttons */}
-                    <div style={{
-                      position: 'relative',
-                      zIndex: 1,
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: '6px',
-                      marginTop: '12px',
-                      paddingTop: '10px',
-                      borderTop: '1px solid #f1f5f9',
-                      transform: 'translateZ(10px)',
-                    }}>
-                      <button
-                        type="button"
-                        style={{
-                          padding: '5px 6px',
-                          borderRadius: '16px',
-                          border: 'none',
-                          backgroundColor: isSelected ? '#006742' : '#00e676',
-                          color: isSelected ? '#ffffff' : '#072418',
-                          fontSize: '10px',
-                          fontWeight: 800,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          boxShadow: '0 2px 8px rgba(0, 230, 118, 0.28)',
-                          transition: 'all 0.15s ease',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {isSelected ? '● Active' : 'Enter'}
-                      </button>
-
-                      <button
-                        type="button"
-                        style={{
-                          padding: '5px 6px',
-                          borderRadius: '16px',
-                          border: '1px solid #006742',
-                          backgroundColor: '#ffffff',
-                          color: '#006742',
-                          fontSize: '10px',
-                          fontWeight: 800,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '2px',
-                          transition: 'all 0.15s ease',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        <span>Launch</span>
-                        <ChevronRight size={10} />
-                      </button>
-                    </div>
+                {/* Footer Single High-Impact Button */}
+                <div style={{ position: 'relative', zIndex: 1, marginTop: '14px' }}>
+                  <div
+                    className={isSelected ? '' : 'studio-action-idle'}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 12px',
+                      borderRadius: '10px',
+                      background: isSelected ? theme.gradient : undefined,
+                      color: isSelected ? '#ffffff' : undefined,
+                      fontSize: '11px',
+                      fontWeight: 800,
+                      transition: 'all 0.2s ease',
+                      boxShadow: isSelected ? `0 4px 14px -2px ${theme.glow}` : 'none',
+                    }}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {isSelected ? (
+                        <>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
+                          <span>Active Studio</span>
+                        </>
+                      ) : (
+                        <span>Launch Studio</span>
+                      )}
+                    </span>
+                    <ChevronRight size={13} color={isSelected ? '#ffffff' : 'var(--text-secondary, #94a3b8)'} strokeWidth={2.4} />
                   </div>
                 </div>
               </div>
@@ -1028,56 +1025,110 @@ export const CrmAiStudio = () => {
         gap: '22px',
       }}>
         {/* Left Side: Production Lab */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          border: '1px solid #e2e8f0',
+        <div className="studio-surface-card" style={{
           borderRadius: '20px',
           padding: '24px',
-          boxShadow: '0 4px 16px -2px rgba(0, 103, 66, 0.06)',
+          boxShadow: `0 4px 20px -4px ${activeTheme.glow}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '18px',
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#006742' }} />
-              <span style={{ fontSize: '11px', fontWeight: 900, color: '#006742', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: activeTheme.primary }} />
+              <span style={{ fontSize: '11px', fontWeight: 900, color: activeTheme.primary, textTransform: 'uppercase', letterSpacing: '0.8px' }}>
                 PRODUCTION LAB WORKSTATION
               </span>
             </div>
-            <div style={{ fontSize: '20px', fontWeight: 900, color: '#0f172a', marginTop: '4px' }}>
+            <div style={{ fontSize: '20px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', marginTop: '4px' }}>
               {activeStudioObj.name}
             </div>
-            <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary, #64748b)', marginTop: '2px' }}>
               {activeStudioObj.desc}
             </div>
           </div>
 
-          {/* Model Preset Banner in #006742 */}
+          {/* Model Preset Banner */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '12px 16px',
             borderRadius: '12px',
-            backgroundColor: 'rgba(0, 103, 66, 0.06)',
-            border: '1px solid rgba(0, 103, 66, 0.2)',
+            backgroundColor: activeTheme.bgTint,
+            border: `1px solid ${activeTheme.border}`,
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 700, color: '#006742' }}>
-              <Sparkles size={15} color="#006742" />
-              <span>Configured Model: <strong style={{ color: '#006742' }}>{modelPreset}</strong></span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 700, color: activeTheme.text }}>
+              <Sparkles size={15} color={activeTheme.primary} />
+              <span>Configured Model: <strong style={{ color: activeTheme.primary }}>{modelPreset}</strong></span>
             </div>
-            <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', backgroundColor: '#006742', color: '#ffffff', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', background: activeTheme.gradient, color: '#ffffff', textTransform: 'uppercase' }}>
               {activeStudioObj.category}
             </span>
           </div>
 
           {/* Prompt Directives Box */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: 800, color: '#334155' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: 800, color: 'var(--text-primary, #334155)' }}>
               <span>Creative Prompt / Directives</span>
-              <span style={{ fontWeight: 500, color: '#64748b', fontSize: '11px' }}>{prompt.length} / 500 chars</span>
+              <span style={{ fontWeight: 500, color: 'var(--text-secondary, #64748b)', fontSize: '11px' }}>{prompt.length} / 500 chars</span>
             </div>
+
+            {/* Quick Inspiration Prompt Chips */}
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '4px' }}>
+              <button
+                type="button"
+                onClick={() => setPrompt(`Produce a sleek 4K cinema trailer for CRM nErgy platform highlighting enterprise logistics.`)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '7px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  backgroundColor: activeTheme.bgTint,
+                  color: activeTheme.text,
+                  border: `1px solid ${activeTheme.border}`,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                ✨ 4K Cinema Commercial
+              </button>
+              <button
+                type="button"
+                onClick={() => setPrompt(`Generate executive voiceover narration discussing high-value commercial enterprise accounts.`)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '7px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  backgroundColor: activeTheme.bgTint,
+                  color: activeTheme.text,
+                  border: `1px solid ${activeTheme.border}`,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                🎙️ Executive Narration
+              </button>
+              <button
+                type="button"
+                onClick={() => setPrompt(`High-energy sonic brand anthem score with modern electronic pulse and acoustic elements.`)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '7px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  backgroundColor: activeTheme.bgTint,
+                  color: activeTheme.text,
+                  border: `1px solid ${activeTheme.border}`,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                🎵 Sonic Brand Score
+              </button>
+            </div>
+
             <textarea
               rows={4}
               value={prompt}
@@ -1087,9 +1138,9 @@ export const CrmAiStudio = () => {
                 width: '100%',
                 padding: '14px',
                 borderRadius: '12px',
-                border: '1px solid #cbd5e1',
-                backgroundColor: '#f8fafc',
-                color: '#0f172a',
+                border: '1px solid var(--border, #cbd5e1)',
+                backgroundColor: 'var(--surface-secondary, #f8fafc)',
+                color: 'var(--text-primary, #0f172a)',
                 fontSize: '13px',
                 resize: 'none',
                 boxSizing: 'border-box',
@@ -1098,15 +1149,15 @@ export const CrmAiStudio = () => {
                 lineHeight: 1.5,
                 transition: 'border-color 0.2s ease',
               }}
-              onFocus={(e) => e.target.style.borderColor = '#006742'}
-              onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
+              onFocus={(e) => e.target.style.borderColor = activeTheme.primary}
+              onBlur={(e) => e.target.style.borderColor = 'var(--border, #cbd5e1)'}
             />
           </div>
 
           {/* Controls: Aspect Ratio & Preset */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 800, color: '#475569', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 800, color: 'var(--text-secondary, #475569)', marginBottom: '6px' }}>
                 Aspect Ratio / Format
               </label>
               <select
@@ -1116,9 +1167,9 @@ export const CrmAiStudio = () => {
                   width: '100%',
                   padding: '10px 12px',
                   borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  backgroundColor: '#f8fafc',
-                  color: '#0f172a',
+                  border: '1px solid var(--border, #cbd5e1)',
+                  backgroundColor: 'var(--surface-secondary, #f8fafc)',
+                  color: 'var(--text-primary, #0f172a)',
                   fontSize: '12px',
                   fontWeight: 600,
                   outline: 'none',
@@ -1132,7 +1183,7 @@ export const CrmAiStudio = () => {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 800, color: '#475569', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 800, color: 'var(--text-secondary, #475569)', marginBottom: '6px' }}>
                 Neural Engine Preset
               </label>
               <select
@@ -1142,9 +1193,9 @@ export const CrmAiStudio = () => {
                   width: '100%',
                   padding: '10px 12px',
                   borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
-                  backgroundColor: '#f8fafc',
-                  color: '#0f172a',
+                  border: '1px solid var(--border, #cbd5e1)',
+                  backgroundColor: 'var(--surface-secondary, #f8fafc)',
+                  color: 'var(--text-primary, #0f172a)',
                   fontSize: '12px',
                   fontWeight: 600,
                   outline: 'none',
@@ -1165,12 +1216,12 @@ export const CrmAiStudio = () => {
             justifyContent: 'space-between',
             padding: '12px 16px',
             borderRadius: '12px',
-            border: '1px dashed #cbd5e1',
-            backgroundColor: '#f8fafc',
+            border: '1px dashed var(--border, #cbd5e1)',
+            backgroundColor: 'var(--surface-secondary, #f8fafc)',
             fontSize: '12px',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#64748b' }}>
-              <UploadCloud size={18} color="#006742" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-secondary, #64748b)' }}>
+              <UploadCloud size={18} color={activeTheme.primary} />
               <span>{referenceFile ? `Reference: ${referenceFile.name}` : 'Upload style reference audio, portrait or script'}</span>
             </div>
             <button
@@ -1179,9 +1230,9 @@ export const CrmAiStudio = () => {
               style={{
                 padding: '6px 14px',
                 borderRadius: '8px',
-                border: '1px solid #cbd5e1',
-                backgroundColor: '#ffffff',
-                color: '#006742',
+                border: '1px solid var(--border, #cbd5e1)',
+                backgroundColor: 'var(--surface, #ffffff)',
+                color: activeTheme.primary,
                 fontSize: '11.5px',
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -1236,7 +1287,7 @@ export const CrmAiStudio = () => {
               padding: '14px',
               borderRadius: '12px',
               border: 'none',
-              backgroundColor: '#006742',
+              background: activeTheme.gradient,
               color: '#ffffff',
               fontSize: '13.5px',
               fontWeight: 800,
@@ -1245,20 +1296,20 @@ export const CrmAiStudio = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              boxShadow: '0 8px 20px -4px rgba(0, 103, 66, 0.4)',
+              boxShadow: `0 8px 22px -4px ${activeTheme.glow}`,
               opacity: isGenerating ? 0.7 : 1,
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
               if (!isGenerating) {
-                e.currentTarget.style.backgroundColor = '#005234';
                 e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.filter = 'brightness(1.08)';
               }
             }}
             onMouseLeave={(e) => {
               if (!isGenerating) {
-                e.currentTarget.style.backgroundColor = '#006742';
                 e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.filter = 'none';
               }
             }}
           >
@@ -1279,68 +1330,55 @@ export const CrmAiStudio = () => {
         {/* Right Side: Studio Canvas Monitor & Recent Vault */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
           {/* Canvas Monitor */}
-          <div style={{
-            backgroundColor: '#ffffff',
-            border: '1px solid #e2e8f0',
+          <div className="studio-surface-card" style={{
             borderRadius: '20px',
             padding: '20px',
-            boxShadow: '0 4px 16px -2px rgba(0, 103, 66, 0.06)',
+            boxShadow: `0 4px 16px -2px ${activeTheme.glow}`,
             display: 'flex',
             flexDirection: 'column',
             gap: '14px',
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#006742' }}>
-                  Studio Canvas Monitor
-                </div>
-                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
-                  Live synthesis preview viewport
-                </div>
-              </div>
-              <span style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                fontFamily: 'monospace',
-                padding: '3px 8px',
-                borderRadius: '6px',
-                backgroundColor: 'rgba(0, 103, 66, 0.1)',
-                color: '#006742',
-                border: '1px solid rgba(0, 103, 66, 0.25)',
-              }}>
-                4K UHD • REC [LIVE]
-              </span>
-            </div>
-
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
               <div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#006742', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ fontSize: '15px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span>Studio Canvas Monitor</span>
+                  <span style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    fontFamily: 'monospace',
+                    padding: '2px 8px',
+                    borderRadius: '6px',
+                    backgroundColor: activeTheme.bgTint,
+                    color: activeTheme.text,
+                    border: `1px solid ${activeTheme.border}`,
+                  }}>
+                    4K UHD • LIVE
+                  </span>
                   {generatedAsset?.isRealAi && (
-                    <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', backgroundColor: '#dcfce7', color: '#166534', border: '1px solid #bbf7d0' }}>
+                    <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
                       Gemini Live AI
                     </span>
                   )}
                 </div>
-                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+                <div style={{ fontSize: '11.5px', color: 'var(--text-secondary, #64748b)', marginTop: '2px' }}>
                   Real-time neural synthesis & generation console
                 </div>
               </div>
 
               {/* View Mode Toggle */}
-              <div style={{ display: 'flex', gap: '6px', backgroundColor: '#f1f5f9', padding: '3px', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', gap: '4px', backgroundColor: 'var(--surface-secondary, #f1f5f9)', padding: '3px', borderRadius: '10px', border: '1px solid var(--border, #e2e8f0)' }}>
                 <button
                   type="button"
                   onClick={() => setMonitorTab('output')}
                   style={{
-                    padding: '5px 12px',
+                    padding: '6px 13px',
                     borderRadius: '8px',
                     border: 'none',
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    backgroundColor: monitorTab === 'output' ? '#006742' : 'transparent',
-                    color: monitorTab === 'output' ? '#ffffff' : '#64748b',
+                    background: monitorTab === 'output' ? activeTheme.gradient : 'transparent',
+                    color: monitorTab === 'output' ? '#ffffff' : 'var(--text-secondary, #64748b)',
                     transition: 'all 0.15s ease',
                   }}
                 >
@@ -1350,14 +1388,14 @@ export const CrmAiStudio = () => {
                   type="button"
                   onClick={() => setMonitorTab('viewport')}
                   style={{
-                    padding: '5px 12px',
+                    padding: '6px 13px',
                     borderRadius: '8px',
                     border: 'none',
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    backgroundColor: monitorTab === 'viewport' ? '#006742' : 'transparent',
-                    color: monitorTab === 'viewport' ? '#ffffff' : '#64748b',
+                    background: monitorTab === 'viewport' ? activeTheme.gradient : 'transparent',
+                    color: monitorTab === 'viewport' ? '#ffffff' : 'var(--text-secondary, #64748b)',
                     transition: 'all 0.15s ease',
                   }}
                 >
@@ -1372,8 +1410,8 @@ export const CrmAiStudio = () => {
                 {/* ElevenLabs Real Voice Audio Player Header Bar (Shown for Voice & Audio Studios) */}
                 {(activeStudioObj.category.includes('Voice') || activeStudioObj.category.includes('Audio') || activeStudio === 'realtalk' || activeStudio === 'audio-writer' || activeStudio === 'contalk') && generatedAsset?.content && (
                   <div style={{
-                    backgroundColor: '#f8fafc',
-                    border: '1px solid #e2e8f0',
+                    backgroundColor: 'var(--surface-secondary, #f8fafc)',
+                    border: '1px solid var(--border, #e2e8f0)',
                     borderRadius: '12px',
                     padding: '12px 16px',
                     display: 'flex',
@@ -1387,7 +1425,7 @@ export const CrmAiStudio = () => {
                         width: '34px',
                         height: '34px',
                         borderRadius: '8px',
-                        backgroundColor: '#006742',
+                        background: activeTheme.gradient,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -1396,13 +1434,13 @@ export const CrmAiStudio = () => {
                         <Headphones size={18} />
                       </div>
                       <div>
-                        <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ fontSize: '12.5px', fontWeight: 800, color: 'var(--text-primary, #0f172a)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <span>ElevenLabs Voice Synthesizer</span>
-                          <span style={{ fontSize: '9.5px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', backgroundColor: '#dcfce7', color: '#166534', border: '1px solid #bbf7d0' }}>
+                          <span style={{ fontSize: '9.5px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
                             Live Audio API
                           </span>
                         </div>
-                        <div style={{ fontSize: '11px', color: '#64748b' }}>
+                        <div style={{ fontSize: '11px', color: 'var(--text-secondary, #64748b)' }}>
                           Convert script into natural human voice speech
                         </div>
                       </div>
@@ -1418,9 +1456,9 @@ export const CrmAiStudio = () => {
                           fontWeight: 700,
                           padding: '6px 10px',
                           borderRadius: '8px',
-                          border: '1px solid #cbd5e1',
-                          backgroundColor: '#ffffff',
-                          color: '#1e293b',
+                          border: '1px solid var(--border, #cbd5e1)',
+                          backgroundColor: 'var(--surface, #ffffff)',
+                          color: 'var(--text-primary, #1e293b)',
                           cursor: 'pointer',
                           outline: 'none',
                         }}
@@ -1442,12 +1480,12 @@ export const CrmAiStudio = () => {
                           borderRadius: '8px',
                           fontSize: '11.5px',
                           fontWeight: 800,
-                          backgroundColor: '#006742',
+                          background: activeTheme.gradient,
                           color: '#ffffff',
                           border: 'none',
                           cursor: isSynthesizingVoice ? 'not-allowed' : 'pointer',
                           opacity: isSynthesizingVoice ? 0.7 : 1,
-                          boxShadow: '0 2px 8px rgba(0, 103, 66, 0.2)',
+                          boxShadow: `0 2px 8px ${activeTheme.glow}`,
                           transition: 'all 0.15s ease',
                         }}
                       >
@@ -1469,8 +1507,8 @@ export const CrmAiStudio = () => {
                     {audioBlobUrl && (
                       <div style={{
                         width: '100%',
-                        backgroundColor: '#ffffff',
-                        border: '1px solid #cbd5e1',
+                        backgroundColor: 'var(--surface, #ffffff)',
+                        border: '1px solid var(--border, #cbd5e1)',
                         borderRadius: '10px',
                         padding: '8px 14px',
                         display: 'flex',
@@ -1494,7 +1532,7 @@ export const CrmAiStudio = () => {
                               width: '32px',
                               height: '32px',
                               borderRadius: '50%',
-                              backgroundColor: '#006742',
+                              background: activeTheme.gradient,
                               color: '#ffffff',
                               border: 'none',
                               display: 'flex',
@@ -1505,7 +1543,7 @@ export const CrmAiStudio = () => {
                           >
                             {isPlayingAudio ? <Pause size={14} fill="#ffffff" /> : <Play size={14} fill="#ffffff" style={{ marginLeft: '2px' }} />}
                           </button>
-                          <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#006742' }}>
+                          <div style={{ fontSize: '11.5px', fontWeight: 800, color: activeTheme.text }}>
                             {isPlayingAudio ? 'Playing ElevenLabs Audio...' : 'Audio Ready to Play'}
                           </div>
                         </div>
@@ -1518,7 +1556,7 @@ export const CrmAiStudio = () => {
                               style={{
                                 width: '3px',
                                 height: isPlayingAudio ? `${Math.max(6, (h * (i % 2 === 0 ? 1 : 0.8)))}px` : '6px',
-                                backgroundColor: isPlayingAudio ? '#006742' : '#cbd5e1',
+                                backgroundColor: isPlayingAudio ? activeTheme.primary : 'var(--border, #cbd5e1)',
                                 borderRadius: '2px',
                                 transition: 'height 0.2s ease',
                               }}
@@ -1535,11 +1573,12 @@ export const CrmAiStudio = () => {
                             gap: '4px',
                             fontSize: '11px',
                             fontWeight: 800,
-                            color: '#006742',
+                            color: activeTheme.text,
                             textDecoration: 'none',
                             padding: '4px 8px',
                             borderRadius: '6px',
-                            backgroundColor: 'rgba(0, 103, 66, 0.08)',
+                            backgroundColor: activeTheme.bgTint,
+                            border: `1px solid ${activeTheme.border}`,
                           }}
                         >
                           <Download size={12} />
@@ -1556,8 +1595,8 @@ export const CrmAiStudio = () => {
                   maxHeight: '420px',
                   borderRadius: '14px',
                   overflowY: 'auto',
-                  backgroundColor: '#0f172a',
-                  border: '2px solid rgba(0, 103, 66, 0.3)',
+                  backgroundColor: '#0a0f1d',
+                  border: '1px solid var(--border, #1e293b)',
                   padding: '18px 20px',
                   color: '#f8fafc',
                   fontSize: '13px',
@@ -1591,7 +1630,7 @@ export const CrmAiStudio = () => {
                     </div>
                   ) : (
                     <div style={{ textAlign: 'center', color: '#64748b', padding: '48px 16px' }}>
-                      <FileText size={38} style={{ margin: '0 auto 10px', color: '#34d399', opacity: 0.6 }} />
+                      <FileText size={38} style={{ margin: '0 auto 10px', color: '#38bdf8', opacity: 0.8 }} />
                       <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#f8fafc' }}>Awaiting Directive Input</div>
                       <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '6px', maxWidth: '300px', margin: '6px auto 0' }}>
                         Enter your prompt on the left and click Generate to see live AI screenplay, lyrics, dialogue, or code here.
@@ -1607,18 +1646,18 @@ export const CrmAiStudio = () => {
                 aspectRatio: '16 / 9',
                 borderRadius: '14px',
                 overflow: 'hidden',
-                backgroundColor: '#071911',
-                border: '2px solid rgba(0, 103, 66, 0.3)',
+                backgroundColor: '#070b14',
+                border: `2px solid ${activeTheme.border}`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
               }}>
-                {/* Corner crosshairs in #006742 */}
-                <div style={{ position: 'absolute', top: '10px', left: '10px', width: '12px', height: '12px', borderTop: '2px solid #006742', borderLeft: '2px solid #006742', zIndex: 2 }} />
-                <div style={{ position: 'absolute', top: '10px', right: '10px', width: '12px', height: '12px', borderTop: '2px solid #006742', borderRight: '2px solid #006742', zIndex: 2 }} />
-                <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '12px', height: '12px', borderBottom: '2px solid #006742', borderLeft: '2px solid #006742', zIndex: 2 }} />
-                <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '12px', height: '12px', borderBottom: '2px solid #006742', borderRight: '2px solid #006742', zIndex: 2 }} />
+                {/* Corner crosshairs */}
+                <div style={{ position: 'absolute', top: '10px', left: '10px', width: '12px', height: '12px', borderTop: `2px solid ${activeTheme.primary}`, borderLeft: `2px solid ${activeTheme.primary}`, zIndex: 2 }} />
+                <div style={{ position: 'absolute', top: '10px', right: '10px', width: '12px', height: '12px', borderTop: `2px solid ${activeTheme.primary}`, borderRight: `2px solid ${activeTheme.primary}`, zIndex: 2 }} />
+                <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '12px', height: '12px', borderBottom: `2px solid ${activeTheme.primary}`, borderLeft: `2px solid ${activeTheme.primary}`, zIndex: 2 }} />
+                <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '12px', height: '12px', borderBottom: `2px solid ${activeTheme.primary}`, borderRight: `2px solid ${activeTheme.primary}`, zIndex: 2 }} />
 
                 {generatedAsset ? (
                   <>
@@ -1630,15 +1669,15 @@ export const CrmAiStudio = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: '#071911',
+                        backgroundColor: '#070b14',
                         zIndex: 4,
                         gap: '10px',
                       }}>
-                        <Loader2 size={34} color="#34d399" style={{ animation: 'spin 1s linear infinite' }} />
-                        <div style={{ fontSize: '13px', fontWeight: 800, color: '#34d399' }}>
+                        <Loader2 size={34} color={activeTheme.primary} style={{ animation: 'spin 1s linear infinite' }} />
+                        <div style={{ fontSize: '13px', fontWeight: 800, color: '#f8fafc' }}>
                           Rendering Neural 4K Canvas...
                         </div>
-                        <div style={{ fontSize: '11px', color: '#a7f3d0' }}>
+                        <div style={{ fontSize: '11px', color: '#94a3b8' }}>
                           Synthesizing photorealistic scene via FLUX engine
                         </div>
                       </div>
@@ -1666,13 +1705,13 @@ export const CrmAiStudio = () => {
                         gap: '6px',
                         padding: '3px 8px',
                         borderRadius: '6px',
-                        backgroundColor: 'rgba(0, 103, 66, 0.85)',
+                        background: activeTheme.gradient,
                         color: '#ffffff',
                         fontSize: '10px',
                         fontWeight: 800,
                         backdropFilter: 'blur(4px)',
                       }}>
-                        <Sparkles size={11} color="#a7f3d0" />
+                        <Sparkles size={11} color="#ffffff" />
                         <span>FLUX.1 Live Neural Render</span>
                       </div>
                     )}
@@ -1697,7 +1736,7 @@ export const CrmAiStudio = () => {
                           padding: '10px 18px',
                           borderRadius: '12px',
                           backgroundColor: '#ffffff',
-                          color: '#006742',
+                          color: '#0f172a',
                           textDecoration: 'none',
                           fontSize: '12px',
                           fontWeight: 800,
@@ -1713,10 +1752,10 @@ export const CrmAiStudio = () => {
                     </div>
                   </>
                 ) : (
-                  <div style={{ textAlign: 'center', color: '#6ee7b7', padding: '24px' }}>
-                    <Film size={34} style={{ margin: '0 auto 8px', color: '#34d399', opacity: 0.8 }} />
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#ecfdf5' }}>Awaiting Prompt Execution</div>
-                    <div style={{ fontSize: '11px', color: '#a7f3d0', marginTop: '4px', maxWidth: '280px' }}>
+                  <div style={{ textAlign: 'center', color: '#94a3b8', padding: '24px' }}>
+                    <Film size={34} style={{ margin: '0 auto 8px', color: activeTheme.primary, opacity: 0.9 }} />
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#f8fafc' }}>Awaiting Prompt Execution</div>
+                    <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', maxWidth: '280px' }}>
                       Configure directives on the left to render high-fidelity neural assets.
                     </div>
                   </div>
@@ -1728,8 +1767,8 @@ export const CrmAiStudio = () => {
             {generatedAsset && (
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '4px', flexWrap: 'wrap', gap: '8px' }}>
                 <div>
-                  <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>{generatedAsset.title}</div>
-                  <div style={{ fontSize: '11px', color: '#64748b' }}>{generatedAsset.studio} • Just now</div>
+                  <div style={{ fontSize: '12.5px', fontWeight: 800, color: 'var(--text-primary, #0f172a)' }}>{generatedAsset.title}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-secondary, #64748b)' }}>{generatedAsset.studio} • Just now</div>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   {generatedAsset.content && (
@@ -1744,9 +1783,9 @@ export const CrmAiStudio = () => {
                       style={{
                         padding: '7px 12px',
                         borderRadius: '8px',
-                        border: '1px solid #cbd5e1',
-                        backgroundColor: '#ffffff',
-                        color: '#334155',
+                        border: '1px solid var(--border, #cbd5e1)',
+                        backgroundColor: 'var(--surface, #ffffff)',
+                        color: 'var(--text-primary, #334155)',
                         fontSize: '11.5px',
                         fontWeight: 700,
                         cursor: 'pointer',
@@ -1755,7 +1794,7 @@ export const CrmAiStudio = () => {
                         gap: '6px',
                       }}
                     >
-                      {copiedText ? <Check size={13} color="#006742" /> : <Copy size={13} />}
+                      {copiedText ? <Check size={13} color={activeTheme.primary} /> : <Copy size={13} />}
                       <span>{copiedText ? 'Copied' : 'Copy Output'}</span>
                     </button>
                   )}
@@ -1765,9 +1804,9 @@ export const CrmAiStudio = () => {
                     style={{
                       padding: '7px 14px',
                       borderRadius: '8px',
-                      border: '1px solid rgba(0, 103, 66, 0.25)',
-                      backgroundColor: 'rgba(0, 103, 66, 0.08)',
-                      color: '#006742',
+                      border: `1px solid ${activeTheme.border}`,
+                      backgroundColor: activeTheme.bgTint,
+                      color: activeTheme.text,
                       fontSize: '11.5px',
                       fontWeight: 800,
                       cursor: 'pointer',
@@ -1790,26 +1829,24 @@ export const CrmAiStudio = () => {
           </div>
 
           {/* Recent Vault */}
-          <div style={{
-            backgroundColor: '#ffffff',
-            border: '1px solid #e2e8f0',
+          <div className="studio-surface-card" style={{
             borderRadius: '20px',
             padding: '20px',
-            boxShadow: '0 4px 16px -2px rgba(0, 103, 66, 0.06)',
+            boxShadow: `0 4px 16px -2px ${activeTheme.glow}`,
             display: 'flex',
             flexDirection: 'column',
             gap: '12px',
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <div style={{ fontSize: '14px', fontWeight: 900, color: '#006742' }}>
+                <div style={{ fontSize: '14px', fontWeight: 900, color: 'var(--text-primary, #0f172a)' }}>
                   Recent Production Vault
                 </div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary, #64748b)' }}>
                   Saved multi-studio assets
                 </div>
               </div>
-              <span style={{ fontSize: '11px', fontWeight: 800, color: '#006742', fontFamily: 'monospace' }}>
+              <span style={{ fontSize: '11px', fontWeight: 800, color: activeTheme.text, fontFamily: 'monospace' }}>
                 {savedLibrary.length} Items
               </span>
             </div>
@@ -1827,21 +1864,21 @@ export const CrmAiStudio = () => {
                       gap: '10px',
                       padding: '9px 12px',
                       borderRadius: '10px',
-                      border: isSelected ? '1.5px solid #006742' : '1px solid #f1f5f9',
-                      backgroundColor: isSelected ? '#f0fdf4' : '#f8fafc',
+                      border: isSelected ? `1.5px solid ${activeTheme.primary}` : '1px solid var(--border, #f1f5f9)',
+                      backgroundColor: isSelected ? activeTheme.bgTint : 'var(--surface-secondary, #f8fafc)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
                     onMouseEnter={(e) => {
                       if (!isSelected) {
-                        e.currentTarget.style.backgroundColor = '#f1f5f9';
-                        e.currentTarget.style.borderColor = '#cbd5e1';
+                        e.currentTarget.style.backgroundColor = 'var(--surface-hover, #f1f5f9)';
+                        e.currentTarget.style.borderColor = 'var(--border-strong, #cbd5e1)';
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!isSelected) {
-                        e.currentTarget.style.backgroundColor = '#f8fafc';
-                        e.currentTarget.style.borderColor = '#f1f5f9';
+                        e.currentTarget.style.backgroundColor = 'var(--surface-secondary, #f8fafc)';
+                        e.currentTarget.style.borderColor = 'var(--border, #f1f5f9)';
                       }
                     }}
                   >
@@ -1851,10 +1888,10 @@ export const CrmAiStudio = () => {
                       style={{ width: '48px', height: '36px', borderRadius: '6px', objectFit: 'cover', flexShrink: 0 }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-primary, #0f172a)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {item.title}
                       </div>
-                      <div style={{ fontSize: '10.5px', color: '#64748b' }}>
+                      <div style={{ fontSize: '10.5px', color: 'var(--text-secondary, #64748b)' }}>
                         {item.studio} • {item.date}
                       </div>
                     </div>
@@ -1863,9 +1900,9 @@ export const CrmAiStudio = () => {
                       fontWeight: 800,
                       padding: '2px 7px',
                       borderRadius: '4px',
-                      backgroundColor: isSelected ? 'rgba(0, 103, 66, 0.18)' : 'rgba(0, 103, 66, 0.08)',
-                      color: '#006742',
-                      border: '1px solid rgba(0, 103, 66, 0.2)',
+                      backgroundColor: isSelected ? activeTheme.bgTint : 'rgba(128, 128, 128, 0.1)',
+                      color: isSelected ? activeTheme.text : 'var(--text-secondary, #64748b)',
+                      border: `1px solid ${isSelected ? activeTheme.border : 'var(--border, rgba(128,128,128,0.2))'}`,
                       textTransform: 'uppercase',
                     }}>
                       {item.type}

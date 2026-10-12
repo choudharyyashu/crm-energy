@@ -161,12 +161,12 @@ export const CrmCommunication = () => {
             <h1 className="text-2xl font-bold font-display tracking-tight text-primary flex items-center gap-2">
               Multi-Channel Customer Communications
             </h1>
-            <Badge variant="primary" className="bg-sky-500 text-white font-bold text-xs uppercase tracking-wider">
-              Email & SMS Gateway Active
+            <Badge variant="warning" className="bg-amber-500 text-white font-bold text-xs uppercase tracking-wider">
+              Internal Logging Mode
             </Badge>
           </div>
           <p className="text-xs text-secondary mt-0.5">
-            Persisted multi-channel customer communications across Email relays and SMS gateways.
+            Messages are logged to the CRM database. External delivery (SendGrid / Twilio) requires provider configuration in Workspace Settings.
           </p>
         </div>
 
@@ -182,10 +182,10 @@ export const CrmCommunication = () => {
 
       {/* KPI Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <KPICard title="Total Messages" value={String(messages.length)} change="Database Persisted" changeType="positive" icon={Mail} />
-        <KPICard title="Email Conversations" value={String(messages.filter((m) => m.channel === 'EMAIL').length)} change="SendGrid Relay" changeType="positive" icon={CheckCheck} />
-        <KPICard title="SMS Transmissions" value={String(messages.filter((m) => m.channel === 'SMS').length)} change="Twilio Gateway" changeType="positive" icon={PhoneCall} />
-        <KPICard title="Live Channel Gateways" value="2 Active" change="Provider Managed" changeType="positive" icon={ShieldCheck} />
+        <KPICard title="Total Messages" value={String(messages.length)} change="CRM Database Logged" changeType="positive" icon={Mail} />
+        <KPICard title="Email Records" value={String(messages.filter((m) => m.channel === 'EMAIL').length)} change="Internal Log (No SMTP)" changeType="neutral" icon={CheckCheck} />
+        <KPICard title="SMS Records" value={String(messages.filter((m) => m.channel === 'SMS').length)} change="Internal Log (No Twilio)" changeType="neutral" icon={PhoneCall} />
+        <KPICard title="External Delivery" value="Unconfigured" change="Configure in Settings" changeType="negative" icon={ShieldCheck} />
       </div>
 
       {/* Main Communication Interface */}

@@ -280,9 +280,9 @@ html, body, #root, .app-layout, .main-content {
 /* Dashboard Executive Controls Layout */
 .dashboard-actions-grid {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 0.625rem;
-  flex-wrap: wrap;
 }
 
 .dashboard-btn-group {
@@ -290,6 +290,13 @@ html, body, #root, .app-layout, .main-content {
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+@media (max-width: 960px) {
+  .dashboard-actions-grid {
+    align-items: flex-start;
+    width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1455,5 +1462,231 @@ pre, code {
     padding: 0.65rem !important;
   }
 }
+
+/* ====================================================
+   10. UNIVERSAL CROSS-DEVICE RESPONSIVE SHIELD
+   Ensures entire software is proper responsive across
+   Mobile (<640px), Tablets (641px-1024px), & Desktop
+   ==================================================== */
+
+/* --- A. Tablet (641px to 1024px) Layout Ergonomics --- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* 4-col grids become 2-col on tablets to avoid cramped cards */
+  .grid-cols-4:not(.preserve-grid),
+  div[style*="repeat(4,"]:not(.preserve-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  /* 3-col grids become 2-col on tablets */
+  .grid-cols-3:not(.preserve-grid),
+  div[style*="repeat(3,"]:not(.preserve-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  /* Split side-by-side grids that are too narrow on portrait tablet */
+  .grid-responsive-2col {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  /* Topbar Search max width on tablet */
+  .search-input-wrapper,
+  button[title="Search"] {
+    max-width: 260px !important;
+  }
+}
+
+/* --- B. Universal Table Protection Across All Viewports (< 960px) --- */
+@media (max-width: 960px) {
+  /* Ensure any container holding a table provides smooth swipe */
+  div:has(> table),
+  .table-container,
+  .table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+  }
+
+  table,
+  .table {
+    min-width: 620px !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  table th,
+  table td,
+  .table th,
+  .table td {
+    white-space: nowrap !important;
+  }
+
+  /* Allow description/title columns to wrap with max-width */
+  table td:nth-child(2),
+  table td:nth-child(3) {
+    white-space: normal !important;
+    min-width: 150px !important;
+  }
+}
+
+/* --- C. Mobile & Phablet Universal Form & Modal Safety (< 640px) --- */
+@media (max-width: 640px) {
+  /* All multi-column form grids collapse to 1 column */
+  .form-row,
+  .form-grid,
+  .modal-body .grid,
+  .modal-body div[style*="gridTemplateColumns"],
+  .modal-body div[style*="grid-template-columns"],
+  div[style*="gridTemplateColumns: 'repeat(2"],
+  div[style*="grid-template-columns: repeat(2"],
+  div[style*="gridTemplateColumns: 'repeat(3"],
+  div[style*="grid-template-columns: repeat(3"],
+  div[style*="gridTemplateColumns: '1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Modal Dialog Viewport Constraints */
+  .modal-overlay,
+  div[role="dialog"] {
+    padding: 8px !important;
+    align-items: center !important;
+  }
+
+  .modal-content,
+  div[role="dialog"] > div {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100vh - 32px) !important;
+    margin: 8px auto !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 170px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 1rem 0.85rem !important;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem 0.85rem !important;
+  }
+
+  .modal-footer button,
+  .modal-footer .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+  }
+
+  /* Universal Horizontal Tabs & Filter Chips Swipe */
+  .tabs-header,
+  .tabs-list,
+  .tabs-nav,
+  .tab-group,
+  .tab-strip,
+  .filter-pills,
+  div[role="tablist"],
+  div[style*="role='tablist'"] {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.5rem !important;
+    padding-bottom: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .tabs-header::-webkit-scrollbar,
+  .tabs-list::-webkit-scrollbar,
+  .tabs-nav::-webkit-scrollbar,
+  div[role="tablist"]::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .tabs-header button,
+  .tabs-list button,
+  .tabs-nav button,
+  div[role="tablist"] button {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Buttons in action rows */
+  .dashboard-btn-group,
+  .actions-group,
+  .filter-bar {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .dashboard-btn-group > button,
+  .dashboard-btn-group > .btn,
+  .actions-group > button {
+    flex: 1 1 auto !important;
+    min-width: 110px !important;
+    justify-content: center !important;
+    font-size: 11.5px !important;
+  }
+
+  /* Charts and Telemetry containers */
+  .recharts-responsive-container,
+  .recharts-wrapper,
+  svg.recharts-surface {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Global cards spacing on mobile */
+  .card,
+  .surface-card {
+    padding: 0.85rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* Breadcrumb wrapping */
+  .breadcrumb,
+  nav[aria-label="Breadcrumb"] {
+    flex-wrap: wrap !important;
+    font-size: 11px !important;
+  }
+}
+
+/* --- D. Ultra-Small Screens (< 360px) Safety --- */
+@media (max-width: 360px) {
+  .grid-responsive-kpi {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .kpi-card {
+    min-height: 98px !important;
+    padding: 0.65rem 0.55rem !important;
+  }
+
+  .main-content {
+    padding: 0.35rem 0.25rem !important;
+  }
+}
+
 
 

@@ -1,20 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthContext';
+import { useCurrency } from './CurrencyContext';
 import crmService from '../services/crmService';
 
 const CrmContext = createContext();
 
-// Format currency helper
-const formatCurrency = (val) => {
-  if (typeof val === 'number') {
-    return '$' + val.toLocaleString('en-US');
-  }
-  if (typeof val === 'string' && val.startsWith('$')) return val;
-  const num = parseFloat(val) || 0;
-  return '$' + num.toLocaleString('en-US');
-};
-
 export const CrmProvider = ({ children }) => {
+  const { currency, formatCurrency } = useCurrency();
   const [contacts, setContacts] = useState([]);
   const [leads, setLeads] = useState([]);
   const [deals, setDeals] = useState([]);
@@ -51,48 +43,63 @@ export const CrmProvider = ({ children }) => {
       ]);
 
       if (leadsRes.status === 'fulfilled' && Array.isArray(leadsRes.value)) {
-        const mappedLeads = leadsRes.value.map((l) => ({
-          ...l,
-          id: l.id,
-          value: formatCurrency(l.estimatedValue),
-          status: typeof l.status === 'string' ? l.status.charAt(0) + l.status.slice(1).toLowerCase() : 'New',
-          owner: l.assignedUser?.name || 'Alexander Wright',
-        }));
+        const mappedLeads = leadsRes.value.map((l, idx) => {
+          const rawNum = typeof l.estimatedValue === 'number' ? l.estimatedValue : parseFloat(String(l.estimatedValue).replace(/[^0-9.-]+/g, '')) || 0;
+          return {
+            ...l,
+            id: l.id,
+            displayId: `LED-${String(idx + 1).padStart(3, '0')}`,
+            rawEstimatedValue: rawNum,
+            value: formatCurrency(rawNum),
+            status: typeof l.status === 'string' ? l.status.charAt(0) + l.status.slice(1).toLowerCase() : 'New',
+            owner: l.assignedUser?.name || 'Alexander Wright',
+          };
+        });
         setLeads(mappedLeads);
       } else {
         setLeads([]);
       }
 
       if (contactsRes.status === 'fulfilled' && Array.isArray(contactsRes.value)) {
-        const mappedContacts = contactsRes.value.map((c) => ({
-          ...c,
-          id: c.id,
-          totalValue: formatCurrency(c.totalValue),
-          owner: c.assignedUser?.name || 'Alexander Wright',
-          dealsCount: c._count?.deals || 0,
-          notesCount: c._count?.notes || 0,
-        }));
+        const mappedContacts = contactsRes.value.map((c, idx) => {
+          const rawNum = typeof c.totalValue === 'number' ? c.totalValue : parseFloat(String(c.totalValue).replace(/[^0-9.-]+/g, '')) || 0;
+          return {
+            ...c,
+            id: c.id,
+            displayId: `CNT-${String(idx + 1).padStart(3, '0')}`,
+            rawTotalValue: rawNum,
+            totalValue: formatCurrency(rawNum),
+            owner: c.assignedUser?.name || 'Alexander Wright',
+            dealsCount: c._count?.deals || 0,
+            notesCount: c._count?.notes || 0,
+          };
+        });
         setContacts(mappedContacts);
       } else {
         setContacts([]);
       }
 
       if (dealsRes.status === 'fulfilled' && Array.isArray(dealsRes.value)) {
-        const mappedDeals = dealsRes.value.map((d) => ({
-          ...d,
-          id: d.id,
-          value: formatCurrency(d.value),
-          owner: d.assignedUser?.name || 'Alexander Wright',
-          probability: d.probability ? `${d.probability}%` : '50%',
-          stage: typeof d.stage === 'string'
-            ? d.stage
-              .split('_')
-              .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-              .join(' ')
-            : 'Qualified',
-          contact: typeof d.contact === 'object' && d.contact !== null ? d.contact.name : (d.contact || ''),
-          contactObj: d.contact,
-        }));
+        const mappedDeals = dealsRes.value.map((d, idx) => {
+          const rawNum = typeof d.value === 'number' ? d.value : parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0;
+          return {
+            ...d,
+            id: d.id,
+            displayId: `DEL-${String(idx + 1).padStart(3, '0')}`,
+            rawValue: rawNum,
+            value: formatCurrency(rawNum),
+            owner: d.assignedUser?.name || 'Alexander Wright',
+            probability: d.probability ? `${d.probability}%` : '50%',
+            stage: typeof d.stage === 'string'
+              ? d.stage
+                .split('_')
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                .join(' ')
+              : 'Qualified',
+            contact: typeof d.contact === 'object' && d.contact !== null ? d.contact.name : (d.contact || ''),
+            contactObj: d.contact,
+          };
+        });
         setDeals(mappedDeals);
       } else {
         setDeals([]);
@@ -159,9 +166,10 @@ export const CrmProvider = ({ children }) => {
     try {
       const data = await crmService.getDeals();
       if (Array.isArray(data)) {
-        const mappedDeals = data.map((d) => ({
+        const mappedDeals = data.map((d, idx) => ({
           ...d,
           id: d.id,
+          displayId: `DEL-${String(idx + 1).padStart(3, '0')}`,
           value: formatCurrency(d.value),
           owner: d.assignedUser?.name || 'Alexander Wright',
           probability: d.probability ? `${d.probability}%` : '50%',
@@ -179,15 +187,16 @@ export const CrmProvider = ({ children }) => {
     } catch (e) {
       console.warn('Live refresh deals error:', e);
     }
-  }, []);
+  }, [formatCurrency]);
 
   const refreshContacts = useCallback(async () => {
     try {
       const data = await crmService.getContacts();
       if (Array.isArray(data)) {
-        const mappedContacts = data.map((c) => ({
+        const mappedContacts = data.map((c, idx) => ({
           ...c,
           id: c.id,
+          displayId: `CNT-${String(idx + 1).padStart(3, '0')}`,
           totalValue: formatCurrency(c.totalValue),
           owner: c.assignedUser?.name || 'Alexander Wright',
           dealsCount: c._count?.deals || 0,
@@ -198,15 +207,16 @@ export const CrmProvider = ({ children }) => {
     } catch (e) {
       console.warn('Live refresh contacts error:', e);
     }
-  }, []);
+  }, [formatCurrency]);
 
   const refreshLeads = useCallback(async () => {
     try {
       const data = await crmService.getLeads();
       if (Array.isArray(data)) {
-        const mappedLeads = data.map((l) => ({
+        const mappedLeads = data.map((l, idx) => ({
           ...l,
           id: l.id,
+          displayId: `LED-${String(idx + 1).padStart(3, '0')}`,
           value: formatCurrency(l.estimatedValue),
           status: typeof l.status === 'string' ? l.status.charAt(0) + l.status.slice(1).toLowerCase() : 'New',
           owner: l.assignedUser?.name || 'Alexander Wright',
@@ -216,7 +226,7 @@ export const CrmProvider = ({ children }) => {
     } catch (e) {
       console.warn('Live refresh leads error:', e);
     }
-  }, []);
+  }, [formatCurrency]);
 
   const refreshTasks = useCallback(async () => {
     try {
@@ -284,6 +294,40 @@ export const CrmProvider = ({ children }) => {
   useEffect(() => {
     fetchCrmData();
   }, [fetchCrmData, isCrmAuthenticated, crmUser?.userId, crmUser?.email]);
+
+  // Re-format all live CRM records dynamically whenever currency is switched (USD <-> INR)
+  useEffect(() => {
+    setLeads((prev) =>
+      prev.map((l) => {
+        const raw = l.rawEstimatedValue ?? (typeof l.estimatedValue === 'number' ? l.estimatedValue : parseFloat(String(l.value || l.estimatedValue).replace(/[^0-9.-]+/g, '')) || 0);
+        return {
+          ...l,
+          rawEstimatedValue: raw,
+          value: formatCurrency(raw),
+        };
+      })
+    );
+    setDeals((prev) =>
+      prev.map((d) => {
+        const raw = d.rawValue ?? (typeof d.value === 'number' ? d.value : parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0);
+        return {
+          ...d,
+          rawValue: raw,
+          value: formatCurrency(raw),
+        };
+      })
+    );
+    setContacts((prev) =>
+      prev.map((c) => {
+        const raw = c.rawTotalValue ?? (typeof c.totalValue === 'number' ? c.totalValue : parseFloat(String(c.totalValue).replace(/[^0-9.-]+/g, '')) || 0);
+        return {
+          ...c,
+          rawTotalValue: raw,
+          totalValue: formatCurrency(raw),
+        };
+      })
+    );
+  }, [currency, formatCurrency]);
 
   // ============================================================================
   // Contacts CRUD
