@@ -19,6 +19,8 @@ import {
   Briefcase
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { LanguageToggle } from '../common/LanguageToggle';
 import { AiEnergyLogo } from '../common/AiEnergyLogo';
 import {
   CRM_FEATURES_DATA,
@@ -33,6 +35,7 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -125,7 +128,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'features' ? 'active' : ''}`}
             onClick={() => toggleMenu('features')}
           >
-            <span>CRM Features</span>
+            <span>{t('CRM Features')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'features' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -138,7 +141,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'solutions' ? 'active' : ''}`}
             onClick={() => toggleMenu('solutions')}
           >
-            <span>CRM Solutions</span>
+            <span>{t('CRM Solutions')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'solutions' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -151,7 +154,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'industries' ? 'active' : ''}`}
             onClick={() => toggleMenu('industries')}
           >
-            <span>Industries</span>
+            <span>{t('Industries')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'industries' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -164,7 +167,7 @@ export const WebsiteNavbar = ({
             className="website-nav-btn"
             onClick={scrollToFaq}
           >
-            <span>FAQs</span>
+            <span>{t('FAQs')}</span>
           </button>
 
           {/* 5. Ask My Zunme – VA Virtual Assistant >> */}
@@ -172,10 +175,10 @@ export const WebsiteNavbar = ({
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title="Launch My Zunme VA Virtual Assistant"
+            title={t('Ask My Zunme — VA Virtual Assistant')}
           >
             <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>Ask My Zunme — VA Virtual Assistant</span>
+            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
             <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
           </button>
 
@@ -187,7 +190,7 @@ export const WebsiteNavbar = ({
             title="Open Sales Consultation chat eBox"
           >
             <MessageSquare size={14} />
-            <span>SALES</span>
+            <span>{t('SALES')}</span>
           </button>
 
           {/* 7. MORE */}
@@ -196,7 +199,7 @@ export const WebsiteNavbar = ({
             className={`website-nav-btn ${activeMenu === 'more' ? 'active' : ''}`}
             onClick={() => toggleMenu('more')}
           >
-            <span>MORE</span>
+            <span>{t('MORE')}</span>
             <ChevronDown size={14} style={{
               transform: activeMenu === 'more' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -204,8 +207,11 @@ export const WebsiteNavbar = ({
           </button>
         </nav>
 
-        {/* Right Side Controls: Theme Toggle & Sign In */}
+        {/* Right Side Controls: Language Toggle, Theme Toggle & Sign In */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {/* Instant 1-Click Language Switcher (EN / ES) */}
+          <LanguageToggle />
+
           {/* Theme Toggle */}
           <button
             type="button"
@@ -222,7 +228,7 @@ export const WebsiteNavbar = ({
               justifyContent: 'center',
               cursor: 'pointer'
             }}
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
           </button>
@@ -234,7 +240,7 @@ export const WebsiteNavbar = ({
             className="website-signin-btn"
           >
             <LogIn size={14} />
-            <span>Sign In<span className="website-portal-text"> / Portal</span></span>
+            <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
