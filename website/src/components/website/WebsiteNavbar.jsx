@@ -31,6 +31,7 @@ import {
 export const WebsiteNavbar = ({
   onOpenZunme,
   onOpenSales,
+  onOpenSignup,
   onSelectItem,
   activeSection = ''
 }) => {
@@ -253,10 +254,14 @@ export const WebsiteNavbar = ({
           </button>
 
 
-          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          {/* DISTINCT SIGN UP BUTTON */}
           <button
             type="button"
-            onClick={handleSignupRedirect}
+            onClick={() => {
+              setActiveMenu(null);
+              if (onOpenSignup) onOpenSignup();
+              else handleSignupRedirect();
+            }}
             className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -265,13 +270,16 @@ export const WebsiteNavbar = ({
               boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '4px',
-              padding: '6px 9px',
-              fontSize: '11.5px',
+              gap: '5px',
+              padding: '6px 12px',
+              fontSize: '12px',
+              fontWeight: 700,
+              borderRadius: '8px',
               flexShrink: 0,
+              cursor: 'pointer'
             }}
           >
-            <span>{t('Create Account')}</span>
+            <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
             <ArrowRight size={13} />
           </button>
 
@@ -648,7 +656,11 @@ export const WebsiteNavbar = ({
 
                 <button
                   type="button"
-                  onClick={handleSignupRedirect}
+                  onClick={() => {
+                    setMobileDrawerOpen(false);
+                    if (onOpenSignup) onOpenSignup();
+                    else handleSignupRedirect();
+                  }}
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -665,7 +677,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>{t('Create Account')}</span>
+                  <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>

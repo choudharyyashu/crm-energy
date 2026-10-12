@@ -4,7 +4,7 @@ import { ShieldCheck, MessageSquare, LogIn } from 'lucide-react';
 import { AiEnergyLogo } from '../common/AiEnergyLogo';
 import { useLanguage } from '../../context/LanguageContext';
 
-export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
+export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
