@@ -27,8 +27,10 @@ import {
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, Badge } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const AiVoiceAgent = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
 
   // Voice Session State
@@ -310,9 +312,9 @@ export const AiVoiceAgent = () => {
               </div>
               <div>
                 <h1 style={{ fontSize: 'var(--font-2xl)', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
-                  AI Voice Agent
+                  {t('AI Voice Agent')}
                   <Badge variant="primary" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Streaming Pipeline
+                    {t('Streaming Pipeline')}
                   </Badge>
                   <span
                     style={{
@@ -336,11 +338,11 @@ export const AiVoiceAgent = () => {
                         boxShadow: isCalling ? '0 0 8px #10b981' : 'none',
                       }}
                     />
-                    {isCalling ? 'Pipeline Streaming Live' : 'Voice Pipeline Standby'}
+                    {isCalling ? t('Pipeline Streaming Live') : t('Voice Pipeline Standby')}
                   </span>
                 </h1>
                 <p style={{ margin: '4px 0 0 0', color: 'var(--text-muted)', fontSize: 'var(--font-sm)' }}>
-                  Real-time conversational voice system powered by Speech-to-Text (STT) ➔ Large Language Model (LLM) ➔ Text-to-Speech (TTS) streaming architecture.
+                  {t('Real-time conversational voice system powered by Speech-to-Text (STT) ➔ Large Language Model (LLM) ➔ Text-to-Speech (TTS) streaming architecture.')}
                 </p>
               </div>
             </div>
@@ -360,12 +362,12 @@ export const AiVoiceAgent = () => {
               }}
             >
               <div>
-                <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>End-to-End Latency</div>
+                <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>{t('End-to-End Latency')}</div>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#10b981' }}>~218 ms</div>
               </div>
               <div style={{ width: 1, height: 24, backgroundColor: 'var(--border)' }} />
               <div>
-                <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Streaming Pipeline</div>
+                <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>{t('Streaming Pipeline')}</div>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#38bdf8' }}>STT ➔ LLM ➔ TTS</div>
               </div>
             </div>
@@ -384,11 +386,11 @@ export const AiVoiceAgent = () => {
             >
               {isCalling ? (
                 <>
-                  <Square size={16} /> Disconnect Voice
+                  <Square size={16} /> {t('Disconnect Voice')}
                 </>
               ) : (
                 <>
-                  <Play size={16} /> Start Live Voice Call
+                  <Play size={16} /> {t('Start Live Voice Call')}
                 </>
               )}
             </Button>
@@ -420,7 +422,7 @@ export const AiVoiceAgent = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <Headphones size={16} /> Live Voice Terminal & Studio
+          <Headphones size={16} /> {t('Live Voice Terminal & Studio')}
         </button>
         <button
           onClick={() => setActiveTab('pipeline')}
@@ -438,7 +440,7 @@ export const AiVoiceAgent = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <Layers size={16} /> Streaming Pipeline Architecture
+          <Layers size={16} /> {t('Streaming Pipeline Architecture')}
         </button>
         <button
           onClick={() => setActiveTab('implementation')}
@@ -456,7 +458,7 @@ export const AiVoiceAgent = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <Sliders size={16} /> Pipeline Components & Steps Guide
+          <Sliders size={16} /> {t('Pipeline Components & Steps Guide')}
         </button>
       </div>
 
@@ -688,7 +690,7 @@ export const AiVoiceAgent = () => {
                   : pipelineState === 'thinking'
                   ? 'LLM processing prompt tokens...'
                   : 'Synthesizing voice response...'
-                : 'Press "Start Live Voice Call" or choose a prompt below'}
+                : t('Press "Start Live Voice Call" or choose a prompt below')}
             </div>
 
             {/* Call Toolbar Controls */}
@@ -699,21 +701,21 @@ export const AiVoiceAgent = () => {
                 style={{ borderRadius: 'var(--radius-full)', padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 6 }}
               >
                 {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                {isMuted ? 'Unmute Audio' : 'Mute Speaker'}
+                {isMuted ? t('Unmute Audio') : t('Mute Speaker')}
               </Button>
               <Button
                 variant={isCalling ? 'danger' : 'primary'}
                 onClick={isCalling ? endVoiceSession : startVoiceSession}
                 style={{ borderRadius: 'var(--radius-full)', padding: '8px 20px', fontWeight: 600 }}
               >
-                {isCalling ? 'End Call' : 'Start Call'}
+                {isCalling ? t('End Call') : t('Start Call')}
               </Button>
             </div>
 
             {/* Quick Demo Prompts */}
             <div style={{ width: '100%', marginTop: 'var(--spacing-6)', textAlign: 'left' }}>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 8 }}>
-                Quick Speech Prompts (Click to Test Pipeline):
+                {t('QUICK SPEECH PROMPTS (CLICK TO TEST PIPELINE):')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {[
@@ -742,7 +744,7 @@ export const AiVoiceAgent = () => {
                     onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#0ea5e9')}
                     onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
                   >
-                    <span>"{promptText}"</span>
+                    <span>"{t(promptText)}"</span>
                     <ArrowRight size={13} color="var(--text-muted)" />
                   </button>
                 ))}
@@ -766,8 +768,8 @@ export const AiVoiceAgent = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <MessageSquare size={18} color="#0ea5e9" />
                 <div>
-                  <div style={{ fontSize: '14px', fontWeight: 600 }}>Streaming Dialogue Transcript</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Real-time STT conversions & TTS responses</div>
+                  <div style={{ fontSize: '14px', fontWeight: 600 }}>{t('Streaming Dialogue Transcript')}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{t('Real-time STT conversions & TTS responses')}</div>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -844,7 +846,7 @@ export const AiVoiceAgent = () => {
                         lineHeight: 1.5,
                       }}
                     >
-                      {msg.text}
+                      {t(msg.text)}
                     </div>
                   </div>
                 );

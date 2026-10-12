@@ -48,9 +48,11 @@ import {
   TableCell
 } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
+import { useLanguage } from '../../../context/LanguageContext';
 import territoryService from '../../../services/territoryService';
 
 export const TerritoryManagement = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const [activeTab, setActiveTab] = useState('map'); // 'map' | 'benefits' | 'territories'
   const [territories, setTerritories] = useState([]);
@@ -263,13 +265,13 @@ export const TerritoryManagement = () => {
               </div>
               <div>
                 <h1 style={{ fontSize: 'var(--font-2xl)', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
-                  Territory Management & Field Optimization
+                  {t('Territory Management & Field Optimization')}
                   <Badge variant="primary" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Google Maps Powered
+                    {t('Google Maps Powered')}
                   </Badge>
                 </h1>
                 <p style={{ margin: '4px 0 0 0', color: 'var(--text-muted)', fontSize: 'var(--font-sm)' }}>
-                  Geographic sales mapping, route optimization, field rep scheduling, and prospect demographics intelligence.
+                  {t('Geographic sales mapping, route optimization, field rep scheduling, and prospect demographics intelligence.')}
                 </p>
               </div>
             </div>
@@ -289,7 +291,7 @@ export const TerritoryManagement = () => {
               style={{ display: 'flex', alignItems: 'center', gap: 6 }}
             >
               <WifiOff size={15} />
-              {isOfflineMode ? 'Disable Offline' : 'Offline Field Mode'}
+              {isOfflineMode ? t('Disable Offline') : t('Offline Field Mode')}
             </Button>
 
             <Button
@@ -297,7 +299,7 @@ export const TerritoryManagement = () => {
               onClick={() => setIsModalOpen(true)}
               style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600 }}
             >
-              <Plus size={16} /> Define New Territory
+              <Plus size={16} /> {t('Define New Territory')}
             </Button>
           </div>
         </div>
@@ -306,30 +308,30 @@ export const TerritoryManagement = () => {
       {/* KPI Overview */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--spacing-4)' }}>
         <KPICard
-          title="Active Operating Zones"
+          title={t('Active Operating Zones')}
           value={String(interactiveZones.length)}
-          change="4 Regional Corridors"
+          change={t('4 Regional Corridors')}
           changeType="positive"
           icon={Compass}
         />
         <KPICard
-          title="Prospect Count Tracked"
-          value="622 Accounts"
-          change="Demographics Synced"
+          title={t('Prospect Count Tracked')}
+          value={`622 ${t('Accounts')}`}
+          change={t('Demographics Synced')}
           changeType="positive"
           icon={Target}
         />
         <KPICard
-          title="Travel Time Saved"
-          value="15.2 hrs/wk"
-          change="Route Optimization"
+          title={t('Travel Time Saved')}
+          value={t('15.2 hrs/wk')}
+          change={t('Route Optimization')}
           changeType="positive"
           icon={Route}
         />
         <KPICard
-          title="Automated Routing"
-          value="100% Active"
-          change="Zero Overlap"
+          title={t('Automated Routing')}
+          value={t('100% Active')}
+          change={t('Zero Overlap')}
           changeType="positive"
           icon={Zap}
         />
@@ -359,7 +361,7 @@ export const TerritoryManagement = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <Map size={16} /> Google Maps Geographic Visualizer & Routes
+          <Map size={16} /> {t('Google Maps Geographic Visualizer & Routes')}
         </button>
         <button
           onClick={() => setActiveTab('benefits')}
@@ -377,7 +379,7 @@ export const TerritoryManagement = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <FileText size={16} /> Summary Table of Benefits & CRM Features
+          <FileText size={16} /> {t('Summary Table of Benefits & CRM Features')}
         </button>
         <button
           onClick={() => setActiveTab('territories')}
@@ -395,7 +397,7 @@ export const TerritoryManagement = () => {
             fontSize: 'var(--font-sm)',
           }}
         >
-          <Layers size={16} /> Defined Territories Database ({territories.length || 4})
+          <Layers size={16} /> {t('Defined Territories Database')} ({territories.length || 4})
         </button>
       </div>
 
@@ -422,7 +424,7 @@ export const TerritoryManagement = () => {
                 <Compass size={20} />
               </div>
               <h2 style={{ fontSize: 'var(--font-lg)', fontWeight: 700, margin: 0 }}>
-                Google Maps in Territory Management
+                {t('Google Maps in Territory Management')}
               </h2>
             </div>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: 'var(--font-sm)', lineHeight: 1.6 }}>
@@ -440,10 +442,10 @@ export const TerritoryManagement = () => {
                 <div style={{ padding: 8, borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(14, 165, 233, 0.15)', color: '#0ea5e9' }}>
                   <Route size={18} />
                 </div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>Route Optimization</h3>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>{t('Route Optimization')}</h3>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Helps sales reps find the best routes to their appointments, saving time and reducing travel costs. Live turn-by-turn re-routing minimizes traffic bottlenecks.
+                {t('Helps sales reps find the best routes to their appointments, saving time and reducing travel costs. Live turn-by-turn re-routing minimizes traffic bottlenecks.') || 'Helps sales reps find the best routes to their appointments, saving time and reducing travel costs. Live turn-by-turn re-routing minimizes traffic bottlenecks.'}
               </p>
             </Card>
 
@@ -452,10 +454,10 @@ export const TerritoryManagement = () => {
                 <div style={{ padding: 8, borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981' }}>
                   <MapPin size={18} />
                 </div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>Geographic Visualization</h3>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>{t('Geographic Visualization')}</h3>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Provides a clear view of the areas assigned to each sales rep, aiding in planning, balanced quota distribution, and seamless team organization.
+                {t('Provides a clear view of the areas assigned to each sales rep, aiding in planning, balanced quota distribution, and seamless team organization.') || 'Provides a clear view of the areas assigned to each sales rep, aiding in planning, balanced quota distribution, and seamless team organization.'}
               </p>
             </Card>
 
@@ -464,10 +466,10 @@ export const TerritoryManagement = () => {
                 <div style={{ padding: 8, borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b' }}>
                   <WifiOff size={18} />
                 </div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>Offline Access</h3>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>{t('Offline Access')}</h3>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Allows users to access maps without an internet connection, ensuring sales reps in remote or low-connectivity field areas never lose appointment details.
+                {t('Allows users to access maps without an internet connection, ensuring sales reps in remote or low-connectivity field areas never lose appointment details.') || 'Allows users to access maps without an internet connection, ensuring sales reps in remote or low-connectivity field areas never lose appointment details.'}
               </p>
             </Card>
           </div>
@@ -531,7 +533,7 @@ export const TerritoryManagement = () => {
                         transition: 'all 0.2s',
                       }}
                     >
-                      {z.name}
+                      {t(z.name)}
                     </button>
                   ))}
                 </div>
@@ -561,7 +563,7 @@ export const TerritoryManagement = () => {
                       cursor: 'pointer',
                     }}
                   >
-                    Map
+                    {t('Map')}
                   </button>
                   <span style={{ color: 'var(--border)' }}>|</span>
                   <button
@@ -576,7 +578,7 @@ export const TerritoryManagement = () => {
                       cursor: 'pointer',
                     }}
                   >
-                    Satellite
+                    {t('Satellite')}
                   </button>
                   <span style={{ color: 'var(--border)' }}>|</span>
                   <button
@@ -592,7 +594,7 @@ export const TerritoryManagement = () => {
                       cursor: 'pointer',
                     }}
                   >
-                    Prospects: {showProspectCounts ? 'ON' : 'OFF'}
+                    {showProspectCounts ? t('Prospects: ON') : t('Prospects: OFF')}
                   </button>
                 </div>
               </div>
@@ -814,7 +816,7 @@ export const TerritoryManagement = () => {
               {/* Assigned Rep Details */}
               <div>
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600, marginBottom: 4 }}>
-                  Assigned Field Representative
+                  {t('Assigned Field Representative')}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div
@@ -852,15 +854,15 @@ export const TerritoryManagement = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Active Prospect Count:</span>
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0ea5e9' }}>{currentZone.prospectCount} accounts</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('Active Prospect Count:')}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0ea5e9' }}>{currentZone.prospectCount} {t('accounts') || 'accounts'}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Avg Deal Value:</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('Avg Deal Value:')}</span>
                   <span style={{ fontSize: '13px', fontWeight: 600 }}>{currentZone.avgDealSize}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Revenue Quota:</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('Revenue Quota:')}</span>
                   <span style={{ fontSize: '13px', fontWeight: 600 }}>{currentZone.quota} ({currentZone.attainment})</span>
                 </div>
               </div>

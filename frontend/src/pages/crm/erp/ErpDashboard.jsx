@@ -32,8 +32,10 @@ import {
 } from '../../../components/ui';
 import { useErp } from '../../../context/ErpContext';
 import { useToast } from '../../../context/ToastContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const ErpDashboard = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { projects, addProject, purchaseOrders, inventory, fetchErpData } = useErp();
   const { addToast } = useToast();
@@ -93,8 +95,8 @@ export const ErpDashboard = () => {
       {/* 1. Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'ERP & Operations' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>ERP & Operations Management</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('ERP & Operations') }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>{t('ERP & Operations Management')}</h1>
         </div>
 
         <div className="header-actions-right">
@@ -105,7 +107,7 @@ export const ErpDashboard = () => {
             onClick={() => setIsAddModalOpen(true)}
             style={{ borderRadius: '8px', padding: '0.6rem 1.25rem' }}
           >
-            New ERP Project
+            {t('+ New ERP Project')}
           </Button>
         </div>
       </div>
@@ -113,16 +115,16 @@ export const ErpDashboard = () => {
       {/* 2. KPI Cards */}
       <div className="grid-responsive-kpi">
         <div onClick={() => navigate('/crm/erp/projects')} className="cursor-pointer">
-          <KPICard title="Active Projects" value={projects.length} change="3 Milestones Pending" changeType="positive" icon={FolderGit2} />
+          <KPICard title={t('Active Projects')} value={projects.length} change={t('3 Milestones Pending')} changeType="positive" icon={FolderGit2} />
         </div>
         <div onClick={() => navigate('/crm/erp/procurement')} className="cursor-pointer">
-          <KPICard title="Purchase Orders" value={purchaseOrders.length} change="$127,500 Total" changeType="positive" icon={ShoppingCart} />
+          <KPICard title={t('Purchase Orders')} value={purchaseOrders.length} change={t('$127,500 Total')} changeType="positive" icon={ShoppingCart} />
         </div>
         <div onClick={() => navigate('/crm/erp/inventory')} className="cursor-pointer">
-          <KPICard title="Stock SKU Items" value={inventory.length} change="1 Low Stock Alert" changeType="warning" icon={Boxes} />
+          <KPICard title={t('Stock SKU Items')} value={inventory.length} change={t('1 Low Stock Alert')} changeType="warning" icon={Boxes} />
         </div>
         <div onClick={() => navigate('/crm/erp/finance')} className="cursor-pointer">
-          <KPICard title="Operational Expenses" value="$385,000" change="On Budget" changeType="positive" icon={DollarSign} />
+          <KPICard title={t('Operational Expenses')} value="$385,000" change={t('On Budget')} changeType="positive" icon={DollarSign} />
         </div>
       </div>
 
@@ -130,9 +132,9 @@ export const ErpDashboard = () => {
       <Card className="p-4 sm:p-5">
         <div className="flex items-center justify-between mb-3.5">
           <h3 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
-            ERP Enterprise Sub-Modules
+            {t('ERP Enterprise Sub-Modules')}
           </h3>
-          <span className="text-xs text-tertiary font-medium">8 Integrated Suites</span>
+          <span className="text-xs text-tertiary font-medium">{t('8 Integrated Suites')}</span>
         </div>
 
         <div
@@ -186,13 +188,13 @@ export const ErpDashboard = () => {
                     <ModIcon size={18} />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="font-bold text-xs text-primary truncate">{mod.label}</span>
-                    <span className="text-tertiary" style={{ fontSize: '11px' }}>{mod.subtitle}</span>
+                    <span className="font-bold text-xs text-primary truncate">{t(mod.label)}</span>
+                    <span className="text-tertiary" style={{ fontSize: '11px' }}>{t(mod.subtitle)}</span>
                   </div>
                 </div>
 
                 <Badge variant="default" style={{ fontSize: '10px', flexShrink: 0, marginLeft: '4px' }}>
-                  {mod.badge}
+                  {t(mod.badge)}
                 </Badge>
               </div>
             );
@@ -205,10 +207,10 @@ export const ErpDashboard = () => {
         <div className="p-4 sm:p-5 flex items-center justify-between border-b border-subtle">
           <div>
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-              Active ERP Project Milestones
+              {t('Active ERP Project Milestones')}
             </h2>
             <p className="text-xs text-secondary margin-0 mt-0.5">
-              Live delivery progress, budget burn rates, and executive targets
+              {t('Live delivery progress, budget burn rates, and executive targets')}
             </p>
           </div>
 
@@ -218,7 +220,7 @@ export const ErpDashboard = () => {
             icon={ArrowRight}
             onClick={() => navigate('/crm/erp/projects')}
           >
-            View All Projects
+            {t('View All Projects')}
           </Button>
         </div>
 
