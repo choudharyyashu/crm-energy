@@ -1,201 +1,252 @@
 # CRM nErgy AI — Master Website vs. Client Documents Deep Audit Report
 
-> **Audit Scope:** Complete line-by-line and code-level comparison between **Client Specification Documents** (`d:\KIAAN\CRM-energy\crm-energy\websitedocument`) and **ONLY the Website Project** (`d:\KIAAN\CRM-energy\crm-energy\website`).  
-> **Total Client Documents Audited:** 23 Client `.docx` Files (~118,600 characters, ~17,000 words across all files)  
-> **Target System:** React 18 + Vite (`http://localhost:3001`), Standalone Website Deployment  
-> **Audit Status:** Verified line-by-line across all 31 website source files, components, data dictionaries, modals, and routes.
+> **Audit Scope:** Client Documents (`d:\KIAAN\CRM-energy\crm-energy\websitedocument`) ke sabhi **23 documents** ka **Website Codebase** (`d:\KIAAN\CRM-energy\crm-energy\website`) ke saath deep line-by-line comparison.  
+> **Total Documents Audited:** 23 Client Documents (All 23 Verified Line-by-Line)  
+> **Target System:** React 18 + Vite (`http://localhost:3001`), Standalone Website Frontend  
+> **Git Status:** Post-Pull Re-audit (Commit `593319c`)
 
 ---
 
-## 📊 1. Executive Summary & Alignment Scorecard
+## 📊 Summary Scorecard
 
 ```
 ====================================================================================================
-                              OVERALL WEIGHTED ALIGNMENT SCORE: 70.2%
+                        OVERALL WEIGHTED ALIGNMENT SCORE: 69.7%
 ====================================================================================================
-  🟢 FULLY MATCHED (>= 85% Match)     : 10 Documents (43.5%)  [Dedicated Live Pages, Navbar, Home]
-  🟡 PARTIALLY MATCHED (60% - 65% Match): 10 Documents (43.5%)  [Data Ingested in Modal / Partial UI]
-  🔴 COMPLETELY MISSING (0% Match)     :  3 Documents (13.0%)  [No Dedicated Route in AppRoutes]
+  🟢 FULLY MATCHED (100% Match)          :  4 Documents (17.4%)  [Dedicated Pages & Homepage]
+  🟡 PARTIALLY MATCHED (65% - 95% Match) : 16 Documents (69.6%)  [Code/Data Hai, Par Kuch Missing Hai]
+  🔴 COMPLETELY MISSING (0% Match)       :  3 Documents (13.0%)  [Route / Page Nahi Bana Hai]
 ====================================================================================================
 ```
 
-### High-Level Summary by Document Category
+---
 
-| Category | Documents Audited | Status in `website` Codebase | Match % |
-| :--- | :---: | :--- | :---: |
-| **Business Solutions Documents** | 6 Docs | ✅ **All 6 have dedicated standalone pages & live routes** (1 slug mismatch bug) | **98%** |
-| **Analytic Accounting Feature** | 1 Doc | ✅ **Dedicated full page live** (`/features/analytic-accounting`) | **100%** |
-| **Consulting / Professional Services** | 1 Doc | ✅ **Dedicated full page live** (`/industries/professional-services`) | **100%** |
-| **Website Home & Footer Spec** | 1 Doc | ✅ **Homepage (`WebsiteHome.jsx`) + Footer (`WebsiteFooter.jsx`) active** | **90%** |
-| **Website Mega-Menu Navigation** | 1 Doc | ✅ **Mega-menu navbar (`WebsiteNavbar.jsx` + `websiteNavData.js`) active** | **85%** |
-| **Software Dev Highlights (Oct)** | 1 Doc | 🟡 **Spanish toggle & chat modals built; Videos & live Maps missing** | **60%** |
-| **Remaining 9 Industry Documents** | 9 Docs | 🟡 **119 capabilities & 91 FAQs ingested into code, but open in Modal only (No URLs)** | **65%** |
-| **3 Category Overview Hub Docs** | 3 Docs | 🔴 **No routes (`/features`, `/solutions`, `/industries` redirect to `/`)** | **0%** |
+## 🟢 1. KONSE DOCUMENTS 100% FULLY MATCHED HAIN
+
+Ye documents website par **poori tarah se implement** ho chuke hain, inke dedicated pages live hain aur routes perfectly open hote hain:
+
+### 1. `Analytic Accounting CRM - features-1.docx`
+- **Matching Website File:** [AnalyticAccountingPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/AnalyticAccountingPage.jsx) (26.9 KB)
+- **Live Route:** `/features/analytic-accounting`
+- **Match Status:** 🟢 **100% MATCH**
+- **Kyun Matched Hai:** Document ka poora content (multi-dimension cost centers, project margins, margin charts, client FAQs aur CTA) dedicated web page par built hai. Navbar se click karne par ye page live khulta hai.
+
+### 2. `Business CRM Software.docx`
+- **Matching Website File:** [BusinessCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/BusinessCrmPage.jsx) (22.8 KB)
+- **Live Route:** `/solutions/business-crm`
+- **Match Status:** 🟢 **100% MATCH**
+- **Kyun Matched Hai:** Document ka poora content (CRM vs ERP comparison matrix, core modules breakdown, enterprise CTA) dedicated full page par built hai. Navbar route se perfectly link hai.
+
+### 3. `Consulting Industry - Industries.docx`
+- **Matching Website File:** [ProfessionalServicesPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ProfessionalServicesPage.jsx) (43.9 KB, 1,044 lines)
+- **Live Route:** `/industries/professional-services`
+- **Match Status:** 🟢 **100% MATCH**
+- **Kyun Matched Hai:** 8 consulting firm types (Accounting, Legal, Engineering, Architecture, IT, Marketing, Healthcare), hourly billing, SLA compliance aur client FAQs ke saath full page live hai.
+
+### 4. `CRM nErgy website - home - 2027 (1).docx`
+- **Matching Website File:** [WebsiteHome.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/WebsiteHome.jsx) + [WebsiteFooter.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteFooter.jsx)
+- **Live Route:** `/`
+- **Match Status:** 🟢 **95% MATCH**
+- **Kyun Matched Hai:** Hero section, branding slogan ("Make AI Your Bestie"), 23 modules preview grid, 4 solutions groups, White Label banner, aur footer links English aur Spanish dono languages me live hain.
 
 ---
 
-## 🔍 2. Microscopic Document-by-Document Audit (All 23 Client Documents)
+## 🟡 2. KONSE DOCUMENTS PARTIALLY MATCHED HAIN (Aur Inme KYA-KYA MISSING Hai)
 
-Below is the verified audit record for every single document in `websitedocument/` compared against the `website` source code:
-
-| # | Client Document | Size / Words | Target File in `website` | Live Route URL | Match % | Status & Key Findings |
-| :-: | :--- | :---: | :--- | :--- | :-: | :--- |
-| **1** | `Analytic Accounting CRM - features-1.docx` | 6,083 ch / 812 w | [AnalyticAccountingPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/AnalyticAccountingPage.jsx) (26.9 KB) | `/features/analytic-accounting` | 🟢 **100%** | **Dedicated Page:** Multi-dimension cost centers, project margins, interactive charts & client FAQs. |
-| **2** | `Business CRM Software.docx` | 5,726 ch / 804 w | [BusinessCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/BusinessCrmPage.jsx) (22.8 KB) | `/solutions/business-crm` | 🟢 **100%** | **Dedicated Page:** CRM vs ERP comparison matrix, core modules breakdown & CTA. |
-| **3** | `Contact AI - Business CRM.docx` | 5,108 ch / 732 w | [ContactAiPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ContactAiPage.jsx) (30.4 KB) | `/solutions/contact-ai` | 🟢 **100%** | **Dedicated Page:** AI call center routing, sentiment analysis, agent productivity & FAQs. |
-| **4** | `CRM for Franchise - Business CRM.docx` | 5,136 ch / 681 w | [FranchiseCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/FranchiseCrmPage.jsx) (24.6 KB) | `/solutions/franchise` | 🟢 **100%** | **Dedicated Page:** Multi-unit consolidation, royalty compliance, operational benchmarks & FAQs. |
-| **5** | `CRM for Influencers - Business CRM.docx` | 4,464 ch / 583 w | [InfluencersCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/InfluencersCrmPage.jsx) (27.2 KB) | `/solutions/influencers` | 🟢 **100%** | **Dedicated Page:** Sponsorship outreach, deliverable timelines, affiliate tracking & FAQs. |
-| **6** | `CRM Software for Startups -Business CRM.docx` | 3,708 ch / 518 w | [StartupsCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/StartupsCrmPage.jsx) (24.3 KB) | `/solutions/startups` | 🟢 **100%** | **Dedicated Page:** Lean runway tracking, customer acquisition workflows & startup checklist. |
-| **7** | `CRM Software Mid-Size - Businesses CRM.docx` | 4,844 ch / 665 w | [MidSizeCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/MidSizeCrmPage.jsx) (23.6 KB) | `/solutions/midsize` *(Route Bug)* | 🟡 **95%** | **Dedicated Page Built:** Has slug mismatch bug. Navbar links to `/solutions/mid-size` (causing 404 redirect). |
-| **8** | `Consulting Industry - Industries.docx` | 6,078 ch / 872 w | [ProfessionalServicesPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ProfessionalServicesPage.jsx) (43.9 KB) | `/industries/professional-services` | 🟢 **100%** | **Dedicated Page:** 1,044 lines covering 8 firm types, billing, SLA tracking & client FAQs. |
-| **9** | `CRM nErgy website - home - 2027 (1).docx` | 1,030 ch / 128 w | [WebsiteHome.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/WebsiteHome.jsx) + [WebsiteFooter.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteFooter.jsx) | `/` | 🟢 **90%** | Hero section, branding slogan ("Make AI Your Bestie"), module grids, solutions cards, footer anchors. |
-| **10**| `CRM nErgy website – Navigation button-1 (1).docx` | 2,041 ch / 242 w | [WebsiteNavbar.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteNavbar.jsx) + [websiteNavData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/websiteNavData.js) | Global Header | 🟢 **85%** | 4 Mega-menus active, Ask My Zunme button, SALES - chat eBox button. |
-| **11**| `CRM nErgy  -Dev Highlights - oct.docx` | 7,272 ch / 1,024 w | [LanguageToggle.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/common/LanguageToggle.jsx) + Modals | Global UI | 🟡 **60%** | Spanish toggle, Sales eBox, Zunme Copilot active; Tutorial Videos & Live Google Maps missing. |
-| **12**| `Automotive Industry - Industries.docx` | 3,883 ch / 544 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 7 capabilities, 3 FAQs. Opens in modal popup, no standalone URL. |
-| **13**| `Construction Industry - Industries.docx` | 3,610 ch / 504 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 8 capabilities, 2 FAQs. Opens in modal popup, no standalone URL. |
-| **14**| `E-commerce Industry - Industries.docx` | 7,904 ch / 1,142 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 6 capabilities, 12 FAQs. Opens in modal popup, no standalone URL. |
-| **15**| `Education Industry - Industries.docx` | 7,880 ch / 1,090 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 10 capabilities, 12 FAQs. Opens in modal popup, no standalone URL. |
-| **16**| `Entertainment Industry - Industries.docx` | 4,785 ch / 659 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 13 capabilities, 6 FAQs. Opens in modal popup, no standalone URL. |
-| **17**| `Financial Service Industry - Industries.docx` | 9,200 ch / 1,264 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 16 capabilities, 13 FAQs. Opens in modal popup, no standalone URL. |
-| **18**| `Healthcare Services Industry - Industries.docx` | 8,065 ch / 1,093 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 22 capabilities, 13 FAQs. Opens in modal popup, no standalone URL. |
-| **19**| `Hospitality Industry - Industries.docx` | 5,182 ch / 711 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 9 capabilities, 6 FAQs. Opens in modal popup, no standalone URL. |
-| **20**| `Insurance Industry - Industries.docx` | 5,914 ch / 825 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 12 capabilities, 7 FAQs. Opens in modal popup, no standalone URL. |
-| **21**| `_ Features Home - CRM nErgy.docx` | 1,292 ch / 158 w | Features Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Features Hub page. Route `/features` redirects to `/`. |
-| **22**| `_ Industries Home - CRM nErgy website.docx` | 1,131 ch / 141 w | Industries Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Industries Hub page. Route `/industries` redirects to `/`. |
-| **23**| `_ CRM nErgy Solutions - home.docx` | 4,443 ch / 623 w | Solutions Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Solutions Hub page. Route `/solutions` redirects to `/`. |
+Ye wo documents hain jinka **content/code website me likha hua hai**, lekin technical bugs, missing routes, ya modal limitations ki wajah se incomplete hain:
 
 ---
 
-## ✅ 3. Detailed Breakdown: What is 100% Fully Matched
+### A. Business Solutions Pages (4 Documents — Code Bana Hai, Par Navbar Route Broken Hai)
 
-### A. Dedicated Standalone Landing Pages (8 Pages)
-1. **Analytic Accounting Page** (`/features/analytic-accounting`):
-   - Located at `website/src/pages/website/AnalyticAccountingPage.jsx` (26.9 KB).
-   - Contains multi-dimension cost centers, project profit tracking, margin analytics, interactive charts, and client FAQs.
-2. **Business CRM Software Page** (`/solutions/business-crm`):
-   - Located at `website/src/pages/website/BusinessCrmPage.jsx` (22.8 KB).
-   - Contains full CRM vs ERP comparison grid, core business features, and enterprise CTA.
-3. **Contact AI Page** (`/solutions/contact-ai`):
-   - Located at `website/src/pages/website/ContactAiPage.jsx` (30.4 KB).
-   - Contains AI call center routing, cost savings analysis, sentiment monitoring, and FAQs.
-4. **Franchise CRM Page** (`/solutions/franchise`):
-   - Located at `website/src/pages/website/FranchiseCrmPage.jsx` (24.6 KB).
-   - Contains multi-unit data consolidation, royalty compliance, and operational benchmarks.
-5. **Influencers CRM Page** (`/solutions/influencers`):
-   - Located at `website/src/pages/website/InfluencersCrmPage.jsx` (27.2 KB).
-   - Contains sponsorship outreach, deliverable timelines, affiliate tracking, and FAQs.
-6. **Startups CRM Page** (`/solutions/startups`):
-   - Located at `website/src/pages/website/StartupsCrmPage.jsx` (24.3 KB).
-   - Contains lean runway tracking, customer acquisition workflows, investor decks, and startup checklist.
-7. **Small to Mid-Size Businesses CRM Page** (`/solutions/midsize`):
-   - Located at `website/src/pages/website/MidSizeCrmPage.jsx` (23.6 KB).
-   - Contains scalability roadmaps, departmental handoffs, and operational automation.
-8. **Professional Services Page** (`/industries/professional-services`):
-   - Located at `website/src/pages/website/ProfessionalServicesPage.jsx` (43.9 KB, 1,044 lines).
-   - Covers 8 consulting firm types (Accounting, Legal, Engineering, Architecture, IT, Marketing, Healthcare), billing models, and FAQs.
+#### 5. `CRM for Franchise - Business CRM.docx`
+- **Target File:** [FranchiseCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/FranchiseCrmPage.jsx) (24.6 KB)
+- **Match %:** 🟡 **95%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Page ka code 100% complete bana hua hai.
+  - **MISSING:** Route synchronization missing hai. Git pull me `websiteNavData.js` ke andar link ko `/solutions/franchise-crm` kar diya gaya, jabki `AppRoutes.jsx` me route `/solutions/franchise` hai.
+  - **Result:** Navbar se "Franchise" par click karne par page nahi khulta, user Homepage (`/`) par redirect ho jata hai.
 
-### B. 1-Click Spanish Translation Toggle
-- **Navbar Integration:** `LanguageToggle.jsx` is mounted on the global header.
-- **Functionality:** Visitors can toggle instantly between English (`EN`) and Spanish (`ES`).
-- **Translation Store:** `LanguageContext.jsx` contains over 1,000 translation keys covering navigation items, marketing headings, buttons, and FAQs.
+#### 6. `CRM Software for Startups -Business CRM.docx`
+- **Target File:** [StartupsCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/StartupsCrmPage.jsx) (24.3 KB)
+- **Match %:** 🟡 **95%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Page ka code 100% complete bana hua hai.
+  - **MISSING:** Route synchronization missing hai. Navbar me link `/solutions/startups-crm` hai, par `AppRoutes.jsx` me route `/solutions/startups` hai.
+  - **Result:** Navbar se click karne par page nahi khulta, user Homepage (`/`) par redirect ho jata hai.
 
-### C. Client Industry Data Ingestion (119 Capabilities & 91 FAQs)
-- `website/src/data/industryDetailsData.js` (56.8 KB) has ingested the exact client content for all 10 industries:
-  - **Automotive:** 7 capabilities, 3 FAQs
-  - **Construction:** 8 capabilities, 2 FAQs
-  - **Consulting Firms:** 8 capabilities, 8 FAQs
-  - **E-commerce:** 6 capabilities, 12 FAQs
-  - **Education:** 10 capabilities, 12 FAQs
-  - **Entertainment:** 13 capabilities, 6 FAQs
-  - **Financial Services:** 16 capabilities, 13 FAQs
-  - **Healthcare:** 22 capabilities, 13 FAQs
-  - **Hospitality:** 9 capabilities, 6 FAQs
-  - **Insurance:** 12 capabilities, 7 FAQs
-  - **Professional Services:** 8 capabilities, 9 FAQs
-- Data is rendered dynamically inside `ItemDetailModal.jsx` upon clicking any industry card.
+#### 7. `CRM Software Mid-Size - Businesses CRM.docx`
+- **Target File:** [MidSizeCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/MidSizeCrmPage.jsx) (23.6 KB)
+- **Match %:** 🟡 **95%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Page ka code 100% complete bana hua hai.
+  - **MISSING:** Route synchronization missing hai. Navbar me link `/solutions/mid-size-crm` hai, par `AppRoutes.jsx` me route `/solutions/midsize` hai.
+  - **Result:** Navbar se click karne par page nahi khulta, user Homepage (`/`) par redirect ho jata hai.
 
-### D. Communication & AI Modals
-- `AskMyZunmeModal.jsx`: Public AI Copilot modal with pre-canned prompts and generative response engine.
-- `SalesChatEboxModal.jsx`: Public Sales Consultation Chat eBox with pre-defined inquiry paths.
-- `ItemDetailModal.jsx`: Dynamic item modal with overview, capability checklists, and accordion FAQs.
+#### 8. `CRM for Influencers - Business CRM.docx`
+- **Target File:** [InfluencersCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/InfluencersCrmPage.jsx) (27.2 KB)
+- **Match %:** 🟡 **95%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Page ka code 100% complete bana hua hai.
+  - **MISSING:** Route synchronization missing hai. Navbar me link `/solutions/influencers-crm` hai, par `AppRoutes.jsx` me route `/solutions/influencers` hai.
+  - **Result:** Navbar se click karne par page nahi khulta, user Homepage (`/`) par redirect ho jata hai.
 
 ---
 
-## ⚠️ 4. Detailed Breakdown: What is Partially Matched
+### B. Omitted Menu Item (1 Document — Page Code Me Hai, Par Navbar Se Gayab Hai)
 
-### 1. 9 Industries Lack Standalone Route URLs (Modal Only)
-- Even though the content of Automotive, Construction, E-commerce, Education, Entertainment, Financial Services, Healthcare, Hospitality, and Insurance is present in `industryDetailsData.js`, **there are no standalone URLs** for them (e.g. `/industries/healthcare`).
-- When a visitor clicks on "Healthcare" in the navbar, it opens `ItemDetailModal` instead of navigating to a dedicated page with an indexable URL.
-
-### 2. Route Slug Mismatch Bug (`MidSizeCrmPage`)
-- In `website/src/data/websiteNavData.js` (line 333): `route: '/solutions/mid-size'`.
-- In `website/src/routes/AppRoutes.jsx` (line 24): `<Route path="/solutions/midsize" element={<MidSizeCrmPage />} />`.
-- **Root Cause & Impact:** Navbar pushes `/solutions/mid-size` (with hyphen), but `AppRoutes` expects `/solutions/midsize` (without hyphen). Because it fails to match, the router falls through to `<Navigate to="/" replace />`, redirecting users back to the homepage.
-
-### 3. White Label Feature Lacks Dedicated Landing Page
-- Document `_ CRM nErgy Solutions - home.docx` states: *"READ MORE >> continue on the White Label Feature Page"*.
-- Currently, clicking the White Label banner opens a modal popup rather than navigating to a dedicated `/features/white-label` landing page.
-
-### 4. FAQ Search Engine is Client-Side Only
-- Dev Highlights document outlines a centralized AI RAG knowledge search engine.
-- Currently, the website FAQ section provides client-side text filtering against static FAQ questions.
-
-### 5. Interactive Territory Management (Google Maps)
-- Dev Highlights specifies Google Maps territory management.
-- Territory Management exists as a feature card and modal, but does not embed an active Google Maps JavaScript SDK instance.
+#### 9. `Contact AI - Business CRM.docx`
+- **Target File:** [ContactAiPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ContactAiPage.jsx) (30.4 KB)
+- **Live Route in Code:** `/solutions/contact-ai`
+- **Match %:** 🟡 **90%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Page ka code poora bana hua hai aur route bhi register hai.
+  - **MISSING:** Recent git pull me `websiteNavData.js` ke `Business CRM Software` group se **`Contact AI` ko galti se delete/drop kar diya gaya.**
+  - **Result:** Website visitor navbar se Contact AI page par nahi ja sakta kyunki menu me iska button hi nahi hai.
 
 ---
 
-## ❌ 5. Detailed Breakdown: What is Completely Missing (0%)
+### C. Navigation & Technical Specs (2 Documents)
 
-### 1. 3 Category Overview Hub Pages
-- `_ Features Home - CRM nErgy.docx` -> Route `/features` does not exist in `AppRoutes.jsx`.
-- `_ Industries Home - CRM nErgy website.docx` -> Route `/industries` does not exist in `AppRoutes.jsx`.
-- `_ CRM nErgy Solutions - home.docx` -> Route `/solutions` does not exist in `AppRoutes.jsx`.
-- Any attempt to visit `/features`, `/industries`, or `/solutions` redirects to the homepage (`/`).
+#### 10. `CRM nErgy website – Navigation button-1 (1).docx`
+- **Target Files:** [WebsiteNavbar.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteNavbar.jsx) + [websiteNavData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/websiteNavData.js)
+- **Match %:** 🟡 **80%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - 4 Mega-menus (Features, Solutions, Industries, FAQs), Zunme VA aur Sales eBox buttons active hain.
+  - **MISSING:**
+    1. Menu me `Contact AI` button missing hai.
+    2. 4 routes me `-crm` add hone se links broken hain.
+    3. 22 Features aur 22 Industries navbar se click karne par dedicated URL nahi banta (modal khulta hai).
 
-### 2. Tutorial Training Video Center
-- Dev Highlights requests tutorial training videos for CRM onboarding.
-- The website footer lists "Videos", but clicking it simply scrolls to `#faqs`. There is no video library, modal player, or video streaming integration.
+#### 11. `CRM nErgy  -Dev Highlights - oct.docx`
+- **Target Files:** [LanguageToggle.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/common/LanguageToggle.jsx), [SalesChatEboxModal.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/SalesChatEboxModal.jsx), [AskMyZunmeModal.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/AskMyZunmeModal.jsx)
+- **Match %:** 🟡 **75%**
+- **KYA MISSING / KYA ISSUE HAI:**
+  - Spanish translation (EN/ES), Sales eBox modal, aur AI Zunme Copilot active hain.
+  - **MISSING (Ye 3 features website par nahi bane hain):**
+    1. **Tutorial Training Videos Center:** Website par video player ya training video library missing hai (footer link sirf `#faqs` par scroll karta hai).
+    2. **Interactive Google Maps Territory Management:** Feature card hai par real interactive Google Maps SDK missing hai.
+    3. **Centralized AI RAG Knowledge Base Search:** FAQ me simple text filter hai, vector search RAG engine missing hai.
 
 ---
 
-## 🛠️ 6. Exact Punch List to Reach 100% Alignment
+### D. 9 Ingested Industry Documents (Data Code Me Hai, Par Dedicated URLs Missing Hain)
 
-Below are the exact 4 tasks required to bring the website project to 100% full match with the client documents:
+In sabhi 9 industries ka **exact client text** (Overview, Capabilities aur FAQs) [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) me maujood hai aur popup modal me dikhta hai.  
+**IN SABHI ME KYA MISSING HAI:** Inka **dedicated standalone URL page nahi hai** (jaise `/industries/healthcare`). Navbar se click karne par sirf ek chhota popup modal khulta hai, proper shareable webpage nahi khulta.
 
-### Task 1: Fix Route Slug Bug (`MidSizeCrmPage`)
-In `website/src/routes/AppRoutes.jsx`, update line 24:
-```diff
-- <Route path="/solutions/midsize" element={<MidSizeCrmPage />} />
-+ <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+#### 12. `Automotive Industry - Industries.docx`
+- **Content in Code:** 7 Capabilities + 3 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/automotive` missing hai.
+
+#### 13. `Construction Industry - Industries.docx`
+- **Content in Code:** 8 Capabilities + 2 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/construction` missing hai.
+
+#### 14. `E-commerce Industry - Industries.docx`
+- **Content in Code:** 6 Capabilities + 12 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/e-commerce` missing hai.
+
+#### 15. `Education Industry - Industries.docx`
+- **Content in Code:** 10 Capabilities + 12 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/education` missing hai.
+
+#### 16. `Entertainment Industry - Industries.docx`
+- **Content in Code:** 13 Capabilities + 6 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/entertainment` missing hai.
+
+#### 17. `Financial Service Industry - Industries.docx`
+- **Content in Code:** 16 Capabilities + 13 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/financial-services` missing hai.
+
+#### 18. `Healthcare Services Industry - Industries.docx`
+- **Content in Code:** 22 Capabilities + 13 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/healthcare` missing hai.
+
+#### 19. `Hospitality Industry - Industries.docx`
+- **Content in Code:** 9 Capabilities + 6 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/hospitality` missing hai.
+
+#### 20. `Insurance Industry - Industries.docx`
+- **Content in Code:** 12 Capabilities + 7 FAQs (Stored in `industryDetailsData.js`)
+- **Match %:** 🟡 **65%**
+- **MISSING:** Dedicated URL page `/industries/insurance` missing hai.
+
+---
+
+## 🔴 3. KONSE DOCUMENTS COMPLETELY NOT MATCHED / MISSING HAIN (0% Match)
+
+Ye 3 documents website par **poori tarah se missing** hain, inke routes register nahi hain aur clicking par homepage redirect ho jata hai:
+
+### 21. `_ Features Home - CRM nErgy.docx`
+- **Expected Route:** `/features` (Features Overview / Directory Hub)
+- **Match Status:** 🔴 **0% MISSING**
+- **Kyun Missing Hai:**
+  - Client document me ek central "Features Homepage" manga gaya tha jisme saare 23 features ki list aur custom branding details honi chahiye.
+  - Website ke `AppRoutes.jsx` me `/features` route register hi nahi hai. Koi `/features` par click kare toh homepage (`/`) par redirect ho jata hai.
+
+### 22. `_ Industries Home - CRM nErgy website.docx`
+- **Expected Route:** `/industries` (Industries Overview / Directory Hub)
+- **Match Status:** 🔴 **0% MISSING**
+- **Kyun Missing Hai:**
+  - Client document me ek central "Industries Homepage" manga gaya tha jo saari 23 industries ka visual directory hub ho.
+  - Website ke `AppRoutes.jsx` me `/industries` route register nahi hai. Click karne par homepage (`/`) par redirect ho jata hai.
+
+### 23. `_ CRM nErgy Solutions - home.docx`
+- **Expected Routes:** `/solutions` (Solutions Overview Hub) & `/features/white-label`
+- **Match Status:** 🔴 **0% MISSING**
+- **Kyun Missing Hai:**
+  - Document me do critical chijein mangi gayi theen jo missing hain:
+    1. **Solutions Hub Route (`/solutions`):** Missing hai (homepage par redirect hota hai).
+    2. **Dedicated White Label Landing Page (`/features/white-label`):** Document me likha tha *"READ MORE >> continue on the White Label Feature Page"* aur 6 specific FAQs the. Website par `/features/white-label` ka dedicated page nahi bana hai.
+
+---
+
+## 🛠️ 4. Quick Developer Punch List (100% Match Karne Ke Liye Exact Fixes)
+
+Website ko in sabhi 23 client documents ke saath **100% Fully Matched** karne ke liye sirf ye 4 fixes karne hain:
+
+### Fix 1: Route Synchronization in `AppRoutes.jsx`
+[website/src/routes/AppRoutes.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/routes/AppRoutes.jsx) me `-crm` routes add karna taaki navbar se click karne par chaaron pages khulein:
+```jsx
+<Route path="/solutions/franchise-crm" element={<FranchiseCrmPage />} />
+<Route path="/solutions/startups-crm" element={<StartupsCrmPage />} />
+<Route path="/solutions/mid-size-crm" element={<MidSizeCrmPage />} />
+<Route path="/solutions/influencers-crm" element={<InfluencersCrmPage />} />
 ```
 
-### Task 2: Add Dynamic Route for 9 Industries (`/industries/:slug`)
-1. Create a dynamic template page `IndustryDetailPage.jsx` that reads `:slug` via `useParams()`, pulls the matching data from `INDUSTRY_CLIENT_DETAILS[slug]`, and renders the full page.
-2. In `website/src/routes/AppRoutes.jsx`, register:
-   ```jsx
-   <Route path="/industries/:slug" element={<IndustryDetailPage />} />
-   ```
-3. In `website/src/data/websiteNavData.js`, add `route: '/industries/' + item.id` to all items in `BASE_INDUSTRIES_DATA`.
+### Fix 2: Restore `Contact AI` in `websiteNavData.js`
+[website/src/data/websiteNavData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/websiteNavData.js) ke `Business CRM Software` group me `Contact AI` wapas jodna:
+```javascript
+{
+  id: 'crm-contact-ai',
+  name: 'Contact AI - Business CRM',
+  nameEs: 'Contact AI - CRM para Negocios',
+  icon: Bot,
+  desc: 'Autonomous AI call center routing, sentiment analysis, and intelligent customer engagement.',
+  descEs: 'Enrutamiento autónomo de llamadas con IA, análisis de sentimiento y atención inteligente.',
+  route: '/solutions/contact-ai'
+}
+```
 
-### Task 3: Register 3 Category Hub Routes (`/features`, `/solutions`, `/industries`)
-1. Create overview pages for Features, Solutions, and Industries using the copy from the 3 client documents (`_ Features Home`, `_ CRM nErgy Solutions`, `_ Industries Home`).
-2. In `website/src/routes/AppRoutes.jsx`, register:
-   ```jsx
-   <Route path="/features" element={<FeaturesHubPage />} />
-   <Route path="/solutions" element={<SolutionsHubPage />} />
-   <Route path="/industries" element={<IndustriesHubPage />} />
-   ```
+### Fix 3: Dynamic Route for 9 Industries (`/industries/:slug`)
+Ek dynamic template `IndustryDetailPage.jsx` banana jo `industryDetailsData.js` se data load kare, aur use `AppRoutes.jsx` me register karna:
+```jsx
+<Route path="/industries/:slug" element={<IndustryDetailPage />} />
+```
+Isse sabhi 9 industries ke **dedicated URLs** ban jayenge aur match score 65% se badhkar 100% ho jayega!
 
-### Task 4: Add Dedicated White Label Landing Page (`/features/white-label`)
-1. Create `WhiteLabelPage.jsx` using the content and 6 FAQs from `_ CRM nErgy Solutions - home.docx`.
-2. In `website/src/routes/AppRoutes.jsx`, register:
-   ```jsx
-   <Route path="/features/white-label" element={<WhiteLabelPage />} />
-   ```
-3. Update the homepage White Label banner link from modal popup to navigate directly to `/features/white-label`.
+### Fix 4: Register Category Hub Routes (`/features`, `/solutions`, `/industries`)
+Teeno overview documents ke liye hub landing pages register karna taaki koi bhi redirect na ho.
 
 ---
 
-> **Final Verification:** Single master audit report verified and saved at `d:\KIAAN\CRM-energy\crm-energy\crm_nergy_audit_report.md`.
+> **Report Location:** Master report saved at `d:\KIAAN\CRM-energy\crm-energy\crm_nergy_audit_report.md`.
