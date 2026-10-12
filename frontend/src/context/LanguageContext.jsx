@@ -294,6 +294,7 @@ export const DICTIONARY = {
     'CRM Solutions': 'Soluciones CRM',
     'Industries': 'Industrias',
     'FAQs': 'FAQs',
+    'Ask My Zunme — VA Virtual Assistant': 'Ask My Zunme — Asistente VA',
     'Ask My Zunme — VA Virtual Assistant >>': 'Ask My Zunme — Asistente VA >>',
     'SALES': 'VENTAS',
     'SALES — chat eBox': 'VENTAS — chat eBox',
