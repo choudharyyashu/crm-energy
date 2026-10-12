@@ -1340,10 +1340,26 @@ export const LanguageProvider = ({ children }) => {
     return localStorage.getItem('crm_nergy_language') || 'EN';
   });
 
+  useEffect(() => {
+    const handleSync = (e) => {
+      const val = e.detail || (e.key === 'crm_nergy_language' ? e.newValue : null);
+      if (val && (val === 'EN' || val === 'ES')) {
+        setLanguageState(val);
+      }
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('crm_nergy_language_change', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('crm_nergy_language_change', handleSync);
+    };
+  }, []);
+
   const setLanguage = (newLang) => {
     const lang = newLang === 'ES' ? 'ES' : 'EN';
     setLanguageState(lang);
     localStorage.setItem('crm_nergy_language', lang);
+    window.dispatchEvent(new CustomEvent('crm_nergy_language_change', { detail: lang }));
   };
 
   const t = (key, fallback) => {

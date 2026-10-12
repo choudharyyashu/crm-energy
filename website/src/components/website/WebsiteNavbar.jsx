@@ -35,7 +35,8 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -353,8 +354,8 @@ export const WebsiteNavbar = ({
                     <div className="dolibarr-icon-box">
                       <Icon size={20} />
                     </div>
-                    <span className="dolibarr-title">{feat.name}</span>
-                    <span className="dolibarr-desc">{feat.desc}</span>
+                    <span className="dolibarr-title">{(isEs && feat.nameEs) ? feat.nameEs : t(feat.name)}</span>
+                    <span className="dolibarr-desc">{(isEs && feat.descEs) ? feat.descEs : t(feat.desc)}</span>
                   </div>
                 );
               })}
@@ -372,10 +373,10 @@ export const WebsiteNavbar = ({
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
               <div>
                 <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  CRM Solutions Frameworks
+                  {t('CRM Solutions Frameworks')}
                 </h3>
                 <p style={{ fontSize: '12px', color: 'var(--web-text-muted)', margin: '2px 0 0 0' }}>
-                  Targeted business solutions engineered for distinct corporate operational requirements.
+                  {t('Targeted business solutions engineered for distinct corporate operational requirements.')}
                 </p>
               </div>
               <button
@@ -415,7 +416,7 @@ export const WebsiteNavbar = ({
                       color: '#4f46e5',
                       letterSpacing: '0.06em'
                     }}>
-                      {col.badge}
+                      {(isEs && col.badgeEs) ? col.badgeEs : t(col.badge)}
                     </span>
                     <h4
                       onClick={() => {
@@ -435,10 +436,10 @@ export const WebsiteNavbar = ({
                         gap: '6px'
                       }}
                     >
-                      <span>{col.groupTitle}</span>
+                      <span>{(isEs && col.groupTitleEs) ? col.groupTitleEs : t(col.groupTitle)}</span>
                       {col.route && <ArrowRight size={13} style={{ color: '#0284c7' }} />}
                     </h4>
-                    <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{col.subtitle}</span>
+                    <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{(isEs && col.subtitleEs) ? col.subtitleEs : t(col.subtitle)}</span>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -449,7 +450,7 @@ export const WebsiteNavbar = ({
                           key={item.id}
                           className="dolibarr-card"
                           style={{ padding: '0.75rem' }}
-                          onClick={() => handleCardClick({ ...item, groupTitle: col.groupTitle })}
+                          onClick={() => handleCardClick({ ...item, groupTitle: (isEs && col.groupTitleEs) ? col.groupTitleEs : col.groupTitle })}
                         >
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                             <div style={{
@@ -466,10 +467,10 @@ export const WebsiteNavbar = ({
                               <Icon size={14} />
                             </div>
                             <span style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                              {item.name}
+                              {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
                             </span>
                           </div>
-                          <span className="dolibarr-desc" style={{ fontSize: '11px' }}>{item.desc}</span>
+                          <span className="dolibarr-desc" style={{ fontSize: '11px' }}>{(isEs && item.descEs) ? item.descEs : t(item.desc)}</span>
                         </div>
                       );
                     })}
@@ -490,10 +491,10 @@ export const WebsiteNavbar = ({
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
               <div>
                 <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  Industries Served (23 Sectors)
+                  {t('Industries Served (23 Sectors)')}
                 </h3>
                 <p style={{ fontSize: '12px', color: 'var(--web-text-muted)', margin: '2px 0 0 0' }}>
-                  Pre-configured compliance pipelines and operational templates tailored for each vertical.
+                  {t('Pre-configured compliance pipelines and operational templates tailored for each vertical.')}
                 </p>
               </div>
               <button
@@ -525,9 +526,9 @@ export const WebsiteNavbar = ({
                       <div className="dolibarr-icon-box" style={{ width: '32px', height: '32px', marginBottom: 0 }}>
                         <Icon size={16} />
                       </div>
-                      <span className="dolibarr-title" style={{ fontSize: '13px', margin: 0 }}>{ind.name}</span>
+                      <span className="dolibarr-title" style={{ fontSize: '13px', margin: 0 }}>{(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}</span>
                     </div>
-                    <span className="dolibarr-desc">{ind.desc}</span>
+                    <span className="dolibarr-desc">{(isEs && ind.descEs) ? ind.descEs : t(ind.desc)}</span>
                   </div>
                 );
               })}
@@ -560,7 +561,7 @@ export const WebsiteNavbar = ({
             padding: '6px 10px',
             letterSpacing: '0.05em'
           }}>
-            Explore CRM nErgy
+            {t('Explore CRM nErgy')}
           </div>
 
           <div
@@ -584,7 +585,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <ShieldCheck size={16} style={{ color: '#4f46e5' }} />
-            <span>Security & Compliance</span>
+            <span>{t('Security & Compliance')}</span>
           </div>
 
           <div
@@ -608,7 +609,7 @@ export const WebsiteNavbar = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Globe size={16} style={{ color: '#0f766e' }} />
-              <span>OAL Lending Marketplace</span>
+              <span>{t('OAL Lending Marketplace')}</span>
             </div>
             <ExternalLink size={12} style={{ color: 'var(--web-text-muted)' }} />
           </div>
@@ -632,7 +633,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <MessageSquare size={16} style={{ color: '#0284c7' }} />
-            <span>Contact Executive Team</span>
+            <span>{t('Contact Executive Team')}</span>
           </div>
         </div>
       )}
@@ -759,7 +760,7 @@ export const WebsiteNavbar = ({
                           borderRadius: '6px'
                         }}
                       >
-                        {f.name}
+                        {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
                       </div>
                     ))}
                   </div>
@@ -795,14 +796,14 @@ export const WebsiteNavbar = ({
                   <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {CRM_SOLUTIONS_DATA.map((g, idx) => (
                       <div key={idx} style={{ marginBottom: '4px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{g.groupTitle}</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{(isEs && g.groupTitleEs) ? g.groupTitleEs : t(g.groupTitle)}</span>
                         {g.items.map((i) => (
                           <div
                             key={i.id}
-                            onClick={() => handleCardClick({ ...i, groupTitle: g.groupTitle })}
+                            onClick={() => handleCardClick({ ...i, groupTitle: (isEs && g.groupTitleEs) ? g.groupTitleEs : g.groupTitle })}
                             style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                           >
-                            • {i.name}
+                            • {(isEs && i.nameEs) ? i.nameEs : t(i.name)}
                           </div>
                         ))}
                       </div>
@@ -844,7 +845,7 @@ export const WebsiteNavbar = ({
                         onClick={() => handleCardClick(ind)}
                         style={{ padding: '6px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                       >
-                        {ind.name}
+                        {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
                       </div>
                     ))}
                   </div>
@@ -911,7 +912,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>Create Account</span>
+                  <span>{t('Create Account')}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>

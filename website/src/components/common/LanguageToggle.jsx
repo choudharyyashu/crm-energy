@@ -46,7 +46,9 @@ export const LanguageToggle = () => {
       </div>
 
       <button
+        id="lang-toggle-en"
         type="button"
+        aria-pressed={language === 'EN'}
         onClick={() => handleSelectLang('EN')}
         style={{
           border: 'none',
@@ -69,7 +71,9 @@ export const LanguageToggle = () => {
       </button>
 
       <button
+        id="lang-toggle-es"
         type="button"
+        aria-pressed={language === 'ES'}
         onClick={() => handleSelectLang('ES')}
         style={{
           border: 'none',

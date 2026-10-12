@@ -334,6 +334,107 @@ export const DICTIONARY = {
     'White Label Enterprise Opportunity': 'Oportunidad Empresarial Marca Blanca',
     'Frequently Asked Questions': 'Preguntas Frecuentes',
 
+    // Public Website Modules, Cards & Headings
+    'CRM software is essential for various industries to manage customer relationships and enhance operational efficiency. Every module is styled with CRM nErgy icon buttons inspired by the Dolibarr benchmark architecture.': 'El software CRM es esencial para diversas industrias para gestionar las relaciones con los clientes y mejorar la eficiencia operativa. Cada módulo está diseñado con botones de iconos de CRM nErgy inspirados en la arquitectura de referencia de Dolibarr.',
+    'Structured frameworks addressing 4 Types of CRM Software, Business CRM Software, Solutions for Entrepreneurs, and Third Party Integration.': 'Marcos estructurados que abordan 4 Tipos de Software CRM, Software CRM Empresarial, Soluciones para Emprendedores e Integración de Terceros.',
+    'Domain-Specific Solutions': 'Soluciones Específicas por Sector',
+    'Industries Using the CRM nErgy Software (23 Sectors)': 'Industrias que Usan el Software CRM nErgy (23 Sectores)',
+    'Some of the Industries that use the CRM nErgy Software. CRM software is essential for various industries to manage customer relationships and enhance operational efficiency.': 'Algunas de las industrias que utilizan el software CRM nErgy. El software CRM es esencial para que varias industrias gestionen las relaciones con los clientes y mejoren la eficiencia operativa.',
+    'Fact and Questions': 'Hechos y Preguntas',
+    'FAQs & Interactive Module Directory': 'Preguntas Frecuentes y Directorio Interactivo de Módulos',
+    'Browse features, solution groups, and industry options as interactive icon buttons or review common questions.': 'Explore características, grupos de soluciones y opciones de la industria como botones de iconos interactivos o revise preguntas comunes.',
+    'CRM Features (Icon Buttons)': 'Funcionalidades CRM (Botones de Iconos)',
+    'CRM Solutions (4 Groups)': 'Soluciones CRM (4 Grupos)',
+    'Industries (Icon Buttons)': 'Industrias (Botones de Iconos)',
+    'What is My Zunme?': '¿Qué es My Zunme?',
+    'Display All Features (Icon Buttons)': 'Mostrar Todas las Características (Botones de Iconos)',
+    'Click any icon button to inspect feature capabilities or request a demo.': 'Haga clic en cualquier botón de icono para inspeccionar capacidades o solicitar una demostración.',
+    'CRM Solutions: 4 Specialized Groups': 'Soluciones CRM: 4 Grupos Especializados',
+    'Architectural and enterprise solution categories defined in the specification.': 'Categorías de soluciones arquitectónicas y empresariales definidas en la especificación.',
+    'Industries Served (23 Sectors)': 'Industrias Atendidas (23 Sectores)',
+    'All 23 vertical sector icon buttons available for enterprise configuration.': 'Los 23 botones de iconos de sectores verticales disponibles para configuración empresarial.',
+    'Pre-configured compliance pipelines and operational templates tailored for each vertical.': 'Canalizaciones de cumplimiento y plantillas operativas preconfiguradas y adaptadas para cada vertical.',
+    'Targeted business solutions engineered for distinct corporate operational requirements.': 'Soluciones empresariales orientadas e impulsadas para distintos requerimientos corporativos.',
+    'Complete all-in-one suite of business, ERP, accounting, logistics, and AI workflows.': 'Suite integral todo en uno de negocios, ERP, contabilidad, logística y flujos de IA.',
+    'Explore CRM nErgy': 'Explorar CRM nErgy',
+    'Security & Compliance': 'Seguridad y Cumplimiento',
+    'OAL Lending Marketplace': 'Mercado de Préstamos OAL',
+    'Contact Executive Team': 'Contactar al Equipo Ejecutivo',
+    'Artificial Intelligence SuperHouse': 'SuperCasa de Inteligencia Artificial',
+    '1,000+ Prompt Templates': 'Más de 1,000 Plantillas de Prompts',
+    'Launch Ask My Zunme Assistant >>': 'Iniciar Asistente My Zunme >>',
+    'Inquire About Zunme Licensing': 'Consultar sobre Licencias Zunme',
+    'Enterprise Governance': 'Gobernanza Empresarial',
+    'Security, Resilience & High-Throughput Architecture': 'Seguridad, Resiliencia y Arquitectura de Alto Rendimiento',
+    'Designed for institutional-grade reliability, CRM nErgy implements strict tenant isolation, cryptographic vault storage, and granular role-based access control.': 'Diseñado para confiabilidad de grado institucional, CRM nErgy implementa aislamiento estricto de inquilinos, almacenamiento en bóveda criptográfica y control de acceso granular basado en roles.',
+    'Tenant Vault Isolation': 'Aislamiento de Bóveda por Inquilino',
+    'Every corporate subscriber operates within an encrypted tenant boundary ensuring proprietary deal flows and employee data remain isolated.': 'Cada suscriptor corporativo opera dentro de un límite cifrado de inquilino asegurando que los flujos de tratos y los datos de empleados permanezcan aislados.',
+    'Real-Time Synchronous Sync': 'Sincronización Síncrona en Tiempo Real',
+    'Sub-second data replication across inventory, sales orders, leads, and accounting ledgers eliminates batch reconciliation delays.': 'La replicación de datos en menos de un segundo en inventario, pedidos, prospectos y libros contables elimina los retrasos de conciliación por lotes.',
+    'Audit-Ready Compliance': 'Cumplimiento Listo para Auditoría',
+    'Immutable audit logging on every administrative action, contract signature, and banking transaction prepared for GAAP/IFRS reviews.': 'Registro de auditoría inmutable en cada acción administrativa, firma de contrato y transacción bancaria preparado para revisiones GAAP/IFRS.',
+    'is the integrated creative, monetization, and SEO engine inside CRM nErgy AI. It empowers creators, marketing agencies, and business owners to build content rapidly using pre-built AI workflows. Featuring over 1,000 specialized templates, ZUNME powers autonomous AI video agents, brand soundtrack synthesis, script writing, and enterprise copy generation.': 'es el motor integrado de creación, monetización y SEO dentro de CRM nErgy AI. Permite a creadores, agencias y dueños de negocios crear contenido rápidamente con flujos de IA predefinidos. Con más de 1,000 plantillas, ZUNME impulsa agentes de video IA autónomos, síntesis de bandas sonoras, redacción de guiones y textos corporativos.',
+    'Industries Homepage': 'Página de Industrias',
+    'Affiliate Management': 'Gestión de Afiliados',
+    'Analytic Accounting': 'Contabilidad Analítica',
+    'Contact Management': 'Gestión de Contactos',
+    'Customer Service': 'Atención al Cliente',
+    'Customizable Dashboards': 'Tableros Personalizables',
+    'Data Management': 'Gestión de Datos',
+    'Financial Accounting': 'Contabilidad Financiera',
+    'Landing Page Creator': 'Creador de Landing Pages',
+    'Lead Management': 'Gestión de Prospectos',
+    'Marketing Automation': 'Automatización de Marketing',
+    'Mobile Access': 'Acceso Móvil',
+    'Payroll Processing': 'Procesamiento de Nómina',
+    'Project Management': 'Gestión de Proyectos',
+    'Purchasing Management': 'Gestión de Compras',
+    'Recruitment and Onboarding': 'Reclutamiento e Integración',
+    'Sales Management': 'Gestión de Ventas',
+    'Subscription Management': 'Gestión de Suscripciones',
+    'White Label CRM': 'CRM Marca Blanca',
+    'Automotive': 'Automotriz',
+    'Construction': 'Construcción',
+    'Consulting Firms': 'Firmas de Consultoría',
+    'E-commerce': 'Comercio Electrónico',
+    'Education': 'Educación',
+    'Entertainment': 'Entretenimiento',
+    'Financial Services': 'Servicios Financieros',
+    'Healthcare': 'Salud y Clínicas',
+    'Hospitality': 'Hotelería y Turismo',
+    'Insurance': 'Seguros',
+    'Media': 'Medios de Comunicación',
+    'Non-Profit': 'Organizaciones sin Fines de Lucro',
+    'Professional Services': 'Servicios Profesionales',
+    'Real Estate': 'Bienes Raíces',
+    'Retail': 'Comercio Minorista',
+    'Software Development': 'Desarrollo de Software',
+    'Technology': 'Tecnología',
+    'Telecom': 'Telecomunicaciones',
+    'Travel': 'Viajes y Turismo',
+    'Unique Service Business': 'Negocios de Servicios Exclusivos',
+    '4 Types of CRM Software': '4 Tipos de Software CRM',
+    'Architectural Frameworks': 'Marcos Arquitectónicos',
+    'Frameworks': 'Marcos',
+    'Analytical CRM': 'CRM Analítico',
+    'Collaborative CRM': 'CRM Colaborativo',
+    'Operational CRM': 'CRM Operativo',
+    'Strategic CRM': 'CRM Estratégico',
+    'Operational Scale': 'Escala Operativa',
+    'Business': 'Negocios',
+    'Professional Services CRM': 'CRM para Servicios Profesionales',
+    'CRM Software for Entrepreneurs': 'Software CRM para Emprendedores',
+    'Tailored Personas': 'Perfiles Personalizados',
+    'Entrepreneurs': 'Emprendedores',
+    'CRM for Solopreneurs': 'CRM para Solopreneurs',
+    'CRM for Freelancers': 'CRM para Freelancers',
+    'CRM for Real Estate Agents': 'CRM para Agentes Inmobiliarios',
+    'Seamless Ecosystem': 'Ecosistema Conectado',
+    'Integrations': 'Integraciones',
+    'Accounting Software Integration': 'Integración con Software Contable',
+    'Marketing Automation Integration': 'Integración de Marketing',
+    'Third-Party CRM ERP Integration': 'Integración de CRM y ERP de Terceros',
+
     // Public Website Footer
     'Help Center': 'Centro de Ayuda',
     'Check It Out': 'Échale un Vistazo',
@@ -931,10 +1032,26 @@ export const LanguageProvider = ({ children }) => {
     return localStorage.getItem('crm_nergy_language') || 'EN';
   });
 
+  useEffect(() => {
+    const handleSync = (e) => {
+      const val = e.detail || (e.key === 'crm_nergy_language' ? e.newValue : null);
+      if (val && (val === 'EN' || val === 'ES')) {
+        setLanguageState(val);
+      }
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('crm_nergy_language_change', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('crm_nergy_language_change', handleSync);
+    };
+  }, []);
+
   const setLanguage = (newLang) => {
     const lang = newLang === 'ES' ? 'ES' : 'EN';
     setLanguageState(lang);
     localStorage.setItem('crm_nergy_language', lang);
+    window.dispatchEvent(new CustomEvent('crm_nergy_language_change', { detail: lang }));
   };
 
   const t = (key, fallback) => {
