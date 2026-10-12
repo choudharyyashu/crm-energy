@@ -310,13 +310,13 @@ select::-ms-expand {
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  min-width: 200px;
+  min-width: 210px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   padding: 0.375rem;
-  z-index: var(--z-dropdown);
+  z-index: 1050;
   animation: fadeInDown 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

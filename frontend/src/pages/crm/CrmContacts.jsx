@@ -316,12 +316,13 @@ export const CrmContacts = () => {
 
       {/* Desktop / Tablet Contacts Table (Full Width 100% Seamless) */}
       <div
-        className="hidden-mobile flex flex-col rounded-xl overflow-hidden"
+        className="hidden-mobile flex flex-col rounded-2xl overflow-hidden"
         style={{
           width: '100%',
           backgroundColor: 'var(--surface)',
           border: '1px solid var(--border)',
-          boxShadow: 'var(--shadow-sm)',
+          borderRadius: '16px',
+          boxShadow: 'var(--shadow-card)',
         }}
       >
         <div style={{ width: '100%', overflowX: 'auto' }}>
@@ -370,8 +371,8 @@ export const CrmContacts = () => {
                         />
                       </td>
                       <td style={{ padding: '0.875rem 1rem', borderRight: 'none', borderLeft: 'none' }}>
-                        <span className="font-mono text-xs text-tertiary" title={contact.id} style={{ cursor: 'pointer' }}>
-                          #{contact.id ? (contact.id.length > 10 ? `${contact.id.slice(0, 5)}...${contact.id.slice(-4)}` : contact.id) : '-'}
+                        <span className="font-mono text-xs font-semibold text-tertiary" title={`Database ID: ${contact.id}`} style={{ cursor: 'default' }}>
+                          {contact.displayId || (contact.id ? `CNT-${String(filteredContacts.indexOf(contact) + 1).padStart(3, '0')}` : '-')}
                         </span>
                       </td>
                       <td style={{ padding: '0.875rem 1rem', borderRight: 'none', borderLeft: 'none' }}>
@@ -483,10 +484,10 @@ export const CrmContacts = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '0.75rem',
-              borderRadius: '14px',
+              borderRadius: '16px',
               border: '1px solid var(--border)',
               backgroundColor: 'var(--surface)',
-              boxShadow: 'var(--shadow-sm)',
+              boxShadow: 'var(--shadow-card)',
               width: '100%',
               boxSizing: 'border-box',
             }}
@@ -495,8 +496,8 @@ export const CrmContacts = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Avatar name={contact.name} size="sm" />
-                <span className="font-mono text-xs text-tertiary" title={contact.id}>
-                  #{contact.id ? (contact.id.length > 10 ? `${contact.id.slice(0, 5)}...${contact.id.slice(-4)}` : contact.id) : '-'}
+                <span className="font-mono text-xs font-semibold text-tertiary" title={`Database ID: ${contact.id}`}>
+                  {contact.displayId || (contact.id ? `CNT-${String(filteredContacts.indexOf(contact) + 1).padStart(3, '0')}` : '-')}
                 </span>
               </div>
               <Badge

@@ -9,14 +9,14 @@ export const OalLenderSignup = () => {
   const { addToast } = useToast();
 
   const [formData, setFormData] = useState({
-    companyName: 'Vanguard Capital Partners',
-    legalName: 'Vanguard Capital Partners LP',
-    contactPerson: 'Marcus Sterling',
-    email: 'm.sterling@vanguard.com',
-    phone: '+1 (555) 456-7890',
+    companyName: '',
+    legalName: '',
+    contactPerson: '',
+    email: '',
+    phone: '',
     aum: '$50M - $250M',
     lenderType: 'Private Debt Fund',
-    password: 'Password123!',
+    password: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);

@@ -861,26 +861,56 @@ export const PublicTopicPage = ({ slug: propSlug }) => {
           <p style={{ margin: 0, maxWidth: '600px', color: isDark ? '#94a3b8' : '#64748b', fontSize: '0.95rem' }}>
             Empower your organization with unified CRM, ERP, and Autonomous AI. Sign in to your command portal or create your enterprise account today.
           </p>
-          <button
-            onClick={() => navigate('/login')}
-            style={{
-              padding: '0.75rem 1.75rem',
-              borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-              color: '#ffffff',
-              border: 'none',
-              fontWeight: 700,
-              fontSize: '0.925rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              boxShadow: '0 0 16px rgba(14, 165, 233, 0.4)',
-            }}
-          >
-            [ Login / Create Account ]
-            <ArrowRight size={16} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <button
+              onClick={() => navigate('/crm/signup')}
+              style={{
+                padding: '0.85rem 2rem',
+                borderRadius: 'var(--radius-lg)',
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                color: '#ffffff',
+                border: 'none',
+                fontWeight: 800,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+            >
+              <span>Create Free Account</span>
+              <ArrowRight size={18} />
+            </button>
+
+            <button
+              onClick={() => navigate('/login')}
+              style={{
+                padding: '0.85rem 1.75rem',
+                borderRadius: 'var(--radius-lg)',
+                backgroundColor: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
+                color: isDark ? '#f8fafc' : '#0f172a',
+                border: isDark ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid #cbd5e1',
+                fontWeight: 700,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.borderColor = '#38bdf8';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.borderColor = isDark ? 'rgba(56, 189, 248, 0.35)' : '#cbd5e1';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              Sign In to Portal
+            </button>
+          </div>
         </div>
       </main>
 
@@ -1108,6 +1138,13 @@ export const PublicTopicPage = ({ slug: propSlug }) => {
               style={{ cursor: 'pointer', color: '#38bdf8', fontWeight: 600 }}
             >
               Portal Login
+            </span>
+            <span>•</span>
+            <span
+              onClick={() => navigate('/crm/signup')}
+              style={{ cursor: 'pointer', color: '#38bdf8', fontWeight: 600 }}
+            >
+              Create Account
             </span>
           </div>
         </div>

@@ -48,10 +48,12 @@ import {
 import { useCrm } from '../../context/CrmContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useCurrency } from '../../context/CurrencyContext';
 
 export const CrmDashboard = () => {
   const navigate = useNavigate();
   const { user: crmUser } = useAuth();
+  const { formatCurrency, currency } = useCurrency();
   const {
     contacts,
     addContact,
@@ -106,16 +108,11 @@ export const CrmDashboard = () => {
   const [newContactPhone, setNewContactPhone] = useState('');
   const [newContactType, setNewContactType] = useState('Enterprise Client');
 
-  // Currency helper
-  const formatCurrency = (val) => {
-    if (typeof val === 'number') return '$' + val.toLocaleString('en-US');
-    const num = parseFloat(String(val).replace(/[^0-9.-]+/g, '')) || 0;
-    return '$' + num.toLocaleString('en-US');
-  };
-
   // Dynamic calculations from real live CRM state
   const totalPipelineValue = deals.reduce((acc, d) => {
-    const rawVal = typeof d.value === 'number' ? d.value : parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0;
+    const rawVal = d.rawValue !== undefined && d.rawValue !== null
+      ? d.rawValue
+      : (typeof d.value === 'number' ? d.value : parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0);
     return acc + rawVal;
   }, 0);
 
@@ -126,6 +123,7 @@ export const CrmDashboard = () => {
   }).length;
   const revenueDisplay = formatCurrency(totalPipelineValue);
   const enterpriseClientCount = contacts.length;
+  const pendingTasksCount = tasks.filter((t) => t.status !== 'Completed').length;
 
   // Sync Data Handler
   const handleSyncData = async () => {
@@ -221,7 +219,7 @@ export const CrmDashboard = () => {
     return st.includes('new') || st.includes('lead') || st.includes('contact');
   });
 
-  const getStageTotal = (arr) => arr.reduce((acc, d) => acc + (parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0), 0);
+  const getStageTotal = (arr) => arr.reduce((acc, d) => acc + (d.rawValue !== undefined ? d.rawValue : (parseFloat(String(d.value).replace(/[^0-9.-]+/g, '')) || 0)), 0);
 
   const pipelineStages = [
     {
@@ -324,168 +322,304 @@ export const CrmDashboard = () => {
 
   return (
     <div className="flex flex-col gap-6" style={{ maxWidth: '1400px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-      {/* 1. Top Breadcrumb & Executive Header Controls */}
+      {/* 1. Top Breadcrumb & Executive Command Deck */}
       <div className="flex flex-col gap-3">
         <Breadcrumb
           homeHref="/crm/dashboard"
           items={[
             { label: 'CRM nErgy AI', href: '/crm/dashboard' },
-            { label: 'Executive Dashboard' },
+            { label: 'Executive Command Center' },
           ]}
         />
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 flex-wrap">
-              <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>
-                Executive CRM Dashboard
-              </h1>
-              <button
-                type="button"
-                onClick={() => addToast({ title: 'Telemetry Status', message: 'Tenant Vault Pipeline is 100% active and synchronized.', type: 'success' })}
-                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-              >
-                <Badge variant="primary" icon={Sparkles}>
-                  Live Pipeline Active
-                </Badge>
-              </button>
-            </div>
-          </div>
+        {/* Executive Command Hero Deck */}
+        <div
+          style={{
+            background: 'var(--deck-bg)',
+            border: '1px solid var(--deck-border)',
+            borderRadius: '20px',
+            padding: '1.25rem 1.5rem',
+            boxShadow: 'var(--shadow-card)',
+            position: 'relative',
+            zIndex: 25,
+            overflow: 'visible',
+          }}
+        >
+          {/* Subtle Ambient Light Glow */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '180px',
+              height: '180px',
+              borderTopRightRadius: '20px',
+              background: 'radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }}
+          />
 
-          {/* Right Header Action Controls */}
-          <div className="dashboard-actions-grid">
-            {/* Segmented Control Switcher */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+            {/* Left Deck Header: Title, Subtitle & Live Status Beacon */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h1
+                  style={{
+                    fontSize: '1.65rem',
+                    fontWeight: 850,
+                    letterSpacing: '-0.025em',
+                    color: 'var(--text-primary)',
+                    margin: 0,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Executive Command Center
+                </h1>
+
+                {/* Glowing Status Beacon */}
+                <button
+                  type="button"
+                  onClick={() => addToast({ title: 'Telemetry Status', message: 'Tenant Vault Pipeline is 100% active and synchronized.', type: 'success' })}
+                  className="cursor-pointer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '3px 10px',
+                    borderRadius: '9999px',
+                    backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                    border: '1px solid rgba(16, 185, 129, 0.28)',
+                    color: '#10b981',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '7px',
+                      height: '7px',
+                      borderRadius: '50%',
+                      backgroundColor: '#10b981',
+                      boxShadow: '0 0 8px #10b981',
+                    }}
+                  />
+                  Live Telemetry Active
+                </button>
+              </div>
+
+              <p
+                style={{
+                  fontSize: '12.5px',
+                  color: 'var(--text-secondary)',
+                  margin: 0,
+                  fontWeight: 500,
+                }}
+              >
+                Welcome back, <strong>{crmUser?.name || 'Alexander Wright'}</strong> · Real-time pipeline analytics, revenue attribution & enterprise deals.
+              </p>
+            </div>
+
+            {/* Right Deck Controls: Structured 2-Row Layout */}
             <div
-              className="dashboard-timeframe-switcher"
+              className="dashboard-actions-grid"
               style={{
-                display: 'inline-flex',
-                padding: '3px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--surface-secondary)',
-                border: '1px solid var(--border)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                gap: '0.625rem',
               }}
             >
-              {['7 Days', '30 Days', 'YTD'].map((r) => (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => {
-                    setActiveRange(r);
-                    addToast({ title: 'Timeframe Changed', message: `Showing metrics for ${r}.`, type: 'info' });
-                  }}
+              {/* Row 1: Timeframe Segmented Control + Date Range Dropdown */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                {/* Segmented Control Switcher */}
+                <div
+                  className="dashboard-timeframe-switcher"
                   style={{
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '6px',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    backgroundColor: activeRange === r ? '#ffffff' : 'transparent',
-                    color: activeRange === r ? '#1d4ed8' : 'var(--text-secondary)',
-                    boxShadow: activeRange === r ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+                    display: 'inline-flex',
+                    padding: '3px',
+                    borderRadius: '10px',
+                    backgroundColor: 'var(--surface-secondary)',
+                    border: '1px solid var(--border)',
                   }}
                 >
-                  {r}
-                </button>
-              ))}
-            </div>
+                  {['7 Days', '30 Days', 'YTD'].map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => {
+                        setActiveRange(r);
+                        addToast({ title: 'Timeframe Changed', message: `Showing metrics for ${r}.`, type: 'info' });
+                      }}
+                      style={{
+                        padding: '0.35rem 0.75rem',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 650,
+                        border: 'none',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                        backgroundColor: activeRange === r ? 'var(--surface)' : 'transparent',
+                        color: activeRange === r ? 'var(--primary)' : 'var(--text-secondary)',
+                        boxShadow: activeRange === r ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+                      }}
+                    >
+                      {r}
+                    </button>
+                  ))}
+                </div>
 
-            {/* Action Buttons Group */}
-            <div className="dashboard-btn-group">
-              {/* Sync Data Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                icon={RefreshCw}
-                disabled={isSyncing}
-                onClick={handleSyncData}
-              >
-                {isSyncing ? 'Syncing...' : 'Sync Data'}
-              </Button>
-
-              {/* + Add Contact Primary Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Plus}
-                onClick={() => setIsContactModalOpen(true)}
-              >
-                Add Contact
-              </Button>
-
-              {/* + Schedule Task Primary Button */}
-              <Button
-                variant="primary"
-                size="sm"
-                icon={Plus}
-                onClick={() => setIsTaskModalOpen(true)}
-              >
-                New Task
-              </Button>
-
-              {/* Date Range Selector Dropdown */}
-              <Dropdown
-                trigger={
-                  <button
-                    type="button"
-                    className="flex items-center justify-between gap-1 px-2.5 py-1.5 rounded-sm text-xs border-subtle surface cursor-pointer font-medium text-primary hover:bg-hover transition-colors"
-                    style={{
-                      backgroundColor: 'var(--surface)',
-                      border: '1px solid var(--border)',
-                      height: '34px',
-                      width: '100%',
-                      minWidth: 0,
-                      overflow: 'hidden',
-                      boxSizing: 'border-box',
+                {/* Date Range Selector Dropdown */}
+                <Dropdown
+                  align="right"
+                  trigger={
+                    <button
+                      type="button"
+                      className="flex items-center justify-between gap-1.5 px-3 py-1.5 rounded-lg text-xs cursor-pointer font-medium text-primary hover:bg-hover transition-colors"
+                      style={{
+                        backgroundColor: 'var(--surface)',
+                        border: '1px solid var(--border)',
+                        height: '34px',
+                        boxSizing: 'border-box',
+                        boxShadow: 'var(--shadow-xs)',
+                      }}
+                    >
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <Calendar size={13} className="text-secondary flex-shrink-0" />
+                        <span className="truncate" style={{ fontSize: '11px', fontWeight: 600 }}>{selectedDateLabel}</span>
+                      </div>
+                      <ChevronDown size={13} className="text-tertiary flex-shrink-0 ml-1" />
+                    </button>
+                  }
+                >
+                  <DropdownHeader>Reporting Cycle Interval</DropdownHeader>
+                  <DropdownItem
+                    icon={Calendar}
+                    onClick={() => {
+                      const now = new Date();
+                      const start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                      const lbl = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                      setSelectedDateLabel(lbl);
+                      addToast({ title: 'Date Range Updated', message: `Set to Last 7 Days (${lbl})`, type: 'info' });
                     }}
                   >
-                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                      <Calendar size={13} className="text-secondary flex-shrink-0" />
-                      <span className="truncate" style={{ fontSize: '11px' }}>{selectedDateLabel}</span>
-                    </div>
-                    <ChevronDown size={13} className="text-tertiary flex-shrink-0" />
-                  </button>
-                }
-              >
-                <DropdownHeader>Reporting Cycle Interval</DropdownHeader>
-                <DropdownItem
-                  icon={Calendar}
-                  onClick={() => {
-                    setSelectedDateLabel('May 12 – May 18, 2025');
-                    addToast({ title: 'Date Range Updated', message: 'Set to May 12 – May 18, 2025 (Current Cycle)', type: 'info' });
+                    Last 7 Days (Recent Activity)
+                  </DropdownItem>
+                  <DropdownItem
+                    icon={Calendar}
+                    onClick={() => {
+                      const now = new Date();
+                      const start = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                      const lbl = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                      setSelectedDateLabel(lbl);
+                      addToast({ title: 'Date Range Updated', message: `Set to Last 30 Days (${lbl})`, type: 'info' });
+                    }}
+                  >
+                    Last 30 Days (Rolling Cycle)
+                  </DropdownItem>
+                  <DropdownItem
+                    icon={Calendar}
+                    onClick={() => {
+                      const now = new Date();
+                      const year = now.getFullYear();
+                      const month = now.getMonth();
+                      const start = new Date(year, month, 1);
+                      const end = new Date(year, month + 1, 0);
+                      const lbl = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                      setSelectedDateLabel(lbl);
+                      addToast({ title: 'Date Range Updated', message: `Set to Current Month (${lbl})`, type: 'info' });
+                    }}
+                  >
+                    Current Full Month (MTD)
+                  </DropdownItem>
+                  <DropdownItem
+                    icon={Calendar}
+                    onClick={() => {
+                      const now = new Date();
+                      const year = now.getFullYear();
+                      const qMonth = Math.floor(now.getMonth() / 3) * 3;
+                      const start = new Date(year, qMonth, 1);
+                      const end = new Date(year, qMonth + 3, 0);
+                      const qNum = Math.floor(now.getMonth() / 3) + 1;
+                      const lbl = `Q${qNum} ${year} (${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })})`;
+                      setSelectedDateLabel(lbl);
+                      addToast({ title: 'Date Range Updated', message: `Set to Fiscal Q${qNum} ${year}`, type: 'info' });
+                    }}
+                  >
+                    Current Quarter (Q4)
+                  </DropdownItem>
+                  <DropdownItem
+                    icon={Calendar}
+                    onClick={() => {
+                      const year = new Date().getFullYear();
+                      const lbl = `Jan 1 – Dec 31, ${year}`;
+                      setSelectedDateLabel(lbl);
+                      addToast({ title: 'Date Range Updated', message: `Set to Fiscal Year ${year}`, type: 'info' });
+                    }}
+                  >
+                    Full Fiscal Year
+                  </DropdownItem>
+                </Dropdown>
+              </div>
+
+              {/* Row 2: Action Buttons Group */}
+              <div className="dashboard-btn-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                {/* Sync Data Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon={RefreshCw}
+                  disabled={isSyncing}
+                  onClick={handleSyncData}
+                  style={{ borderRadius: '10px' }}
+                >
+                  {isSyncing ? 'Syncing...' : 'Sync Data'}
+                </Button>
+
+                {/* + Add Contact Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon={Plus}
+                  onClick={() => setIsContactModalOpen(true)}
+                  style={{ borderRadius: '10px' }}
+                >
+                  Add Contact
+                </Button>
+
+                {/* + New Task Primary Gradient Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsTaskModalOpen(true)}
+                  className="cursor-pointer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    height: '32px',
+                    padding: '0 14px',
+                    borderRadius: '10px',
+                    background: 'linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%)',
+                    color: '#ffffff',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    border: 'none',
+                    boxShadow: '0 4px 14px -2px rgba(249, 115, 22, 0.45)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px 0 rgba(249, 115, 22, 0.55)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 14px -2px rgba(249, 115, 22, 0.45)';
                   }}
                 >
-                  May 12 &ndash; May 18, 2025 (Current Cycle)
-                </DropdownItem>
-                <DropdownItem
-                  icon={Calendar}
-                  onClick={() => {
-                    setSelectedDateLabel('May 1 – May 31, 2025');
-                    addToast({ title: 'Date Range Updated', message: 'Set to May 1 – May 31, 2025 (Full Month)', type: 'info' });
-                  }}
-                >
-                  May 1 &ndash; May 31, 2025 (Full Month)
-                </DropdownItem>
-                <DropdownItem
-                  icon={Calendar}
-                  onClick={() => {
-                    setSelectedDateLabel('Apr 1 – Jun 30, 2025');
-                    addToast({ title: 'Date Range Updated', message: 'Set to Q2 2025 (Apr 1 – Jun 30, 2025)', type: 'info' });
-                  }}
-                >
-                  Apr 1 &ndash; Jun 30, 2025 (Fiscal Q2)
-                </DropdownItem>
-                <DropdownItem
-                  icon={Calendar}
-                  onClick={() => {
-                    setSelectedDateLabel('Jan 1 – Dec 31, 2025');
-                    addToast({ title: 'Date Range Updated', message: 'Set to Fiscal Year 2025', type: 'info' });
-                  }}
-                >
-                  Jan 1 &ndash; Dec 31, 2025 (Fiscal Year)
-                </DropdownItem>
-              </Dropdown>
+                  <Plus size={14} style={{ color: '#ffffff' }} />
+                  <span>New Task</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -496,12 +630,12 @@ export const CrmDashboard = () => {
         <KPICard
           title="TOTAL LEADS ACQUIRED"
           value={String(totalLeadsDisplay)}
-          change="14.2%"
-          changeType="positive"
-          changePeriod="vs last 7 days"
+          change={totalLeadsDisplay > 0 ? "100%" : "0%"}
+          changeType={totalLeadsDisplay > 0 ? "positive" : "neutral"}
+          changePeriod={totalLeadsDisplay > 0 ? "vs last 7 days" : "No active leads"}
           icon={Users}
-          iconBg="rgba(22, 163, 74, 0.1)"
-          iconColor="#16a34a"
+          iconBg="rgba(16, 185, 129, 0.12)"
+          iconColor="#10b981"
           onClick={() => navigate('/crm/leads')}
           tooltip="Click to open Leads Directory"
         />
@@ -509,12 +643,12 @@ export const CrmDashboard = () => {
         <KPICard
           title="QUALIFIED OPPORTUNITIES"
           value={String(qualifiedOppDisplay)}
-          change="46.1%"
-          changeType="positive"
-          changePeriod="$2.21M Value"
+          change={qualifiedOppDisplay > 0 ? "100%" : "0%"}
+          changeType={qualifiedOppDisplay > 0 ? "positive" : "neutral"}
+          changePeriod={totalPipelineValue > 0 ? `${formatCurrency(totalPipelineValue)} Value` : `${formatCurrency(0)} Value`}
           icon={Briefcase}
-          iconBg="rgba(29, 78, 216, 0.1)"
-          iconColor="#1d4ed8"
+          iconBg="rgba(99, 102, 241, 0.12)"
+          iconColor="#6366f1"
           onClick={() => navigate('/crm/leads')}
           tooltip="Click to open Qualified Deals"
         />
@@ -522,12 +656,12 @@ export const CrmDashboard = () => {
         <KPICard
           title="MONTHLY REVENUE (ARR)"
           value={revenueDisplay}
-          change="19.8%"
-          changeType="positive"
-          changePeriod="YoY Growth"
+          change={totalPipelineValue > 0 ? "100%" : "0%"}
+          changeType={totalPipelineValue > 0 ? "positive" : "neutral"}
+          changePeriod={totalPipelineValue > 0 ? "Pipeline Volume" : "No active pipeline"}
           icon={DollarSign}
-          iconBg="rgba(147, 51, 234, 0.1)"
-          iconColor="#9333ea"
+          iconBg="rgba(249, 115, 22, 0.12)"
+          iconColor="#f97316"
           onClick={() => navigate('/crm/pipeline')}
           tooltip="Click to view Revenue Pipeline"
         />
@@ -535,12 +669,12 @@ export const CrmDashboard = () => {
         <KPICard
           title="ACTIVE ENTERPRISE CLIENTS"
           value={String(enterpriseClientCount)}
-          change="15.4%"
-          changeType="positive"
-          changePeriod="Tiered 03"
+          change={enterpriseClientCount > 0 ? "100%" : "0%"}
+          changeType={enterpriseClientCount > 0 ? "positive" : "neutral"}
+          changePeriod={enterpriseClientCount > 0 ? "Active Accounts" : "No active accounts"}
           icon={User}
-          iconBg="rgba(234, 88, 12, 0.1)"
-          iconColor="#ea580c"
+          iconBg="rgba(6, 182, 212, 0.12)"
+          iconColor="#06b6d4"
           onClick={() => navigate('/crm/contacts')}
           tooltip="Click to view Enterprise Contacts"
         />
@@ -548,26 +682,41 @@ export const CrmDashboard = () => {
 
       {/* 3. Row 2: Business Health Telemetry (4 Cards - Equal Height & Width to Row 1) */}
       <div className="grid-responsive-kpi">
-        {/* Card 1 */}
+        {/* Card 1: Conversion Rate */}
         <div
-          onClick={() => addToast({ title: 'Conversion Telemetry', message: 'Current Lead-to-Opportunity conversion rate is 26.6% (+2.3% vs target).', type: 'info' })}
-          className="kpi-card cursor-pointer hover:border-strong transition-all"
+          onClick={() => addToast({ title: 'Conversion Telemetry', message: `Current Lead-to-Opportunity conversion rate is ${leads.length > 0 && deals.length > 0 ? ((deals.length / leads.length) * 100).toFixed(1) + '%' : '0.0%'}.`, type: 'info' })}
+          className="kpi-card cursor-pointer transition-all"
           style={{
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: '14px',
-            padding: '1.25rem',
-            height: '132px',
+            borderRadius: '16px',
+            padding: '1.1rem 1.25rem',
+            height: '142px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: 'var(--shadow-sm)',
+            boxShadow: 'var(--shadow-card)',
             boxSizing: 'border-box',
             minWidth: 0,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#10b981';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
           }}
         >
-          <div className="flex items-center justify-between gap-2">
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {/* Top Decorative Accent Strip */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #10b981 0%, transparent 100%)', opacity: 0.85 }} />
+
+          <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               CONVERSION RATE
             </span>
             <span
@@ -575,57 +724,74 @@ export const CrmDashboard = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '2px',
-                padding: '2px 7px',
+                padding: '2.5px 8px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(22, 163, 74, 0.1)',
-                color: '#16a34a',
+                backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                color: '#10b981',
                 fontSize: '11px',
                 fontWeight: 700,
               }}
             >
               <ArrowUpRight size={12} />
-              2.3%
+              {leads.length > 0 && deals.length > 0 ? `${((deals.length / leads.length) * 100).toFixed(1)}%` : '0.0%'}
             </span>
           </div>
 
           <div
             style={{
-              fontSize: '1.75rem',
+              fontSize: '1.65rem',
               fontWeight: 800,
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-display)',
-              lineHeight: 1,
-              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              letterSpacing: '-0.025em',
+              fontVariantNumeric: 'tabular-nums',
             }}
           >
-            26.6%
+            {leads.length > 0 && deals.length > 0 ? `${((deals.length / leads.length) * 100).toFixed(1)}%` : '0.0%'}
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            Lead to Opportunity
+            {leads.length > 0 ? 'Lead to Opportunity' : 'No active leads'}
           </span>
         </div>
 
-        {/* Card 2 */}
+        {/* Card 2: Avg Deal Cycle */}
         <div
-          onClick={() => addToast({ title: 'Deal Velocity', message: 'Average deal closure speed is 14.2 days (2.5 days faster than Q4).', type: 'info' })}
-          className="kpi-card cursor-pointer hover:border-strong transition-all"
+          onClick={() => addToast({ title: 'Deal Velocity', message: 'Average deal cycle tracking from initial lead to close.', type: 'info' })}
+          className="kpi-card cursor-pointer transition-all"
           style={{
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: '14px',
-            padding: '1.25rem',
-            height: '132px',
+            borderRadius: '16px',
+            padding: '1.1rem 1.25rem',
+            height: '142px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: 'var(--shadow-sm)',
+            boxShadow: 'var(--shadow-card)',
             boxSizing: 'border-box',
             minWidth: 0,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#0284c7';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
           }}
         >
-          <div className="flex items-center justify-between gap-2">
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {/* Top Decorative Accent Strip */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0284c7 0%, transparent 100%)', opacity: 0.85 }} />
+
+          <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               AVG DEAL CYCLE
             </span>
             <span
@@ -633,30 +799,32 @@ export const CrmDashboard = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '2px',
-                padding: '2px 7px',
+                padding: '2.5px 8px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(22, 163, 74, 0.1)',
-                color: '#16a34a',
+                backgroundColor: 'rgba(2, 132, 199, 0.12)',
+                border: '1px solid rgba(2, 132, 199, 0.25)',
+                color: '#0284c7',
                 fontSize: '11px',
                 fontWeight: 700,
               }}
             >
               <ArrowDownRight size={12} />
-              2.5d
+              0d
             </span>
           </div>
 
           <div
             style={{
-              fontSize: '1.75rem',
+              fontSize: '1.65rem',
               fontWeight: 800,
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-display)',
-              lineHeight: 1,
-              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              letterSpacing: '-0.025em',
+              fontVariantNumeric: 'tabular-nums',
             }}
           >
-            14.2 Days
+            0.0 Days
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
@@ -664,110 +832,145 @@ export const CrmDashboard = () => {
           </span>
         </div>
 
-        {/* Card 3 */}
+        {/* Card 3: Active Tasks & Reminders */}
         <div
-          onClick={() => addToast({ title: 'SLA Health', message: 'Tenant SLA uptime is 99.98%. All clusters optimal.', type: 'success' })}
-          className="kpi-card cursor-pointer hover:border-strong transition-all"
+          onClick={() => navigate('/crm/tasks')}
+          className="kpi-card cursor-pointer transition-all"
+          title="Click to view all tasks & reminders"
           style={{
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: '14px',
-            padding: '1.25rem',
-            height: '132px',
+            borderRadius: '16px',
+            padding: '1.1rem 1.25rem',
+            height: '142px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: 'var(--shadow-sm)',
+            boxShadow: 'var(--shadow-card)',
             boxSizing: 'border-box',
             minWidth: 0,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#f97316';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
           }}
         >
-          <div className="flex items-center justify-between gap-2">
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              TENANT SLA LIFETIME
+          {/* Top Decorative Accent Strip */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #f97316 0%, transparent 100%)', opacity: 0.85 }} />
+
+          <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              ACTIVE TASKS
             </span>
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                padding: '2px 7px',
+                gap: '2px',
+                padding: '2.5px 8px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(22, 163, 74, 0.1)',
-                color: '#16a34a',
+                backgroundColor: pendingTasksCount > 0 ? 'rgba(249, 115, 22, 0.12)' : 'rgba(16, 185, 129, 0.12)',
+                border: `1px solid ${pendingTasksCount > 0 ? 'rgba(249, 115, 22, 0.28)' : 'rgba(16, 185, 129, 0.25)'}`,
+                color: pendingTasksCount > 0 ? '#ea580c' : '#10b981',
                 fontSize: '11px',
                 fontWeight: 700,
               }}
             >
-              Optimal
+              {pendingTasksCount > 0 ? `${pendingTasksCount} Pending` : 'All Clear'}
             </span>
           </div>
 
           <div
             style={{
-              fontSize: '1.75rem',
+              fontSize: '1.65rem',
               fontWeight: 800,
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-display)',
-              lineHeight: 1,
-              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              letterSpacing: '-0.025em',
+              fontVariantNumeric: 'tabular-nums',
             }}
           >
-            99.98%
+            {pendingTasksCount}
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            Platform Uptime
+            {pendingTasksCount > 0 ? 'Follow-ups & Action Items' : 'No pending tasks'}
           </span>
         </div>
 
-        {/* Card 4 */}
+        {/* Card 4: Data Sync Status */}
         <div
           onClick={handleSyncData}
-          className="kpi-card cursor-pointer hover:border-strong transition-all"
+          className="kpi-card cursor-pointer transition-all"
           style={{
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: '14px',
-            padding: '1.25rem',
-            height: '132px',
+            borderRadius: '16px',
+            padding: '1.1rem 1.25rem',
+            height: '142px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: 'var(--shadow-sm)',
+            boxShadow: 'var(--shadow-card)',
             boxSizing: 'border-box',
             minWidth: 0,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#6366f1';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
           }}
         >
-          <div className="flex items-center justify-between gap-2">
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {/* Top Decorative Accent Strip */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #6366f1 0%, transparent 100%)', opacity: 0.85 }} />
+
+          <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               DATA SYNC STATUS
             </span>
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '4px',
-                padding: '2px 7px',
+                gap: '5px',
+                padding: '2.5px 8px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(22, 163, 74, 0.1)',
-                color: '#16a34a',
+                backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                color: '#10b981',
                 fontSize: '11px',
                 fontWeight: 700,
               }}
             >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#16a34a' }} />
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 6px #10b981' }} />
               Live
             </span>
           </div>
 
           <div
             style={{
-              fontSize: '1.75rem',
+              fontSize: '1.65rem',
               fontWeight: 800,
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-display)',
-              lineHeight: 1,
-              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              letterSpacing: '-0.025em',
             }}
           >
             Synced
@@ -851,8 +1054,8 @@ export const CrmDashboard = () => {
               className="flex items-center justify-between pt-3 text-xs"
               style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)', marginTop: '2px' }}
             >
-              <span>Total: <strong className="text-primary font-bold">$3.33M</strong></span>
-              <span>Weighted: <strong className="text-primary font-bold">$1.68M</strong></span>
+              <span>Total: <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue)}</strong></span>
+              <span>Weighted: <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue * 0.5)}</strong></span>
             </div>
           </div>
         </Card>
@@ -917,7 +1120,7 @@ export const CrmDashboard = () => {
               className="flex items-center justify-between pt-4 text-xs"
               style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)', marginTop: '4px' }}
             >
-              <span>Total Leads: <strong className="text-primary font-bold">2,681</strong></span>
+              <span>Total Leads: <strong className="text-primary font-bold">{leads.length}</strong></span>
               <button
                 type="button"
                 onClick={() => navigate('/crm/leads')}
@@ -972,85 +1175,93 @@ export const CrmDashboard = () => {
 
             {/* Activity List (12px Gap Between Items) */}
             <div className="flex flex-col" style={{ gap: '12px', width: '100%', boxSizing: 'border-box' }}>
-              {filteredActivities.map((act) => (
-                <div
-                  key={act.id}
-                  onClick={() => setSelectedActivity(act)}
-                  className="dashboard-activity-item cursor-pointer hover:border-strong transition-all"
-                  style={{
-                    backgroundColor: 'var(--surface-secondary)',
-                    borderRadius: '12px',
-                    border: '1px solid var(--border)',
-                    boxSizing: 'border-box',
-                    overflow: 'hidden',
-                    width: '100%',
-                    maxWidth: '100%',
-                    minWidth: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '8px',
-                    padding: '10px 12px',
-                  }}
-                >
-                  <div className="flex items-center min-w-0 flex-1" style={{ gap: '10px', minWidth: 0, overflow: 'hidden' }}>
-                    <div
-                      style={{
-                        width: '10px',
-                        height: '10px',
-                        borderRadius: '50%',
-                        backgroundColor: act.color,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <div className="flex flex-col min-w-0 flex-1" style={{ gap: '2px', minWidth: 0, overflow: 'hidden' }}>
-                      <span
-                        className="truncate"
-                        style={{
-                          fontSize: '13px',
-                          fontWeight: 700,
-                          color: 'var(--text-primary)',
-                          display: 'block',
-                          minWidth: 0,
-                          maxWidth: '100%',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {act.title}
-                      </span>
-                      <span
-                        className="truncate"
-                        style={{
-                          fontSize: '11.5px',
-                          color: 'var(--text-secondary)',
-                          display: 'block',
-                          minWidth: 0,
-                          maxWidth: '100%',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {act.description}
-                      </span>
-                    </div>
-                  </div>
-                  <span
+              {filteredActivities.length === 0 ? (
+                <div className="flex flex-col items-center justify-center p-6 text-center text-tertiary">
+                  <Activity size={28} className="mb-2 text-secondary opacity-60" />
+                  <span className="text-xs font-semibold text-primary">No Activity Logged</span>
+                  <span className="text-xs">Audit actions and CRM events will appear here in real-time.</span>
+                </div>
+              ) : (
+                filteredActivities.map((act) => (
+                  <div
+                    key={act.id}
+                    onClick={() => setSelectedActivity(act)}
+                    className="dashboard-activity-item cursor-pointer hover:border-strong transition-all"
                     style={{
-                      fontSize: '11px',
-                      color: 'var(--text-tertiary)',
-                      flexShrink: 0,
-                      fontWeight: 500,
-                      whiteSpace: 'nowrap',
-                      marginLeft: 'auto',
+                      backgroundColor: 'var(--surface-secondary)',
+                      borderRadius: '12px',
+                      border: '1px solid var(--border)',
+                      boxSizing: 'border-box',
+                      overflow: 'hidden',
+                      width: '100%',
+                      maxWidth: '100%',
+                      minWidth: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '8px',
+                      padding: '10px 12px',
                     }}
                   >
-                    {act.time}
-                  </span>
-                </div>
-              ))}
+                    <div className="flex items-center min-w-0 flex-1" style={{ gap: '10px', minWidth: 0, overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          width: '10px',
+                          height: '10px',
+                          borderRadius: '50%',
+                          backgroundColor: act.color,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <div className="flex flex-col min-w-0 flex-1" style={{ gap: '2px', minWidth: 0, overflow: 'hidden' }}>
+                        <span
+                          className="truncate"
+                          style={{
+                            fontSize: '13px',
+                            fontWeight: 700,
+                            color: 'var(--text-primary)',
+                            display: 'block',
+                            minWidth: 0,
+                            maxWidth: '100%',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {act.title}
+                        </span>
+                        <span
+                          className="truncate"
+                          style={{
+                            fontSize: '11.5px',
+                            color: 'var(--text-secondary)',
+                            display: 'block',
+                            minWidth: 0,
+                            maxWidth: '100%',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {act.description}
+                        </span>
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        color: 'var(--text-tertiary)',
+                        flexShrink: 0,
+                        fontWeight: 500,
+                        whiteSpace: 'nowrap',
+                        marginLeft: 'auto',
+                      }}
+                    >
+                      {act.time}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </Card>

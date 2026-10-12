@@ -10,6 +10,10 @@ import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 // Public Pages & Gateway Login
 import { CrmLanding } from '../pages/CrmLanding';
 import { PublicTopicPage } from '../pages/PublicTopicPage';
+import { WebsiteLayout } from '../layouts/WebsiteLayout';
+import { WebsiteHome } from '../pages/website/WebsiteHome';
+
+// Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
 
 import { CrmSignup } from '../pages/crm/CrmSignup';
@@ -140,6 +144,16 @@ export const AppRoutes = () => {
       <Route path="/help-center" element={<PublicTopicPage slug="help-center" />} />
       <Route path="/knowledge-base" element={<PublicTopicPage slug="knowledge-base" />} />
       <Route path="/commission-calculator" element={<PublicTopicPage slug="commission-calculator" />} />
+
+      {/* Alternate Public Website Layout Routes */}
+      <Route element={<WebsiteLayout />}>
+        <Route path="/website" element={<WebsiteHome />} />
+        <Route path="/features" element={<WebsiteHome />} />
+        <Route path="/solutions" element={<WebsiteHome />} />
+        <Route path="/industries" element={<WebsiteHome />} />
+      </Route>
+
+      {/* Gateway Login Pages */}
       <Route path="/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />

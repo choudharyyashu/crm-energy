@@ -36,12 +36,16 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useToast } from '../../context/ToastContext';
+import { useCurrency } from '../../context/CurrencyContext';
+import { useLanguage } from '../../context/LanguageContext';
 import apiClient from '../../services/apiClient';
 
 export const CrmSettings = () => {
   const { user, setUser, companyData, updateCompanyData } = useAuth();
   const { theme, setTheme, toggleTheme } = useTheme();
   const { addToast } = useToast();
+  const { currency, setCurrency } = useCurrency();
+  const { language, setLanguage } = useLanguage();
 
   const [activeTab, setActiveTab] = useState('profile');
   const fileInputRef = useRef(null);
@@ -188,12 +192,21 @@ export const CrmSettings = () => {
 
   // Preferences State
   const [preferences, setPreferences] = useState({
-    language: 'English (US)',
-    currency: 'USD ($)',
+    language: language === 'ES' ? 'Spanish (ES)' : 'English (US)',
+    currency: currency === 'INR' ? 'INR (₹)' : 'USD ($)',
     dateFormat: 'YYYY-MM-DD',
     startOfWeek: 'Sunday',
     density: 'Standard',
   });
+
+  // Keep preferences state in sync when global language or currency toggles
+  useEffect(() => {
+    setPreferences((prev) => ({
+      ...prev,
+      language: language === 'ES' ? 'Spanish (ES)' : 'English (US)',
+      currency: currency === 'INR' ? 'INR (₹)' : 'USD ($)',
+    }));
+  }, [language, currency]);
 
   // Handlers
   const handleSaveProfile = async (e) => {
@@ -266,7 +279,17 @@ export const CrmSettings = () => {
 
   const handleSavePreferences = (e) => {
     e.preventDefault();
-    addToast({ title: 'System Preferences Saved', message: 'Localization and display settings applied.', type: 'success' });
+    const selectedCurr = preferences.currency.includes('INR') ? 'INR' : 'USD';
+    setCurrency(selectedCurr);
+
+    const selectedLang = preferences.language.includes('Spanish') || preferences.language.includes('ES') ? 'ES' : 'EN';
+    setLanguage(selectedLang);
+
+    addToast({
+      title: 'System Preferences Saved',
+      message: `Settings updated: Language set to ${selectedLang === 'ES' ? 'Spanish (ES)' : 'English (US)'}, Base Currency set to ${selectedCurr} ($1 = ₹83).`,
+      type: 'success',
+    });
   };
 
   // Safe avatar initials
@@ -917,9 +940,6 @@ export const CrmSettings = () => {
                 options={[
                   { label: 'English (US)', value: 'English (US)' },
                   { label: 'Spanish (ES)', value: 'Spanish (ES)' },
-                  { label: 'French (FR)', value: 'French (FR)' },
-                  { label: 'German (DE)', value: 'German (DE)' },
-                  { label: 'Japanese (JA)', value: 'Japanese (JA)' },
                 ]}
               />
               <Select
@@ -928,11 +948,7 @@ export const CrmSettings = () => {
                 onChange={(e) => setPreferences({ ...preferences, currency: e.target.value })}
                 options={[
                   { label: 'USD ($)', value: 'USD ($)' },
-                  { label: 'EUR (€)', value: 'EUR (€)' },
-                  { label: 'GBP (£)', value: 'GBP (£)' },
-                  { label: 'CAD ($)', value: 'CAD ($)' },
                   { label: 'INR (₹)', value: 'INR (₹)' },
-                  { label: 'AUD ($)', value: 'AUD ($)' },
                 ]}
               />
             </div>

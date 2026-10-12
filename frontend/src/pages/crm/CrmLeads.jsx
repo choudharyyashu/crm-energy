@@ -156,110 +156,238 @@ export const CrmLeads = () => {
         </div>
       </div>
 
-      {/* Desktop Leads Table */}
-      <Card className="hidden-mobile">
-        <CardBody className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell isHeader>Lead ID</TableCell>
-                <TableCell isHeader>Contact Name</TableCell>
-                <TableCell isHeader>Company Entity</TableCell>
-                <TableCell isHeader>Estimated Value</TableCell>
-                <TableCell isHeader>Lead Score</TableCell>
-                <TableCell isHeader>Status</TableCell>
-                <TableCell isHeader align="right">Actions</TableCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredLeads.map((lead) => {
-                const isConverted = lead.status === 'Won' || Boolean(lead.convertedToContactId);
-                return (
-                  <TableRow key={lead.id}>
-                    <TableCell>
-                      <span className="font-mono text-xs text-tertiary" title={lead.id} style={{ cursor: 'pointer' }}>
-                        #{lead.id ? (lead.id.length > 10 ? `${lead.id.slice(0, 5)}...${lead.id.slice(-4)}` : lead.id) : '-'}
-                      </span>
-                    </TableCell>
-                    <TableCell><span className="font-bold text-xs text-primary">{lead.name}</span></TableCell>
-                    <TableCell><span className="text-xs text-secondary">{lead.company}</span></TableCell>
-                    <TableCell><span className="font-bold text-xs text-success">{lead.value}</span></TableCell>
-                    <TableCell><Badge variant="success">{lead.score} / 100</Badge></TableCell>
-                    <TableCell>
-                      <Badge variant={isConverted ? 'success' : lead.status === 'Qualified' ? 'primary' : 'warning'}>
-                        {isConverted ? 'Converted' : lead.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell align="right">
-                      <div className="flex items-center justify-end gap-2">
-                        {!isConverted ? (
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            icon={Briefcase}
-                            onClick={() => handleOpenConvert(lead)}
-                            title="Convert Lead into Contact, Deal & Task"
-                          >
-                            Convert to Deal
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            icon={CheckCircle2}
-                            onClick={() => navigate('/crm/pipeline')}
-                            style={{ color: 'var(--success)' }}
-                          >
-                            In Pipeline
-                          </Button>
-                        )}
-                        {SHOW_OAL && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            icon={Sparkles}
-                            onClick={() => handleOpenReferral(lead)}
-                            title="Refer to OAL Commercial Lending Marketplace"
-                          >
-                            Refer to OAL
-                          </Button>
-                        )}
+      {/* Desktop Leads Table (Full Width 100% Responsive) */}
+      <div
+        className="hidden-mobile flex flex-col rounded-2xl overflow-hidden"
+        style={{
+          width: '100%',
+          backgroundColor: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          boxShadow: 'var(--shadow-card)',
+        }}
+      >
+        <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          <table
+            className="w-full text-left"
+            style={{
+              width: '100%',
+              minWidth: '850px',
+              borderCollapse: 'collapse',
+              borderSpacing: 0,
+            }}
+          >
+            <thead>
+              <tr style={{ backgroundColor: 'var(--surface-secondary)', borderBottom: '1px solid var(--border)' }}>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '12%', minWidth: '95px' }}>
+                  Lead ID
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '18%', minWidth: '150px' }}>
+                  Contact Name
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '20%', minWidth: '160px' }}>
+                  Company Entity
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '14%', minWidth: '120px' }}>
+                  Estimated Value
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '12%', minWidth: '110px' }}>
+                  Lead Score
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', width: '10%', minWidth: '90px' }}>
+                  Status
+                </th>
+                <th style={{ padding: '0.875rem 1rem', fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right', width: '14%', minWidth: '130px' }}>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredLeads.length === 0 ? (
+                <tr>
+                  <td colSpan={7} style={{ padding: '3.5rem 1rem', textAlign: 'center' }}>
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <div
+                        style={{
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--surface-secondary)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Briefcase size={22} className="text-secondary" />
                       </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </CardBody>
-      </Card>
+                      <div className="flex flex-col gap-1">
+                        <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+                          No Commercial Leads Found
+                        </h4>
+                        <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)' }}>
+                          {search || statusFilter !== 'all'
+                            ? 'No leads matched your search query. Try resetting filters.'
+                            : 'Your leads directory is currently empty. Click below to add your first lead.'}
+                        </p>
+                      </div>
+                      {!search && statusFilter === 'all' && (
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          icon={Plus}
+                          onClick={() => setIsAddLeadOpen(true)}
+                          style={{ marginTop: '0.5rem' }}
+                        >
+                          Add First Lead
+                        </Button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                filteredLeads.map((lead) => {
+                  const isConverted = lead.status === 'Won' || Boolean(lead.convertedToContactId);
+                  return (
+                    <tr
+                      key={lead.id}
+                      style={{
+                        borderBottom: '1px solid var(--border)',
+                        transition: 'background-color var(--transition-fast)',
+                      }}
+                      className="hover:bg-surface-hover"
+                    >
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <span className="font-mono text-xs font-semibold text-tertiary" title={`Database ID: ${lead.id}`} style={{ cursor: 'default' }}>
+                          {lead.displayId || (lead.id ? `LED-${String(filteredLeads.indexOf(lead) + 1).padStart(3, '0')}` : '-')}
+                        </span>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <span className="font-bold text-xs text-primary">{lead.name}</span>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <span className="text-xs text-secondary">{lead.company}</span>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <span className="font-bold text-xs text-success">{lead.value}</span>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <Badge variant="success">{lead.score} / 100</Badge>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem' }}>
+                        <Badge variant={isConverted ? 'success' : lead.status === 'Qualified' ? 'primary' : 'warning'}>
+                          {isConverted ? 'Converted' : lead.status}
+                        </Badge>
+                      </td>
+                      <td style={{ padding: '0.875rem 1rem', textAlign: 'right' }}>
+                        <div className="flex items-center justify-end gap-2">
+                          {!isConverted ? (
+                            <Button
+                              variant="primary"
+                              size="sm"
+                              icon={Briefcase}
+                              onClick={() => handleOpenConvert(lead)}
+                              title="Convert Lead into Contact, Deal & Task"
+                            >
+                              Convert to Deal
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              icon={CheckCircle2}
+                              onClick={() => navigate('/crm/pipeline')}
+                              style={{ color: 'var(--success)' }}
+                            >
+                              In Pipeline
+                            </Button>
+                          )}
+                          {SHOW_OAL && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              icon={Sparkles}
+                              onClick={() => handleOpenReferral(lead)}
+                              title="Refer to OAL Commercial Lending Marketplace"
+                            >
+                              Refer to OAL
+                            </Button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       {/* Mobile Card List View */}
       <div className="visible-mobile flex flex-col gap-3.5" style={{ width: '100%', boxSizing: 'border-box' }}>
-        {filteredLeads.map((lead) => {
-          const isConverted = lead.status === 'Won' || Boolean(lead.convertedToContactId);
-          return (
-            <Card
-              key={lead.id}
-              style={{
-                padding: '1rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.75rem',
-                borderRadius: '14px',
-                border: '1px solid var(--border)',
-                backgroundColor: 'var(--surface)',
-                boxShadow: 'var(--shadow-sm)',
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
+        {filteredLeads.length === 0 ? (
+          <Card style={{ padding: '2.5rem 1rem', textAlign: 'center', borderRadius: '14px' }}>
+            <div className="flex flex-col items-center justify-center gap-3">
+              <div
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--surface-secondary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto',
+                }}
+              >
+                <Briefcase size={20} className="text-secondary" />
+              </div>
+              <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
+                No Commercial Leads Found
+              </h4>
+              <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)' }}>
+                {search || statusFilter !== 'all'
+                  ? 'No leads matched your search query.'
+                  : 'Your leads directory is empty. Add your first lead.'}
+              </p>
+              {!search && statusFilter === 'all' && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={Plus}
+                  onClick={() => setIsAddLeadOpen(true)}
+                  className="w-full justify-center mt-2"
+                >
+                  Add First Lead
+                </Button>
+              )}
+            </div>
+          </Card>
+        ) : (
+          filteredLeads.map((lead) => {
+            const isConverted = lead.status === 'Won' || Boolean(lead.convertedToContactId);
+            return (
+              <Card
+                key={lead.id}
+                style={{
+                  padding: '1rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                  borderRadius: '16px',
+                  border: '1px solid var(--border)',
+                  backgroundColor: 'var(--surface)',
+                  boxShadow: 'var(--shadow-card)',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                }}
             >
               <div
                 className="flex items-center justify-between pb-2.5 border-b"
                 style={{ borderColor: 'var(--border)' }}
               >
-                <span className="font-mono text-xs text-tertiary font-semibold" title={lead.id}>
-                  #{lead.id ? (lead.id.length > 10 ? `${lead.id.slice(0, 5)}...${lead.id.slice(-4)}` : lead.id) : '-'}
+                <span className="font-mono text-xs font-semibold text-tertiary" title={`Database ID: ${lead.id}`}>
+                  {lead.displayId || (lead.id ? `LED-${String(filteredLeads.indexOf(lead) + 1).padStart(3, '0')}` : '-')}
                 </span>
                 <Badge variant={isConverted ? 'success' : lead.status === 'Qualified' ? 'primary' : 'warning'}>
                   {isConverted ? 'Converted' : lead.status}
@@ -318,7 +446,8 @@ export const CrmLeads = () => {
               </div>
             </Card>
           );
-        })}
+        })
+      )}
       </div>
 
       {/* Convert Lead Confirmation Modal */}
