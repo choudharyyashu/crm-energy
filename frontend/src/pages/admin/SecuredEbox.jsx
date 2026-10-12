@@ -244,10 +244,10 @@ export const SecuredEbox = () => {
   const threads = [
     {
       id: 'th-1',
-      title: 'KTT Architecture Team',
-      subtitle: 'Johnny (SEA) ↔ Kiaan Tech Team (KTT)',
-      badge: 'SEA ↔ KTT Hotline',
-      partnerName: 'Kiaan Tech Team',
+      title: 'KT Software Dev Team',
+      subtitle: 'Johnny (SEA) ↔ KT Software Dev Team',
+      badge: 'SEA ↔ KT Dev Hotline',
+      partnerName: 'KT Software Dev Team',
       partnerRole: 'ktt',
       color: '#0284c7',
       accentBg: 'rgba(2, 132, 199, 0.12)',
@@ -513,7 +513,7 @@ export const SecuredEbox = () => {
             </span>
           </div>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
-            Direct encrypted channel between <strong>Super Executive Admin [SEA]</strong> and <strong>Kiaan Tech Team [KTT]</strong>. Non-SEA staff strictly isolated.
+            Direct encrypted channel between CRM nErgy’s <strong>Super Executive Admin [ SEA ]</strong> and <strong>KT software dev team</strong>. Non-SEA staff strictly isolated.
           </p>
         </div>
 

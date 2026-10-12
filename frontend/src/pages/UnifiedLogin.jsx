@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageToggle } from '../components/common/LanguageToggle';
 import { SHOW_OAL } from '../config/features';
 import { AiEnergyLogo } from '../components/common/AiEnergyLogo';
 
@@ -297,6 +299,7 @@ export const UnifiedLogin = ({ mode }) => {
   const location = useLocation();
   const { login } = useAuth();
   const { addToast } = useToast();
+  const { t } = useLanguage();
 
   const currentPlatform = !SHOW_OAL ? 'crm' : (mode || (location.pathname.includes('/oal') ? 'oal' : 'crm'));
   const roleList = currentPlatform === 'crm' ? crmRoles : oalRoles;
@@ -494,13 +497,14 @@ export const UnifiedLogin = ({ mode }) => {
                 </span>
               </div>
               <span style={{ fontSize: '11px', color: '#94a3b8' }}>
-                Enterprise Portal Gateway &bull; 12 Autonomous User Hubs
+                {t('Enterprise Portal Gateway')} &bull; {t('12 Autonomous User Hubs')}
               </span>
             </div>
           </div>
 
-          {/* Action Bar (Super Admin Hide toggle ONLY) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Action Bar (1-Click Instant Language Switcher + Super Admin toggle) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <LanguageToggle />
             <button
               type="button"
               onClick={() => setIsSuperAdminHidden(!isSuperAdminHidden)}
@@ -598,14 +602,14 @@ export const UnifiedLogin = ({ mode }) => {
                   ENTERPRISE CRM &bull; ERP &bull; AI SUPERHOUSE
                 </span>
                 <span style={{ fontSize: '11px', color: '#64748b', marginTop: '0.1rem' }}>
-                  Sign in to continue to your CRM workspace.
+                  {t('Sign in to continue to your CRM workspace.')}
                 </span>
               </div>
 
               {/* Input: Email Address */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textAlign: 'left' }}>
                 <label style={{ fontSize: '11px', fontWeight: 600, color: '#e2e8f0' }}>
-                  Email Address
+                  {t('Business Email')}
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                   <Mail
@@ -646,7 +650,7 @@ export const UnifiedLogin = ({ mode }) => {
               {/* Input: Password */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', textAlign: 'left' }}>
                 <label style={{ fontSize: '11px', fontWeight: 600, color: '#e2e8f0' }}>
-                  Password
+                  {t('Password')}
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                   <Lock
@@ -756,7 +760,7 @@ export const UnifiedLogin = ({ mode }) => {
                   transition: 'all 0.2s ease',
                 }}
               >
-                <span>{isLoading ? 'Signing In...' : `Sign in as ${selectedRole.title}`}</span>
+                <span>{isLoading ? t('Signing In...') : `${t('Sign in with Selected Role')}: ${t(selectedRole.title)}`}</span>
                 {!isLoading && <ArrowRight size={15} />}
               </button>
             </form>
@@ -802,7 +806,7 @@ export const UnifiedLogin = ({ mode }) => {
                   letterSpacing: '-0.02em',
                 }}
               >
-                Select Portal
+                {t('Select Your Business Role & Persona')}
               </h3>
               <p
                 style={{
@@ -811,7 +815,7 @@ export const UnifiedLogin = ({ mode }) => {
                   margin: '2px 0 0 0',
                 }}
               >
-                Choose your role to access the management system.
+                {t('Quick One-Click Demo Access')}
               </p>
             </div>
 
@@ -883,7 +887,7 @@ export const UnifiedLogin = ({ mode }) => {
                               textOverflow: 'ellipsis',
                             }}
                           >
-                            {role.title}
+                            {t(role.title)}
                           </span>
                           <span
                             style={{
@@ -968,7 +972,7 @@ export const UnifiedLogin = ({ mode }) => {
                               textOverflow: 'ellipsis',
                             }}
                           >
-                            {role.title}
+                            {t(role.title)}
                           </span>
                           <span
                             style={{

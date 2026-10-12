@@ -101,11 +101,11 @@ export const StartupsCrmPage = () => {
           fontSize: '12.5px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
-            <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>Home</Link>
+            <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
             <span>/</span>
-            <Link to="/solutions/business-crm" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>CRM Solutions</Link>
+            <Link to="/solutions/business-crm" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('CRM Solutions')}</Link>
             <span>/</span>
-            <span style={{ color: '#ec4899', fontWeight: 700 }}>Startup Business</span>
+            <span style={{ color: '#ec4899', fontWeight: 700 }}>{t('CRM Software for Startups')}</span>
           </div>
 
           <button
@@ -124,7 +124,7 @@ export const StartupsCrmPage = () => {
             }}
           >
             <ArrowLeft size={14} />
-            <span>Back to Solutions Overview</span>
+            <span>{t('Back to Solutions Overview')}</span>
           </button>
         </div>
       </section>
@@ -151,7 +151,7 @@ export const StartupsCrmPage = () => {
             color: '#ec4899'
           }}>
             <Sparkles size={14} style={{ color: '#ec4899' }} />
-            <span>ADVANCED ARTIFICIAL INTELLIGENCE • “Make AI Your Bestie”</span>
+            <span>ADVANCED ARTIFICIAL INTELLIGENCE • {t('“Make AI Your Bestie”')}</span>
           </div>
 
           <h1 style={{
@@ -162,7 +162,7 @@ export const StartupsCrmPage = () => {
             letterSpacing: '-0.02em',
             lineHeight: 1.15
           }}>
-            CRM Software for Startups
+            {t('CRM Software for Startups')}
           </h1>
 
           <p style={{
@@ -205,7 +205,7 @@ export const StartupsCrmPage = () => {
               }}
             >
               <MessageSquare size={15} />
-              <span>Contact Us</span>
+              <span>{t('Contact Us')}</span>
             </button>
 
             <button
@@ -227,7 +227,7 @@ export const StartupsCrmPage = () => {
               }}
             >
               <Bot size={15} />
-              <span>Ask My Zunme AI</span>
+              <span>{t('Ask My Zunme AI')}</span>
             </button>
           </div>
         </div>

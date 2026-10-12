@@ -236,14 +236,45 @@ export const WebsiteNavbar = ({
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
           </button>
 
-          {/* Safe Sign In Button pointing to /crm/login */}
+          {/* DISTINCT LOGIN BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/crm/login')}
+            onClick={() => navigate('/login')}
             className="website-signin-btn"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--web-border)',
+              color: 'var(--web-text-main)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
           >
             <LogIn size={14} />
+<<<<<<< HEAD
             <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
+=======
+            <span>Login</span>
+          </button>
+
+          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          <button
+            type="button"
+            onClick={() => navigate('/crm/signup')}
+            className="website-signin-btn"
+            style={{
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              color: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <span>Create Account</span>
+            <ArrowRight size={14} />
+>>>>>>> e6c800c2a31f6cb60d6ed63a544ac403cd777d18
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -816,16 +847,42 @@ export const WebsiteNavbar = ({
                 FAQs
               </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)' }}>
+              <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => {
                     setMobileDrawerOpen(false);
-                    navigate('/crm/login');
+                    navigate('/login');
                   }}
                   style={{
                     width: '100%',
-                    background: '#0f2b5c',
+                    background: 'transparent',
+                    border: '1px solid var(--web-border)',
+                    color: 'var(--web-text-main)',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <LogIn size={15} />
+                  <span>Login</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileDrawerOpen(false);
+                    navigate('/crm/signup');
+                  }}
+                  style={{
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '8px',
@@ -839,8 +896,8 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <LogIn size={15} />
-                  <span>Sign In / Portal</span>
+                  <span>Create Account</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
             </div>
