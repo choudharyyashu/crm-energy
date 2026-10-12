@@ -61,36 +61,50 @@ export const WebsiteHome = () => {
         borderBottom: '1px solid var(--web-border)'
       }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
-          {/* Energy Pill */}
+          {/* Energy Pill & Slogan */}
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '5px 14px',
+            padding: '6px 16px',
             borderRadius: '24px',
             background: 'rgba(99, 102, 241, 0.08)',
             border: '1px solid rgba(99, 102, 241, 0.25)',
-            fontSize: '12px',
+            fontSize: '12.5px',
             fontWeight: 700,
             color: '#4f46e5'
           }}>
             <Sparkles size={14} style={{ color: '#f59e0b' }} />
-            <span>The Unified CRM ERP & ZUNME AI Ecosystem</span>
+            <span>CRM Solutions Every Business Needs • “Make AI Your Bestie”</span>
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(2rem, 5vw, 3.25rem)',
+            fontSize: 'clamp(2.1rem, 5vw, 3.4rem)',
             fontWeight: 900,
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
             color: 'var(--web-text-main)',
             margin: 0
           }}>
-            Next-Generation CRM & ERP Built for Exponential Growth
+            CRM Solutions Every Business Needs
           </h1>
 
+          <blockquote style={{
+            fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)',
+            fontWeight: 600,
+            fontStyle: 'italic',
+            color: 'var(--web-text-main)',
+            lineHeight: 1.6,
+            maxWidth: '820px',
+            margin: '0.25rem 0 0 0',
+            padding: '0 1rem',
+            borderLeft: 'none'
+          }}>
+            “Delivering the most relevant CRM ERP software for your business to thrive and honing our AAI development to effectively prepare you to scale.”
+          </blockquote>
+
           <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+            fontSize: 'clamp(0.95rem, 1.8vw, 1.05rem)',
             color: 'var(--web-text-muted)',
             lineHeight: 1.6,
             maxWidth: '740px',
@@ -208,13 +222,13 @@ export const WebsiteHome = () => {
             textTransform: 'uppercase',
             letterSpacing: '0.06em'
           }}>
-            Client Document Specification
+            CRM Solutions Every Business Needs
           </span>
           <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-            CRM Features Directory (23 Modules)
+            CRM NERGY Software Features (23 Modules)
           </h2>
-          <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
-            Every module designed with icon card buttons inspired by the Dolibarr benchmark architecture, styled with CRM nErgy's dedicated website color palette.
+          <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
+            CRM software is essential for various industries to manage customer relationships and enhance operational efficiency. Every module is styled with CRM nErgy icon buttons inspired by the Dolibarr benchmark architecture.
           </p>
 
           {/* Category Filter Pills */}
@@ -284,6 +298,128 @@ export const WebsiteHome = () => {
       </section>
 
       {/* ======================================================== */}
+      {/* 2B. SECTION: BRANDING AND CUSTOMIZATION (CLIENT SPEC)    */}
+      {/* ======================================================== */}
+      <section style={{
+        padding: '0 1.25rem 3.5rem 1.25rem',
+        maxWidth: '1380px',
+        margin: '0 auto',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}>
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(2, 132, 199, 0.05) 100%)',
+          border: '1px solid var(--web-border)',
+          borderRadius: '16px',
+          padding: '2rem 1.75rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              color: '#4f46e5',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              background: 'rgba(79, 70, 229, 0.1)',
+              padding: '3px 10px',
+              borderRadius: '20px'
+            }}>
+              Branding and Customization
+            </span>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
+              “Make AI Your Friend”
+            </span>
+          </div>
+
+          <h3 style={{
+            fontSize: 'clamp(1.25rem, 2.5vw, 1.65rem)',
+            fontWeight: 800,
+            color: 'var(--web-text-main)',
+            margin: 0,
+            lineHeight: 1.3
+          }}>
+            It’s Your Business, Displaying Your Brand, powered by CRM nErgy Software Customization
+          </h3>
+
+          <p style={{
+            fontSize: '14px',
+            color: 'var(--web-text-muted)',
+            lineHeight: 1.65,
+            margin: 0,
+            maxWidth: '1020px'
+          }}>
+            The CRM nErgy drag-and-drop feature in customizable CRM software greatly enhances usability and efficiency, enabling users to customize their systems according to their specific business processes without requiring any coding skills. This functionality is crucial for contemporary CRM solutions, rendering them more flexible and user-friendly.
+          </p>
+
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            paddingTop: '0.75rem',
+            borderTop: '1px solid var(--web-border)'
+          }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
+              CRM NERGY — “Make AI Your Friend”
+            </span>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const whiteLabelItem = CRM_FEATURES_DATA.find((f) => f.id === 'white-label-crm');
+                  if (onSelectItem && whiteLabelItem) onSelectItem(whiteLabelItem);
+                }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 18px',
+                  borderRadius: '8px',
+                  background: 'var(--web-surface)',
+                  border: '1px solid var(--web-border)',
+                  color: 'var(--web-text-main)',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                <span>White Label Customization</span>
+                <ArrowRight size={14} />
+              </button>
+
+              <button
+                type="button"
+                onClick={onOpenSales}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 20px',
+                  borderRadius: '8px',
+                  background: '#4f46e5',
+                  color: '#ffffff',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(79, 70, 229, 0.25)'
+                }}
+              >
+                <MessageSquare size={14} />
+                <span>Contact Us</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
       {/* 3. SECTION: 4 CRM SOLUTIONS GROUPS                      */}
       {/* ======================================================== */}
       <section id="solutions" style={{
@@ -303,6 +439,88 @@ export const WebsiteHome = () => {
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
               Structured frameworks addressing 4 Types of CRM Software, Business CRM Software, Solutions for Entrepreneurs, and Third Party Integration.
             </p>
+          </div>
+
+          {/* White Label CRM or ERP Banner (Client Requirement) */}
+          <div style={{
+            background: 'var(--web-surface)',
+            border: '1px solid var(--web-border)',
+            borderLeft: '4px solid #0284c7',
+            borderRadius: '14px',
+            padding: '1.5rem 1.75rem',
+            marginBottom: '2.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.75rem',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+              <span style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                color: '#0284c7',
+                letterSpacing: '0.06em'
+              }}>
+                White Label Enterprise Opportunity
+              </span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--web-text-muted)' }}>
+                “Make AI Your Bestie”
+              </span>
+            </div>
+
+            <h3 style={{ fontSize: '19px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0, lineHeight: 1.3 }}>
+              Build & Promote Your Brand with the White Label CRM or ERP Software
+            </h3>
+
+            <p style={{ fontSize: '13.5px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: 0, maxWidth: '1080px' }}>
+              CRM nErgy White Label CRM or ERP software includes customizable branding, client portals, sales and marketing automation, project management tools and much more. These platforms help businesses create new revenue streams by reselling the CRM solution under their own brand.
+            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginTop: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const whiteLabelItem = CRM_FEATURES_DATA.find((f) => f.id === 'white-label-crm');
+                  if (onSelectItem && whiteLabelItem) onSelectItem(whiteLabelItem);
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#0284c7',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                <span>READ MORE &gt;&gt; continue on the White Label Feature Page</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={onOpenSales}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 16px',
+                  borderRadius: '7px',
+                  background: '#0284c7',
+                  color: '#ffffff',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                <span>Contact Us</span>
+                <ArrowRight size={13} />
+              </button>
+            </div>
           </div>
 
           <div className="solutions-mega-grid">
@@ -390,10 +608,10 @@ export const WebsiteHome = () => {
             Domain-Specific Solutions
           </span>
           <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-            Industries Served (23 Sectors)
+            Industries Using the CRM nErgy Software (23 Sectors)
           </h2>
-          <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
-            Configured with industry-specific schemas, terminology, compliance seals, and automated operational pipelines.
+          <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
+            Some of the Industries that use the CRM nErgy Software. CRM software is essential for various industries to manage customer relationships and enhance operational efficiency.
           </p>
         </div>
 
