@@ -7,7 +7,9 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { SHOW_OAL } from '../config/features';
 import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 
-// Gateway Login Pages
+// Public Pages & Gateway Login
+import { CrmLanding } from '../pages/CrmLanding';
+import { PublicTopicPage } from '../pages/PublicTopicPage';
 import { UnifiedLogin } from '../pages/UnifiedLogin';
 
 import { CrmSignup } from '../pages/crm/CrmSignup';
@@ -125,8 +127,19 @@ const OalDashboardDispatcher = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Separate Gateway Login Pages */}
-      <Route path="/" element={<UnifiedLogin mode="crm" />} />
+      {/* CRM nErgy Public Home Landing Page & Dedicated Topic Pages */}
+      <Route path="/" element={<CrmLanding />} />
+      <Route path="/home" element={<CrmLanding />} />
+      <Route path="/topic/:slug" element={<PublicTopicPage />} />
+      <Route path="/what-is-a-crm" element={<PublicTopicPage slug="what-is-a-crm" />} />
+      <Route path="/what-is-an-erp" element={<PublicTopicPage slug="what-is-an-erp" />} />
+      <Route path="/what-is-an-erp-crm" element={<PublicTopicPage slug="what-is-an-erp-crm" />} />
+      <Route path="/pricing" element={<PublicTopicPage slug="pricing" />} />
+      <Route path="/contact" element={<PublicTopicPage slug="contact" />} />
+      <Route path="/faqs" element={<PublicTopicPage slug="faqs" />} />
+      <Route path="/help-center" element={<PublicTopicPage slug="help-center" />} />
+      <Route path="/knowledge-base" element={<PublicTopicPage slug="knowledge-base" />} />
+      <Route path="/commission-calculator" element={<PublicTopicPage slug="commission-calculator" />} />
       <Route path="/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />
