@@ -261,21 +261,45 @@
 
 /* Highlight CTA: Ask My Zunme - VA Virtual Assistant >> */
 .website-cta-zunme {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%) !important;
-  color: #ffffff !important;
-  border: none !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  color: #4f46e5 !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 6px -2px rgba(99, 102, 241, 0.4);
-  padding: 1px 6px !important;
-  border-radius: 5px !important;
-  font-size: 9px !important;
-  height: 20px !important;
-  min-height: 20px !important;
-  max-height: 20px !important;
+  box-shadow: none !important;
+  padding: 6px 12px !important;
+  border-radius: 9px !important;
+  font-size: 12.5px !important;
+  height: 32px !important;
   line-height: 1 !important;
-  gap: 3px !important;
+  gap: 6px !important;
   display: inline-flex !important;
   align-items: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.website-cta-zunme:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.website-cta-zunme:hover .website-zunme-sparkle {
+  color: #fef08a !important;
+}
+
+[data-theme="dark"] .website-cta-zunme {
+  background: rgba(129, 140, 248, 0.12) !important;
+  border-color: rgba(129, 140, 248, 0.35) !important;
+  color: #a5b4fc !important;
+}
+
+[data-theme="dark"] .website-cta-zunme:hover {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
 }
 
 /* Hero CTA Keep Large Size */
