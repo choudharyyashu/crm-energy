@@ -161,6 +161,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
             <a href="#events" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('CRM nErgy Events')}</a>
             <a href="#reviews" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Reviews')}</a>
             <a href="#industries" onClick={(e) => { e.preventDefault(); handleAnchor('#industries'); }} style={linkStyle}>{t('Industries')}</a>
+            <a href="/industries/professional-services" onClick={(e) => { e.preventDefault(); navigate('/industries/professional-services'); }} style={linkStyle}>{t('Professional Service Firms')}</a>
           </div>
 
           {/* Column 3: Business Solutions */}

@@ -598,7 +598,7 @@ export const WebsiteHome = () => {
               <div
                 key={ind.id}
                 className="dolibarr-card"
-                onClick={() => onSelectItem && onSelectItem(ind)}
+                onClick={() => ind.route ? navigate(ind.route) : (onSelectItem && onSelectItem(ind))}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                   <div className="dolibarr-icon-box" style={{
@@ -850,7 +850,7 @@ export const WebsiteHome = () => {
                     <button
                       key={ind.id}
                       type="button"
-                      onClick={() => onSelectItem && onSelectItem(ind)}
+                      onClick={() => ind.route ? navigate(ind.route) : (onSelectItem && onSelectItem(ind))}
                       style={{
                         display: 'flex',
                         alignItems: 'center',

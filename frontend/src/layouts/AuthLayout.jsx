@@ -13,7 +13,7 @@ export const AuthLayout = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0.75rem 1rem',
+        padding: '0.5rem 1rem',
         position: 'relative',
         boxSizing: 'border-box',
         width: '100%',
@@ -21,7 +21,7 @@ export const AuthLayout = () => {
         overflowY: 'auto',
       }}
     >
-      <main style={{ width: '100%', maxWidth: '540px', display: 'flex', justifyContent: 'center' }}>
+      <main style={{ width: '100%', maxWidth: '480px', display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </main>
 
