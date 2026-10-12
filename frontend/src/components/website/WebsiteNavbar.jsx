@@ -35,7 +35,8 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -84,6 +85,20 @@ export const WebsiteNavbar = ({
       const el = document.getElementById('faqs');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
+
+  const handleLoginRedirect = () => {
+    setActiveMenu(null);
+    setMobileDrawerOpen(false);
+    window.location.href = `${CRM_APP_URL}/login`;
+  };
+
+  const handleSignupRedirect = () => {
+    setActiveMenu(null);
+    setMobileDrawerOpen(false);
+    window.location.href = `${CRM_APP_URL}/crm/signup`;
   };
 
   const handleCardClick = (item) => {
@@ -245,7 +260,7 @@ export const WebsiteNavbar = ({
           {/* DISTINCT LOGIN BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/login')}
+            onClick={handleLoginRedirect}
             className="website-signin-btn"
             style={{
               background: 'transparent',
@@ -266,7 +281,7 @@ export const WebsiteNavbar = ({
           {/* DISTINCT CREATE ACCOUNT BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/crm/signup')}
+            onClick={handleSignupRedirect}
             className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -339,8 +354,8 @@ export const WebsiteNavbar = ({
                     <div className="dolibarr-icon-box">
                       <Icon size={20} />
                     </div>
-                    <span className="dolibarr-title">{t(feat.name)}</span>
-                    <span className="dolibarr-desc">{t(feat.desc)}</span>
+                    <span className="dolibarr-title">{(isEs && feat.nameEs) ? feat.nameEs : t(feat.name)}</span>
+                    <span className="dolibarr-desc">{(isEs && feat.descEs) ? feat.descEs : t(feat.desc)}</span>
                   </div>
                 );
               })}
@@ -401,12 +416,12 @@ export const WebsiteNavbar = ({
                       color: '#4f46e5',
                       letterSpacing: '0.06em'
                     }}>
-                      {t(col.badge)}
+                      {(isEs && col.badgeEs) ? col.badgeEs : t(col.badge)}
                     </span>
                     <h4
                       onClick={() => {
                         if (col.route) {
-                           setActiveMenu(null);
+                          setActiveMenu(null);
                           navigate(col.route);
                         }
                       }}
@@ -421,10 +436,10 @@ export const WebsiteNavbar = ({
                         gap: '6px'
                       }}
                     >
-                      <span>{t(col.groupTitle)}</span>
+                      <span>{(isEs && col.groupTitleEs) ? col.groupTitleEs : t(col.groupTitle)}</span>
                       {col.route && <ArrowRight size={13} style={{ color: '#0284c7' }} />}
                     </h4>
-                    <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{t(col.subtitle)}</span>
+                    <span style={{ fontSize: '11px', color: 'var(--web-text-muted)' }}>{(isEs && col.subtitleEs) ? col.subtitleEs : t(col.subtitle)}</span>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -435,7 +450,7 @@ export const WebsiteNavbar = ({
                           key={item.id}
                           className="dolibarr-card"
                           style={{ padding: '0.75rem' }}
-                          onClick={() => handleCardClick({ ...item, groupTitle: col.groupTitle })}
+                          onClick={() => handleCardClick({ ...item, groupTitle: (isEs && col.groupTitleEs) ? col.groupTitleEs : col.groupTitle })}
                         >
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                             <div style={{
@@ -452,10 +467,10 @@ export const WebsiteNavbar = ({
                               <Icon size={14} />
                             </div>
                             <span style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                              {t(item.name)}
+                              {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
                             </span>
                           </div>
-                          <span className="dolibarr-desc" style={{ fontSize: '11px' }}>{t(item.desc)}</span>
+                          <span className="dolibarr-desc" style={{ fontSize: '11px' }}>{(isEs && item.descEs) ? item.descEs : t(item.desc)}</span>
                         </div>
                       );
                     })}
@@ -511,9 +526,9 @@ export const WebsiteNavbar = ({
                       <div className="dolibarr-icon-box" style={{ width: '32px', height: '32px', marginBottom: 0 }}>
                         <Icon size={16} />
                       </div>
-                      <span className="dolibarr-title" style={{ fontSize: '13px', margin: 0 }}>{t(ind.name)}</span>
+                      <span className="dolibarr-title" style={{ fontSize: '13px', margin: 0 }}>{(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}</span>
                     </div>
-                    <span className="dolibarr-desc">{t(ind.desc)}</span>
+                    <span className="dolibarr-desc">{(isEs && ind.descEs) ? ind.descEs : t(ind.desc)}</span>
                   </div>
                 );
               })}
@@ -546,7 +561,7 @@ export const WebsiteNavbar = ({
             padding: '6px 10px',
             letterSpacing: '0.05em'
           }}>
-            Explore CRM nErgy
+            {t('Explore CRM nErgy')}
           </div>
 
           <div
@@ -570,7 +585,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <ShieldCheck size={16} style={{ color: '#4f46e5' }} />
-            <span>Security & Compliance</span>
+            <span>{t('Security & Compliance')}</span>
           </div>
 
           <div
@@ -594,7 +609,7 @@ export const WebsiteNavbar = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Globe size={16} style={{ color: '#0f766e' }} />
-              <span>OAL Lending Marketplace</span>
+              <span>{t('OAL Lending Marketplace')}</span>
             </div>
             <ExternalLink size={12} style={{ color: 'var(--web-text-muted)' }} />
           </div>
@@ -618,7 +633,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <MessageSquare size={16} style={{ color: '#0284c7' }} />
-            <span>Contact Executive Team</span>
+            <span>{t('Contact Executive Team')}</span>
           </div>
         </div>
       )}
@@ -745,7 +760,7 @@ export const WebsiteNavbar = ({
                           borderRadius: '6px'
                         }}
                       >
-                        {t(f.name)}
+                        {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
                       </div>
                     ))}
                   </div>
@@ -781,14 +796,14 @@ export const WebsiteNavbar = ({
                   <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {CRM_SOLUTIONS_DATA.map((g, idx) => (
                       <div key={idx} style={{ marginBottom: '4px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{t(g.groupTitle)}</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{(isEs && g.groupTitleEs) ? g.groupTitleEs : t(g.groupTitle)}</span>
                         {g.items.map((i) => (
                           <div
                             key={i.id}
-                            onClick={() => handleCardClick({ ...i, groupTitle: g.groupTitle })}
+                            onClick={() => handleCardClick({ ...i, groupTitle: (isEs && g.groupTitleEs) ? g.groupTitleEs : g.groupTitle })}
                             style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                           >
-                            • {t(i.name)}
+                            • {(isEs && i.nameEs) ? i.nameEs : t(i.name)}
                           </div>
                         ))}
                       </div>
@@ -830,7 +845,7 @@ export const WebsiteNavbar = ({
                         onClick={() => handleCardClick(ind)}
                         style={{ padding: '6px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                       >
-                        {t(ind.name)}
+                        {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
                       </div>
                     ))}
                   </div>
@@ -857,10 +872,7 @@ export const WebsiteNavbar = ({
               <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    navigate('/login');
-                  }}
+                  onClick={handleLoginRedirect}
                   style={{
                     width: '100%',
                     background: 'transparent',
@@ -883,10 +895,7 @@ export const WebsiteNavbar = ({
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    navigate('/crm/signup');
-                  }}
+                  onClick={handleSignupRedirect}
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -903,7 +912,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>Create Account</span>
+                  <span>{t('Create Account')}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
