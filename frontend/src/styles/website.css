@@ -79,23 +79,6 @@
   flex-shrink: 1;
 }
 
-/* Responsive Zunme CTA Text */
-.website-zunme-short {
-  display: none;
-}
-.website-zunme-full {
-  display: inline;
-}
-
-@media (max-width: 1480px) {
-  .website-zunme-full {
-    display: none !important;
-  }
-  .website-zunme-short {
-    display: inline !important;
-  }
-}
-
 @media (max-width: 1420px) {
   .website-nav-inner {
     padding: 0 0.75rem;
@@ -114,34 +97,24 @@
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1240px) {
   .website-nav-inner {
     padding: 0 0.5rem;
     gap: 0.25rem;
   }
-  .website-main-nav {
-    gap: 0.08rem;
-  }
   .website-nav-btn {
     padding: 5px 6px !important;
     font-size: 11.5px !important;
-    gap: 3px !important;
   }
   .website-cta-zunme {
     padding: 5px 8px !important;
     font-size: 11px !important;
   }
-  .website-brand-title {
-    font-size: 16px !important;
-  }
-  .website-brand-sub {
-    font-size: 9px !important;
-  }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1120px) {
   .website-main-nav {
-    display: none !important;
+    display: none;
   }
   .website-mobile-toggle {
     display: flex !important;
