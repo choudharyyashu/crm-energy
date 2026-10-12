@@ -20,8 +20,10 @@ import {
 import { Breadcrumb, Button, Card, CardHeader, CardBody, Badge, Select, KPICard, ProgressBar } from '../../../components/ui';
 import { useToast } from '../../../context/ToastContext';
 import { useCrm } from '../../../context/CrmContext';
+import { useLanguage } from '../../../context/LanguageContext';
 
 export const AiMarketing = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const { refreshLeads } = useCrm();
 
@@ -66,17 +68,17 @@ export const AiMarketing = () => {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'AI SuperHouse' }, { label: 'AI Marketing Hub' }]} />
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('AI SuperHouse') }, { label: t('AI Marketing Hub') }]} />
           <div className="flex items-center gap-3 mt-1">
             <h1 className="text-2xl font-bold font-display tracking-tight text-primary flex items-center gap-2">
-              AI Marketing & Campaigns Hub
+              {t('AI Marketing & Campaigns Hub')}
             </h1>
             <Badge variant="primary" className="bg-sky-500 text-white font-bold text-xs uppercase tracking-wider">
-              Automated Lead Nurturing
+              {t('Automated Lead Nurturing')}
             </Badge>
           </div>
           <p className="text-xs text-secondary mt-0.5">
-            Plan, synthesize, and dispatch targeted omnichannel campaigns with automated AI copy, sentiment timing, and conversion analytics.
+            {t('Plan, synthesize, and dispatch targeted omnichannel campaigns with automated AI copy, sentiment timing, and conversion analytics.')}
           </p>
         </div>
 
@@ -86,16 +88,16 @@ export const AiMarketing = () => {
           onClick={() => setIsCreatingCampaign(true)}
           className="text-xs font-bold"
         >
-          Create AI Campaign
+          {t('Create AI Campaign')}
         </Button>
       </div>
 
       {/* KPI Highlight Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <KPICard title="Total Reach" value="4,690 Leads" change="+34% this month" changeType="positive" icon={Users} />
-        <KPICard title="Average Open Rate" value="68.2%" change="Industry Benchmark 22%" changeType="positive" icon={Mail} />
-        <KPICard title="Conversions" value="144 Deals" change="$2.4M Pipeline Value" changeType="positive" icon={Target} />
-        <KPICard title="AI Optimization Score" value="96 / 100" change="Optimal Dispatch Timing" changeType="positive" icon={Sparkles} />
+        <KPICard title={t('Total Reach')} value={`4,690 ${t('Leads')}`} change={t('+34% this month')} changeType="positive" icon={Users} />
+        <KPICard title={t('Average Open Rate')} value="68.2%" change={t('Industry Benchmark 22%')} changeType="positive" icon={Mail} />
+        <KPICard title={t('Conversions')} value={`144 ${t('Deals')}`} change={t('$2.4M Pipeline Value')} changeType="positive" icon={Target} />
+        <KPICard title={t('AI Optimization Score')} value="96 / 100" change={t('Optimal Dispatch Timing')} changeType="positive" icon={Sparkles} />
       </div>
 
       {/* Campaign Creation Wizard Modal / Section */}
@@ -272,39 +274,39 @@ export const AiMarketing = () => {
       {/* Active Campaigns Table */}
       <Card className="border shadow-sm">
         <CardHeader
-          title="Active Enterprise Marketing Campaigns"
-          subtitle="Real-time multi-channel engagement analytics"
+          title={t('Active Enterprise Marketing Campaigns')}
+          subtitle={t('Real-time multi-channel engagement analytics')}
         />
         <CardBody className="p-0 overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-border bg-surface-secondary text-secondary">
-                <th className="p-3 font-bold">Campaign ID & Title</th>
-                <th className="p-3 font-bold">Channel</th>
-                <th className="p-3 font-bold">Status</th>
-                <th className="p-3 font-bold">Total Sent</th>
-                <th className="p-3 font-bold">Open Rate</th>
-                <th className="p-3 font-bold">Click Rate</th>
-                <th className="p-3 font-bold">Conversions</th>
+                <th className="p-3 font-bold">{t('Campaign ID & Title')}</th>
+                <th className="p-3 font-bold">{t('Channel')}</th>
+                <th className="p-3 font-bold">{t('Status')}</th>
+                <th className="p-3 font-bold">{t('Total Sent')}</th>
+                <th className="p-3 font-bold">{t('Open Rate')}</th>
+                <th className="p-3 font-bold">{t('Click Rate')}</th>
+                <th className="p-3 font-bold">{t('Conversions')}</th>
               </tr>
             </thead>
             <tbody>
               {campaigns.map((c) => (
                 <tr key={c.id} className="border-b border-border/50 hover:bg-surface-secondary transition-colors">
                   <td className="p-3">
-                    <span className="font-bold text-primary block">{c.name}</span>
+                    <span className="font-bold text-primary block">{t(c.name) || c.name}</span>
                     <span className="text-[10px] font-mono text-tertiary">{c.id}</span>
                   </td>
-                  <td className="p-3 font-semibold text-secondary">{c.channel}</td>
+                  <td className="p-3 font-semibold text-secondary">{t(c.channel) || c.channel}</td>
                   <td className="p-3">
                     <Badge variant={c.status === 'Active' ? 'success' : c.status === 'Scheduled' ? 'warning' : 'default'}>
-                      {c.status}
+                      {t(c.status)}
                     </Badge>
                   </td>
                   <td className="p-3 font-bold text-primary">{c.sent.toLocaleString()}</td>
                   <td className="p-3 font-bold text-sky-600">{c.openRate}</td>
                   <td className="p-3 font-bold text-indigo-600">{c.clickRate}</td>
-                  <td className="p-3 font-bold text-emerald-600">{c.conversions} closed</td>
+                  <td className="p-3 font-bold text-emerald-600">{c.conversions} {t('closed')}</td>
                 </tr>
               ))}
             </tbody>
