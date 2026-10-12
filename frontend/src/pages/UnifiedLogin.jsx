@@ -507,39 +507,8 @@ export const UnifiedLogin = ({ mode }) => {
             </div>
           </div>
 
-          {/* Action Bar (Back to Home button + Super Admin toggle) */}
+          {/* Action Bar (Super Admin toggle) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.35rem 0.75rem',
-                borderRadius: '6px',
-                backgroundColor: isDark ? 'rgba(30, 41, 59, 0.8)' : '#ffffff',
-                border: isDark ? '1px solid rgba(148, 163, 184, 0.25)' : '1px solid #cbd5e1',
-                color: isDark ? '#cbd5e1' : '#334155',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#0284c7';
-                e.currentTarget.style.color = '#0284c7';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = isDark ? 'rgba(148, 163, 184, 0.25)' : '#cbd5e1';
-                e.currentTarget.style.color = isDark ? '#cbd5e1' : '#334155';
-              }}
-              title="Back to Landing Page"
-            >
-              <ArrowLeft size={13} />
-              <span>Back to Home</span>
-            </button>
-
             <button
               type="button"
               onClick={() => setIsSuperAdminHidden(!isSuperAdminHidden)}

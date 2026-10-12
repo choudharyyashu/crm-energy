@@ -35,7 +35,8 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -92,6 +93,20 @@ export const WebsiteNavbar = ({
   };
 
   const scrollToFaq = () => scrollToSection('faqs');
+
+  const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
+
+  const handleLoginRedirect = () => {
+    setActiveMenu(null);
+    setMobileDrawerOpen(false);
+    window.location.href = `${CRM_APP_URL}/login`;
+  };
+
+  const handleSignupRedirect = () => {
+    setActiveMenu(null);
+    setMobileDrawerOpen(false);
+    window.location.href = `${CRM_APP_URL}/crm/signup`;
+  };
 
   const handleCardClick = (item) => {
     setActiveMenu(null);
@@ -251,7 +266,7 @@ export const WebsiteNavbar = ({
           {/* DISTINCT LOGIN BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/login')}
+            onClick={handleLoginRedirect}
             className="website-signin-btn"
             style={{
               background: 'transparent',
@@ -272,7 +287,7 @@ export const WebsiteNavbar = ({
           {/* DISTINCT CREATE ACCOUNT BUTTON */}
           <button
             type="button"
-            onClick={() => navigate('/crm/signup')}
+            onClick={handleSignupRedirect}
             className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -306,7 +321,6 @@ export const WebsiteNavbar = ({
 
 
 
-
       {/* ======================================================== */}
       {/* 4. MORE DROPDOWN                                         */}
       {/* ======================================================== */}
@@ -331,7 +345,7 @@ export const WebsiteNavbar = ({
             padding: '6px 10px',
             letterSpacing: '0.05em'
           }}>
-            Explore CRM nErgy
+            {t('Explore CRM nErgy')}
           </div>
 
           <div
@@ -355,7 +369,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <ShieldCheck size={16} style={{ color: '#4f46e5' }} />
-            <span>Security & Compliance</span>
+            <span>{t('Security & Compliance')}</span>
           </div>
 
           <div
@@ -379,7 +393,7 @@ export const WebsiteNavbar = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Globe size={16} style={{ color: '#0f766e' }} />
-              <span>OAL Lending Marketplace</span>
+              <span>{t('OAL Lending Marketplace')}</span>
             </div>
             <ExternalLink size={12} style={{ color: 'var(--web-text-muted)' }} />
           </div>
@@ -403,7 +417,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <MessageSquare size={16} style={{ color: '#0284c7' }} />
-            <span>Contact Executive Team</span>
+            <span>{t('Contact Executive Team')}</span>
           </div>
         </div>
       )}
@@ -530,7 +544,7 @@ export const WebsiteNavbar = ({
                           borderRadius: '6px'
                         }}
                       >
-                        {t(f.name)}
+                        {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
                       </div>
                     ))}
                   </div>
@@ -566,14 +580,14 @@ export const WebsiteNavbar = ({
                   <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {CRM_SOLUTIONS_DATA.map((g, idx) => (
                       <div key={idx} style={{ marginBottom: '4px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{t(g.groupTitle)}</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{(isEs && g.groupTitleEs) ? g.groupTitleEs : t(g.groupTitle)}</span>
                         {g.items.map((i) => (
                           <div
                             key={i.id}
-                            onClick={() => handleCardClick({ ...i, groupTitle: g.groupTitle })}
+                            onClick={() => handleCardClick({ ...i, groupTitle: (isEs && g.groupTitleEs) ? g.groupTitleEs : g.groupTitle })}
                             style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                           >
-                            • {t(i.name)}
+                            • {(isEs && i.nameEs) ? i.nameEs : t(i.name)}
                           </div>
                         ))}
                       </div>
@@ -615,7 +629,7 @@ export const WebsiteNavbar = ({
                         onClick={() => handleCardClick(ind)}
                         style={{ padding: '6px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                       >
-                        {t(ind.name)}
+                        {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
                       </div>
                     ))}
                   </div>
@@ -642,10 +656,7 @@ export const WebsiteNavbar = ({
               <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    navigate('/login');
-                  }}
+                  onClick={handleLoginRedirect}
                   style={{
                     width: '100%',
                     background: 'transparent',
@@ -668,10 +679,7 @@ export const WebsiteNavbar = ({
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    navigate('/crm/signup');
-                  }}
+                  onClick={handleSignupRedirect}
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -688,7 +696,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>Create Account</span>
+                  <span>{t('Create Account')}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>

@@ -1219,6 +1219,59 @@ export const DICTIONARY = {
     'Pre-configured compliance pipelines and operational templates tailored for each vertical.': 'Canales de cumplimiento preconfigurados y plantillas operativas adaptadas a cada vertical.',
     'All rights reserved.': 'Todos los derechos reservados.',
     'Ask My Zunme — VA Assistant': 'Ask My Zunme — Asistente VA',
+    // Internal AI Search Additions
+    'Internal Search Engine': 'Motor de Búsqueda Interno',
+    'AI Cognitive RAG': 'IA RAG Cognitivo',
+    'Neural Semantic Index Active': 'Índice Semántico Neuronal Activo',
+    'Filter by:': 'Filtrar por:',
+    'Filter By:': 'Filtrar por:',
+    'Filter by': 'Filtrar por',
+    'Clear': 'Limpiar',
+    'Search with AI': 'Buscar con IA',
+    'Search Results': 'Resultados de Búsqueda',
+    'Records': 'Registros',
+    'Sorted by Neural RAG Match Relevance': 'Ordenado por Relevancia de Coincidencia Neural RAG',
+    'AI Executive Synthesis & Knowledge RAG': 'Síntesis Ejecutiva de IA y RAG de Conocimiento',
+    'Generated in 184ms • Verified Sources: 6 Indexes': 'Generado en 184ms • Fuentes Verificadas: 6 Índices',
+    'Search docs, tasks, files and others with AI across your entire enterprise workspace.': 'Busque documentos, tareas, archivos y otros con IA en todo su espacio de trabajo empresarial.',
+    'Docs': 'Documentos',
+    'Tasks': 'Tareas',
+    'Files': 'Archivos',
+    'Others': 'Otros',
+    'Contacts & Leads': 'Contactos y Prospectos',
+    'Deals & ERP': 'Tratos y ERP',
+    'Open Document': 'Abrir Documento',
+    'View Certificate': 'Ver Certificado',
+    'View Task': 'Ver Tarea',
+    'Download File': 'Descargar Archivo',
+    'Launch Voice Agent': 'Iniciar Agente de Voz',
+    'Open Territory Map': 'Abrir Mapa de Territorio',
+    'View Contact': 'Ver Contacto',
+    'View Deal': 'Ver Trato',
+    '99% Match': '99% Coincidencia',
+    '98% Match': '98% Coincidencia',
+    '97% Match': '97% Coincidencia',
+    '96% Match': '96% Coincidencia',
+    '95% Match': '95% Coincidencia',
+    '94% Match': '94% Coincidencia',
+    '93% Match': '93% Coincidencia',
+    '92% Match': '92% Coincidencia',
+    '91% Match': '91% Coincidencia',
+    '90% Match': '90% Coincidencia',
+    'Updated 2 hours ago': 'Actualizado hace 2 horas',
+    'Updated Sep 14': 'Actualizado 14 de Sep',
+    'Updated Sep 12': 'Actualizado 12 de Sep',
+    'Due in 4 hours': 'Vence en 4 horas',
+    'Due Tomorrow': 'Vence Mañana',
+    'Due Friday': 'Vence el Viernes',
+    'Uploaded Sep 09': 'Subido el 09 de Sep',
+    'Uploaded 4 days ago': 'Subido hace 4 días',
+    'Uploaded 1 week ago': 'Subido hace 1 semana',
+    'Active Real-Time': 'Activo en Tiempo Real',
+    'Active Telemetry': 'Telemetría Activa',
+    'Contacted Yesterday': 'Contactado Ayer',
+    'Closing This Month': 'Cierre este Mes',
+
 
 
   },
@@ -1287,10 +1340,26 @@ export const LanguageProvider = ({ children }) => {
     return localStorage.getItem('crm_nergy_language') || 'EN';
   });
 
+  useEffect(() => {
+    const handleSync = (e) => {
+      const val = e.detail || (e.key === 'crm_nergy_language' ? e.newValue : null);
+      if (val && (val === 'EN' || val === 'ES')) {
+        setLanguageState(val);
+      }
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('crm_nergy_language_change', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('crm_nergy_language_change', handleSync);
+    };
+  }, []);
+
   const setLanguage = (newLang) => {
     const lang = newLang === 'ES' ? 'ES' : 'EN';
     setLanguageState(lang);
     localStorage.setItem('crm_nergy_language', lang);
+    window.dispatchEvent(new CustomEvent('crm_nergy_language_change', { detail: lang }));
   };
 
   const t = (key, fallback) => {

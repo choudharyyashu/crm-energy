@@ -35,7 +35,8 @@ export const WebsiteNavbar = ({
   activeSection = ''
 }) => {
   const { theme, toggleTheme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -320,7 +321,6 @@ export const WebsiteNavbar = ({
 
 
 
-
       {/* ======================================================== */}
       {/* 4. MORE DROPDOWN                                         */}
       {/* ======================================================== */}
@@ -345,7 +345,7 @@ export const WebsiteNavbar = ({
             padding: '6px 10px',
             letterSpacing: '0.05em'
           }}>
-            Explore CRM nErgy
+            {t('Explore CRM nErgy')}
           </div>
 
           <div
@@ -369,7 +369,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <ShieldCheck size={16} style={{ color: '#4f46e5' }} />
-            <span>Security & Compliance</span>
+            <span>{t('Security & Compliance')}</span>
           </div>
 
           <div
@@ -393,7 +393,7 @@ export const WebsiteNavbar = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Globe size={16} style={{ color: '#0f766e' }} />
-              <span>OAL Lending Marketplace</span>
+              <span>{t('OAL Lending Marketplace')}</span>
             </div>
             <ExternalLink size={12} style={{ color: 'var(--web-text-muted)' }} />
           </div>
@@ -417,7 +417,7 @@ export const WebsiteNavbar = ({
             className="hover:surface-secondary"
           >
             <MessageSquare size={16} style={{ color: '#0284c7' }} />
-            <span>Contact Executive Team</span>
+            <span>{t('Contact Executive Team')}</span>
           </div>
         </div>
       )}
@@ -544,7 +544,7 @@ export const WebsiteNavbar = ({
                           borderRadius: '6px'
                         }}
                       >
-                        {f.name}
+                        {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
                       </div>
                     ))}
                   </div>
@@ -580,14 +580,14 @@ export const WebsiteNavbar = ({
                   <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {CRM_SOLUTIONS_DATA.map((g, idx) => (
                       <div key={idx} style={{ marginBottom: '4px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{g.groupTitle}</span>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{(isEs && g.groupTitleEs) ? g.groupTitleEs : t(g.groupTitle)}</span>
                         {g.items.map((i) => (
                           <div
                             key={i.id}
-                            onClick={() => handleCardClick({ ...i, groupTitle: g.groupTitle })}
+                            onClick={() => handleCardClick({ ...i, groupTitle: (isEs && g.groupTitleEs) ? g.groupTitleEs : g.groupTitle })}
                             style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                           >
-                            • {i.name}
+                            • {(isEs && i.nameEs) ? i.nameEs : t(i.name)}
                           </div>
                         ))}
                       </div>
@@ -629,7 +629,7 @@ export const WebsiteNavbar = ({
                         onClick={() => handleCardClick(ind)}
                         style={{ padding: '6px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
                       >
-                        {ind.name}
+                        {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
                       </div>
                     ))}
                   </div>
@@ -696,7 +696,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>Create Account</span>
+                  <span>{t('Create Account')}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>

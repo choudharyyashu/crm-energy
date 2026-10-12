@@ -28,7 +28,8 @@ import {
 
 export const WebsiteHome = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isEs = language === 'ES';
   const { onOpenZunme, onOpenSales, onSelectItem } = useOutletContext() || {};
 
   // Features filter tab
@@ -43,6 +44,17 @@ export const WebsiteHome = () => {
     'HR & Talent',
     'Governance & Security'
   ];
+
+  const categoryMap = {
+    'All': isEs ? 'Todo' : 'All',
+    'Core CRM': isEs ? 'CRM Principal' : 'Core CRM',
+    'ERP & Logistics': isEs ? 'ERP y Logística' : 'ERP & Logistics',
+    'Finance & Operations': isEs ? 'Finanzas y Operaciones' : 'Finance & Operations',
+    'Sales & Growth': isEs ? 'Ventas y Crecimiento' : 'Sales & Growth',
+    'Marketing & Web': isEs ? 'Marketing y Web' : 'Marketing & Web',
+    'HR & Talent': isEs ? 'RR.HH. y Talento' : 'HR & Talent',
+    'Governance & Security': isEs ? 'Gobernanza y Seguridad' : 'Governance & Security'
+  };
 
   // FAQ Active view tabs
   const [faqTab, setFaqTab] = useState('features'); // 'features' | 'solutions' | 'industries' | 'zunme'
@@ -98,6 +110,7 @@ export const WebsiteHome = () => {
             color: 'var(--web-text-main)',
             lineHeight: 1.6,
             maxWidth: '820px',
+            textAlign: 'center',
             margin: '0.25rem 0 0 0',
             padding: '0 0.5rem',
             borderLeft: 'none'
@@ -110,7 +123,8 @@ export const WebsiteHome = () => {
             color: 'var(--web-text-muted)',
             lineHeight: 1.6,
             maxWidth: '740px',
-            margin: 0
+            margin: 0,
+            textAlign: 'center'
           }}>
             {t('A complete operating system combining all 23 core CRM features, 4 tailored solution frameworks, and 23 industry modules with the autonomous power of the ZUNME AI Studio.')}
           </p>
@@ -155,7 +169,7 @@ export const WebsiteHome = () => {
               }}
             >
               <Bot size={17} style={{ color: '#fef08a', flexShrink: 0 }} />
-              <span>{t('Ask My Zunme — VA Assistant')}</span>
+              <span>{isEs ? 'Preguntar a My Zunme — Asistente VA' : 'Ask My Zunme — VA Assistant'}</span>
               <span style={{ fontWeight: 900 }}>&gt;&gt;</span>
             </button>
 
@@ -175,7 +189,7 @@ export const WebsiteHome = () => {
               }}
             >
               <MessageSquare size={17} style={{ flexShrink: 0 }} />
-              <span>{t('SALES — chat eBox')}</span>
+              <span>{isEs ? 'VENTAS — chat eBox' : 'SALES — chat eBox'}</span>
             </button>
           </div>
 
@@ -249,7 +263,7 @@ export const WebsiteHome = () => {
                   transition: 'all 0.15s ease'
                 }}
               >
-                {cat}
+                {categoryMap[cat] || t(cat)}
               </button>
             ))}
           </div>
@@ -259,6 +273,10 @@ export const WebsiteHome = () => {
         <div className="features-mega-grid">
           {filteredFeatures.map((f) => {
             const Icon = f.icon;
+            const title = (isEs && f.nameEs) ? f.nameEs : t(f.name);
+            const desc = (isEs && f.descEs) ? f.descEs : t(f.desc);
+            const tag = (isEs && f.tagEs) ? f.tagEs : t(f.tag);
+
             return (
               <div
                 key={f.id}
@@ -278,11 +296,11 @@ export const WebsiteHome = () => {
                     borderRadius: '4px',
                     border: '1px solid var(--web-border)'
                   }}>
-                    {f.tag}
+                    {tag}
                   </span>
                 </div>
-                <span className="dolibarr-title">{f.name}</span>
-                <span className="dolibarr-desc">{f.desc}</span>
+                <span className="dolibarr-title">{title}</span>
+                <span className="dolibarr-desc">{desc}</span>
               </div>
             );
           })}
@@ -418,7 +436,7 @@ export const WebsiteHome = () => {
             </p>
           </div>
 
-          {/* White Label CRM or ERP Banner (Client Requirement) */}
+          {/* White Label CRM or ERP Banner */}
           <div className="website-whitelabel-box">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
               <span style={{
@@ -491,86 +509,95 @@ export const WebsiteHome = () => {
           </div>
 
           <div className="solutions-mega-grid">
-            {CRM_SOLUTIONS_DATA.map((group, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: 'var(--web-surface)',
-                  borderRadius: '16px',
-                  border: '1px solid var(--web-border)',
-                  padding: '1.25rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)'
-                }}
-              >
-                <div style={{ borderBottom: '1px solid var(--web-border)', paddingBottom: '0.75rem' }}>
-                  <span style={{
-                    fontSize: '10px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    color: '#0284c7',
-                    letterSpacing: '0.06em'
-                  }}>
-                    {group.badge}
-                  </span>
-                  <h3
-                    onClick={() => {
-                      if (group.route) navigate(group.route);
-                    }}
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: 800,
-                      color: 'var(--web-text-main)',
-                      margin: '2px 0 0 0',
-                      cursor: group.route ? 'pointer' : 'default',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span>{group.groupTitle}</span>
-                    {group.route && <ArrowRight size={14} style={{ color: '#0284c7' }} />}
-                  </h3>
-                  <span style={{ fontSize: '11.5px', color: 'var(--web-text-muted)' }}>{group.subtitle}</span>
-                </div>
+            {CRM_SOLUTIONS_DATA.map((group, idx) => {
+              const badge = (isEs && group.badgeEs) ? group.badgeEs : t(group.badge);
+              const groupTitle = (isEs && group.groupTitleEs) ? group.groupTitleEs : t(group.groupTitle);
+              const subtitle = (isEs && group.subtitleEs) ? group.subtitleEs : t(group.subtitle);
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {group.items.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={item.id}
-                        className="dolibarr-card"
-                        style={{ padding: '0.75rem' }}
-                        onClick={() => onSelectItem && onSelectItem({ ...item, groupTitle: group.groupTitle })}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                          <div style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '7px',
-                            background: 'rgba(2, 132, 199, 0.1)',
-                            color: '#0284c7',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0
-                          }}>
-                            <Icon size={15} />
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'var(--web-surface)',
+                    borderRadius: '16px',
+                    border: '1px solid var(--web-border)',
+                    padding: '1.25rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)'
+                  }}
+                >
+                  <div style={{ borderBottom: '1px solid var(--web-border)', paddingBottom: '0.75rem' }}>
+                    <span style={{
+                      fontSize: '10px',
+                      fontWeight: 800,
+                      textTransform: 'uppercase',
+                      color: '#0284c7',
+                      letterSpacing: '0.06em'
+                    }}>
+                      {badge}
+                    </span>
+                    <h3
+                      onClick={() => {
+                        if (group.route) navigate(group.route);
+                      }}
+                      style={{
+                        fontSize: '16px',
+                        fontWeight: 800,
+                        color: 'var(--web-text-main)',
+                        margin: '2px 0 0 0',
+                        cursor: group.route ? 'pointer' : 'default',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{groupTitle}</span>
+                      {group.route && <ArrowRight size={14} style={{ color: '#0284c7' }} />}
+                    </h3>
+                    <span style={{ fontSize: '11.5px', color: 'var(--web-text-muted)' }}>{subtitle}</span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {group.items.map((item) => {
+                      const Icon = item.icon;
+                      const itemName = (isEs && item.nameEs) ? item.nameEs : t(item.name);
+                      const itemDesc = (isEs && item.descEs) ? item.descEs : t(item.desc);
+
+                      return (
+                        <div
+                          key={item.id}
+                          className="dolibarr-card"
+                          style={{ padding: '0.75rem' }}
+                          onClick={() => onSelectItem && onSelectItem({ ...item, groupTitle })}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                            <div style={{
+                              width: '28px',
+                              height: '28px',
+                              borderRadius: '7px',
+                              background: 'rgba(2, 132, 199, 0.1)',
+                              color: '#0284c7',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0
+                            }}>
+                              <Icon size={15} />
+                            </div>
+                            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
+                              {itemName}
+                            </span>
                           </div>
-                          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                            {item.name}
-                          </span>
+                          <span className="dolibarr-desc">{itemDesc}</span>
                         </div>
-                        <span className="dolibarr-desc">{item.desc}</span>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -581,19 +608,22 @@ export const WebsiteHome = () => {
       <section id="industries" className="website-section-container">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Domain-Specific Solutions
+            {t('Domain-Specific Solutions')}
           </span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-            Industries Using the CRM nErgy Software (23 Sectors)
+            {t('Industries Using the CRM nErgy Software (23 Sectors)')}
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
-            Some of the Industries that use the CRM nErgy Software. CRM software is essential for various industries to manage customer relationships and enhance operational efficiency.
+            {t('Some of the Industries that use the CRM nErgy Software. CRM software is essential for various industries to manage customer relationships and enhance operational efficiency.')}
           </p>
         </div>
 
         <div className="industries-mega-grid">
           {INDUSTRIES_DATA.map((ind) => {
             const Icon = ind.icon;
+            const indTitle = (isEs && ind.nameEs) ? ind.nameEs : t(ind.name);
+            const indDesc = (isEs && ind.descEs) ? ind.descEs : t(ind.desc);
+
             return (
               <div
                 key={ind.id}
@@ -610,9 +640,9 @@ export const WebsiteHome = () => {
                   }}>
                     <Icon size={18} />
                   </div>
-                  <span className="dolibarr-title" style={{ margin: 0 }}>{ind.name}</span>
+                  <span className="dolibarr-title" style={{ margin: 0 }}>{indTitle}</span>
                 </div>
-                <span className="dolibarr-desc">{ind.desc}</span>
+                <span className="dolibarr-desc">{indDesc}</span>
               </div>
             );
           })}
@@ -630,13 +660,13 @@ export const WebsiteHome = () => {
         <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#f97316', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Fact and Questions
+              {t('Fact and Questions')}
             </span>
             <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
-              FAQs & Interactive Module Directory
+              {t('FAQs & Interactive Module Directory')}
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
-              Browse features, solution groups, and industry options as interactive icon buttons or review common questions.
+              {t('Browse features, solution groups, and industry options as interactive icon buttons or review common questions.')}
             </p>
 
             {/* FAQ Visual Selector Tabs */}
@@ -655,7 +685,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                CRM Features (Icon Buttons)
+                {isEs ? 'Funcionalidades CRM (Botones de Iconos)' : 'CRM Features (Icon Buttons)'}
               </button>
               <button
                 type="button"
@@ -671,7 +701,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                CRM Solutions (4 Groups)
+                {isEs ? 'Soluciones CRM (4 Grupos)' : 'CRM Solutions (4 Groups)'}
               </button>
               <button
                 type="button"
@@ -687,7 +717,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                Industries (Icon Buttons)
+                {isEs ? 'Industrias (Botones de Iconos)' : 'Industries (Icon Buttons)'}
               </button>
               <button
                 type="button"
@@ -703,7 +733,7 @@ export const WebsiteHome = () => {
                   cursor: 'pointer'
                 }}
               >
-                What is My Zunme?
+                {isEs ? '¿Qué es My Zunme?' : 'What is My Zunme?'}
               </button>
             </div>
           </div>
@@ -719,15 +749,17 @@ export const WebsiteHome = () => {
             }}>
               <div style={{ marginBottom: '1rem' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  Display All Features (Icon Buttons)
+                  {t('Display All Features (Icon Buttons)')}
                 </h3>
                 <span style={{ fontSize: '12px', color: 'var(--web-text-muted)' }}>
-                  Click any icon button to inspect feature capabilities or request a demo.
+                  {t('Click any icon button to inspect feature capabilities or request a demo.')}
                 </span>
               </div>
               <div className="website-icon-btn-grid">
                 {CRM_FEATURES_DATA.map((f) => {
                   const Icon = f.icon;
+                  const fName = (isEs && f.nameEs) ? f.nameEs : t(f.name);
+
                   return (
                     <button
                       key={f.id}
@@ -762,7 +794,7 @@ export const WebsiteHome = () => {
                         <Icon size={16} />
                       </div>
                       <span style={{ fontSize: '12px', fontWeight: 700, lineHeight: 1.2 }}>
-                        {f.name}
+                        {fName}
                       </span>
                     </button>
                   );
@@ -782,46 +814,55 @@ export const WebsiteHome = () => {
             }}>
               <div style={{ marginBottom: '1.25rem' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  CRM Solutions: 4 Specialized Groups
+                  {t('CRM Solutions: 4 Specialized Groups')}
                 </h3>
                 <span style={{ fontSize: '12px', color: 'var(--web-text-muted)' }}>
-                  Architectural and enterprise solution categories defined in the specification.
+                  {t('Architectural and enterprise solution categories defined in the specification.')}
                 </span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '14px' }}>
-                {CRM_SOLUTIONS_DATA.map((group, idx) => (
-                  <div key={idx} style={{ background: 'var(--web-surface)', padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--web-border)' }}>
-                    <span style={{ fontSize: '10px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase' }}>
-                      {group.badge}
-                    </span>
-                    <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 8px 0' }}>
-                      {group.groupTitle}
-                    </h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      {group.items.map((i) => (
-                        <div
-                          key={i.id}
-                          onClick={() => onSelectItem && onSelectItem({ ...i, groupTitle: group.groupTitle })}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            padding: '6px 8px',
-                            borderRadius: '6px',
-                            fontSize: '12px',
-                            fontWeight: 600,
-                            color: 'var(--web-text-main)',
-                            cursor: 'pointer',
-                            background: 'var(--web-surface-subtle)'
-                          }}
-                        >
-                          <CheckCircle2 size={13} style={{ color: '#0284c7', flexShrink: 0 }} />
-                          <span>{i.name}</span>
-                        </div>
-                      ))}
+                {CRM_SOLUTIONS_DATA.map((group, idx) => {
+                  const badge = (isEs && group.badgeEs) ? group.badgeEs : t(group.badge);
+                  const groupTitle = (isEs && group.groupTitleEs) ? group.groupTitleEs : t(group.groupTitle);
+
+                  return (
+                    <div key={idx} style={{ background: 'var(--web-surface)', padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--web-border)' }}>
+                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase' }}>
+                        {badge}
+                      </span>
+                      <h4 style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 8px 0' }}>
+                        {groupTitle}
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        {group.items.map((i) => {
+                          const itemName = (isEs && i.nameEs) ? i.nameEs : t(i.name);
+
+                          return (
+                            <div
+                              key={i.id}
+                              onClick={() => onSelectItem && onSelectItem({ ...i, groupTitle })}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '6px 8px',
+                                borderRadius: '6px',
+                                fontSize: '12px',
+                                fontWeight: 600,
+                                color: 'var(--web-text-main)',
+                                cursor: 'pointer',
+                                background: 'var(--web-surface-subtle)'
+                              }}
+                            >
+                              <CheckCircle2 size={13} style={{ color: '#0284c7', flexShrink: 0 }} />
+                              <span>{itemName}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -837,15 +878,17 @@ export const WebsiteHome = () => {
             }}>
               <div style={{ marginBottom: '1rem' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0 }}>
-                  Industries (Icon Buttons)
+                  {t('Industries (Icon Buttons)')}
                 </h3>
                 <span style={{ fontSize: '12px', color: 'var(--web-text-muted)' }}>
-                  All 23 vertical sector icon buttons available for enterprise configuration.
+                  {t('All 23 vertical sector icon buttons available for enterprise configuration.')}
                 </span>
               </div>
               <div className="website-icon-btn-grid">
                 {INDUSTRIES_DATA.map((ind) => {
                   const Icon = ind.icon;
+                  const indName = (isEs && ind.nameEs) ? ind.nameEs : t(ind.name);
+
                   return (
                     <button
                       key={ind.id}
@@ -878,7 +921,7 @@ export const WebsiteHome = () => {
                         <Icon size={16} />
                       </div>
                       <span style={{ fontSize: '12px', fontWeight: 700, lineHeight: 1.2 }}>
-                        {ind.name}
+                        {indName}
                       </span>
                     </button>
                   );
@@ -914,17 +957,17 @@ export const WebsiteHome = () => {
                 <div style={{ flex: 1, minWidth: 'min(280px, 100%)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '11px', fontWeight: 800, color: '#ec4899', textTransform: 'uppercase' }}>
-                      Artificial Intelligence SuperHouse
+                      {t('Artificial Intelligence SuperHouse')}
                     </span>
                     <span style={{ fontSize: '10px', background: 'rgba(99, 102, 241, 0.15)', color: '#4f46e5', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>
-                      1,000+ Prompt Templates
+                      {t('1,000+ Prompt Templates')}
                     </span>
                   </div>
                   <h3 style={{ fontSize: 'clamp(1.25rem, 2.5vw, 22px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 10px 0' }}>
-                    What is My Zunme?
+                    {t('What is My Zunme?')}
                   </h3>
                   <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
-                    <strong>ZUNME</strong> is the integrated creative, monetization, and SEO engine inside CRM nErgy AI. It empowers creators, marketing agencies, and business owners to build content rapidly using pre-built AI workflows. Featuring over 1,000 specialized templates, ZUNME powers autonomous AI video agents, brand soundtrack synthesis, script writing, and enterprise copy generation.
+                    <strong>ZUNME</strong> {t('is the integrated creative, monetization, and SEO engine inside CRM nErgy AI. It empowers creators, marketing agencies, and business owners to build content rapidly using pre-built AI workflows. Featuring over 1,000 specialized templates, ZUNME powers autonomous AI video agents, brand soundtrack synthesis, script writing, and enterprise copy generation.')}
                   </p>
                   <div className="website-zunme-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
@@ -934,7 +977,7 @@ export const WebsiteHome = () => {
                       style={{ padding: '8px 18px', fontSize: '13px' }}
                     >
                       <Sparkles size={14} />
-                      <span>{t('Launch Ask My Zunme Assistant >>')}</span>
+                      <span>{isEs ? 'Iniciar Asistente My Zunme >>' : 'Launch Ask My Zunme Assistant >>'}</span>
                     </button>
                     <button
                       type="button"
@@ -942,7 +985,7 @@ export const WebsiteHome = () => {
                       className="website-btn-sales"
                       style={{ padding: '8px 18px', fontSize: '13px', borderRadius: '8px' }}
                     >
-                      <span>{t('Inquire About Zunme Licensing')}</span>
+                      <span>{isEs ? 'Consultar sobre Licencias Zunme' : 'Inquire About Zunme Licensing'}</span>
                     </button>
                   </div>
                 </div>
@@ -954,6 +997,9 @@ export const WebsiteHome = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {FAQ_QUESTIONS_DATA.map((faq, idx) => {
               const isOpen = openFaqIndex === idx;
+              const question = (isEs && faq.qEs) ? faq.qEs : t(faq.q);
+              const answer = (isEs && faq.aEs) ? faq.aEs : t(faq.a);
+
               return (
                 <div
                   key={idx}
@@ -980,7 +1026,7 @@ export const WebsiteHome = () => {
                     }}
                   >
                     <span style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                      {faq.q}
+                      {question}
                     </span>
                     <ChevronDown size={18} style={{
                       transform: isOpen ? 'rotate(180deg)' : 'none',
@@ -998,7 +1044,7 @@ export const WebsiteHome = () => {
                       borderTop: '1px solid var(--web-border)',
                       paddingTop: '0.85rem'
                     }}>
-                      {faq.a}
+                      {answer}
                     </div>
                   )}
                 </div>
@@ -1018,13 +1064,13 @@ export const WebsiteHome = () => {
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Enterprise Governance
+            {t('Enterprise Governance')}
           </span>
           <h2 style={{ fontSize: 'clamp(1.4rem, 3.2vw, 26px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 12px 0' }}>
-            Security, Resilience & High-Throughput Architecture
+            {t('Security, Resilience & High-Throughput Architecture')}
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
-            Designed for institutional-grade reliability, CRM nErgy implements strict tenant isolation, cryptographic vault storage, and granular role-based access control.
+            {t('Designed for institutional-grade reliability, CRM nErgy implements strict tenant isolation, cryptographic vault storage, and granular role-based access control.')}
           </p>
 
           <div className="website-security-grid">
@@ -1033,10 +1079,10 @@ export const WebsiteHome = () => {
                 <Lock size={20} />
               </div>
               <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--web-text-main)', margin: '0 0 6px 0' }}>
-                Tenant Vault Isolation
+                {t('Tenant Vault Isolation')}
               </h4>
               <p style={{ fontSize: '12.5px', color: 'var(--web-text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Every corporate subscriber operates within an encrypted tenant boundary ensuring proprietary deal flows and employee data remain isolated.
+                {t('Every corporate subscriber operates within an encrypted tenant boundary ensuring proprietary deal flows and employee data remain isolated.')}
               </p>
             </div>
 
@@ -1045,10 +1091,10 @@ export const WebsiteHome = () => {
                 <Boxes size={20} />
               </div>
               <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--web-text-main)', margin: '0 0 6px 0' }}>
-                Real-Time Synchronous Sync
+                {t('Real-Time Synchronous Sync')}
               </h4>
               <p style={{ fontSize: '12.5px', color: 'var(--web-text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Sub-second data replication across inventory, sales orders, leads, and accounting ledgers eliminates batch reconciliation delays.
+                {t('Sub-second data replication across inventory, sales orders, leads, and accounting ledgers eliminates batch reconciliation delays.')}
               </p>
             </div>
 
@@ -1057,10 +1103,10 @@ export const WebsiteHome = () => {
                 <ShieldCheck size={20} />
               </div>
               <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--web-text-main)', margin: '0 0 6px 0' }}>
-                Audit-Ready Compliance
+                {t('Audit-Ready Compliance')}
               </h4>
               <p style={{ fontSize: '12.5px', color: 'var(--web-text-muted)', lineHeight: 1.5, margin: 0 }}>
-                Immutable audit logging on every administrative action, contract signature, and banking transaction prepared for GAAP/IFRS reviews.
+                {t('Immutable audit logging on every administrative action, contract signature, and banking transaction prepared for GAAP/IFRS reviews.')}
               </p>
             </div>
           </div>
@@ -1069,3 +1115,5 @@ export const WebsiteHome = () => {
     </div>
   );
 };
+
+export default WebsiteHome;

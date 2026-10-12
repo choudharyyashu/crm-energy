@@ -61,195 +61,6 @@ import {
 } from 'lucide-react';
 import { INDUSTRY_CLIENT_DETAILS } from './industryDetailsData';
 
-// 23 CRM FEATURES specified in client document
-export const CRM_FEATURES_DATA = [
-  {
-    id: 'industries-homepage',
-    name: 'Industries Homepage',
-    category: 'Ecosystem & Overview',
-    icon: Globe,
-    desc: 'Centralized hub mapping industry-specific workflows, modules, and compliance templates.',
-    tag: 'Overview'
-  },
-  {
-    id: 'affiliate-management',
-    name: 'Affiliate Management',
-    category: 'Sales & Growth',
-    icon: Award,
-    desc: 'Multi-tiered partner referral tracking, commission payouts, and automated affiliate portal.',
-    tag: 'Revenue'
-  },
-  {
-    id: 'analytic-accounting',
-    name: 'Analytic Accounting',
-    category: 'Finance & Operations',
-    icon: PieChart,
-    desc: 'Multi-dimensional cost center ledger, project margin tracking, and financial analytics.',
-    tag: 'Finance',
-    route: '/features/analytic-accounting'
-  },
-  {
-    id: 'contact-management',
-    name: 'Contact Management',
-    category: 'Core CRM',
-    icon: Users,
-    desc: '360° corporate and individual profiles, interaction timeline, and communication history.',
-    tag: 'Core'
-  },
-  {
-    id: 'customer-service',
-    name: 'Customer Service',
-    category: 'Support & Success',
-    icon: Headphones,
-    desc: 'Multi-channel SLA ticketing, automated escalations, and customer satisfaction tracking.',
-    tag: 'Support'
-  },
-  {
-    id: 'customizable-dashboards',
-    name: 'Customizable Dashboards',
-    category: 'Core CRM',
-    icon: LayoutDashboardIcon(),
-    desc: 'Drag-and-drop KPI widgets, executive telemetry, and role-based real-time visualizations.',
-    tag: 'Analytics'
-  },
-  {
-    id: 'data-management',
-    name: 'Data Management',
-    category: 'Governance & Security',
-    icon: Layers,
-    desc: 'Enterprise data hygiene, deduplication, automated backups, and SHA-256 integrity checks.',
-    tag: 'Security'
-  },
-  {
-    id: 'financial-accounting',
-    name: 'Financial Accounting',
-    category: 'Finance & Operations',
-    icon: DollarSign,
-    desc: 'Double-entry general ledger, automated bank reconciliation, and GAAP/IFRS tax reporting.',
-    tag: 'Finance'
-  },
-  {
-    id: 'inventory-management',
-    name: 'Inventory Management',
-    category: 'ERP & Logistics',
-    icon: Package,
-    desc: 'Multi-warehouse stock tracking, automated reorder triggers, and SKU barcode syncing.',
-    tag: 'Operations'
-  },
-  {
-    id: 'landing-page-creator',
-    name: 'Landing Page Creator',
-    category: 'Marketing & Web',
-    icon: LayoutGridIcon(),
-    desc: 'Intuitive drag-and-drop page builder for high-converting marketing campaigns and lead funnels.',
-    tag: 'Growth'
-  },
-  {
-    id: 'lead-management',
-    name: 'Lead Management',
-    category: 'Sales & Growth',
-    icon: Target,
-    desc: 'AI prospect scoring, automated qualification pipelines, and inbound capture automation.',
-    tag: 'Sales'
-  },
-  {
-    id: 'manufacturing',
-    name: 'Manufacturing',
-    category: 'ERP & Logistics',
-    icon: Factory,
-    desc: 'Bill of Materials (BOM), work center scheduling, production orders, and QA routing.',
-    tag: 'Operations'
-  },
-  {
-    id: 'marketing-automation',
-    name: 'Marketing Automation',
-    category: 'Marketing & Web',
-    icon: Megaphone,
-    desc: 'Omnichannel drip campaigns, email/SMS sequences, and generative AI content personalization.',
-    tag: 'Growth'
-  },
-  {
-    id: 'mobile-access',
-    name: 'Mobile Access',
-    category: 'Core CRM',
-    icon: Smartphone,
-    desc: 'Native-feel mobile responsive experience with offline sync and on-the-go deal management.',
-    tag: 'Mobile'
-  },
-  {
-    id: 'payroll-processing',
-    name: 'Payroll Processing',
-    category: 'Finance & Operations',
-    icon: FileSpreadsheet,
-    desc: 'Automated salary calculation, direct deposit scheduling, and corporate tax withholding.',
-    tag: 'Finance'
-  },
-  {
-    id: 'project-management',
-    name: 'Project Management',
-    category: 'ERP & Logistics',
-    icon: FolderKanban,
-    desc: 'Gantt charts, milestone tracking, resource allocation, and budget burn telemetry.',
-    tag: 'Operations'
-  },
-  {
-    id: 'purchasing-management',
-    name: 'Purchasing Management',
-    category: 'ERP & Logistics',
-    icon: ShoppingBag,
-    desc: 'Purchase order approval routing, vendor price comparison, and automatic 3-way matching.',
-    tag: 'Operations'
-  },
-  {
-    id: 'recruitment-onboarding',
-    name: 'Recruitment and Onboarding',
-    category: 'HR & Talent',
-    icon: UserCheck,
-    desc: 'Candidate pipeline tracking, AI resume parsing, automated interview scheduling, and e-signatures.',
-    tag: 'HR'
-  },
-  {
-    id: 'sales-management',
-    name: 'Sales Management',
-    category: 'Sales & Growth',
-    icon: Kanban,
-    desc: 'Kanban sales pipeline, contract quotation builder, and sales rep commission tracking.',
-    tag: 'Sales'
-  },
-  {
-    id: 'subscription-management',
-    name: 'Subscription Management',
-    category: 'Sales & Growth',
-    icon: CreditCard,
-    desc: 'Recurring SaaS billing, automated dunning, upgrade/downgrade workflows, and MRR tracking.',
-    tag: 'Revenue'
-  },
-  {
-    id: 'supply-chain',
-    name: 'Supply Chain',
-    category: 'ERP & Logistics',
-    icon: Truck,
-    desc: 'Freight routing, vendor SLA audits, multi-modal tracking, and customs compliance.',
-    tag: 'Operations'
-  },
-  {
-    id: 'territory-management',
-    name: 'Territory Management',
-    category: 'Sales & Growth',
-    icon: MapPin,
-    desc: 'Geographic sales territory assignment, quota distribution, and regional revenue maps.',
-    tag: 'Sales'
-  },
-  {
-    id: 'white-label-crm',
-    name: 'White Label CRM',
-    category: 'Governance & Security',
-    icon: Sparkles,
-    desc: 'Custom domain branding, company logo embedding, and bespoke client portal styling.',
-    tag: 'Enterprise'
-  }
-];
-
 function LayoutDashboardIcon() {
   return Grid;
 }
@@ -258,159 +69,482 @@ function LayoutGridIcon() {
   return Globe;
 }
 
-// 4 CRM SOLUTIONS GROUPS with all 15 items
+// 23 CRM FEATURES specified in client document (Dual English & Spanish)
+export const CRM_FEATURES_DATA = [
+  {
+    id: 'industries-homepage',
+    name: 'Industries Homepage',
+    nameEs: 'Página de Industrias',
+    category: 'Ecosystem & Overview',
+    categoryEs: 'Ecosistema y Resumen',
+    icon: Globe,
+    desc: 'Centralized hub mapping industry-specific workflows, modules, and compliance templates.',
+    descEs: 'Centro unificado que mapea flujos de trabajo específicos por industria, módulos y plantillas de cumplimiento.',
+    tag: 'Overview',
+    tagEs: 'Resumen'
+  },
+  {
+    id: 'affiliate-management',
+    name: 'Affiliate Management',
+    nameEs: 'Gestión de Afiliados',
+    category: 'Sales & Growth',
+    categoryEs: 'Ventas y Crecimiento',
+    icon: Award,
+    desc: 'Multi-tiered partner referral tracking, commission payouts, and automated affiliate portal.',
+    descEs: 'Seguimiento de referencias multinivel, liquidación de comisiones y portal de afiliados automatizado.',
+    tag: 'Revenue',
+    tagEs: 'Ingresos'
+  },
+  {
+    id: 'analytic-accounting',
+    name: 'Analytic Accounting',
+    nameEs: 'Contabilidad Analítica',
+    category: 'Finance & Operations',
+    categoryEs: 'Finanzas y Operaciones',
+    icon: PieChart,
+    desc: 'Multi-dimensional cost center ledger, project margin tracking, and financial analytics.',
+    descEs: 'Libro de centros de costos multidimensional, seguimiento de márgenes de proyectos y analítica financiera.',
+    tag: 'Finance',
+    tagEs: 'Finanzas',
+    route: '/features/analytic-accounting'
+  },
+  {
+    id: 'contact-management',
+    name: 'Contact Management',
+    nameEs: 'Gestión de Contactos',
+    category: 'Core CRM',
+    categoryEs: 'CRM Principal',
+    icon: Users,
+    desc: '360° corporate and individual profiles, interaction timeline, and communication history.',
+    descEs: 'Perfiles corporativos e individuales 360°, cronología de interacción e historial de comunicaciones.',
+    tag: 'Core',
+    tagEs: 'Principal'
+  },
+  {
+    id: 'customer-service',
+    name: 'Customer Service',
+    nameEs: 'Atención al Cliente',
+    category: 'Support & Success',
+    categoryEs: 'Soporte y Éxito',
+    icon: Headphones,
+    desc: 'Multi-channel SLA ticketing, automated escalations, and customer satisfaction tracking.',
+    descEs: 'Emisión de tickets SLA multicanal, derivaciones automáticas y seguimiento de satisfacción del cliente.',
+    tag: 'Support',
+    tagEs: 'Soporte'
+  },
+  {
+    id: 'customizable-dashboards',
+    name: 'Customizable Dashboards',
+    nameEs: 'Tableros Personalizables',
+    category: 'Core CRM',
+    categoryEs: 'CRM Principal',
+    icon: LayoutDashboardIcon(),
+    desc: 'Drag-and-drop KPI widgets, executive telemetry, and role-based real-time visualizations.',
+    descEs: 'Widgets de KPI arrastrar y soltar, telemetría ejecutiva y visualizaciones en tiempo real por roles.',
+    tag: 'Analytics',
+    tagEs: 'Analítica'
+  },
+  {
+    id: 'data-management',
+    name: 'Data Management',
+    nameEs: 'Gestión de Datos',
+    category: 'Governance & Security',
+    categoryEs: 'Gobernanza y Seguridad',
+    icon: Layers,
+    desc: 'Enterprise data hygiene, deduplication, automated backups, and SHA-256 integrity checks.',
+    descEs: 'Higiene de datos empresariales, deduplicación, copias de seguridad automáticas y comprobación SHA-256.',
+    tag: 'Security',
+    tagEs: 'Seguridad'
+  },
+  {
+    id: 'financial-accounting',
+    name: 'Financial Accounting',
+    nameEs: 'Contabilidad Financiera',
+    category: 'Finance & Operations',
+    categoryEs: 'Finanzas y Operaciones',
+    icon: DollarSign,
+    desc: 'Double-entry general ledger, automated bank reconciliation, and GAAP/IFRS tax reporting.',
+    descEs: 'Libro mayor de partida doble, conciliación bancaria automática e informes fiscales GAAP/IFRS.',
+    tag: 'Finance',
+    tagEs: 'Finanzas'
+  },
+  {
+    id: 'inventory-management',
+    name: 'Inventory Management',
+    nameEs: 'Gestión de Inventario',
+    category: 'ERP & Logistics',
+    categoryEs: 'ERP y Logística',
+    icon: Package,
+    desc: 'Multi-warehouse stock tracking, automated reorder triggers, and SKU barcode syncing.',
+    descEs: 'Control de existencias multialmacén, disparadores automáticos de reorden y sincronización de código de barras.',
+    tag: 'Operations',
+    tagEs: 'Operaciones'
+  },
+  {
+    id: 'landing-page-creator',
+    name: 'Landing Page Creator',
+    nameEs: 'Creador de Landing Pages',
+    category: 'Marketing & Web',
+    categoryEs: 'Marketing y Web',
+    icon: LayoutGridIcon(),
+    desc: 'Intuitive drag-and-drop page builder for high-converting marketing campaigns and lead funnels.',
+    descEs: 'Constructor visual de páginas de arrastrar y soltar para campañas de marketing y embudos de alta conversión.',
+    tag: 'Growth',
+    tagEs: 'Crecimiento'
+  },
+  {
+    id: 'lead-management',
+    name: 'Lead Management',
+    nameEs: 'Gestión de Prospectos',
+    category: 'Sales & Growth',
+    categoryEs: 'Ventas y Crecimiento',
+    icon: Target,
+    desc: 'AI prospect scoring, automated qualification pipelines, and inbound capture automation.',
+    descEs: 'Calificación de prospectos con IA, embudos automatizados y captura entrante omnicanal.',
+    tag: 'Sales',
+    tagEs: 'Ventas'
+  },
+  {
+    id: 'manufacturing',
+    name: 'Manufacturing',
+    nameEs: 'Fabricación y Manufactura',
+    category: 'ERP & Logistics',
+    categoryEs: 'ERP y Logística',
+    icon: Factory,
+    desc: 'Bill of Materials (BOM), work center scheduling, production orders, and QA routing.',
+    descEs: 'Lista de materiales (BOM), programación de centros de trabajo, órdenes de producción y control de calidad.',
+    tag: 'Operations',
+    tagEs: 'Operaciones'
+  },
+  {
+    id: 'marketing-automation',
+    name: 'Marketing Automation',
+    nameEs: 'Automatización de Marketing',
+    category: 'Marketing & Web',
+    categoryEs: 'Marketing y Web',
+    icon: Megaphone,
+    desc: 'Omnichannel drip campaigns, email/SMS sequences, and generative AI content personalization.',
+    descEs: 'Campañas de goteo omnicanal, secuencias de email/SMS y personalización de contenido con IA generativa.',
+    tag: 'Growth',
+    tagEs: 'Crecimiento'
+  },
+  {
+    id: 'mobile-access',
+    name: 'Mobile Access',
+    nameEs: 'Acceso Móvil',
+    category: 'Core CRM',
+    categoryEs: 'CRM Principal',
+    icon: Smartphone,
+    desc: 'Native-feel mobile responsive experience with offline sync and on-the-go deal management.',
+    descEs: 'Experiencia móvil nativa receptiva con sincronización sin conexión y gestión de tratos en movimiento.',
+    tag: 'Mobile',
+    tagEs: 'Móvil'
+  },
+  {
+    id: 'payroll-processing',
+    name: 'Payroll Processing',
+    nameEs: 'Procesamiento de Nómina',
+    category: 'Finance & Operations',
+    categoryEs: 'Finanzas y Operaciones',
+    icon: FileSpreadsheet,
+    desc: 'Automated salary calculation, direct deposit scheduling, and corporate tax withholding.',
+    descEs: 'Cálculo automático de salarios, programación de depósitos directos y retención de impuestos corporativos.',
+    tag: 'Finance',
+    tagEs: 'Finanzas'
+  },
+  {
+    id: 'project-management',
+    name: 'Project Management',
+    nameEs: 'Gestión de Proyectos',
+    category: 'ERP & Logistics',
+    categoryEs: 'ERP y Logística',
+    icon: FolderKanban,
+    desc: 'Gantt charts, milestone tracking, resource allocation, and budget burn telemetry.',
+    descEs: 'Diagramas de Gantt, seguimiento de hitos, asignación de recursos y telemetría de consumo de presupuesto.',
+    tag: 'Operations',
+    tagEs: 'Operaciones'
+  },
+  {
+    id: 'purchasing-management',
+    name: 'Purchasing Management',
+    nameEs: 'Gestión de Compras',
+    category: 'ERP & Logistics',
+    categoryEs: 'ERP y Logística',
+    icon: ShoppingBag,
+    desc: 'Purchase order approval routing, vendor price comparison, and automatic 3-way matching.',
+    descEs: 'Aprobación de órdenes de compra, comparación de precios de proveedores y conciliación triple automática.',
+    tag: 'Operations',
+    tagEs: 'Operaciones'
+  },
+  {
+    id: 'recruitment-onboarding',
+    name: 'Recruitment and Onboarding',
+    nameEs: 'Reclutamiento e Integración',
+    category: 'HR & Talent',
+    categoryEs: 'RR.HH. y Talento',
+    icon: UserCheck,
+    desc: 'Candidate pipeline tracking, AI resume parsing, automated interview scheduling, and e-signatures.',
+    descEs: 'Embudo de candidatos, análisis de CV con IA, programación automática de entrevistas y firmas electrónicas.',
+    tag: 'HR',
+    tagEs: 'RR.HH.'
+  },
+  {
+    id: 'sales-management',
+    name: 'Sales Management',
+    nameEs: 'Gestión de Ventas',
+    category: 'Sales & Growth',
+    categoryEs: 'Ventas y Crecimiento',
+    icon: Kanban,
+    desc: 'Kanban sales pipeline, contract quotation builder, and sales rep commission tracking.',
+    descEs: 'Embudo de ventas Kanban, generador de presupuestos de contratos y seguimiento de comisiones comerciales.',
+    tag: 'Sales',
+    tagEs: 'Ventas'
+  },
+  {
+    id: 'subscription-management',
+    name: 'Subscription Management',
+    nameEs: 'Gestión de Suscripciones',
+    category: 'Sales & Growth',
+    categoryEs: 'Ventas y Crecimiento',
+    icon: CreditCard,
+    desc: 'Recurring SaaS billing, automated dunning, upgrade/downgrade workflows, and MRR tracking.',
+    descEs: 'Facturación SaaS recurrente, recobro automático, flujos de actualización y seguimiento de MRR.',
+    tag: 'Revenue',
+    tagEs: 'Ingresos'
+  },
+  {
+    id: 'supply-chain',
+    name: 'Supply Chain',
+    nameEs: 'Cadena de Suministro',
+    category: 'ERP & Logistics',
+    categoryEs: 'ERP y Logística',
+    icon: Truck,
+    desc: 'Freight routing, vendor SLA audits, multi-modal tracking, and customs compliance.',
+    descEs: 'Enrutamiento de transporte de carga, auditorías de SLA a proveedores, rastreo multimodal y aduanas.',
+    tag: 'Operations',
+    tagEs: 'Operaciones'
+  },
+  {
+    id: 'territory-management',
+    name: 'Territory Management',
+    nameEs: 'Gestión de Territorios',
+    category: 'Sales & Growth',
+    categoryEs: 'Ventas y Crecimiento',
+    icon: MapPin,
+    desc: 'Geographic sales territory assignment, quota distribution, and regional revenue maps.',
+    descEs: 'Asignación geográfica de territorios de ventas, distribución de cuotas y mapas de ingresos regionales.',
+    tag: 'Sales',
+    tagEs: 'Ventas'
+  },
+  {
+    id: 'white-label-crm',
+    name: 'White Label CRM',
+    nameEs: 'CRM Marca Blanca',
+    category: 'Governance & Security',
+    categoryEs: 'Gobernanza y Seguridad',
+    icon: Sparkles,
+    desc: 'Custom domain branding, company logo embedding, and bespoke client portal styling.',
+    descEs: 'Identidad de marca con dominio propio, integración de logotipo y diseño a medida del portal de clientes.',
+    tag: 'Enterprise',
+    tagEs: 'Empresarial'
+  }
+];
+
+// 4 CRM SOLUTIONS GROUPS with all 15 items (Dual English & Spanish)
 export const CRM_SOLUTIONS_DATA = [
   {
     groupTitle: '4 Types of CRM Software',
+    groupTitleEs: '4 Tipos de Software CRM',
     subtitle: 'Architectural Frameworks',
+    subtitleEs: 'Marcos Arquitectónicos',
     badge: 'Frameworks',
+    badgeEs: 'Marcos',
     items: [
       {
         id: 'analytical-crm',
         name: 'Analytical CRM',
+        nameEs: 'CRM Analítico',
         icon: TrendingUp,
-        desc: 'Advanced customer telemetry, cohort behavior models, and predictive lifetime value (LTV) calculation.'
+        desc: 'Advanced customer telemetry, cohort behavior models, and predictive lifetime value (LTV) calculation.',
+        descEs: 'Telemetría avanzada de clientes, modelos de cohortes y cálculo predictivo de valor de por vida (LTV).'
       },
       {
         id: 'collaborative-crm',
         name: 'Collaborative CRM',
+        nameEs: 'CRM Colaborativo',
         icon: Users,
-        desc: 'Cross-departmental data synchronization between sales, customer service, marketing, and executives.'
+        desc: 'Cross-departmental data synchronization between sales, customer service, marketing, and executives.',
+        descEs: 'Sincronización interdepartamental de datos entre ventas, atención al cliente, marketing y directivos.'
       },
       {
         id: 'operational-crm',
         name: 'Operational CRM',
+        nameEs: 'CRM Operativo',
         icon: Sliders,
-        desc: 'Automation of daily front-office workflows including lead routing, sales orders, and customer ticketing.'
+        desc: 'Automation of daily front-office workflows including lead routing, sales orders, and customer ticketing.',
+        descEs: 'Automatización de flujos diarios que incluye enrutamiento de prospectos, pedidos y soporte.'
       },
       {
         id: 'strategic-crm',
         name: 'Strategic CRM',
+        nameEs: 'CRM Estratégico',
         icon: Target,
-        desc: 'Long-term relationship optimization, customer retention programs, and value-maximization frameworks.'
+        desc: 'Long-term relationship optimization, customer retention programs, and value-maximization frameworks.',
+        descEs: 'Optimización de relaciones a largo plazo, programas de retención y marcos de maximización de valor.'
       }
     ]
   },
   {
     groupTitle: 'Business CRM Software',
+    groupTitleEs: 'Software CRM para Negocios',
     subtitle: 'Operational Scale',
+    subtitleEs: 'Escala Operativa',
     badge: 'Business',
+    badgeEs: 'Negocios',
     route: '/solutions/business-crm',
     items: [
       {
-        id: 'contact-ai',
-        name: 'Contact AI',
-        icon: Bot,
-        desc: 'Autonomous AI contact enrichment, sentiment analysis, and smart response generation.',
-        route: '/solutions/contact-ai'
-      },
-      {
-        id: 'franchise',
-        name: 'Franchise',
+        id: 'crm-franchise',
+        name: 'CRM Software for Franchise Businesses',
+        nameEs: 'Software CRM para Franquicias',
         icon: Building2,
-        desc: 'Multi-location franchise governance, royalties tracking, and centralized brand standard compliance.',
-        route: '/solutions/franchise'
+        desc: 'Multi-location inventory sync, centralized royalties tracking, and standardized brand operating procedures.',
+        descEs: 'Control centralizado de sucursales, cálculo de regalías y procedimientos de marca estandarizados.',
+        route: '/solutions/franchise-crm'
       },
       {
-        id: 'influencers',
-        name: 'Influencers',
-        icon: Tv,
-        desc: 'Campaign collaboration, sponsored content management, affiliate links, and brand outreach.',
-        route: '/solutions/influencers'
+        id: 'crm-startups',
+        name: 'CRM Software for Startups',
+        nameEs: 'Software CRM para Startups',
+        icon: Zap,
+        desc: 'Frictionless fast onboarding, ultra-low CAC pipelines, and automated growth engine for agile teams.',
+        descEs: 'Incorporación ágil y rápida, embudos de bajo CAC y motor de crecimiento automatizado.',
+        route: '/solutions/startups-crm'
       },
       {
-        id: 'startup-business',
-        name: 'Startup Business',
-        icon: Rocket,
-        desc: 'Lean sales automation, investor updates, rapid customer acquisition, and cash runway tracking.',
-        route: '/solutions/startups'
+        id: 'crm-small-mid-size',
+        name: 'CRM Software for Small to Mid-Size Businesses',
+        nameEs: 'Software CRM para PyMEs',
+        icon: Boxes,
+        desc: 'Right-sized modular ERP + CRM suites engineered for scaling mid-market enterprises.',
+        descEs: 'Suites modulares de ERP y CRM diseñadas para empresas medianas en fase de expansión.',
+        route: '/solutions/mid-size-crm'
       },
       {
-        id: 'small-to-mid-size-biz',
-        name: 'Small to Mid-Size Biz',
-        icon: Store,
-        desc: 'Turnkey all-in-one suite designed to minimize overhead and maximize operational efficiency.',
-        route: '/solutions/mid-size'
+        id: 'crm-professional-services',
+        name: 'Professional Services CRM',
+        nameEs: 'CRM para Servicios Profesionales',
+        icon: Briefcase,
+        desc: 'Hourly rate billing, milestone delivery schedules, and client retainer SLA governance.',
+        descEs: 'Facturación por horas, cronogramas de entrega de hitos y acuerdos de nivel de servicio (SLA).',
+        route: '/industries/professional-services'
       }
     ]
   },
   {
-    groupTitle: 'CRM for Entrepreneurs',
-    subtitle: 'Founder Capital & Growth',
+    groupTitle: 'CRM Software for Entrepreneurs',
+    groupTitleEs: 'Software CRM para Emprendedores',
+    subtitle: 'Tailored Personas',
+    subtitleEs: 'Perfiles Personalizados',
     badge: 'Entrepreneurs',
+    badgeEs: 'Emprendedores',
     items: [
       {
-        id: 'entrepreneurs-seeking-capital',
-        name: 'Entrepreneurs Seeking Capital',
-        icon: Landmark,
-        desc: 'Direct bridge to institutional debt lenders, pitch deck data rooms, and capital readiness scoring.'
+        id: 'crm-solopreneurs',
+        name: 'CRM for Solopreneurs',
+        nameEs: 'CRM para Solopreneurs',
+        icon: UserCheck,
+        desc: 'Single-operator command center merging calendar, lead capture, payments, and automated invoices.',
+        descEs: 'Centro de comando para operadores individuales que une agenda, prospectos, cobros y facturas.'
       },
       {
-        id: 'entrepreneurs-save-money',
-        name: 'Entrepreneurs Save Money',
-        icon: DollarSign,
-        desc: 'Consolidated toolstack replacement eliminating multiple SaaS subscriptions into a single platform.'
+        id: 'crm-freelancers',
+        name: 'CRM for Freelancers',
+        nameEs: 'CRM para Freelancers',
+        icon: FileText,
+        desc: 'Project-based retainer management, proposal generator, contract e-signatures, and time logging.',
+        descEs: 'Gestión de proyectos independientes, generador de propuestas, firmas electrónicas y registro de tiempo.'
       },
       {
-        id: 'software-for-entrepreneurs',
-        name: 'Software for Entrepreneurs',
+        id: 'crm-influencers',
+        name: 'CRM for Influencers',
+        nameEs: 'CRM para Influencers',
         icon: Sparkles,
-        desc: 'Unified business OS combining CRM, ERP, and AI Content Studios tailored for busy founders.'
+        desc: 'Brand sponsorship contract pipelines, media kit distribution, affiliate tracking, and audience metrics.',
+        descEs: 'Gestión de contratos de patrocinio, kit de medios, comisiones de afiliados y analítica de audiencia.',
+        route: '/solutions/influencers-crm'
+      },
+      {
+        id: 'crm-real-estate-agents',
+        name: 'CRM for Real Estate Agents',
+        nameEs: 'CRM para Agentes Inmobiliarios',
+        icon: Building,
+        desc: 'Property listing synchronization, MLS integration, buyer-seller matching, and escrow milestones.',
+        descEs: 'Sincronización de propiedades, listados MLS, cruce de compradores-vendedores y escrituración.'
       }
     ]
   },
   {
     groupTitle: 'Third Party Integration',
-    subtitle: 'Enterprise Connectivity',
+    groupTitleEs: 'Integración con Terceros',
+    subtitle: 'Seamless Ecosystem',
+    subtitleEs: 'Ecosistema Conectado',
     badge: 'Integrations',
+    badgeEs: 'Integraciones',
     items: [
       {
-        id: 'third-party-integration-crm',
-        name: 'Third Party Integration CRM',
-        icon: Share2,
-        desc: 'Two-way connectors for Salesforce, HubSpot, Gmail, Outlook, Stripe, and customer telephony.'
+        id: 'accounting-software-integration',
+        name: 'Accounting Software Integration',
+        nameEs: 'Integración con Software Contable',
+        icon: DollarSign,
+        desc: 'Certified connectors for QuickBooks, Xero, Sage, and SAP for bi-directional ledger synchronization.',
+        descEs: 'Conectores certificados para QuickBooks, Xero, Sage y SAP con sincronización contable bidireccional.'
       },
       {
-        id: 'third-party-integration-erp',
-        name: 'Third Party Integration ERP',
-        icon: Boxes,
-        desc: 'ERP connector bridges for SAP, Oracle, NetSuite, QuickBooks, and warehouse management systems.'
+        id: 'marketing-automation-integration',
+        name: 'Marketing Automation Integration',
+        nameEs: 'Integración de Marketing',
+        icon: Megaphone,
+        desc: 'Real-time sync with Mailchimp, HubSpot, Klaviyo, and Meta Ads for continuous audience attribution.',
+        descEs: 'Sincronización en tiempo real con Mailchimp, HubSpot, Klaviyo y Meta Ads para atribución de audiencias.'
       },
       {
         id: 'third-party-crm-erp-integration',
         name: 'Third-Party CRM ERP Integration',
+        nameEs: 'Integración de CRM y ERP de Terceros',
         icon: Cpu,
-        desc: 'High-throughput bi-directional data pipelines bridging external systems with CRM nErgy.'
+        desc: 'High-throughput bi-directional data pipelines bridging external legacy systems with CRM nErgy.',
+        descEs: 'Canalizaciones de datos bidireccionales de alto rendimiento para vincular sistemas externos con CRM nErgy.'
       }
     ]
   }
 ];
 
-// 23 INDUSTRIES specified in client document
+// 23 INDUSTRIES specified in client document (Dual English & Spanish)
 const BASE_INDUSTRIES_DATA = [
-  { id: 'ind-home', name: 'Industries Homepage', icon: Globe, desc: 'Centralized directory of specialized sector frameworks.' },
-  { id: 'automotive', name: 'Automotive', icon: Car, desc: 'Dealership management, vehicle inventory sync, desking & repair center.' },
-  { id: 'construction', name: 'Construction', icon: Building, desc: 'Jobsite bidding, subcontractor agreements, equipment and material logistics.' },
-  { id: 'consulting-firms', name: 'Consulting Firms', icon: Briefcase, desc: 'Billable hours, client milestone delivery, and multi-team advisory decks.' },
-  { id: 'e-commerce', name: 'E-commerce', icon: ShoppingCart, desc: 'Cart abandonment recapture, fulfillment tracking, and customer loyalty retention.' },
-  { id: 'education', name: 'Education', icon: GraduationCap, desc: 'Student enrollment admissions, faculty records, and curriculum management.' },
-  { id: 'entertainment', name: 'Entertainment', icon: Tv, desc: 'Talent management, royalties distribution, and media production schedules.' },
-  { id: 'financial-services', name: 'Financial Services', icon: Landmark, desc: 'FinCEN KYC compliance, institutional asset registries, and loan servicing.' },
-  { id: 'healthcare', name: 'Healthcare', icon: HeartPulse, desc: 'HIPAA-compliant records, patient intake scheduling, and clinic operations.' },
-  { id: 'hospitality', name: 'Hospitality', icon: Compass, desc: 'Guest reservation engines, event booking, and concierge operations.' },
-  { id: 'insurance', name: 'Insurance', icon: Shield, desc: 'Policy underwriting, claims processing, and broker commission settlements.' },
-  { id: 'manufacturing-ind', name: 'Manufacturing', icon: Factory, desc: 'Shop floor telemetry, production lines, and raw material supply chain.' },
-  { id: 'marketing-ind', name: 'Marketing', icon: Megaphone, desc: 'Client account management, ad campaign analytics, and deliverable tracking.' },
-  { id: 'media-ind', name: 'Media', icon: Radio, desc: 'Digital asset warehouses, broadcast syndication, and editorial calendars.' },
-  { id: 'non-profit', name: 'Non-Profit', icon: Award, desc: 'Donor management, charitable grant tracking, and fundraising campaigns.' },
-  { id: 'professional-services', name: 'Professional Services', icon: FileCheck, desc: 'Client retainer billing, SLA tracking, and audit-ready reporting.', route: '/industries/professional-services' },
-  { id: 'real-estate', name: 'Real Estate', icon: Building2, desc: 'Property listings, broker commission splits, and escrow pipeline.' },
-  { id: 'retail', name: 'Retail', icon: Store, desc: 'Omnichannel POS, in-store inventory balances, and loyalty programs.' },
-  { id: 'software-dev', name: 'Software Development', icon: FileCode, desc: 'Sprint planning, bug issue tracking, and client code delivery milestones.' },
-  { id: 'technology', name: 'Technology', icon: Cpu, desc: 'Hardware lifecycle, cloud license provisioning, and IT asset control.' },
-  { id: 'telecom', name: 'Telecom', icon: Radio, desc: 'Subscriber billing, infrastructure maintenance, and service dispatch.' },
-  { id: 'travel', name: 'Travel', icon: Plane, desc: 'Itinerary builders, airline/hotel partner APIs, and traveler support.' },
-  { id: 'unique-service-biz', name: 'Unique Service Business', icon: Sparkles, desc: 'Bespoke custom workflow configurations for niche enterprise operations.' }
+  { id: 'ind-home', name: 'Industries Homepage', nameEs: 'Página de Industrias', icon: Globe, desc: 'Centralized directory of specialized sector frameworks.', descEs: 'Directorio centralizado de marcos especializados por sector empresarial.' },
+  { id: 'automotive', name: 'Automotive', nameEs: 'Automotriz', icon: Car, desc: 'Dealership management, vehicle inventory sync, desking & repair center.', descEs: 'Gestión de concesionarios, sincronización de inventario de vehículos y taller de servicio.' },
+  { id: 'construction', name: 'Construction', nameEs: 'Construcción', icon: Building, desc: 'Jobsite bidding, subcontractor agreements, equipment and material logistics.', descEs: 'Licitaciones de obra, contratos de subcontratistas y logística de materiales y maquinaria.' },
+  { id: 'consulting-firms', name: 'Consulting Firms', nameEs: 'Firmas de Consultoría', icon: Briefcase, desc: 'Billable hours, client milestone delivery, and multi-team advisory decks.', descEs: 'Horas facturables, entrega de hitos para clientes y asesoría integral de múltiples equipos.' },
+  { id: 'e-commerce', name: 'E-commerce', nameEs: 'Comercio Electrónico', icon: ShoppingCart, desc: 'Cart abandonment recapture, fulfillment tracking, and customer loyalty retention.', descEs: 'Recuperación de carritos abandonados, trazabilidad de pedidos y fidelización de clientes.' },
+  { id: 'education', name: 'Education', nameEs: 'Educación', icon: GraduationCap, desc: 'Student enrollment admissions, faculty records, and curriculum management.', descEs: 'Admisiones e inscripciones de estudiantes, expedientes académicos y planes de estudio.' },
+  { id: 'entertainment', name: 'Entertainment', nameEs: 'Entretenimiento', icon: Tv, desc: 'Talent management, royalties distribution, and media production schedules.', descEs: 'Gestión de talento, distribución de regalías y calendarios de producción de medios.' },
+  { id: 'financial-services', name: 'Financial Services', nameEs: 'Servicios Financieros', icon: Landmark, desc: 'FinCEN KYC compliance, institutional asset registries, and loan servicing.', descEs: 'Cumplimiento normativo KYC, registros de activos institucionales y administración de préstamos.' },
+  { id: 'healthcare', name: 'Healthcare', nameEs: 'Salud y Clínicas', icon: HeartPulse, desc: 'HIPAA-compliant records, patient intake scheduling, and clinic operations.', descEs: 'Registros clínicos bajo norma HIPAA, programación de citas y operaciones médicas.' },
+  { id: 'hospitality', name: 'Hospitality', nameEs: 'Hotelería y Turismo', icon: Compass, desc: 'Guest reservation engines, event booking, and concierge operations.', descEs: 'Motores de reserva de huéspedes, gestión de eventos y servicios de conserjería.' },
+  { id: 'insurance', name: 'Insurance', nameEs: 'Seguros', icon: Shield, desc: 'Policy underwriting, claims processing, and broker commission settlements.', descEs: 'Suscripción de pólizas, tramitación de reclamos y liquidación de comisiones de corredores.' },
+  { id: 'manufacturing-ind', name: 'Manufacturing', nameEs: 'Fabricación y Manufactura', icon: Factory, desc: 'Shop floor telemetry, production lines, and raw material supply chain.', descEs: 'Telemetría de planta, líneas de producción continua y cadena de insumos industriales.' },
+  { id: 'marketing-ind', name: 'Marketing', nameEs: 'Marketing y Publicidad', icon: Megaphone, desc: 'Client account management, ad campaign analytics, and deliverable tracking.', descEs: 'Gestión de cuentas de clientes, analítica de campañas publicitarias y entregables.' },
+  { id: 'media-ind', name: 'Media', nameEs: 'Medios de Comunicación', icon: Radio, desc: 'Digital asset warehouses, broadcast syndication, and editorial calendars.', descEs: 'Bancos de activos digitales, sindicación de transmisiones y calendarios editoriales.' },
+  { id: 'non-profit', name: 'Non-Profit', nameEs: 'Organizaciones sin Fines de Lucro', icon: Award, desc: 'Donor management, charitable grant tracking, and fundraising campaigns.', descEs: 'Gestión de donantes, seguimiento de subvenciones benéficas y campañas de recaudación.' },
+  { id: 'professional-services', name: 'Professional Services', nameEs: 'Servicios Profesionales', icon: FileCheck, desc: 'Client retainer billing, SLA tracking, and audit-ready reporting.', descEs: 'Facturación por honorarios fijos, cumplimiento de acuerdos SLA e informes auditables.', route: '/industries/professional-services' },
+  { id: 'real-estate', name: 'Real Estate', nameEs: 'Bienes Raíces', icon: Building2, desc: 'Property listings, broker commission splits, and escrow pipeline.', descEs: 'Listado de propiedades inmobiliarias, división de comisiones y embudo notarial.' },
+  { id: 'retail', name: 'Retail', nameEs: 'Comercio Minorista', icon: Store, desc: 'Omnichannel POS, in-store inventory balances, and loyalty programs.', descEs: 'Punto de venta (TPV) omnicanal, inventario físico en tiendas y programas de puntos.' },
+  { id: 'software-dev', name: 'Software Development', nameEs: 'Desarrollo de Software', icon: FileCode, desc: 'Sprint planning, bug issue tracking, and client code delivery milestones.', descEs: 'Planificación de sprints ágiles, seguimiento de incidencias y entregas de código.' },
+  { id: 'technology', name: 'Technology', nameEs: 'Tecnología', icon: Cpu, desc: 'Hardware lifecycle, cloud license provisioning, and IT asset control.', descEs: 'Ciclo de vida de hardware, aprovisionamiento de licencias cloud y gestión de activos TI.' },
+  { id: 'telecom', name: 'Telecom', nameEs: 'Telecomunicaciones', icon: Radio, desc: 'Subscriber billing, infrastructure maintenance, and service dispatch.', descEs: 'Facturación de suscriptores, mantenimiento de infraestructura de telecomunicaciones y despacho técnico.' },
+  { id: 'travel', name: 'Travel', nameEs: 'Viajes y Turismo', icon: Plane, desc: 'Itinerary builders, airline/hotel partner APIs, and traveler support.', descEs: 'Creador de itinerarios, integración de APIs de aerolíneas y hoteles, y atención al viajero.' },
+  { id: 'unique-service-biz', name: 'Unique Service Business', nameEs: 'Negocios de Servicios Exclusivos', icon: Sparkles, desc: 'Bespoke custom workflow configurations for niche enterprise operations.', descEs: 'Configuraciones de flujo de trabajo personalizadas para operaciones comerciales de nicho.' }
 ];
 
 export const INDUSTRIES_DATA = BASE_INDUSTRIES_DATA.map(item => {
@@ -426,30 +560,42 @@ export const INDUSTRIES_DATA = BASE_INDUSTRIES_DATA.map(item => {
   return item;
 });
 
-// FAQS DATA as required by client document
+// FAQS DATA as required by client document (Dual English & Spanish)
 export const FAQ_QUESTIONS_DATA = [
   {
     q: 'What is CRM nErgy AI and how is it different from traditional CRMs?',
-    a: 'CRM nErgy AI is a next-generation unified enterprise operating system combining comprehensive CRM, full ERP operations, HR, Customer Support, and the ZUNME AI Studio. Unlike legacy CRMs like Salesforce that require costly third-party add-ons, CRM nErgy integrates everything natively into one high-performance platform.'
+    qEs: '¿Qué es CRM nErgy AI y en qué se diferencia de los CRM tradicionales?',
+    a: 'CRM nErgy AI is a next-generation unified enterprise operating system combining comprehensive CRM, full ERP operations, HR, Customer Support, and the ZUNME AI Studio. Unlike legacy CRMs like Salesforce that require costly third-party add-ons, CRM nErgy integrates everything natively into one high-performance platform.',
+    aEs: 'CRM nErgy AI es un sistema operativo empresarial unificado de última generación que combina CRM integral, operaciones ERP completas, RR.HH., soporte al cliente y el ZUNME AI Studio. A diferencia de CRM heredados que requieren costosos complementos externos, CRM nErgy integra todo de forma nativa en una plataforma de alto rendimiento.'
   },
   {
     q: 'What is My Zunme (AI Platform for Content & Warehouse)?',
-    a: 'ZUNME is the integrated generative AI engine and 1,000+ template content warehouse inside CRM nErgy. It empowers creators, marketing agencies, and business owners to generate high-converting copy, cinematic video scripts, marketing campaigns, and SEO assets autonomously.'
+    qEs: '¿Qué es My Zunme (Plataforma de IA para Contenido y Almacén)?',
+    a: 'ZUNME is the integrated generative AI engine and 1,000+ template content warehouse inside CRM nErgy. It empowers creators, marketing agencies, and business owners to generate high-converting copy, cinematic video scripts, marketing campaigns, and SEO assets autonomously.',
+    aEs: 'ZUNME es el motor de IA generativa integrado y el almacén de contenido con más de 1,000 plantillas dentro de CRM nErgy. Permite a creadores, agencias y propietarios generar textos de alta conversión, guiones de video cinemáticos, campañas de marketing y activos SEO de forma autónoma.'
   },
   {
     q: 'Can CRM nErgy replace our current accounting and ERP software?',
-    a: 'Yes. CRM nErgy includes enterprise-grade Analytic & Financial Accounting, General Ledger, Bill of Materials, Procurement, Inventory, and Supply Chain management, making external ERP systems redundant.'
+    qEs: '¿Puede CRM nErgy reemplazar nuestro software actual de contabilidad y ERP?',
+    a: 'Yes. CRM nErgy includes enterprise-grade Analytic & Financial Accounting, General Ledger, Bill of Materials, Procurement, Inventory, and Supply Chain management, making external ERP systems redundant.',
+    aEs: 'Sí. CRM nErgy incluye contabilidad analítica y financiera de nivel empresarial, libro mayor, lista de materiales, compras, inventario y gestión de la cadena de suministro, haciendo redundantes los sistemas ERP externos.'
   },
   {
     q: 'How does the SALES - chat eBox work?',
-    a: 'SALES - chat eBox is our dedicated, secure sales consultation interface. Potential clients and enterprise buyers can instantly discuss pricing, customized white-label implementations, and schedule executive demonstrations with zero friction.'
+    qEs: '¿Cómo funciona el SALES - chat eBox?',
+    a: 'SALES - chat eBox is our dedicated, secure sales consultation interface. Potential clients and enterprise buyers can instantly discuss pricing, customized white-label implementations, and schedule executive demonstrations with zero friction.',
+    aEs: 'SALES - chat eBox es nuestra interfaz segura de consulta de ventas. Clientes potenciales y compradores corporativos pueden consultar precios al instante, coordinar implementaciones de marca blanca y programar demostraciones ejecutivas sin fricciones.'
   },
   {
     q: 'Is White Label CRM available for agencies and enterprise partners?',
-    a: 'Yes. Our White Label solution allows agencies and enterprises to fully rebrand CRM nErgy with their own corporate identity, custom domains, logo, and client portal aesthetics.'
+    qEs: '¿Está disponible el CRM Marca Blanca para agencias y socios empresariales?',
+    a: 'Yes. Our White Label solution allows agencies and enterprises to fully rebrand CRM nErgy with their own corporate identity, custom domains, logo, and client portal aesthetics.',
+    aEs: 'Sí. Nuestra solución de Marca Blanca permite a agencias y empresas personalizar totalmente CRM nErgy con su propia identidad corporativa, dominios personalizados, logotipo y estética del portal de clientes.'
   },
   {
     q: 'Can we integrate CRM nErgy with our existing third-party applications?',
-    a: 'Absolutely. We provide certified high-throughput API connectors for Salesforce, QuickBooks, SAP, Stripe, Google Workspace, Microsoft 365, and custom webhooks.'
+    qEs: '¿Podemos integrar CRM nErgy con nuestras aplicaciones de terceros existentes?',
+    a: 'Absolutely. We provide certified high-throughput API connectors for Salesforce, QuickBooks, SAP, Stripe, Google Workspace, Microsoft 365, and custom webhooks.',
+    aEs: 'Por supuesto. Ofrecemos conectores API certificados de alto rendimiento para Salesforce, QuickBooks, SAP, Stripe, Google Workspace, Microsoft 365 y webhooks personalizados.'
   }
 ];
