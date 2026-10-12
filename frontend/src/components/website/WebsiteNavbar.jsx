@@ -253,8 +253,6 @@ export const WebsiteNavbar = ({
           >
             <LogIn size={14} />
             <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
-<<<<<<< HEAD
-=======
           </button>
 
           {/* DISTINCT CREATE ACCOUNT BUTTON */}
@@ -274,7 +272,6 @@ export const WebsiteNavbar = ({
           >
             <span>{t('Create Account')}</span>
             <ArrowRight size={14} />
->>>>>>> 3bda00d8dc15d577994b15d8718d523eb4ad4672
           </button>
 
           {/* Mobile Hamburger Toggle Button */}

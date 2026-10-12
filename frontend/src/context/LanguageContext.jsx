@@ -400,7 +400,6 @@ export const DICTIONARY = {
     'Let’s Get Started': 'Comencemos',
     '[ Contact Us ]': '[ Contáctenos ]',
     '[ Contact US ]': '[ Contáctenos ]',
-<<<<<<< HEAD
     'Contact AI': 'Contact AI (IA de Contacto)',
     'CRM for Influencers': 'CRM para Influencers',
     'Contact AI - Call Center': 'Contact AI - Centro de Llamadas',
@@ -425,8 +424,7 @@ export const DICTIONARY = {
     'Module Overview': 'Descripción del Módulo',
     'Drag-and-Drop Architecture': 'Arquitectura de Arrastrar y Soltar',
     'White Label Opportunity': 'Oportunidad de Marca Blanca',
-    'uses CRM nErgy Software to:': 'utiliza el software CRM nErgy para:'
-=======
+    'uses CRM nErgy Software to:': 'utiliza el software CRM nErgy para:',
 
     // ==========================================
     // Executive Dashboard Specifics
@@ -616,8 +614,7 @@ export const DICTIONARY = {
     'Next Month': 'Mes Siguiente',
     'Loading messages from database...': 'Cargando mensajes de la base de datos...',
     "No messages found. Click 'Compose Message' to start a new communication thread.": "No se encontraron mensajes. Haga clic en 'Redactar Mensaje' para iniciar un nuevo hilo.",
-    'Recipient:': 'Destinatario:',
->>>>>>> 3bda00d8dc15d577994b15d8718d523eb4ad4672
+    'Recipient:': 'Destinatario:'
   },
 };
 
