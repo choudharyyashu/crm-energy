@@ -35,8 +35,10 @@ import {
 } from '../../components/ui';
 import { useCrm } from '../../context/CrmContext';
 import { useToast } from '../../context/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const CrmContacts = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { contacts, addContact, editContact, deleteContact, bulkDeleteContacts, refreshContacts } = useCrm();
   const { addToast } = useToast();
@@ -201,8 +203,8 @@ export const CrmContacts = () => {
       {/* Top Header */}
       <div className="page-header-row">
         <div>
-          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: 'Contacts' }]} />
-          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>Contacts & Accounts Directory</h1>
+          <Breadcrumb items={[{ label: 'CRM nErgy AI' }, { label: t('Contacts') }]} />
+          <h1 style={{ fontSize: 'var(--text-2xl)', marginTop: '0.25rem', marginBottom: '0.25rem' }}>{t('Contacts & Accounts Directory')}</h1>
         </div>
 
         <div className="header-actions-right">
@@ -216,7 +218,7 @@ export const CrmContacts = () => {
               setIsAddModalOpen(true);
             }}
           >
-            Add New Contact
+            {t('+ Add New Contact')}
           </Button>
         </div>
       </div>
@@ -228,7 +230,7 @@ export const CrmContacts = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onClear={() => setSearchQuery('')}
-            placeholder="Search by name, company, email address..."
+            placeholder={t("Search by name, company, email address...")}
           />
         </div>
 
@@ -237,7 +239,7 @@ export const CrmContacts = () => {
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             options={[
-              { label: 'All Contact Types', value: 'all' },
+              { label: t('All Contact Types'), value: 'all' },
               { label: 'Enterprise Client', value: 'Enterprise Client' },
               { label: 'Commercial Lead', value: 'Commercial Lead' },
               { label: 'Investor', value: 'Investor' },
