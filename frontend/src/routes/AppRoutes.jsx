@@ -14,6 +14,8 @@ import { BusinessCrmPage } from '../pages/website/BusinessCrmPage';
 import { FranchiseCrmPage } from '../pages/website/FranchiseCrmPage';
 import { StartupsCrmPage } from '../pages/website/StartupsCrmPage';
 import { MidSizeCrmPage } from '../pages/website/MidSizeCrmPage';
+import { ContactAiPage } from '../pages/website/ContactAiPage';
+import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
 import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 
 // Gateway Login Pages
@@ -148,6 +150,8 @@ export const AppRoutes = () => {
         <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
         <Route path="/solutions/startups" element={<StartupsCrmPage />} />
         <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
+        <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
       </Route>
 

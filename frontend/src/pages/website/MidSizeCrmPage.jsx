@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useOutletContext, Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   Sparkles,
   ArrowRight,
@@ -19,6 +20,7 @@ import {
 export const MidSizeCrmPage = () => {
   const navigate = useNavigate();
   const { onOpenZunme, onOpenSales } = useOutletContext() || {};
+  const { t } = useLanguage();
 
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -27,9 +29,9 @@ export const MidSizeCrmPage = () => {
   };
 
   const siblingSolutions = [
-    { name: 'Contact AI', path: '/#solutions', tag: 'AI' },
+    { name: 'Contact AI', path: '/solutions/contact-ai', tag: 'AI' },
     { name: 'Franchise', path: '/solutions/franchise', tag: 'Multi-Location' },
-    { name: 'Influencers', path: '/#solutions', tag: 'Creator' },
+    { name: 'Influencers', path: '/solutions/influencers', tag: 'Creator' },
     { name: 'Startup Business', path: '/solutions/startups', tag: 'Growth' },
     { name: 'Small to Mid – Size Biz', path: '/solutions/mid-size', tag: 'Active' }
   ];
@@ -104,11 +106,11 @@ export const MidSizeCrmPage = () => {
           fontSize: '12.5px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
-            <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>Home</Link>
+            <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
             <span>/</span>
-            <Link to="/solutions/business-crm" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>CRM Solutions</Link>
+            <Link to="/solutions/business-crm" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('CRM Solutions')}</Link>
             <span>/</span>
-            <span style={{ color: '#10b981', fontWeight: 700 }}>Small to Mid-Size Businesses</span>
+            <span style={{ color: '#10b981', fontWeight: 700 }}>{t('CRM Software for Small to Mid-Size Businesses')}</span>
           </div>
 
           <button
@@ -127,7 +129,7 @@ export const MidSizeCrmPage = () => {
             }}
           >
             <ArrowLeft size={14} />
-            <span>Back to Solutions Overview</span>
+            <span>{t('Back to Solutions Overview')}</span>
           </button>
         </div>
       </section>
@@ -154,7 +156,7 @@ export const MidSizeCrmPage = () => {
             color: '#10b981'
           }}>
             <Sparkles size={14} style={{ color: '#10b981' }} />
-            <span>ADVANCED ARTIFICIAL INTELLIGENCE • “Make AI Your Bestie”</span>
+            <span>ADVANCED ARTIFICIAL INTELLIGENCE • {t('“Make AI Your Bestie”')}</span>
           </div>
 
           <h1 style={{
@@ -165,7 +167,7 @@ export const MidSizeCrmPage = () => {
             letterSpacing: '-0.02em',
             lineHeight: 1.15
           }}>
-            CRM Software for Small to Mid-Size Businesses
+            {t('CRM Software for Small to Mid-Size Businesses')}
           </h1>
 
           <p style={{
@@ -208,7 +210,7 @@ export const MidSizeCrmPage = () => {
               }}
             >
               <MessageSquare size={15} />
-              <span>Contact Us</span>
+              <span>{t('Contact Us')}</span>
             </button>
 
             <button
@@ -230,7 +232,7 @@ export const MidSizeCrmPage = () => {
               }}
             >
               <Bot size={15} />
-              <span>Ask My Zunme AI</span>
+              <span>{t('Ask My Zunme AI')}</span>
             </button>
           </div>
         </div>
@@ -441,7 +443,7 @@ export const MidSizeCrmPage = () => {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', paddingTop: '0.5rem', borderTop: '1px solid var(--web-border)' }}>
             <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#10b981' }}>
-              READ MORE &gt;&gt; continue on the White Label Feature Page
+              {t('READ MORE >> continue on the White Label Feature Page')}
             </span>
 
             <button
@@ -461,7 +463,7 @@ export const MidSizeCrmPage = () => {
                 cursor: 'pointer'
               }}
             >
-              <span>[ Contact Us ]</span>
+              <span>{t('[ Contact Us ]')}</span>
             </button>
           </div>
         </div>
@@ -548,7 +550,7 @@ export const MidSizeCrmPage = () => {
                           padding: 0
                         }}
                       >
-                        [ Contact US ]
+                        {t('[ Contact US ]')}
                       </button>
                     </div>
                   </div>

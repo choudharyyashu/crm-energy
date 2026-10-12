@@ -1,13 +1,13 @@
 import React from 'react';
-import { Globe } from 'lucide-react';
-import { useToast } from '../../context/ToastContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
+import { Globe } from 'lucide-react';
 
 /**
- * LanguageToggle — 1-Click English ↔ Spanish UI Toggle
- * Instant Website & CRM ERP Translation (No external plugins required)
+ * LanguageToggle — 1-Click English ↔ Spanish UI Toggle (P-01 / P-11)
+ * Works seamlessly across both the public website and internal CRM/OAL suites.
  */
-export const LanguageToggle = ({ variant = 'default' }) => {
+export const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
   const { addToast } = useToast();
 
@@ -25,8 +25,8 @@ export const LanguageToggle = ({ variant = 'default' }) => {
     <div
       className="inline-flex items-center p-0.5 rounded-lg border text-xs select-none"
       style={{
-        backgroundColor: 'var(--web-surface-subtle, var(--surface-secondary, rgba(15, 23, 42, 0.6)))',
-        borderColor: 'var(--web-border, var(--border, rgba(148, 163, 184, 0.2)))',
+        backgroundColor: 'var(--web-surface-subtle, var(--surface-secondary, #f8fafc))',
+        borderColor: 'var(--web-border, var(--border, #e2e8f0))',
       }}
       role="group"
       aria-label="Instant Language Selector"
@@ -42,9 +42,9 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         className="px-2.5 py-1 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1"
         style={{
           border: 'none',
-          backgroundColor: language === 'EN' ? '#0ea5e9' : 'transparent',
-          color: language === 'EN' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #94a3b8))',
-          boxShadow: language === 'EN' ? '0 1px 6px rgba(14, 165, 233, 0.4)' : 'none',
+          backgroundColor: language === 'EN' ? '#0284c7' : 'transparent',
+          color: language === 'EN' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #64748b))',
+          boxShadow: language === 'EN' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}
         title="View in English"
@@ -53,7 +53,7 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         <span>EN</span>
       </button>
 
-      <span style={{ color: 'var(--web-border, var(--border, rgba(148, 163, 184, 0.3)))', fontSize: '10px', padding: '0 1px' }}>|</span>
+      <span style={{ color: 'var(--web-border, var(--border, #cbd5e1))', fontSize: '10px', padding: '0 1px' }}>|</span>
 
       <button
         type="button"
@@ -61,9 +61,9 @@ export const LanguageToggle = ({ variant = 'default' }) => {
         className="px-2.5 py-1 rounded-md transition-all cursor-pointer font-bold flex items-center gap-1"
         style={{
           border: 'none',
-          backgroundColor: language === 'ES' ? '#0ea5e9' : 'transparent',
-          color: language === 'ES' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #94a3b8))',
-          boxShadow: language === 'ES' ? '0 1px 6px rgba(14, 165, 233, 0.4)' : 'none',
+          backgroundColor: language === 'ES' ? '#0284c7' : 'transparent',
+          color: language === 'ES' ? '#ffffff' : 'var(--web-text-muted, var(--text-secondary, #64748b))',
+          boxShadow: language === 'ES' ? '0 1px 4px rgba(2, 132, 199, 0.35)' : 'none',
           fontSize: '11px',
         }}
         title="Ver en Español (Instantáneo sin plugins)"

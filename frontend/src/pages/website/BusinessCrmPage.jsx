@@ -30,9 +30,9 @@ export const BusinessCrmPage = () => {
   };
 
   const siblingSolutions = [
-    { name: 'Contact AI', path: '/#solutions', tag: 'AI' },
+    { name: 'Contact AI', path: '/solutions/contact-ai', tag: 'AI' },
     { name: 'Franchise', path: '/solutions/franchise', tag: 'Multi-Location' },
-    { name: 'Influencers', path: '/#solutions', tag: 'Creator' },
+    { name: 'Influencers', path: '/solutions/influencers', tag: 'Creator' },
     { name: 'Startup Business', path: '/solutions/startups', tag: 'Growth' },
     { name: 'Small to Mid – Size Biz', path: '/solutions/mid-size', tag: 'Scale' }
   ];
