@@ -41,6 +41,7 @@ import {
 import { Breadcrumb } from '../../components/ui';
 import { useToast } from '../../context/ToastContext';
 import { useCrm } from '../../context/CrmContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { generateStudioContent } from '../../services/geminiService';
 import { generateElevenLabsSpeech, ELEVEN_VOICES, stopBrowserSpeech, playWithWebSpeech } from '../../services/elevenLabsService';
@@ -140,6 +141,7 @@ const defaultTheme = {
 };
 
 export const CrmAiStudio = () => {
+  const { t } = useLanguage();
   const { addToast } = useToast();
   const { refreshDeals, refreshActivities } = useCrm();
   const navigate = useNavigate();
@@ -492,7 +494,7 @@ export const CrmAiStudio = () => {
             marginBottom: '10px',
           }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22d3ee', boxShadow: '0 0 10px #22d3ee' }} />
-            <span>AI SuperHouse • Multi-Modal Studio Engine</span>
+            <span>{t('AI SuperHouse • Multi-Modal Studio Engine')}</span>
           </div>
 
           <h1 style={{
@@ -504,26 +506,26 @@ export const CrmAiStudio = () => {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
-            AI Content Studio & Production Labs
+            {t('AI Content Studio & Production Labs')}
           </h1>
 
           <p style={{ fontSize: '13.5px', color: '#94a3b8', margin: 0, lineHeight: 1.55 }}>
-            Multi-modal generative engine: commercial cinema creation, talking avatars, neural voice synthesis, and sonic brand soundscapes.
+            {t('Multi-modal generative engine: commercial cinema creation, talking avatars, neural voice synthesis, and sonic brand soundscapes.')}
           </p>
 
           {/* Capability badges */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
-              ⚡ 15 Specialized Studios
+              ⚡ {t('15 Specialized Studios')}
             </span>
             <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
-              🎯 1.4s Tensor-Core Latency
+              🎯 {t('1.4s Tensor-Core Latency')}
             </span>
             <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
-              🎙️ ElevenLabs Neural Audio
+              🎙️ {t('ElevenLabs Neural Audio')}
             </span>
             <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
-              🎬 UltraCinema v4.2
+              🎬 {t('UltraCinema v4.2')}
             </span>
           </div>
         </div>
@@ -558,7 +560,7 @@ export const CrmAiStudio = () => {
             }}
           >
             <Sparkles size={15} />
-            <span>Open Bestie AI</span>
+            <span>{t('Open Bestie AI')}</span>
           </button>
 
           <button
@@ -589,7 +591,7 @@ export const CrmAiStudio = () => {
             }}
           >
             <Video size={15} />
-            <span>Launch 4-Step Video Agent</span>
+            <span>{t('Launch 4-Step Video Agent')}</span>
           </button>
         </div>
       </div>
@@ -699,15 +701,15 @@ export const CrmAiStudio = () => {
         <div className="telemetry-kpi-card">
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>TOTAL STUDIOS</span>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{t('TOTAL STUDIOS')}</span>
             <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(99, 102, 241, 0.12)', color: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Sparkles size={17} />
             </div>
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>15 Sub-Studios</div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>{t('15 Sub-Studios')}</div>
           <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#10b981', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-            <span>All Neural Cores Online</span>
+            <span>{t('All Neural Cores Online')}</span>
           </div>
         </div>
 
@@ -715,15 +717,15 @@ export const CrmAiStudio = () => {
         <div className="telemetry-kpi-card">
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #06b6d4, #0284c7)' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>AUDIO / VIDEO RENDERS</span>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{t('AUDIO / VIDEO RENDERS')}</span>
             <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(6, 182, 212, 0.12)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Video size={17} />
             </div>
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>1,840 Assets</div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>{t('1,840 Assets')}</div>
           <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0284c7', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
             <Activity size={13} />
-            <span>+24% output this week</span>
+            <span>{t('+24% output this week')}</span>
           </div>
         </div>
 
@@ -731,15 +733,15 @@ export const CrmAiStudio = () => {
         <div className="telemetry-kpi-card">
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #f59e0b, #ea580c)' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>AVG RENDER LATENCY</span>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{t('AVG RENDER LATENCY')}</span>
             <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={17} />
             </div>
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>1.4 Seconds</div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary, #0f172a)', letterSpacing: '-0.5px', marginTop: '10px' }}>{t('1.4 Seconds')}</div>
           <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#d97706', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#f59e0b', boxShadow: '0 0 8px #f59e0b' }} />
-            <span>Real-time Tensor Core GPU</span>
+            <span>{t('Real-time Tensor Core GPU')}</span>
           </div>
         </div>
 
@@ -747,7 +749,7 @@ export const CrmAiStudio = () => {
         <div className="telemetry-kpi-card">
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3.5px', background: 'linear-gradient(90deg, #10b981, #059669)' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>STORAGE VAULT</span>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary, #64748b)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{t('STORAGE VAULT')}</span>
             <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.12)', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Database size={17} />
             </div>
@@ -818,7 +820,7 @@ export const CrmAiStudio = () => {
               {cat === 'Branding' && <Palette size={13} />}
               {cat === 'Automations' && <Workflow size={13} />}
               {cat === 'Model Training' && <Cpu size={13} />}
-              <span>{cat}</span>
+              <span>{t(cat)}</span>
               <span style={{
                 fontSize: '10px',
                 fontWeight: 800,
@@ -849,7 +851,7 @@ export const CrmAiStudio = () => {
               alignItems: 'center',
               gap: '8px',
             }}>
-              <span>SELECT PRODUCTION STUDIO</span>
+              <span>{t('SELECT PRODUCTION STUDIO')}</span>
               <span style={{
                 background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                 color: '#ffffff',
@@ -859,11 +861,11 @@ export const CrmAiStudio = () => {
                 fontWeight: 800,
                 boxShadow: '0 2px 8px rgba(99, 102, 241, 0.25)',
               }}>
-                {filteredStudios.length} Available
+                {filteredStudios.length} {t('AVAILABLE')}
               </span>
             </h2>
           </div>
-          <span style={{ fontSize: '11.5px', color: 'var(--text-secondary, #64748b)', fontWeight: 600 }}>Click any studio node to mount workspace</span>
+          <span style={{ fontSize: '11.5px', color: 'var(--text-secondary, #64748b)', fontWeight: 600 }}>{t('Click any studio node to mount workspace')}</span>
         </div>
 
         <div style={{
@@ -966,7 +968,7 @@ export const CrmAiStudio = () => {
                     lineHeight: 1.3,
                     marginBottom: '5px',
                   }}>
-                    {studio.name}
+                    {t(studio.name) || studio.name}
                   </div>
                   <div style={{
                     fontSize: '11px',
@@ -977,7 +979,7 @@ export const CrmAiStudio = () => {
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                   }}>
-                    {studio.desc}
+                    {t(studio.desc) || studio.desc}
                   </div>
                 </div>
 
@@ -1003,10 +1005,10 @@ export const CrmAiStudio = () => {
                       {isSelected ? (
                         <>
                           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-                          <span>Active Studio</span>
+                          <span>{t('Active Studio')}</span>
                         </>
                       ) : (
-                        <span>Launch Studio</span>
+                        <span>{t('Launch Studio')}</span>
                       )}
                     </span>
                     <ChevronRight size={13} color={isSelected ? '#ffffff' : 'var(--text-secondary, #94a3b8)'} strokeWidth={2.4} />

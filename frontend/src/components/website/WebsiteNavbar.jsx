@@ -267,7 +267,7 @@ export const WebsiteNavbar = ({
           <button
             type="button"
             onClick={() => navigate('/crm/signup')}
-            className="website-signin-btn"
+            className="website-signin-btn website-create-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
               color: '#ffffff',

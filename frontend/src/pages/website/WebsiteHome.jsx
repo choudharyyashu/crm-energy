@@ -53,36 +53,35 @@ export const WebsiteHome = () => {
     : CRM_FEATURES_DATA.filter((f) => f.category === featureCategory);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'hidden' }}>
       {/* ======================================================== */}
       {/* 1. HERO SECTION                                          */}
       {/* ======================================================== */}
-      <section style={{
-        padding: '4.5rem 1.25rem 4rem 1.25rem',
-        textAlign: 'center',
-        background: 'radial-gradient(ellipse at 50% -10%, rgba(79, 70, 229, 0.12) 0%, transparent 70%)',
-        borderBottom: '1px solid var(--web-border)'
-      }}>
+      <section className="website-hero-section">
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
           {/* Energy Pill & Slogan */}
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '8px',
             padding: '6px 16px',
             borderRadius: '24px',
             background: 'rgba(99, 102, 241, 0.08)',
             border: '1px solid rgba(99, 102, 241, 0.25)',
-            fontSize: '12.5px',
+            fontSize: 'clamp(11px, 2.6vw, 12.5px)',
             fontWeight: 700,
-            color: '#4f46e5'
+            color: '#4f46e5',
+            maxWidth: '100%',
+            textAlign: 'center',
+            lineHeight: 1.4
           }}>
-            <Sparkles size={14} style={{ color: '#f59e0b' }} />
+            <Sparkles size={14} style={{ color: '#f59e0b', flexShrink: 0 }} />
             <span>{t('CRM Solutions Every Business Needs • “Make AI Your Bestie”')}</span>
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(2.1rem, 5vw, 3.4rem)',
+            fontSize: 'clamp(1.85rem, 5vw, 3.4rem)',
             fontWeight: 900,
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
@@ -93,21 +92,21 @@ export const WebsiteHome = () => {
           </h1>
 
           <blockquote style={{
-            fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)',
+            fontSize: 'clamp(0.95rem, 2vw, 1.25rem)',
             fontWeight: 600,
             fontStyle: 'italic',
             color: 'var(--web-text-main)',
             lineHeight: 1.6,
             maxWidth: '820px',
             margin: '0.25rem 0 0 0',
-            padding: '0 1rem',
+            padding: '0 0.5rem',
             borderLeft: 'none'
           }}>
             {t('“Delivering the most relevant CRM ERP software for your business to thrive and honing our AAI development to effectively prepare you to scale.”')}
           </blockquote>
 
           <p style={{
-            fontSize: 'clamp(0.95rem, 1.8vw, 1.05rem)',
+            fontSize: 'clamp(0.88rem, 1.7vw, 1.05rem)',
             color: 'var(--web-text-muted)',
             lineHeight: 1.6,
             maxWidth: '740px',
@@ -117,13 +116,14 @@ export const WebsiteHome = () => {
           </p>
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.75rem' }}>
+          <div className="website-hero-cta-group">
             {/* Primary Features CTA */}
             <a
               href="#features"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '8px',
                 padding: '12px 24px',
                 borderRadius: '10px',
@@ -148,12 +148,13 @@ export const WebsiteHome = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '8px',
                 padding: '12px 22px',
                 fontSize: '14px'
               }}
             >
-              <Bot size={17} style={{ color: '#fef08a' }} />
+              <Bot size={17} style={{ color: '#fef08a', flexShrink: 0 }} />
               <span>Ask My Zunme — VA Assistant</span>
               <span style={{ fontWeight: 900 }}>&gt;&gt;</span>
             </button>
@@ -166,13 +167,14 @@ export const WebsiteHome = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '8px',
                 padding: '12px 22px',
                 borderRadius: '10px',
                 fontSize: '14px'
               }}
             >
-              <MessageSquare size={17} />
+              <MessageSquare size={17} style={{ flexShrink: 0 }} />
               <span>SALES — chat eBox</span>
             </button>
           </div>
@@ -182,7 +184,7 @@ export const WebsiteHome = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '1.75rem',
+            gap: 'clamp(0.75rem, 2vw, 1.75rem)',
             flexWrap: 'wrap',
             fontSize: '12px',
             color: 'var(--web-text-muted)',
@@ -192,15 +194,15 @@ export const WebsiteHome = () => {
             width: '100%'
           }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <ShieldCheck size={16} style={{ color: '#10b981' }} />
+              <ShieldCheck size={16} style={{ color: '#10b981', flexShrink: 0 }} />
               {t('Enterprise Data Vault')}
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <Zap size={16} style={{ color: '#f59e0b' }} />
+              <Zap size={16} style={{ color: '#f59e0b', flexShrink: 0 }} />
               {t('Real-time Workflows')}
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <Globe size={16} style={{ color: '#0284c7' }} />
+              <Globe size={16} style={{ color: '#0284c7', flexShrink: 0 }} />
               {t('23 Industry Configurations')}
             </span>
           </div>
@@ -210,13 +212,7 @@ export const WebsiteHome = () => {
       {/* ======================================================== */}
       {/* 2. SECTION: 23 CRM FEATURES (Dolibarr Benchmark Style)   */}
       {/* ======================================================== */}
-      <section id="features" style={{
-        padding: '4rem 1.25rem',
-        maxWidth: '1380px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
+      <section id="features" className="website-section-container">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <span style={{
             fontSize: '11px',
@@ -227,7 +223,7 @@ export const WebsiteHome = () => {
           }}>
             {t('CRM Solutions Every Business Needs')}
           </span>
-          <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
             {t('CRM NERGY Software Features (23 Modules)')}
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
@@ -235,14 +231,7 @@ export const WebsiteHome = () => {
           </p>
 
           {/* Category Filter Pills */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            flexWrap: 'wrap',
-            marginTop: '1.5rem'
-          }}>
+          <div className="website-filter-pills">
             {featureCategories.map((cat) => (
               <button
                 key={cat}
@@ -304,23 +293,14 @@ export const WebsiteHome = () => {
       {/* 2B. SECTION: BRANDING AND CUSTOMIZATION (CLIENT SPEC)    */}
       {/* ======================================================== */}
       <section style={{
-        padding: '0 1.25rem 3.5rem 1.25rem',
+        padding: '0 clamp(1rem, 3vw, 1.25rem) 3.5rem clamp(1rem, 3vw, 1.25rem)',
         maxWidth: '1380px',
         margin: '0 auto',
         width: '100%',
         boxSizing: 'border-box'
       }}>
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(2, 132, 199, 0.05) 100%)',
-          border: '1px solid var(--web-border)',
-          borderRadius: '16px',
-          padding: '2rem 1.75rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div className="website-branding-box">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span style={{
               fontSize: '11px',
               fontWeight: 800,
@@ -339,7 +319,7 @@ export const WebsiteHome = () => {
           </div>
 
           <h3 style={{
-            fontSize: 'clamp(1.25rem, 2.5vw, 1.65rem)',
+            fontSize: 'clamp(1.2rem, 2.5vw, 1.65rem)',
             fontWeight: 800,
             color: 'var(--web-text-main)',
             margin: 0,
@@ -358,20 +338,12 @@ export const WebsiteHome = () => {
             {t('The CRM nErgy drag-and-drop feature in customizable CRM software greatly enhances usability and efficiency, enabling users to customize their systems according to their specific business processes without requiring any coding skills. This functionality is crucial for contemporary CRM solutions, rendering them more flexible and user-friendly.')}
           </p>
 
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            paddingTop: '0.75rem',
-            borderTop: '1px solid var(--web-border)'
-          }}>
+          <div className="website-branding-bottom">
             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
               CRM NERGY — {t('“Make AI Your Friend”')}
             </span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <div className="website-branding-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => {
@@ -381,6 +353,7 @@ export const WebsiteHome = () => {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '6px',
                   padding: '9px 18px',
                   borderRadius: '8px',
@@ -402,6 +375,7 @@ export const WebsiteHome = () => {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '6px',
                   padding: '9px 20px',
                   borderRadius: '8px',
@@ -426,7 +400,7 @@ export const WebsiteHome = () => {
       {/* 3. SECTION: 4 CRM SOLUTIONS GROUPS                      */}
       {/* ======================================================== */}
       <section id="solutions" style={{
-        padding: '4rem 1.25rem',
+        padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3vw, 1.25rem)',
         backgroundColor: 'var(--web-surface-subtle)',
         borderTop: '1px solid var(--web-border)',
         borderBottom: '1px solid var(--web-border)'
@@ -436,7 +410,7 @@ export const WebsiteHome = () => {
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               {t('Strategic Business Alignment')}
             </span>
-            <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
               {t('CRM Solutions (4 Solution Groups)')}
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
@@ -445,18 +419,7 @@ export const WebsiteHome = () => {
           </div>
 
           {/* White Label CRM or ERP Banner (Client Requirement) */}
-          <div style={{
-            background: 'var(--web-surface)',
-            border: '1px solid var(--web-border)',
-            borderLeft: '4px solid #0284c7',
-            borderRadius: '14px',
-            padding: '1.5rem 1.75rem',
-            marginBottom: '2.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.75rem',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)'
-          }}>
+          <div className="website-whitelabel-box">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
               <span style={{
                 fontSize: '11px',
@@ -472,7 +435,7 @@ export const WebsiteHome = () => {
               </span>
             </div>
 
-            <h3 style={{ fontSize: '19px', fontWeight: 800, color: 'var(--web-text-main)', margin: 0, lineHeight: 1.3 }}>
+            <h3 style={{ fontSize: 'clamp(1.1rem, 2.2vw, 19px)', fontWeight: 800, color: 'var(--web-text-main)', margin: 0, lineHeight: 1.3 }}>
               {t('Build & Promote Your Brand with the White Label CRM or ERP Software')}
             </h3>
 
@@ -480,7 +443,7 @@ export const WebsiteHome = () => {
               {t('CRM nErgy White Label CRM or ERP software includes customizable branding, client portals, sales and marketing automation, project management tools and much more. These platforms help businesses create new revenue streams by reselling the CRM solution under their own brand.')}
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginTop: '0.5rem' }}>
+            <div className="website-whitelabel-bottom">
               <button
                 type="button"
                 onClick={() => {
@@ -497,7 +460,8 @@ export const WebsiteHome = () => {
                   padding: 0,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '4px'
+                  gap: '4px',
+                  textAlign: 'left'
                 }}
               >
                 <span>{t('READ MORE >> continue on the White Label Feature Page')}</span>
@@ -510,7 +474,7 @@ export const WebsiteHome = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  padding: '7px 16px',
+                  padding: '8px 16px',
                   borderRadius: '7px',
                   background: '#0284c7',
                   color: '#ffffff',
@@ -614,18 +578,12 @@ export const WebsiteHome = () => {
       {/* ======================================================== */}
       {/* 4. SECTION: 23 INDUSTRIES SHOWCASE                       */}
       {/* ======================================================== */}
-      <section id="industries" style={{
-        padding: '4rem 1.25rem',
-        maxWidth: '1380px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
+      <section id="industries" className="website-section-container">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Domain-Specific Solutions
           </span>
-          <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
             Industries Using the CRM nErgy Software (23 Sectors)
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '780px', margin: '0 auto', lineHeight: 1.5 }}>
@@ -665,7 +623,7 @@ export const WebsiteHome = () => {
       {/* 5. SECTION: FAQS & KNOWLEDGE (CLIENT EXACT REQUIREMENTS) */}
       {/* ======================================================== */}
       <section id="faqs" style={{
-        padding: '4.5rem 1.25rem',
+        padding: 'clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 3vw, 1.25rem)',
         backgroundColor: 'var(--web-surface)',
         borderTop: '1px solid var(--web-border)'
       }}>
@@ -674,7 +632,7 @@ export const WebsiteHome = () => {
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#f97316', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Fact and Questions
             </span>
-            <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 28px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 8px 0' }}>
               FAQs & Interactive Module Directory
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto' }}>
@@ -682,7 +640,7 @@ export const WebsiteHome = () => {
             </p>
 
             {/* FAQ Visual Selector Tabs */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+            <div className="website-faq-tabs">
               <button
                 type="button"
                 onClick={() => setFaqTab('features')}
@@ -756,7 +714,7 @@ export const WebsiteHome = () => {
               background: 'var(--web-surface-subtle)',
               borderRadius: '16px',
               border: '1px solid var(--web-border)',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 2.5vw, 1.5rem)',
               marginBottom: '2rem'
             }}>
               <div style={{ marginBottom: '1rem' }}>
@@ -767,11 +725,7 @@ export const WebsiteHome = () => {
                   Click any icon button to inspect feature capabilities or request a demo.
                 </span>
               </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-                gap: '10px'
-              }}>
+              <div className="website-icon-btn-grid">
                 {CRM_FEATURES_DATA.map((f) => {
                   const Icon = f.icon;
                   return (
@@ -823,7 +777,7 @@ export const WebsiteHome = () => {
               background: 'var(--web-surface-subtle)',
               borderRadius: '16px',
               border: '1px solid var(--web-border)',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 2.5vw, 1.5rem)',
               marginBottom: '2rem'
             }}>
               <div style={{ marginBottom: '1.25rem' }}>
@@ -834,7 +788,7 @@ export const WebsiteHome = () => {
                   Architectural and enterprise solution categories defined in the specification.
                 </span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '14px' }}>
                 {CRM_SOLUTIONS_DATA.map((group, idx) => (
                   <div key={idx} style={{ background: 'var(--web-surface)', padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--web-border)' }}>
                     <span style={{ fontSize: '10px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase' }}>
@@ -878,7 +832,7 @@ export const WebsiteHome = () => {
               background: 'var(--web-surface-subtle)',
               borderRadius: '16px',
               border: '1px solid var(--web-border)',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 2.5vw, 1.5rem)',
               marginBottom: '2rem'
             }}>
               <div style={{ marginBottom: '1rem' }}>
@@ -889,11 +843,7 @@ export const WebsiteHome = () => {
                   All 23 vertical sector icon buttons available for enterprise configuration.
                 </span>
               </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-                gap: '10px'
-              }}>
+              <div className="website-icon-btn-grid">
                 {INDUSTRIES_DATA.map((ind) => {
                   const Icon = ind.icon;
                   return (
@@ -943,10 +893,10 @@ export const WebsiteHome = () => {
               background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%)',
               borderRadius: '16px',
               border: '1px solid rgba(99, 102, 241, 0.25)',
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 3vw, 2rem)',
               marginBottom: '2rem'
             }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
+              <div className="website-zunme-card-inner">
                 <div style={{
                   width: '56px',
                   height: '56px',
@@ -961,8 +911,8 @@ export const WebsiteHome = () => {
                 }}>
                   <Bot size={28} />
                 </div>
-                <div style={{ flex: 1, minWidth: '280px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ flex: 1, minWidth: 'min(280px, 100%)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '11px', fontWeight: 800, color: '#ec4899', textTransform: 'uppercase' }}>
                       Artificial Intelligence SuperHouse
                     </span>
@@ -970,13 +920,13 @@ export const WebsiteHome = () => {
                       1,000+ Prompt Templates
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 10px 0' }}>
+                  <h3 style={{ fontSize: 'clamp(1.25rem, 2.5vw, 22px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 10px 0' }}>
                     What is My Zunme?
                   </h3>
                   <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
                     <strong>ZUNME</strong> is the integrated creative, monetization, and SEO engine inside CRM nErgy AI. It empowers creators, marketing agencies, and business owners to build content rapidly using pre-built AI workflows. Featuring over 1,000 specialized templates, ZUNME powers autonomous AI video agents, brand soundtrack synthesis, script writing, and enterprise copy generation.
                   </p>
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <div className="website-zunme-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button
                       type="button"
                       onClick={onOpenZunme}
@@ -1035,7 +985,8 @@ export const WebsiteHome = () => {
                     <ChevronDown size={18} style={{
                       transform: isOpen ? 'rotate(180deg)' : 'none',
                       transition: 'transform 0.2s',
-                      color: 'var(--web-text-muted)'
+                      color: 'var(--web-text-muted)',
+                      flexShrink: 0
                     }} />
                   </button>
                   {isOpen && (
@@ -1061,7 +1012,7 @@ export const WebsiteHome = () => {
       {/* 6. SECTION: ABOUT & SECURITY ARCHITECTURE (#about)       */}
       {/* ======================================================== */}
       <section id="about" style={{
-        padding: '4rem 1.25rem',
+        padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3vw, 1.25rem)',
         backgroundColor: 'var(--web-surface-subtle)',
         borderTop: '1px solid var(--web-border)'
       }}>
@@ -1069,14 +1020,14 @@ export const WebsiteHome = () => {
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Enterprise Governance
           </span>
-          <h2 style={{ fontSize: '26px', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 12px 0' }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3.2vw, 26px)', fontWeight: 900, color: 'var(--web-text-main)', margin: '4px 0 12px 0' }}>
             Security, Resilience & High-Throughput Architecture
           </h2>
           <p style={{ fontSize: '14px', color: 'var(--web-text-muted)', maxWidth: '680px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
             Designed for institutional-grade reliability, CRM nErgy implements strict tenant isolation, cryptographic vault storage, and granular role-based access control.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
+          <div className="website-security-grid">
             <div style={{ background: 'var(--web-surface)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--web-border)', textAlign: 'left' }}>
               <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                 <Lock size={20} />

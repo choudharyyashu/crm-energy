@@ -678,14 +678,14 @@ export const BestieAi = () => {
                   }}
                 >
                   <span style={{ fontWeight: 700, color: msg.sender === 'bestie' ? '#0284c7' : '#ffffff' }}>
-                    {msg.sender === 'bestie' ? 'Bestie AI Agent' : 'Alexander Wright (Owner)'}
+                    {msg.sender === 'bestie' ? t('Bestie AI Agent') : 'Alexander Wright (Owner)'}
                   </span>
                   <span>{msg.time}</span>
                 </div>
 
                 {/* Body Text */}
                 <div style={{ color: msg.sender === 'user' ? '#ffffff' : 'var(--text-primary)' }}>
-                  {msg.sender === 'bestie' ? renderFormattedText(msg.text) : msg.text}
+                  {msg.sender === 'bestie' ? renderFormattedText(t(msg.text)) : msg.text}
                 </div>
 
                 {/* Executed Action Widgets (Real CRM Execution) */}
@@ -1131,7 +1131,7 @@ export const BestieAi = () => {
                       fontSize: '11px',
                     }}
                   >
-                    <span style={{ fontWeight: 700, color: 'var(--text-tertiary)' }}>Verified Sources:</span>
+                    <span style={{ fontWeight: 700, color: 'var(--text-tertiary)' }}>{t('Verified Sources:')}</span>
                     {msg.sources.map((s, i) => (
                       <span
                         key={i}
@@ -1146,7 +1146,7 @@ export const BestieAi = () => {
                           fontWeight: 600,
                         }}
                       >
-                        {s}
+                        {t(s)}
                       </span>
                     ))}
                   </div>
@@ -1192,7 +1192,7 @@ export const BestieAi = () => {
                           e.currentTarget.style.color = '#0284c7';
                         }}
                       >
-                        <span>{act.label}</span>
+                        <span>{t(act.label)}</span>
                         <ChevronRight size={13} />
                       </button>
                     ))}
