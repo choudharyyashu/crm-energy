@@ -86,13 +86,21 @@ export const CrmSignup = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card className="p-6">
-        <div className="flex flex-col items-center text-center mb-6">
+    <div className="flex flex-col gap-3 w-full" style={{ maxWidth: '440px', width: '100%', margin: '0 auto' }}>
+      <Card
+        className="p-4 sm:p-5"
+        style={{
+          width: '100%',
+          boxSizing: 'border-box',
+          boxShadow: 'var(--shadow-card)',
+          borderRadius: '14px',
+        }}
+      >
+        <div className="flex flex-col items-center text-center mb-3 sm:mb-4">
           <div
             style={{
-              width: '48px',
-              height: '48px',
+              width: '40px',
+              height: '40px',
               borderRadius: 'var(--radius-md)',
               backgroundColor: 'var(--primary)',
               color: '#ffffff',
@@ -100,18 +108,22 @@ export const CrmSignup = () => {
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '20px',
+              fontSize: '17px',
               fontFamily: 'var(--font-display)',
-              marginBottom: '0.75rem',
+              marginBottom: '0.4rem',
             }}
           >
             nE
           </div>
-          <h2 style={{ fontSize: 'var(--text-xl)', marginBottom: '0.25rem' }}>Create Company Account</h2>
-          <p className="text-xs text-secondary margin-0">Step 1 of 6: Provision isolated company workspace</p>
+          <h2 style={{ fontSize: 'clamp(1.15rem, 2.5vw, 1.35rem)', fontWeight: 800, marginBottom: '0.15rem', color: 'var(--text-primary)' }}>
+            Create Company Account
+          </h2>
+          <p className="text-xs text-secondary margin-0" style={{ fontSize: '11px' }}>
+            Step 1 of 6: Provision isolated company workspace
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
           <Input
             label="Company Name"
             value={formData.companyName}
@@ -150,7 +162,7 @@ export const CrmSignup = () => {
             required
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <Input
               label="Password"
               type="password"
@@ -175,18 +187,19 @@ export const CrmSignup = () => {
 
           <Button
             variant="primary"
-            size="lg"
+            size="md"
             type="submit"
             isLoading={isLoading}
             icon={ArrowRight}
             iconPosition="right"
-            className="w-full mt-2"
+            className="w-full mt-1.5"
+            style={{ minHeight: '40px', fontSize: '13.5px', fontWeight: 700 }}
           >
             Create Account & Verify
           </Button>
         </form>
 
-        <div className="mt-4 pt-4 border-t border-subtle text-center text-xs text-secondary">
+        <div className="mt-3 pt-3 border-t border-subtle text-center text-xs text-secondary">
           Already registered?{' '}
           <Link to="/crm/login" className="font-semibold text-primary">
             Sign in to workspace
