@@ -428,10 +428,7 @@ export const TerritoryManagement = () => {
               </h2>
             </div>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: 'var(--font-sm)', lineHeight: 1.6 }}>
-              Google Maps is used in territory management to help visualize geographic areas for sales representatives,
-              allowing for <strong>route optimization</strong> and <strong>efficient scheduling</strong>. While standard maps lack
-              advanced CRM layers, CRM nErgy directly bridges this with <strong>prospect counts</strong> and <strong>demographic data</strong>,
-              delivering an all-in-one spatial field operations suite.
+              {t('Google Maps is used in territory management to help visualize geographic areas for sales representatives, allowing for route optimization and efficient scheduling. While standard maps lack advanced CRM layers, CRM nErgy directly bridges this with prospect counts and demographic data, delivering an all-in-one spatial field operations suite.')}
             </p>
           </Card>
 
@@ -758,13 +755,13 @@ export const TerritoryManagement = () => {
                 >
                   <Route size={16} color="#10b981" />
                   <div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Optimized Route:</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{t('Optimized Route:')}</div>
                     <div style={{ fontSize: '12px', fontWeight: 600, color: '#ffffff' }}>{currentZone.optimizedRoute}</div>
                   </div>
                   <div style={{ height: 24, width: 1, backgroundColor: 'rgba(255, 255, 255, 0.15)' }} />
                   <div>
                     <div style={{ fontSize: '10px', color: '#10b981', fontWeight: 700 }}>
-                      ⚡ {currentZone.travelTimeSaved} saved
+                      ⚡ {currentZone.travelTimeSaved} {t('saved')}
                     </div>
                   </div>
                 </div>
@@ -796,7 +793,7 @@ export const TerritoryManagement = () => {
                       backgroundColor: isOfflineMode ? '#f59e0b' : '#10b981',
                     }}
                   />
-                  {isOfflineMode ? 'Offline Cache Active (Local GIS)' : 'Live Telemetry Connected'}
+                  {isOfflineMode ? t('Offline Cache Active (Local GIS)') : t('Live Telemetry Connected')}
                 </div>
               </div>
             </Card>
@@ -807,8 +804,8 @@ export const TerritoryManagement = () => {
                 <Badge variant="primary" style={{ backgroundColor: `${currentZone.color}20`, color: currentZone.color, marginBottom: 6 }}>
                   {currentZone.code}
                 </Badge>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '2px 0 0 0' }}>{currentZone.name}</h3>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>Coverage: {currentZone.states}</p>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '2px 0 0 0' }}>{t(currentZone.name)}</h3>
+                <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>{t('Coverage')}: {currentZone.states}</p>
               </div>
 
               <div style={{ height: 1, backgroundColor: 'var(--border)' }} />
@@ -836,7 +833,7 @@ export const TerritoryManagement = () => {
                   </div>
                   <div>
                     <div style={{ fontSize: '13px', fontWeight: 600 }}>{currentZone.rep}</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{currentZone.repRole}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{t(currentZone.repRole) || currentZone.repRole}</div>
                   </div>
                 </div>
               </div>
@@ -855,7 +852,7 @@ export const TerritoryManagement = () => {
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('Active Prospect Count:')}</span>
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0ea5e9' }}>{currentZone.prospectCount} {t('accounts') || 'accounts'}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#0ea5e9' }}>{currentZone.prospectCount} {t('accounts')}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('Avg Deal Value:')}</span>
@@ -870,7 +867,7 @@ export const TerritoryManagement = () => {
               {/* Demographic & Industry Intelligence */}
               <div>
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600, marginBottom: 4 }}>
-                  Demographic & Market Profile
+                  {t('Demographic & Market Profile')}
                 </div>
                 <p style={{ fontSize: '12px', color: 'var(--text)', lineHeight: 1.5, margin: 0 }}>
                   {currentZone.demographics}

@@ -861,7 +861,7 @@ export const CrmAiStudio = () => {
                 fontWeight: 800,
                 boxShadow: '0 2px 8px rgba(99, 102, 241, 0.25)',
               }}>
-                {filteredStudios.length} {t('15 AVAILABLE') || 'Available'}
+                {filteredStudios.length} {t('AVAILABLE')}
               </span>
             </h2>
           </div>
@@ -968,7 +968,7 @@ export const CrmAiStudio = () => {
                     lineHeight: 1.3,
                     marginBottom: '5px',
                   }}>
-                    {studio.name}
+                    {t(studio.name) || studio.name}
                   </div>
                   <div style={{
                     fontSize: '11px',
@@ -979,7 +979,7 @@ export const CrmAiStudio = () => {
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                   }}>
-                    {studio.desc}
+                    {t(studio.desc) || studio.desc}
                   </div>
                 </div>
 
@@ -1005,10 +1005,10 @@ export const CrmAiStudio = () => {
                       {isSelected ? (
                         <>
                           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-                          <span>Active Studio</span>
+                          <span>{t('Active Studio')}</span>
                         </>
                       ) : (
-                        <span>Launch Studio</span>
+                        <span>{t('Launch Studio')}</span>
                       )}
                     </span>
                     <ChevronRight size={13} color={isSelected ? '#ffffff' : 'var(--text-secondary, #94a3b8)'} strokeWidth={2.4} />

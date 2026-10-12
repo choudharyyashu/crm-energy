@@ -773,7 +773,7 @@ export const AiVoiceAgent = () => {
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Persona:</span>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{t('Persona')}:</span>
                 <select
                   value={voicePersona}
                   onChange={(e) => setVoicePersona(e.target.value)}
@@ -817,7 +817,7 @@ export const AiVoiceAgent = () => {
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
                       <span style={{ fontSize: '11px', fontWeight: 600, color: isAgent ? '#0ea5e9' : '#10b981' }}>
-                        {isAgent ? 'CRM nErgy AI Voice Agent' : 'User (Voice Input)'}
+                        {isAgent ? t('CRM nErgy AI Voice Agent') : t('User (Voice Input)')}
                       </span>
                       <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{msg.time}</span>
                       {msg.latency && (
