@@ -1,206 +1,201 @@
-# CRM nErgy AI — Microscopic Deep Audit & Feature-by-Feature Comparison Report
+# CRM nErgy AI — Master Website vs. Client Documents Deep Audit Report
 
-> **Audit Type:** 100% Line-by-Line, Microscopic Verification (Strict Read-Only Mode)  
-> **Source Documents:** 26 Client Specification Documents (`d:\KIAAN\CRM-energy\crm-energy\frontenddocument` + `johnnybaums007-attachments (12).zip`)  
-> **Codebase Inspected:** `crm-energy/frontend`, `crm-energy/backend`, `crm-energy/website`  
-> **Verification Status:** Verified against active route tables, components, database schema, and git commit history.
-
----
-
-## 📊 1. The Exact Math (Overall Summary at a Glance)
-
-| Area | Total Items Required | Fully Built as Dedicated Pages/Features | Partially Built (In Modal or Mock) | Completely Missing | Actual Completion % |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **Core CRM & ERP Backend** | 12 Roles + 10 Workflows | 12 Roles + 10 Workflows | 0 | 0 | **92%** |
-| **Secured eBox (SEA Chat)** | 1 Enterprise Module | 1 (AES-256-GCM Vault) | 0 | 0 | **95%** |
-| **AI Voice Agent Pipeline** | 1 Streaming Pipeline | 1 (STT → LLM → TTS) | 0 | 0 | **85%** |
-| **23 CRM Features** | 23 Modules | **1** Dedicated Page (`Analytic Accounting`) | **22** (Modal preview only) | **0** | **25%** |
-| **16 Solutions Sub-items** | 16 Solution items | **6** Dedicated Pages | **10** (Modal preview only) | **0** | **55%** |
-| **23 Industries** | 23 Sector Verticals | **1** Dedicated Page (`Professional Services`) | **10** (Data ingested in modal) | **12** (Only brief summary) | **40%** |
-| **8 Technical Pillars** | 8 Highlights | **3** (eBox, Voice AI, Spanish Toggle) | **3** (Google Maps, AI Search, RAG FAQs) | **2** (Drag-Drop, Videos) | **50%** |
-| **Category Overview Hubs** | 3 Hubs (`/features`, `/solutions`, `/industries`) | **0** (All redirect to Homepage) | 0 | **3** | **0%** |
+> **Audit Scope:** Complete line-by-line and code-level comparison between **Client Specification Documents** (`d:\KIAAN\CRM-energy\crm-energy\websitedocument`) and **ONLY the Website Project** (`d:\KIAAN\CRM-energy\crm-energy\website`).  
+> **Total Client Documents Audited:** 23 Client `.docx` Files (~118,600 characters, ~17,000 words across all files)  
+> **Target System:** React 18 + Vite (`http://localhost:3001`), Standalone Website Deployment  
+> **Audit Status:** Verified line-by-line across all 31 website source files, components, data dictionaries, modals, and routes.
 
 ---
 
-## 🔍 2. The 23 CRM Features — One-by-One Microscopic Check
+## 📊 1. Executive Summary & Alignment Scorecard
 
-Client document `CRM nErgy website – Navigation button-1 (1).docx` lists **23 exact CRM Features**. Here is the microscopic audit of every single one:
+```
+====================================================================================================
+                              OVERALL WEIGHTED ALIGNMENT SCORE: 70.2%
+====================================================================================================
+  🟢 FULLY MATCHED (>= 85% Match)     : 10 Documents (43.5%)  [Dedicated Live Pages, Navbar, Home]
+  🟡 PARTIALLY MATCHED (60% - 65% Match): 10 Documents (43.5%)  [Data Ingested in Modal / Partial UI]
+  🔴 COMPLETELY MISSING (0% Match)     :  3 Documents (13.0%)  [No Dedicated Route in AppRoutes]
+====================================================================================================
+```
 
-| # | Feature Name | Client Requirement | Code Route Status | Code Component | Software Verdict |
-| :-: | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Industries Homepage** | Sector mapping hub | `/industries` | `<WebsiteHome />` | ⚠️ **Partial** (Loads generic home, not dedicated industries hub) |
-| **2** | **Affiliate Management** | Partner tracking & commissions | `/features/affiliate-management` | None (Modal only) | ⚠️ **Modal Only** (No dedicated URL page) |
-| **3** | **Analytic Accounting** | Cost centers, project margins, sector breakdown | `/features/analytic-accounting` | `<AnalyticAccountingPage />` | ✅ **100% MATCH** (Full 6,144-char client page built) |
-| **4** | **Contact Management** | 360° contact timelines | `/features/contact-management` | None (Modal only) | ⚠️ **Modal Only** (Internal CRM has it, but public page missing) |
-| **5** | **Customer Service** | Multi-channel SLA ticketing | `/features/customer-service` | None (Modal only) | ⚠️ **Modal Only** (Internal Support has it, public page missing) |
-| **6** | **Customizable Dashboards** | Drag-and-drop KPI cards | `/features/customizable-dashboards` | None (Modal only) | ⚠️ **Modal Only** (Public page missing, Drag-drop missing in CRM) |
-| **7** | **Data Management** | Data hygiene & deduplication | `/features/data-management` | None (Modal only) | ⚠️ **Modal Only** (No dedicated URL page) |
-| **8** | **Financial Accounting** | General ledger, balances, tax | `/features/financial-accounting` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has finance, public page missing) |
-| **9** | **Inventory Management** | Multi-warehouse SKU balances | `/features/inventory-management` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has it, public page missing) |
-| **10**| **Landing Page Creator** | No-code funnel builder | `/features/landing-page-creator` | None (Modal only) | ⚠️ **Modal Only** (No dedicated URL page) |
-| **11**| **Lead Management** | Commercial sales scoring | `/features/lead-management` | None (Modal only) | ⚠️ **Modal Only** (Internal CRM has it, public page missing) |
-| **12**| **Manufacturing** | Bill of Materials & work orders | `/features/manufacturing` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has it, public page missing) |
-| **13**| **Marketing Automation** | Automated email & SMS drip | `/features/marketing-automation` | None (Modal only) | ⚠️ **Modal Only** (Internal AI Marketing has it, public page missing) |
-| **14**| **Mobile Access** | Responsive app & offline sync | `/features/mobile-access` | None (Modal only) | ⚠️ **Modal Only** (No dedicated URL page) |
-| **15**| **Payroll Processing** | Salary runs & payslips | `/features/payroll-processing` | None (Modal only) | ⚠️ **Modal Only** (Internal HR has payroll, public page missing) |
-| **16**| **Project Management** | Milestone delivery & gantt | `/features/project-management` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has it, public page missing) |
-| **17**| **Purchasing Management** | PO approvals & vendor sync | `/features/purchasing-management` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has it, public page missing) |
-| **18**| **Recruitment and Onboarding**| Job postings & candidate tracking| `/features/recruitment-and-onboarding` | None (Modal only) | ⚠️ **Modal Only** (Internal HR has it, public page missing) |
-| **19**| **Sales Management** | Deals pipeline & quotas | `/features/sales-management` | None (Modal only) | ⚠️ **Modal Only** (Internal CRM has it, public page missing) |
-| **20**| **Subscription Management** | Recurring billing & churn | `/features/subscription-management` | None (Modal only) | ⚠️ **Modal Only** (No dedicated URL page) |
-| **21**| **Supply Chain** | Vendor logistics tracking | `/features/supply-chain` | None (Modal only) | ⚠️ **Modal Only** (Internal ERP has it, public page missing) |
-| **22**| **Territory Management** | Geographic sales assignment | `/features/territory-management` | None (Modal only) | ⚠️ **Modal Only** (Internal CRM has it, public page missing) |
-| **23**| **White Label CRM** | Custom domain & branding reseller | `/features/white-label` | None (Modal only) | ⚠️ **Modal Only** (Banner clicks to modal, dedicated page missing) |
+### High-Level Summary by Document Category
 
-> **Features Summary:** 1 Feature is 100% complete as a dedicated page (`Analytic Accounting`). Baki 22 features internal CRM me toh exist karte hain, lekin public marketing website par unka koi dedicated page nahi hai—sirf modal popup khulta hai.
+| Category | Documents Audited | Status in `website` Codebase | Match % |
+| :--- | :---: | :--- | :---: |
+| **Business Solutions Documents** | 6 Docs | ✅ **All 6 have dedicated standalone pages & live routes** (1 slug mismatch bug) | **98%** |
+| **Analytic Accounting Feature** | 1 Doc | ✅ **Dedicated full page live** (`/features/analytic-accounting`) | **100%** |
+| **Consulting / Professional Services** | 1 Doc | ✅ **Dedicated full page live** (`/industries/professional-services`) | **100%** |
+| **Website Home & Footer Spec** | 1 Doc | ✅ **Homepage (`WebsiteHome.jsx`) + Footer (`WebsiteFooter.jsx`) active** | **90%** |
+| **Website Mega-Menu Navigation** | 1 Doc | ✅ **Mega-menu navbar (`WebsiteNavbar.jsx` + `websiteNavData.js`) active** | **85%** |
+| **Software Dev Highlights (Oct)** | 1 Doc | 🟡 **Spanish toggle & chat modals built; Videos & live Maps missing** | **60%** |
+| **Remaining 9 Industry Documents** | 9 Docs | 🟡 **119 capabilities & 91 FAQs ingested into code, but open in Modal only (No URLs)** | **65%** |
+| **3 Category Overview Hub Docs** | 3 Docs | 🔴 **No routes (`/features`, `/solutions`, `/industries` redirect to `/`)** | **0%** |
 
 ---
 
-## 🔍 3. The 4 CRM Solutions & 16 Sub-items — One-by-One Microscopic Check
+## 🔍 2. Microscopic Document-by-Document Audit (All 23 Client Documents)
 
-Client navigation document ke hisaab se 4 Solution Groups aur 16 items hain:
+Below is the verified audit record for every single document in `websitedocument/` compared against the `website` source code:
 
-### Group 1: 4 Types of CRM Software
-| Item Name | Route Status | Component | Verdict |
-| :--- | :--- | :--- | :--- |
-| **Analytical CRM** | `/solutions/analytical-crm` | None (Modal only) | ⚠️ Modal popup only |
-| **Collaborative CRM** | `/solutions/collaborative-crm` | None (Modal only) | ⚠️ Modal popup only |
-| **Operational CRM** | `/solutions/operational-crm` | None (Modal only) | ⚠️ Modal popup only |
-| **Strategic CRM** | `/solutions/strategic-crm` | None (Modal only) | ⚠️ Modal popup only |
-
-### Group 2: Business CRM Software
-| Item Name | Client Document | Route Status | Component | Verdict |
-| :--- | :--- | :--- | :--- | :--- |
-| **Business CRM Software (Main)**| `Business CRM Software.docx` (5,772 chars) | `/solutions/business-crm` | `<BusinessCrmPage />` | ✅ **100% MATCH** |
-| **Contact AI (Call Center)** | `Contact AI - Business CRM.docx` (5,158 chars) | `/solutions/contact-ai` | `<ContactAiPage />` | ✅ **100% MATCH** |
-| **Franchise CRM** | `CRM for Franchise.docx` (5,193 chars) | `/solutions/franchise` | `<FranchiseCrmPage />` | ✅ **100% MATCH** |
-| **Influencers CRM** | `CRM for Influencers.docx` (4,523 chars) | `/solutions/influencers` | `<InfluencersCrmPage />` | ✅ **100% MATCH** |
-| **Startup Business** | `CRM Software for Startups.docx` (3,772 chars) | `/solutions/startups` | `<StartupsCrmPage />` | ✅ **100% MATCH** |
-| **Small to Mid-Size Biz** | `CRM Software Mid-Size.docx` (4,907 chars) | `/solutions/mid-size` | `<MidSizeCrmPage />` | ✅ **100% MATCH** |
-
-### Group 3: CRM for Entrepreneurs
-| Item Name | Route Status | Component | Verdict |
-| :--- | :--- | :--- | :--- |
-| **Entrepreneurs Seeking Capital** | `/solutions/entrepreneurs-seeking-capital` | None (Modal only) | ⚠️ Modal popup only |
-| **Entrepreneurs Save Money** | `/solutions/entrepreneurs-save-money` | None (Modal only) | ⚠️ Modal popup only |
-| **Software for Entrepreneurs** | `/solutions/software-for-entrepreneurs` | None (Modal only) | ⚠️ Modal popup only |
-
-### Group 4: Third Party Integration
-| Item Name | Route Status | Component | Verdict |
-| :--- | :--- | :--- | :--- |
-| **Third Party Integration CRM** | `/solutions/third-party-crm` | None (Modal only) | ⚠️ Modal popup only |
-| **Third Party Integration ERP** | `/solutions/third-party-erp` | None (Modal only) | ⚠️ Modal popup only |
-| **Third-Party CRM ERP Integration** | `/solutions/third-party-crm-erp` | None (Modal only) | ⚠️ Modal popup only |
-
-> **Solutions Summary:** Business CRM group ke sabhi **6 core documents 100% complete dedicated pages ban chuke hain**. Baki 10 sub-items (4 Types of CRM, Entrepreneurs, Third Party) abhi modal me khulte hain.
+| # | Client Document | Size / Words | Target File in `website` | Live Route URL | Match % | Status & Key Findings |
+| :-: | :--- | :---: | :--- | :--- | :-: | :--- |
+| **1** | `Analytic Accounting CRM - features-1.docx` | 6,083 ch / 812 w | [AnalyticAccountingPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/AnalyticAccountingPage.jsx) (26.9 KB) | `/features/analytic-accounting` | 🟢 **100%** | **Dedicated Page:** Multi-dimension cost centers, project margins, interactive charts & client FAQs. |
+| **2** | `Business CRM Software.docx` | 5,726 ch / 804 w | [BusinessCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/BusinessCrmPage.jsx) (22.8 KB) | `/solutions/business-crm` | 🟢 **100%** | **Dedicated Page:** CRM vs ERP comparison matrix, core modules breakdown & CTA. |
+| **3** | `Contact AI - Business CRM.docx` | 5,108 ch / 732 w | [ContactAiPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ContactAiPage.jsx) (30.4 KB) | `/solutions/contact-ai` | 🟢 **100%** | **Dedicated Page:** AI call center routing, sentiment analysis, agent productivity & FAQs. |
+| **4** | `CRM for Franchise - Business CRM.docx` | 5,136 ch / 681 w | [FranchiseCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/FranchiseCrmPage.jsx) (24.6 KB) | `/solutions/franchise` | 🟢 **100%** | **Dedicated Page:** Multi-unit consolidation, royalty compliance, operational benchmarks & FAQs. |
+| **5** | `CRM for Influencers - Business CRM.docx` | 4,464 ch / 583 w | [InfluencersCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/InfluencersCrmPage.jsx) (27.2 KB) | `/solutions/influencers` | 🟢 **100%** | **Dedicated Page:** Sponsorship outreach, deliverable timelines, affiliate tracking & FAQs. |
+| **6** | `CRM Software for Startups -Business CRM.docx` | 3,708 ch / 518 w | [StartupsCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/StartupsCrmPage.jsx) (24.3 KB) | `/solutions/startups` | 🟢 **100%** | **Dedicated Page:** Lean runway tracking, customer acquisition workflows & startup checklist. |
+| **7** | `CRM Software Mid-Size - Businesses CRM.docx` | 4,844 ch / 665 w | [MidSizeCrmPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/MidSizeCrmPage.jsx) (23.6 KB) | `/solutions/midsize` *(Route Bug)* | 🟡 **95%** | **Dedicated Page Built:** Has slug mismatch bug. Navbar links to `/solutions/mid-size` (causing 404 redirect). |
+| **8** | `Consulting Industry - Industries.docx` | 6,078 ch / 872 w | [ProfessionalServicesPage.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/ProfessionalServicesPage.jsx) (43.9 KB) | `/industries/professional-services` | 🟢 **100%** | **Dedicated Page:** 1,044 lines covering 8 firm types, billing, SLA tracking & client FAQs. |
+| **9** | `CRM nErgy website - home - 2027 (1).docx` | 1,030 ch / 128 w | [WebsiteHome.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/pages/website/WebsiteHome.jsx) + [WebsiteFooter.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteFooter.jsx) | `/` | 🟢 **90%** | Hero section, branding slogan ("Make AI Your Bestie"), module grids, solutions cards, footer anchors. |
+| **10**| `CRM nErgy website – Navigation button-1 (1).docx` | 2,041 ch / 242 w | [WebsiteNavbar.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/website/WebsiteNavbar.jsx) + [websiteNavData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/websiteNavData.js) | Global Header | 🟢 **85%** | 4 Mega-menus active, Ask My Zunme button, SALES - chat eBox button. |
+| **11**| `CRM nErgy  -Dev Highlights - oct.docx` | 7,272 ch / 1,024 w | [LanguageToggle.jsx](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/components/common/LanguageToggle.jsx) + Modals | Global UI | 🟡 **60%** | Spanish toggle, Sales eBox, Zunme Copilot active; Tutorial Videos & Live Google Maps missing. |
+| **12**| `Automotive Industry - Industries.docx` | 3,883 ch / 544 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 7 capabilities, 3 FAQs. Opens in modal popup, no standalone URL. |
+| **13**| `Construction Industry - Industries.docx` | 3,610 ch / 504 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 8 capabilities, 2 FAQs. Opens in modal popup, no standalone URL. |
+| **14**| `E-commerce Industry - Industries.docx` | 7,904 ch / 1,142 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 6 capabilities, 12 FAQs. Opens in modal popup, no standalone URL. |
+| **15**| `Education Industry - Industries.docx` | 7,880 ch / 1,090 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 10 capabilities, 12 FAQs. Opens in modal popup, no standalone URL. |
+| **16**| `Entertainment Industry - Industries.docx` | 4,785 ch / 659 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 13 capabilities, 6 FAQs. Opens in modal popup, no standalone URL. |
+| **17**| `Financial Service Industry - Industries.docx` | 9,200 ch / 1,264 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 16 capabilities, 13 FAQs. Opens in modal popup, no standalone URL. |
+| **18**| `Healthcare Services Industry - Industries.docx` | 8,065 ch / 1,093 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 22 capabilities, 13 FAQs. Opens in modal popup, no standalone URL. |
+| **19**| `Hospitality Industry - Industries.docx` | 5,182 ch / 711 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 9 capabilities, 6 FAQs. Opens in modal popup, no standalone URL. |
+| **20**| `Insurance Industry - Industries.docx` | 5,914 ch / 825 w | [industryDetailsData.js](file:///d:/KIAAN/CRM-energy/crm-energy/website/src/data/industryDetailsData.js) | Modal Only | 🟡 **65%** | Ingested: Overview, 12 capabilities, 7 FAQs. Opens in modal popup, no standalone URL. |
+| **21**| `_ Features Home - CRM nErgy.docx` | 1,292 ch / 158 w | Features Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Features Hub page. Route `/features` redirects to `/`. |
+| **22**| `_ Industries Home - CRM nErgy website.docx` | 1,131 ch / 141 w | Industries Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Industries Hub page. Route `/industries` redirects to `/`. |
+| **23**| `_ CRM nErgy Solutions - home.docx` | 4,443 ch / 623 w | Solutions Directory Hub | Missing Route | 🔴 **0%** | Client spec asks for Solutions Hub page. Route `/solutions` redirects to `/`. |
 
 ---
 
-## 🔍 4. The 23 Industries — One-by-One Microscopic Check
+## ✅ 3. Detailed Breakdown: What is 100% Fully Matched
 
-Client ke documents me 23 Industries list hain, jinme se **10 ke poore in-depth documents zip file me diye gaye the**:
+### A. Dedicated Standalone Landing Pages (8 Pages)
+1. **Analytic Accounting Page** (`/features/analytic-accounting`):
+   - Located at `website/src/pages/website/AnalyticAccountingPage.jsx` (26.9 KB).
+   - Contains multi-dimension cost centers, project profit tracking, margin analytics, interactive charts, and client FAQs.
+2. **Business CRM Software Page** (`/solutions/business-crm`):
+   - Located at `website/src/pages/website/BusinessCrmPage.jsx` (22.8 KB).
+   - Contains full CRM vs ERP comparison grid, core business features, and enterprise CTA.
+3. **Contact AI Page** (`/solutions/contact-ai`):
+   - Located at `website/src/pages/website/ContactAiPage.jsx` (30.4 KB).
+   - Contains AI call center routing, cost savings analysis, sentiment monitoring, and FAQs.
+4. **Franchise CRM Page** (`/solutions/franchise`):
+   - Located at `website/src/pages/website/FranchiseCrmPage.jsx` (24.6 KB).
+   - Contains multi-unit data consolidation, royalty compliance, and operational benchmarks.
+5. **Influencers CRM Page** (`/solutions/influencers`):
+   - Located at `website/src/pages/website/InfluencersCrmPage.jsx` (27.2 KB).
+   - Contains sponsorship outreach, deliverable timelines, affiliate tracking, and FAQs.
+6. **Startups CRM Page** (`/solutions/startups`):
+   - Located at `website/src/pages/website/StartupsCrmPage.jsx` (24.3 KB).
+   - Contains lean runway tracking, customer acquisition workflows, investor decks, and startup checklist.
+7. **Small to Mid-Size Businesses CRM Page** (`/solutions/midsize`):
+   - Located at `website/src/pages/website/MidSizeCrmPage.jsx` (23.6 KB).
+   - Contains scalability roadmaps, departmental handoffs, and operational automation.
+8. **Professional Services Page** (`/industries/professional-services`):
+   - Located at `website/src/pages/website/ProfessionalServicesPage.jsx` (43.9 KB, 1,044 lines).
+   - Covers 8 consulting firm types (Accounting, Legal, Engineering, Architecture, IT, Marketing, Healthcare), billing models, and FAQs.
 
-| # | Industry Vertical | Has Zip Document? | Data in `industryDetailsData.js`? | Has Dedicated Route? | Current Verdict |
-| :-: | :--- | :---: | :---: | :---: | :--- |
-| **1** | **Professional Services** | Yes (Consulting doc) | ✅ Ingested | ✅ `/industries/professional-services` | 🟢 **100% MATCH** (Full page live) |
-| **2** | **Healthcare Services** | Yes (8,169 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **3** | **Financial Services** | Yes (9,302 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **4** | **E-commerce** | Yes (7,999 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **5** | **Education** | Yes (7,974 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **6** | **Consulting Firms** | Yes (6,173 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Covered by Professional Services) |
-| **7** | **Insurance** | Yes (6,008 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **8** | **Hospitality** | Yes (5,278 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **9** | **Entertainment** | Yes (4,883 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **10**| **Automotive** | Yes (3,978 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **11**| **Construction** | Yes (3,707 chars) | ✅ Ingested | ❌ None (Modal only) | 🟡 **70% Match** (Data ready, standalone page baki) |
-| **12**| **Manufacturing** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **13**| **Marketing** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **14**| **Media** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **15**| **Non-Profit** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **16**| **Real Estate** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **17**| **Retail** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **18**| **Software Development** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **19**| **Technology** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **20**| **Telecom** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **21**| **Travel** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **22**| **Unique Service Business** | Navigation only | Basic summary | ❌ None (Modal only) | ⚠️ **25% Match** (Modal only) |
-| **23**| **Industries Homepage** | Navigation overview | None | `/industries` -> `<WebsiteHome />` | ⚠️ **25% Match** (Overview hub missing) |
+### B. 1-Click Spanish Translation Toggle
+- **Navbar Integration:** `LanguageToggle.jsx` is mounted on the global header.
+- **Functionality:** Visitors can toggle instantly between English (`EN`) and Spanish (`ES`).
+- **Translation Store:** `LanguageContext.jsx` contains over 1,000 translation keys covering navigation items, marketing headings, buttons, and FAQs.
 
-> **Industries Summary:** Sabhi 10 detailed zip industries ka data code me aa chuka hai aur modal me dikhta hai. Lekin **sirf 1 industry ka dedicated standalone page bana hai (`Professional Services`)**. Baki 9 ko standalone route me convert karna baaki hai.
+### C. Client Industry Data Ingestion (119 Capabilities & 91 FAQs)
+- `website/src/data/industryDetailsData.js` (56.8 KB) has ingested the exact client content for all 10 industries:
+  - **Automotive:** 7 capabilities, 3 FAQs
+  - **Construction:** 8 capabilities, 2 FAQs
+  - **Consulting Firms:** 8 capabilities, 8 FAQs
+  - **E-commerce:** 6 capabilities, 12 FAQs
+  - **Education:** 10 capabilities, 12 FAQs
+  - **Entertainment:** 13 capabilities, 6 FAQs
+  - **Financial Services:** 16 capabilities, 13 FAQs
+  - **Healthcare:** 22 capabilities, 13 FAQs
+  - **Hospitality:** 9 capabilities, 6 FAQs
+  - **Insurance:** 12 capabilities, 7 FAQs
+  - **Professional Services:** 8 capabilities, 9 FAQs
+- Data is rendered dynamically inside `ItemDetailModal.jsx` upon clicking any industry card.
 
----
-
-## 🔍 5. The 8 Technical Pillars (`Dev Highlights - oct.docx`)
-
-Client ke primary technical document me 8 mandatory technical pillars diye gaye the:
-
-| Pillar | Requirement | Implementation in Software | Status |
-| :--- | :--- | :--- | :---: |
-| **1. Secured eBox (SEA ↔ KT)** | Super Executive Admin aur Kiaan Tech Dev team ke beech AES-256 encrypted chat | `SecuredEbox.jsx` + backend `eboxService.js` with AES-256-GCM Vault encryption. | 🟢 **95% MATCH** |
-| **2. AI Voice Agent Pipeline** | STT → LLM → TTS real-time streaming pipeline | `AiVoiceAgent.jsx` browser mic, audio levels animation, latency timer, ElevenLabs/Gemini. | 🟢 **85% MATCH** |
-| **3. Instant Spanish Translation** | Website + App dono par 1-click instant Spanish toggle | `WebsiteNavbar.jsx` me `LanguageToggle` (EN/ES) add ho gaya hai. | 🟢 **80% MATCH** |
-| **4. Google Maps in Territory** | Sales reps ke liye route optimization aur territory mapping on Google Maps | `TerritoryManagement.jsx` me metrics aur quota hain, lekin map SVG mock hai (real Google Maps SDK nahi hai). | 🟡 **35% PARTIAL** |
-| **5. Internal AI Search Bar** | Docs, tasks, files ko AI se search karne wali bar | `InternalAiSearch.jsx` me category filter tabs hain, lekin local array filter karta hai (real DB/vector search nahi hai). | 🟡 **40% PARTIAL** |
-| **6. FAQs AI Search (RAG)** | Central AI Knowledge Base jo 100+ pages par natural answers de | Website par static FAQ accordion hai. Public RAG search API missing hai. | 🟡 **30% PARTIAL** |
-| **7. Drag-and-Drop Dashboard** | Widgets aur cards ko drag karke customize karna | `CrmDashboard.jsx` me **0% drag-and-drop** hai (completely static grid). | 🔴 **0% MISSING** |
-| **8. Tutorial Training Videos** | Video walkthroughs aur terminology sikhane ka module | Codebase me 0% hai (kuch nahi bana). | 🔴 **0% MISSING** |
-
----
-
-## 📋 6. Complete Scorecard: Kitna Complete Hai vs Kitna Bacha Hai
-
-### ✅ 1. Jo 100% Complete Aur Match Hai:
-1. **12 RBAC Role Personas:** Backend schema aur code me 12 roles active hain.
-2. **Secured Communications eBox:** Real AES-256 encrypted chat between SEA & KT.
-3. **AI Voice Agent:** Interactive STT → LLM → TTS voice studio.
-4. **Core CRM & ERP:** Leads, Contacts, Deals, Tasks, Projects, Invoices, Manufacturing, HR tables.
-5. **8 Dedicated Content Pages:**
-   * `/features/analytic-accounting`
-   * `/solutions/business-crm`
-   * `/solutions/contact-ai`
-   * `/solutions/franchise`
-   * `/solutions/influencers`
-   * `/solutions/mid-size`
-   * `/solutions/startups`
-   * `/industries/professional-services`
-6. **Website Spanish Toggle:** Navbar par 1-Click EN/ES segmented button.
-7. **10 Zip Industries Data Ingestion:** Saara text `industryDetailsData.js` me inject ho gaya hai.
+### D. Communication & AI Modals
+- `AskMyZunmeModal.jsx`: Public AI Copilot modal with pre-canned prompts and generative response engine.
+- `SalesChatEboxModal.jsx`: Public Sales Consultation Chat eBox with pre-defined inquiry paths.
+- `ItemDetailModal.jsx`: Dynamic item modal with overview, capability checklists, and accordion FAQs.
 
 ---
 
-### ⚠️ 2. Jo Aadha Bana Hai (Partially Match / In Modal):
-1. **9 Industry Verticals Modal me Hain:** Healthcare, Finance, E-Com, Hospitality, Automotive, Construction, Consulting, Insurance, Education, Entertainment ka content aa gaya hai, lekin **dedicated standalone pages baki hain**.
-2. **10 Solution Sub-items Modal me Hain:** 4 Types of CRM, Entrepreneurs, aur Third Party integration modal me hain.
-3. **22 Features Modal me Hain:** Internal CRM me features hain, lekin public website par modal me khulte hain.
-4. **Google Maps in Territory:** Simulated SVG map hai, real Google Maps SDK nahi hai.
-5. **Internal AI Search:** Client-side array filter karta hai, real DB indexing nahi hai.
-6. **FAQs RAG Engine:** Static accordion hai, public AI RAG endpoint nahi hai.
+## ⚠️ 4. Detailed Breakdown: What is Partially Matched
+
+### 1. 9 Industries Lack Standalone Route URLs (Modal Only)
+- Even though the content of Automotive, Construction, E-commerce, Education, Entertainment, Financial Services, Healthcare, Hospitality, and Insurance is present in `industryDetailsData.js`, **there are no standalone URLs** for them (e.g. `/industries/healthcare`).
+- When a visitor clicks on "Healthcare" in the navbar, it opens `ItemDetailModal` instead of navigating to a dedicated page with an indexable URL.
+
+### 2. Route Slug Mismatch Bug (`MidSizeCrmPage`)
+- In `website/src/data/websiteNavData.js` (line 333): `route: '/solutions/mid-size'`.
+- In `website/src/routes/AppRoutes.jsx` (line 24): `<Route path="/solutions/midsize" element={<MidSizeCrmPage />} />`.
+- **Root Cause & Impact:** Navbar pushes `/solutions/mid-size` (with hyphen), but `AppRoutes` expects `/solutions/midsize` (without hyphen). Because it fails to match, the router falls through to `<Navigate to="/" replace />`, redirecting users back to the homepage.
+
+### 3. White Label Feature Lacks Dedicated Landing Page
+- Document `_ CRM nErgy Solutions - home.docx` states: *"READ MORE >> continue on the White Label Feature Page"*.
+- Currently, clicking the White Label banner opens a modal popup rather than navigating to a dedicated `/features/white-label` landing page.
+
+### 4. FAQ Search Engine is Client-Side Only
+- Dev Highlights document outlines a centralized AI RAG knowledge search engine.
+- Currently, the website FAQ section provides client-side text filtering against static FAQ questions.
+
+### 5. Interactive Territory Management (Google Maps)
+- Dev Highlights specifies Google Maps territory management.
+- Territory Management exists as a feature card and modal, but does not embed an active Google Maps JavaScript SDK instance.
 
 ---
 
-### ❌ 3. Jo Bilkul Missing Hai (0% Built):
-1. **Drag-and-Drop Customizable Dashboards:** Dashboard static hai, drag-drop nahi hai.
-2. **Tutorial Training Videos Hub:** Video learning center nahi hai.
-3. **Category Overview Hub Pages:** `/features`, `/industries`, `/solutions` ke dedicated overview pages missing hain (homepage redirect karte hain).
-4. **Dedicated White Label Landing Page:** `/features/white-label` ka alag landing page missing hai.
+## ❌ 5. Detailed Breakdown: What is Completely Missing (0%)
+
+### 1. 3 Category Overview Hub Pages
+- `_ Features Home - CRM nErgy.docx` -> Route `/features` does not exist in `AppRoutes.jsx`.
+- `_ Industries Home - CRM nErgy website.docx` -> Route `/industries` does not exist in `AppRoutes.jsx`.
+- `_ CRM nErgy Solutions - home.docx` -> Route `/solutions` does not exist in `AppRoutes.jsx`.
+- Any attempt to visit `/features`, `/industries`, or `/solutions` redirects to the homepage (`/`).
+
+### 2. Tutorial Training Video Center
+- Dev Highlights requests tutorial training videos for CRM onboarding.
+- The website footer lists "Videos", but clicking it simply scrolls to `#faqs`. There is no video library, modal player, or video streaming integration.
 
 ---
 
-## 🛠️ 7. 100% Completion Ke Liye Exact Action Items
+## 🛠️ 6. Exact Punch List to Reach 100% Alignment
 
-Agar hume pure platform ko **100% client document aligned** banana hai, toh sirf ye 5 specific tasks karne honge:
+Below are the exact 4 tasks required to bring the website project to 100% full match with the client documents:
 
-1. **Task 1: Dynamic Industry Pages Route (`/industries/:slug`):**
-   - Ek dynamic page component banana jo `industryDetailsData.js` ke basis par sabhi 10 industries (Healthcare, Finance, E-Com, Hospitality, etc.) ko standalone URL par render kare.
-2. **Task 2: Dedicated White Label Page (`/features/white-label`):**
-   - Reseller branding, custom domain, aur logo upload ke features wala landing page banana.
-3. **Task 3: Category Overview Hubs:**
-   - Client ke 3 overview docs (`_ Features Home`, `_ Industries Home`, `_ CRM nErgy Solutions`) ke liye clean hub pages link karna.
-4. **Task 4: Drag-and-Drop Dashboard:**
-   - `CrmDashboard.jsx` me widget rearrangement add karna.
-5. **Task 5: Tutorial Video Modal:**
-   - Video walkthroughs aur terminology navigation ke liye modal/gallery create karna.
+### Task 1: Fix Route Slug Bug (`MidSizeCrmPage`)
+In `website/src/routes/AppRoutes.jsx`, update line 24:
+```diff
+- <Route path="/solutions/midsize" element={<MidSizeCrmPage />} />
++ <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+```
+
+### Task 2: Add Dynamic Route for 9 Industries (`/industries/:slug`)
+1. Create a dynamic template page `IndustryDetailPage.jsx` that reads `:slug` via `useParams()`, pulls the matching data from `INDUSTRY_CLIENT_DETAILS[slug]`, and renders the full page.
+2. In `website/src/routes/AppRoutes.jsx`, register:
+   ```jsx
+   <Route path="/industries/:slug" element={<IndustryDetailPage />} />
+   ```
+3. In `website/src/data/websiteNavData.js`, add `route: '/industries/' + item.id` to all items in `BASE_INDUSTRIES_DATA`.
+
+### Task 3: Register 3 Category Hub Routes (`/features`, `/solutions`, `/industries`)
+1. Create overview pages for Features, Solutions, and Industries using the copy from the 3 client documents (`_ Features Home`, `_ CRM nErgy Solutions`, `_ Industries Home`).
+2. In `website/src/routes/AppRoutes.jsx`, register:
+   ```jsx
+   <Route path="/features" element={<FeaturesHubPage />} />
+   <Route path="/solutions" element={<SolutionsHubPage />} />
+   <Route path="/industries" element={<IndustriesHubPage />} />
+   ```
+
+### Task 4: Add Dedicated White Label Landing Page (`/features/white-label`)
+1. Create `WhiteLabelPage.jsx` using the content and 6 FAQs from `_ CRM nErgy Solutions - home.docx`.
+2. In `website/src/routes/AppRoutes.jsx`, register:
+   ```jsx
+   <Route path="/features/white-label" element={<WhiteLabelPage />} />
+   ```
+3. Update the homepage White Label banner link from modal popup to navigate directly to `/features/white-label`.
 
 ---
 
-> **Final Verification:** Software ka overall alignment **35% se jump karke ~70% ho chuka hai**. Baki 30% me upar diye gaye 5 specific tasks shamil hain.
+> **Final Verification:** Single master audit report verified and saved at `d:\KIAAN\CRM-energy\crm-energy\crm_nergy_audit_report.md`.
