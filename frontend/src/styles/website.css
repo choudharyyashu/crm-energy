@@ -1,0 +1,417 @@
+/* CRM nErgy Public Website — Dedicated Isolated Theme & Navigation Styles */
+
+.crm-website-theme {
+  --web-primary: #1e1b4b;
+  --web-primary-glow: #4f46e5;
+  --web-accent-cyan: #06b6d4;
+  --web-accent-orange: #f97316;
+  --web-accent-emerald: #10b981;
+  
+  --web-bg: #f8fafc;
+  --web-surface: #ffffff;
+  --web-surface-subtle: #f1f5f9;
+  --web-border: #e2e8f0;
+  --web-border-hover: #cbd5e1;
+  
+  --web-text-main: #0f172a;
+  --web-text-muted: #64748b;
+  --web-text-light: #94a3b8;
+  
+  --web-gradient-hero: linear-gradient(135deg, #4338ca 0%, #3b82f6 50%, #06b6d4 100%);
+  --web-gradient-energy: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
+  --web-gradient-card-hover: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.9) 100%);
+
+  color: var(--web-text-main);
+  background-color: var(--web-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* Dark mode adjustments within website scope */
+[data-theme="dark"] .crm-website-theme {
+  --web-bg: #090d16;
+  --web-surface: #111827;
+  --web-surface-subtle: #1f2937;
+  --web-border: #2d3748;
+  --web-border-hover: #4b5563;
+  --web-text-main: #f8fafc;
+  --web-text-muted: #94a3b8;
+  --web-text-light: #64748b;
+}
+
+/* Navbar Top Container */
+.website-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--web-border);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .website-header-sticky {
+  background: rgba(17, 24, 39, 0.88);
+}
+
+.website-nav-inner {
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Main Navigation Bar Items */
+.website-main-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@media (max-width: 1120px) {
+  .website-main-nav {
+    display: none;
+  }
+  .website-mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* Mobile & Tablet Header Controls */
+.website-mobile-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: var(--web-surface-subtle);
+  border: 1px solid var(--web-border);
+  color: var(--web-text-main);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.website-mobile-toggle:hover {
+  background: var(--web-border);
+}
+
+.website-signin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  background: #0f2b5c;
+  color: #ffffff;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 43, 92, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.website-signin-btn:hover {
+  background: #1e40af;
+}
+
+/* Narrow Screen Header Adjustments (< 640px and < 420px) */
+@media (max-width: 640px) {
+  .website-portal-text {
+    display: none;
+  }
+  .website-signin-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .website-nav-inner {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+  .website-brand-sub {
+    display: none;
+  }
+  .website-signin-btn {
+    padding: 6px 8px;
+    gap: 4px;
+    font-size: 11.5px;
+  }
+}
+
+.website-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--web-text-main);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.website-nav-btn:hover,
+.website-nav-btn.active {
+  background-color: var(--web-surface-subtle);
+  border-color: var(--web-border);
+  color: #4f46e5;
+}
+
+[data-theme="dark"] .website-nav-btn:hover,
+[data-theme="dark"] .website-nav-btn.active {
+  color: #38bdf8;
+}
+
+/* Highlight CTA: Ask My Zunme - VA Virtual Assistant >> */
+.website-cta-zunme {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px -2px rgba(99, 102, 241, 0.4);
+  padding: 8px 16px !important;
+  border-radius: 10px !important;
+}
+
+.website-cta-zunme:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px -2px rgba(99, 102, 241, 0.6);
+  opacity: 0.96;
+}
+
+/* Highlight Button: SALES - chat eBox */
+.website-btn-sales {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+}
+
+.website-btn-sales:hover {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0284c7 !important;
+}
+
+/* Dolibarr-Inspired Card Component */
+.dolibarr-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--web-surface);
+  border: 1px solid var(--web-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  text-align: left;
+}
+
+.dolibarr-card:hover {
+  transform: translateY(-2px);
+  border-color: #6366f1;
+  box-shadow: 0 8px 24px -4px rgba(99, 102, 241, 0.16);
+  background: var(--web-surface);
+}
+
+.dolibarr-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  margin-bottom: 0.65rem;
+  transition: all 0.2s ease;
+}
+
+.dolibarr-card:hover .dolibarr-icon-box {
+  background: #4f46e5;
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+.dolibarr-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--web-text-main);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.dolibarr-desc {
+  font-size: 11.5px;
+  color: var(--web-text-muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mega-Menu Overlay & Dropdown Body */
+.mega-menu-overlay {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: var(--web-surface);
+  border-bottom: 1px solid var(--web-border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+  z-index: 95;
+  max-height: calc(85vh - 72px);
+  overflow-y: auto;
+  animation: megaMenuSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes megaMenuSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mega-menu-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 2rem 1.25rem;
+}
+
+/* Grid layout for 23 features */
+.features-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .features-mega-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .features-mega-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Solutions 4-column mega grid */
+.solutions-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .solutions-mega-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Industries mega grid */
+.industries-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .industries-mega-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Modal and Drawer UI */
+.website-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.website-modal-window {
+  background: var(--web-surface);
+  border: 1px solid var(--web-border);
+  border-radius: 16px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: modalPop 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile Slide-out Drawer */
+.website-mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+}
+
+.website-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.website-drawer-content {
+  position: relative;
+  width: 85%;
+  max-width: 360px;
+  margin-left: auto;
+  background: var(--web-surface);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}

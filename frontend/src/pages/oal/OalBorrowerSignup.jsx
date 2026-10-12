@@ -9,11 +9,11 @@ export const OalBorrowerSignup = () => {
   const { addToast } = useToast();
 
   const [formData, setFormData] = useState({
-    fullName: 'Dr. Aris Thorne',
-    email: 'a.thorne@biogenix.org',
-    phone: '+1 (555) 678-1234',
-    password: 'Password123!',
-    confirmPassword: 'Password123!',
+    fullName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({});

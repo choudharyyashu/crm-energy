@@ -11,22 +11,13 @@ export const OalLogin = () => {
   const { addToast } = useToast();
 
   const [selectedRole, setSelectedRole] = useState('Borrower');
-  const [email, setEmail] = useState('borrower@oalnetwork.com');
-  const [password, setPassword] = useState('••••••••••••');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRoleTabChange = (role) => {
     setSelectedRole(role);
-    if (role === 'Borrower') {
-      setEmail('borrower@biogenix.org');
-    } else if (role === 'Lender') {
-      setEmail('lender@vanguardcapital.com');
-    } else if (role === 'OAL Rep') {
-      setEmail('agent.sarah@oalnetwork.com');
-    } else if (role === 'Admin') {
-      setEmail('admin.alexander@oalnetwork.com');
-    }
   };
 
   const handleSubmit = (e) => {

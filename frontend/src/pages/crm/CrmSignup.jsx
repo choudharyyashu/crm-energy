@@ -11,12 +11,12 @@ export const CrmSignup = () => {
   const { addToast } = useToast();
 
   const [formData, setFormData] = useState({
-    companyName: 'Apex Enterprise Global',
-    legalName: 'Apex Enterprise Global Inc.',
-    businessEmail: 'admin@apexglobal.io',
-    phone: '+1 (555) 234-5678',
-    password: 'Password123!',
-    confirmPassword: 'Password123!',
+    companyName: '',
+    legalName: '',
+    businessEmail: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({});

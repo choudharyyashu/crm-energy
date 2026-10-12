@@ -11,11 +11,11 @@ export const CrmAdminSetup = () => {
   const { addToast } = useToast();
 
   const [adminData, setAdminData] = useState({
-    name: 'Alexander Wright',
-    email: companyData.businessEmail || 'a.wright@nergy.io',
-    phone: companyData.phone || '+1 (555) 019-2834',
-    password: 'Password123!',
-    confirmPassword: 'Password123!',
+    name: '',
+    email: companyData.businessEmail || '',
+    phone: companyData.phone || '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({});

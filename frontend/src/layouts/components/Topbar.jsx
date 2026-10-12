@@ -31,6 +31,8 @@ import {
   Download,
   HelpCircle,
   Zap,
+  Trash2,
+  CheckCheck,
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth, crmRoles, oalRoles } from '../../context/AuthContext';
@@ -63,6 +65,55 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+
+  // Notification clearance state (persisted per session)
+  const [clearedNotificationIds, setClearedNotificationIds] = useState(() => {
+    try {
+      const saved = localStorage.getItem('crm_cleared_notifications');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const unreadNotifications = activities.filter((n) => !clearedNotificationIds.includes(n.id));
+
+  const handleClearAllNotifications = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const allIds = activities.map((n) => n.id);
+    setClearedNotificationIds(allIds);
+    try {
+      localStorage.setItem('crm_cleared_notifications', JSON.stringify(allIds));
+    } catch (_) {}
+    addToast({
+      title: t('Notifications'),
+      message: t('All notifications cleared.'),
+      type: 'info',
+    });
+  };
+
+  const handleDismissNotification = (id, e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const updated = [...new Set([...clearedNotificationIds, id])];
+    setClearedNotificationIds(updated);
+    try {
+      localStorage.setItem('crm_cleared_notifications', JSON.stringify(updated));
+    } catch (_) {}
+  };
+
+  const handleMarkAllAsRead = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const allIds = activities.map((n) => n.id);
+    setClearedNotificationIds(allIds);
+    try {
+      localStorage.setItem('crm_cleared_notifications', JSON.stringify(allIds));
+    } catch (_) {}
+    addToast({
+      title: t('Notifications'),
+      message: t('All notifications marked as read.'),
+      type: 'success',
+    });
+  };
 
   // Global Keyboard Shortcut: Cmd+K / Ctrl+K to open Search
   useEffect(() => {
@@ -247,7 +298,9 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
     <header
       style={{
         height: 'var(--topbar-height)',
-        backgroundColor: 'var(--surface)',
+        backgroundColor: 'var(--glass-surface)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--border)',
         position: 'sticky',
         top: 0,
@@ -258,13 +311,24 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
         padding: '0 1.25rem',
         width: '100%',
         boxSizing: 'border-box',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
-      {/* Left: Brand Logo + Text + Toggle Menu Button (Fits strictly within sidebar section) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+      {/* Left: Navigation Menu Toggle + Brand Logo (Menu button at top-left corner) */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
+          icon={Menu}
+          onClick={onToggleSidebar}
+          aria-label="Toggle Navigation"
+          style={{ flexShrink: 0 }}
+        />
+
         <div
           onClick={() => navigate(product === 'crm' ? '/crm/dashboard' : '/oal/dashboard')}
-          className="flex items-center gap-2.5 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer"
         >
           {product === 'crm' ? (
             <AiEnergyLogo size={32} showText={false} />
@@ -317,15 +381,6 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
             </span>
           </div>
         </div>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          isIconOnly
-          icon={Menu}
-          onClick={onToggleSidebar}
-          aria-label="Toggle Navigation"
-        />
       </div>
 
       {/* Middle: Crisp Global Search Input */}
@@ -335,13 +390,13 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           onClick={() => setIsSearchOpen(true)}
           className="w-full flex items-center justify-between transition-all"
           style={{
-            height: '38px',
+            height: '40px',
             padding: '0 1.15rem',
             cursor: 'pointer',
             backgroundColor: 'var(--surface-secondary)',
             border: '1px solid var(--border)',
-            borderRadius: '8px',
-            boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
+            borderRadius: '12px',
+            boxShadow: 'var(--shadow-sm)',
             boxSizing: 'border-box',
           }}
           onMouseEnter={(e) => {
@@ -465,7 +520,7 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
           <LanguageToggle />
         </div>
 
-        {/* Notifications Dropdown (Badge 8) */}
+        {/* Notifications Dropdown */}
         <Dropdown
           trigger={
             <button
@@ -482,50 +537,155 @@ export const Topbar = ({ onToggleSidebar, product = 'crm' }) => {
               title="Notifications"
             >
               <Bell size={18} />
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-2px',
-                  right: '-2px',
-                  backgroundColor: '#dc2626',
-                  color: '#ffffff',
-                  fontSize: '9px',
-                  fontWeight: 800,
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  lineHeight: 1,
-                  border: '2px solid var(--surface)',
-                }}
-              >
-                {activities.length}
-              </span>
+              {unreadNotifications.length > 0 && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-2px',
+                    right: '-2px',
+                    backgroundColor: '#dc2626',
+                    color: '#ffffff',
+                    fontSize: '9px',
+                    fontWeight: 800,
+                    width: '16px',
+                    height: '16px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    lineHeight: 1,
+                    border: '2px solid var(--surface)',
+                  }}
+                >
+                  {unreadNotifications.length}
+                </span>
+              )}
             </button>
           }
         >
-          <DropdownHeader>{t('System Notifications')} ({activities.length})</DropdownHeader>
-          {activities.length === 0 ? (
-            <div className="p-3 text-center text-xs text-tertiary">{t('No unread notifications')}</div>
+          <DropdownHeader>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+              <span>{t('System Notifications')} ({unreadNotifications.length})</span>
+              {unreadNotifications.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearAllNotifications}
+                  style={{
+                    fontSize: '10.5px',
+                    fontWeight: 700,
+                    color: '#ef4444',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    textTransform: 'none',
+                    letterSpacing: 'normal',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                  title={t('Clear all notifications')}
+                >
+                  <Trash2 size={11} />
+                  <span>{t('Clear all')}</span>
+                </button>
+              )}
+            </div>
+          </DropdownHeader>
+
+          {unreadNotifications.length === 0 ? (
+            <div className="p-4 text-center text-xs text-tertiary flex flex-col items-center gap-1">
+              <span style={{ fontSize: '13px' }}>✨</span>
+              <span>{t('No unread notifications')}</span>
+            </div>
           ) : (
-            activities.slice(0, 5).map((n) => (
-              <DropdownItem
+            unreadNotifications.slice(0, 5).map((n) => (
+              <div
                 key={n.id}
+                className="dropdown-item flex items-center justify-between gap-2"
+                style={{ cursor: 'pointer' }}
                 onClick={() => addToast({ title: 'Notification', message: n.title || n.subject, type: 'info' })}
               >
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-semibold text-xs text-primary truncate" style={{ maxWidth: '240px' }}>{n.title || n.subject}</span>
+                <div className="flex flex-col gap-0.5" style={{ minWidth: 0, flex: 1 }}>
+                  <span className="font-semibold text-xs text-primary truncate" style={{ maxWidth: '210px' }}>{n.title || n.subject}</span>
                   <span className="text-tertiary text-xs">{n.userName || 'System'}</span>
                 </div>
-              </DropdownItem>
+                <button
+                  type="button"
+                  onClick={(e) => handleDismissNotification(n.id, e)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-tertiary, #94a3b8)',
+                    cursor: 'pointer',
+                    padding: '3px',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0.6,
+                    transition: 'opacity 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '1';
+                    e.currentTarget.style.color = '#ef4444';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '0.6';
+                    e.currentTarget.style.color = 'var(--text-tertiary, #94a3b8)';
+                  }}
+                  title="Dismiss notification"
+                >
+                  <X size={12} />
+                </button>
+              </div>
             ))
           )}
-          <DropdownDivider />
-          <DropdownItem onClick={() => addToast({ title: 'Notifications', message: 'All notifications marked as read.', type: 'success' })}>
-            {t('Mark all as read')}
-          </DropdownItem>
+
+          {unreadNotifications.length > 0 && (
+            <>
+              <DropdownDivider />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px 10px' }}>
+                <button
+                  type="button"
+                  onClick={handleMarkAllAsRead}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-secondary, #64748b)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '5px',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
+                    width: '100%',
+                    transition: 'color 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--text-primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary, #64748b)';
+                  }}
+                >
+                  <CheckCheck size={13} />
+                  <span>{t('Mark all as read')}</span>
+                </button>
+              </div>
+            </>
+          )}
         </Dropdown>
 
         {/* Theme Toggle Button - Prominent & Right next to Profile */}

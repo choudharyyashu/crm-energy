@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Topbar } from './components/Topbar';
 import { Sidebar } from './components/Sidebar';
-import { CrmMobileBottomBar } from './components/CrmMobileBottomBar';
 import { CrmMobileAppDrawer } from './components/CrmMobileAppDrawer';
 import { ToastContainer } from '../components/ui/Toast';
 import { useResponsive } from '../hooks/useResponsive';
@@ -67,7 +66,7 @@ export const OalLayout = () => {
             maxWidth: '100%',
             width: '100%',
             padding: isMobile ? '0.875rem' : '1.5rem',
-            paddingBottom: isMobile ? '80px' : '1.5rem',
+            paddingBottom: isMobile ? '1rem' : '1.5rem',
             backgroundColor: 'var(--background)',
             boxSizing: 'border-box',
           }}
@@ -75,14 +74,6 @@ export const OalLayout = () => {
           <Outlet />
         </main>
       </div>
-
-      {/* Native Mobile Bottom Navigation Bar (< 768px) */}
-      {isMobile && (
-        <CrmMobileBottomBar
-          onOpenDrawer={() => setIsMobileDrawerOpen(true)}
-          product="oal"
-        />
-      )}
 
       {/* Native Mobile App Slide-Out Touch Drawer (< 768px) */}
       <CrmMobileAppDrawer

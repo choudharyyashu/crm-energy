@@ -7,6 +7,9 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { SHOW_OAL } from '../config/features';
 import { getOmpFinanceRoutes } from './ompFinanceRoutes';
 
+import { WebsiteLayout } from '../layouts/WebsiteLayout';
+import { WebsiteHome } from '../pages/website/WebsiteHome';
+
 // Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
 
@@ -125,8 +128,16 @@ const OalDashboardDispatcher = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Separate Gateway Login Pages */}
-      <Route path="/" element={<UnifiedLogin mode="crm" />} />
+      {/* CRM nErgy Public Website Routes */}
+      <Route element={<WebsiteLayout />}>
+        <Route path="/" element={<WebsiteHome />} />
+        <Route path="/features" element={<WebsiteHome />} />
+        <Route path="/solutions" element={<WebsiteHome />} />
+        <Route path="/industries" element={<WebsiteHome />} />
+        <Route path="/faqs" element={<WebsiteHome />} />
+      </Route>
+
+      {/* Gateway Login Pages */}
       <Route path="/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />

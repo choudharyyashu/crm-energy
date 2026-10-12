@@ -29,6 +29,7 @@ import {
 import { useCrm } from '../../context/CrmContext';
 import { useErp } from '../../context/ErpContext';
 import { useToast } from '../../context/ToastContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { useNavigate } from 'react-router-dom';
 
 const pipelineColumns = [
@@ -47,6 +48,7 @@ export const CrmPipeline = () => {
   const { deals, addDeal, moveDealStage, refreshDeals } = useCrm();
   const { projects: erpProjects, createFromDeal } = useErp();
   const { addToast } = useToast();
+  const { formatCurrency } = useCurrency();
 
   useEffect(() => {
     if (refreshDeals) {
@@ -278,7 +280,7 @@ export const CrmPipeline = () => {
         {pipelineColumns.map((col) => {
           const colDeals = deals.filter((d) => d.stage === col);
           const totalColValue = colDeals.reduce((sum, d) => {
-            const valNum = parseInt(d.value.replace(/[^0-9]/g, '')) || 0;
+            const valNum = d.rawValue !== undefined ? d.rawValue : (parseInt(String(d.value).replace(/[^0-9]/g, '')) || 0);
             return sum + valNum;
           }, 0);
 
@@ -289,12 +291,12 @@ export const CrmPipeline = () => {
               className="kanban-column"
               style={{
                 backgroundColor: 'var(--surface-secondary)',
-                borderRadius: '12px',
+                borderRadius: '16px',
                 border: selectedMobileStage === col ? '2px solid var(--primary)' : '1px solid var(--border)',
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                boxShadow: 'var(--shadow-sm)',
                 boxSizing: 'border-box',
                 transition: 'border-color 0.2s ease',
               }}
@@ -305,8 +307,8 @@ export const CrmPipeline = () => {
                   padding: '0.875rem 1rem',
                   borderBottom: '1px solid var(--border)',
                   backgroundColor: 'var(--surface)',
-                  borderTopLeftRadius: '12px',
-                  borderTopRightRadius: '12px',
+                  borderTopLeftRadius: '16px',
+                  borderTopRightRadius: '16px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.25rem',
@@ -319,7 +321,7 @@ export const CrmPipeline = () => {
                   </Badge>
                 </div>
                 <div className="text-xs font-bold text-success">
-                  ${totalColValue.toLocaleString()}
+                  {formatCurrency(totalColValue)}
                 </div>
               </div>
 
@@ -339,20 +341,30 @@ export const CrmPipeline = () => {
                       style={{
                         backgroundColor: 'var(--surface)',
                         border: '1px solid var(--border)',
-                        borderRadius: '10px',
-                        padding: '0.875rem',
+                        borderRadius: '14px',
+                        padding: '0.9rem',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '0.5rem',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.03)',
-                        transition: 'all 0.15s ease',
+                        boxShadow: 'var(--shadow-card)',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--primary-border)'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--primary-border)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'var(--shadow-card)';
+                      }}
                     >
                       {/* Top ID & Probability */}
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-tertiary" style={{ fontSize: '11px' }}>{deal.id}</span>
+                        <span className="font-mono text-xs font-semibold text-tertiary" style={{ fontSize: '11px' }} title={`Database ID: ${deal.id}`}>
+                          {deal.displayId || (deal.id ? `DEL-${String(deals.indexOf(deal) + 1).padStart(3, '0')}` : '-')}
+                        </span>
                         <Badge variant="default" style={{ fontSize: '10px' }}>{deal.probability || '50%'} Prob</Badge>
                       </div>
 

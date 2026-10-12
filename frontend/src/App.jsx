@@ -9,6 +9,7 @@ import { HrProvider } from './context/HrContext';
 import { SupportProvider } from './context/SupportContext';
 import { OalProvider } from './context/OalContext';
 import { LanguageProvider } from './context/LanguageContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import { AppRoutes } from './routes/AppRoutes';
 
 import './styles/variables.css';
@@ -28,21 +29,23 @@ export function App() {
       <LanguageProvider>
         <ThemeProvider>
           <AuthProvider>
-          <ToastProvider>
-            <CrmProvider>
-              <ErpProvider>
-                <HrProvider>
-                  <SupportProvider>
-                    <OalProvider>
-                      <AppRoutes />
-                    </OalProvider>
-                  </SupportProvider>
-                </HrProvider>
-              </ErpProvider>
-            </CrmProvider>
-          </ToastProvider>
-        </AuthProvider>
-      </ThemeProvider>
+            <CurrencyProvider>
+              <ToastProvider>
+                <CrmProvider>
+                  <ErpProvider>
+                    <HrProvider>
+                      <SupportProvider>
+                        <OalProvider>
+                          <AppRoutes />
+                        </OalProvider>
+                      </SupportProvider>
+                    </HrProvider>
+                  </ErpProvider>
+                </CrmProvider>
+              </ToastProvider>
+            </CurrencyProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </LanguageProvider>
     </BrowserRouter>
   );
