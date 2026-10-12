@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+// CRM nErgy Enterprise Routing Hub
 import { CrmLayout } from '../layouts/CrmLayout';
 import { OalLayout } from '../layouts/OalLayout';
 import { AuthLayout } from '../layouts/AuthLayout';

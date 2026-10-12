@@ -49,10 +49,12 @@ import { useCrm } from '../../context/CrmContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { useCurrency } from '../../context/CurrencyContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const CrmDashboard = () => {
   const navigate = useNavigate();
   const { user: crmUser } = useAuth();
+  const { t } = useLanguage();
   const { formatCurrency, currency } = useCurrency();
   const {
     contacts,
@@ -224,47 +226,47 @@ export const CrmDashboard = () => {
   const pipelineStages = [
     {
       id: 'negotiation',
-      name: 'Negotiation Stage',
+      name: t('Negotiation Stage'),
       value: formatCurrency(getStageTotal(negotiationDeals)),
-      dealsCount: `${negotiationDeals.length} Deals`,
-      winRate: '72% Win Rate',
+      dealsCount: `${negotiationDeals.length} ${t('Deals')}`,
+      winRate: `72% ${t('Win Rate')}`,
       pct: totalPipelineValue > 0 ? Math.round((getStageTotal(negotiationDeals) / totalPipelineValue) * 100) : 0,
       variant: 'primary',
       badgeColor: '#1d4ed8',
-      description: 'Terms and SLA agreements in active negotiation review',
+      description: t('Terms and SLA agreements in active negotiation review'),
     },
     {
       id: 'proposal',
-      name: 'Proposal Sent',
+      name: t('Proposal Sent'),
       value: formatCurrency(getStageTotal(proposalDeals)),
-      dealsCount: `${proposalDeals.length} Deals`,
-      winRate: '54% Win Rate',
+      dealsCount: `${proposalDeals.length} ${t('Deals')}`,
+      winRate: `54% ${t('Win Rate')}`,
       pct: totalPipelineValue > 0 ? Math.round((getStageTotal(proposalDeals) / totalPipelineValue) * 100) : 0,
       variant: 'success',
       badgeColor: '#16a34a',
-      description: 'Formal commercial quote submitted to decision makers',
+      description: t('Formal commercial quote submitted to decision makers'),
     },
     {
       id: 'qualified',
-      name: 'Qualified Opportunities',
+      name: t('Qualified Opportunities'),
       value: formatCurrency(getStageTotal(qualifiedDeals)),
-      dealsCount: `${qualifiedDeals.length} Deals`,
-      winRate: '41% Win Rate',
+      dealsCount: `${qualifiedDeals.length} ${t('Deals')}`,
+      winRate: `41% ${t('Win Rate')}`,
       pct: totalPipelineValue > 0 ? Math.round((getStageTotal(qualifiedDeals) / totalPipelineValue) * 100) : 0,
       variant: 'warning',
       badgeColor: '#d97706',
-      description: 'Technical scope validated, budget confirmed',
+      description: t('Technical scope validated, budget confirmed'),
     },
     {
       id: 'leads',
-      name: 'New Leads Discovery',
+      name: t('New Leads Discovery'),
       value: formatCurrency(getStageTotal(discoveryDeals)),
-      dealsCount: `${discoveryDeals.length} Deals`,
-      winRate: '28% Win Rate',
+      dealsCount: `${discoveryDeals.length} ${t('Deals')}`,
+      winRate: `28% ${t('Win Rate')}`,
       pct: totalPipelineValue > 0 ? Math.round((getStageTotal(discoveryDeals) / totalPipelineValue) * 100) : 0,
       variant: 'info',
       badgeColor: '#0284c7',
-      description: 'Initial architectural consultation and capability fit',
+      description: t('Initial architectural consultation and capability fit'),
     },
   ];
 
@@ -272,27 +274,27 @@ export const CrmDashboard = () => {
   const leadChannels = [
     {
       id: 'web',
-      name: 'Website Direct Forms',
+      name: t('Website Direct Forms'),
       pct: leads.length > 0 ? 50 : 0,
-      volume: `${leads.length} leads`,
+      volume: `${leads.length} ${t('leads')}`,
       conversion: '100% Sync',
       badgeVariant: 'primary',
       color: '#1d4ed8',
-      cac: 'Active',
+      cac: t('Active'),
       roi: 'Live DB',
-      trend: 'Synchronized',
+      trend: t('Synchronized'),
     },
     {
       id: 'referrals',
-      name: 'Referral Partners & Direct',
+      name: t('Referral Partners & Direct'),
       pct: contacts.length > 0 ? 50 : 0,
-      volume: `${contacts.length} contacts`,
-      conversion: 'Verified',
+      volume: `${contacts.length} ${t('contacts')}`,
+      conversion: t('Verified'),
       badgeVariant: 'success',
       color: '#16a34a',
-      cac: 'Active',
+      cac: t('Active'),
       roi: 'Live DB',
-      trend: 'Synchronized',
+      trend: t('Synchronized'),
     },
   ];
 
@@ -373,13 +375,13 @@ export const CrmDashboard = () => {
                     lineHeight: 1.2,
                   }}
                 >
-                  Executive Command Center
+                  {t('Executive Command Center')}
                 </h1>
 
                 {/* Glowing Status Beacon */}
                 <button
                   type="button"
-                  onClick={() => addToast({ title: 'Telemetry Status', message: 'Tenant Vault Pipeline is 100% active and synchronized.', type: 'success' })}
+                  onClick={() => addToast({ title: t('Telemetry Status'), message: 'Tenant Vault Pipeline is 100% active and synchronized.', type: 'success' })}
                   className="cursor-pointer"
                   style={{
                     display: 'inline-flex',
@@ -404,7 +406,7 @@ export const CrmDashboard = () => {
                       boxShadow: '0 0 8px #10b981',
                     }}
                   />
-                  Live Telemetry Active
+                  {t('Live Telemetry Active')}
                 </button>
               </div>
 
@@ -416,7 +418,7 @@ export const CrmDashboard = () => {
                   fontWeight: 500,
                 }}
               >
-                Welcome back, <strong>{crmUser?.name || 'Alexander Wright'}</strong> · Real-time pipeline analytics, revenue attribution & enterprise deals.
+                {t('Welcome back,')} <strong>{crmUser?.name || 'Alexander Wright'}</strong> · {t('Real-time pipeline analytics, revenue attribution & enterprise deals.')}
               </p>
             </div>
 
@@ -573,7 +575,7 @@ export const CrmDashboard = () => {
                   onClick={handleSyncData}
                   style={{ borderRadius: '10px' }}
                 >
-                  {isSyncing ? 'Syncing...' : 'Sync Data'}
+                  {isSyncing ? t('Syncing...') : t('Sync Data')}
                 </Button>
 
                 {/* + Add Contact Button */}
@@ -584,7 +586,7 @@ export const CrmDashboard = () => {
                   onClick={() => setIsContactModalOpen(true)}
                   style={{ borderRadius: '10px' }}
                 >
-                  Add Contact
+                  {t('Add Contact')}
                 </Button>
 
                 {/* + New Task Primary Gradient Button */}
@@ -617,7 +619,7 @@ export const CrmDashboard = () => {
                   }}
                 >
                   <Plus size={14} style={{ color: '#ffffff' }} />
-                  <span>New Task</span>
+                  <span>{t('New Task')}</span>
                 </button>
               </div>
             </div>
@@ -628,55 +630,55 @@ export const CrmDashboard = () => {
       {/* 2. Row 1: 4 Executive KPI Cards Grid */}
       <div className="grid-responsive-kpi">
         <KPICard
-          title="TOTAL LEADS ACQUIRED"
+          title={t('TOTAL LEADS ACQUIRED')}
           value={String(totalLeadsDisplay)}
           change={totalLeadsDisplay > 0 ? "100%" : "0%"}
           changeType={totalLeadsDisplay > 0 ? "positive" : "neutral"}
-          changePeriod={totalLeadsDisplay > 0 ? "vs last 7 days" : "No active leads"}
+          changePeriod={totalLeadsDisplay > 0 ? t("vs last 7 days") : t("No active leads")}
           icon={Users}
           iconBg="rgba(16, 185, 129, 0.12)"
           iconColor="#10b981"
           onClick={() => navigate('/crm/leads')}
-          tooltip="Click to open Leads Directory"
+          tooltip={t("Click to open Leads Directory")}
         />
 
         <KPICard
-          title="QUALIFIED OPPORTUNITIES"
+          title={t('QUALIFIED OPPORTUNITIES')}
           value={String(qualifiedOppDisplay)}
           change={qualifiedOppDisplay > 0 ? "100%" : "0%"}
           changeType={qualifiedOppDisplay > 0 ? "positive" : "neutral"}
-          changePeriod={totalPipelineValue > 0 ? `${formatCurrency(totalPipelineValue)} Value` : `${formatCurrency(0)} Value`}
+          changePeriod={totalPipelineValue > 0 ? `${formatCurrency(totalPipelineValue)} ${t('Value')}` : `${formatCurrency(0)} ${t('Value')}`}
           icon={Briefcase}
           iconBg="rgba(99, 102, 241, 0.12)"
           iconColor="#6366f1"
           onClick={() => navigate('/crm/leads')}
-          tooltip="Click to open Qualified Deals"
+          tooltip={t("Click to open Qualified Deals")}
         />
 
         <KPICard
-          title="MONTHLY REVENUE (ARR)"
+          title={t('MONTHLY REVENUE (ARR)')}
           value={revenueDisplay}
           change={totalPipelineValue > 0 ? "100%" : "0%"}
           changeType={totalPipelineValue > 0 ? "positive" : "neutral"}
-          changePeriod={totalPipelineValue > 0 ? "Pipeline Volume" : "No active pipeline"}
+          changePeriod={totalPipelineValue > 0 ? t("Pipeline Volume") : t("No active pipeline")}
           icon={DollarSign}
           iconBg="rgba(249, 115, 22, 0.12)"
           iconColor="#f97316"
           onClick={() => navigate('/crm/pipeline')}
-          tooltip="Click to view Revenue Pipeline"
+          tooltip={t("Click to view Revenue Pipeline")}
         />
 
         <KPICard
-          title="ACTIVE ENTERPRISE CLIENTS"
+          title={t('ACTIVE ENTERPRISE CLIENTS')}
           value={String(enterpriseClientCount)}
           change={enterpriseClientCount > 0 ? "100%" : "0%"}
           changeType={enterpriseClientCount > 0 ? "positive" : "neutral"}
-          changePeriod={enterpriseClientCount > 0 ? "Active Accounts" : "No active accounts"}
+          changePeriod={enterpriseClientCount > 0 ? t("Active Accounts") : t("No active accounts")}
           icon={User}
           iconBg="rgba(6, 182, 212, 0.12)"
           iconColor="#06b6d4"
           onClick={() => navigate('/crm/contacts')}
-          tooltip="Click to view Enterprise Contacts"
+          tooltip={t("Click to view Enterprise Contacts")}
         />
       </div>
 
@@ -717,7 +719,7 @@ export const CrmDashboard = () => {
 
           <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
             <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              CONVERSION RATE
+              {t('CONVERSION RATE')}
             </span>
             <span
               style={{
@@ -753,13 +755,13 @@ export const CrmDashboard = () => {
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            {leads.length > 0 ? 'Lead to Opportunity' : 'No active leads'}
+            {leads.length > 0 ? t('Lead to Opportunity') : t('No active leads')}
           </span>
         </div>
 
         {/* Card 2: Avg Deal Cycle */}
         <div
-          onClick={() => addToast({ title: 'Deal Velocity', message: 'Average deal cycle tracking from initial lead to close.', type: 'info' })}
+          onClick={() => addToast({ title: t('Deal Velocity'), message: 'Average deal cycle tracking from initial lead to close.', type: 'info' })}
           className="kpi-card cursor-pointer transition-all"
           style={{
             backgroundColor: 'var(--surface)',
@@ -792,7 +794,7 @@ export const CrmDashboard = () => {
 
           <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
             <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              AVG DEAL CYCLE
+              {t('AVG DEAL CYCLE')}
             </span>
             <span
               style={{
@@ -824,11 +826,11 @@ export const CrmDashboard = () => {
               fontVariantNumeric: 'tabular-nums',
             }}
           >
-            0.0 Days
+            {t('0.0 Days')}
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            From Lead to Close
+            {t('From Lead to Close')}
           </span>
         </div>
 
@@ -836,7 +838,7 @@ export const CrmDashboard = () => {
         <div
           onClick={() => navigate('/crm/tasks')}
           className="kpi-card cursor-pointer transition-all"
-          title="Click to view all tasks & reminders"
+          title={t("Click to view all tasks & reminders")}
           style={{
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
@@ -868,7 +870,7 @@ export const CrmDashboard = () => {
 
           <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
             <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              ACTIVE TASKS
+              {t('ACTIVE TASKS')}
             </span>
             <span
               style={{
@@ -884,7 +886,7 @@ export const CrmDashboard = () => {
                 fontWeight: 700,
               }}
             >
-              {pendingTasksCount > 0 ? `${pendingTasksCount} Pending` : 'All Clear'}
+              {pendingTasksCount > 0 ? `${pendingTasksCount} ${t('Pending')}` : t('All Clear')}
             </span>
           </div>
 
@@ -903,7 +905,7 @@ export const CrmDashboard = () => {
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            {pendingTasksCount > 0 ? 'Follow-ups & Action Items' : 'No pending tasks'}
+            {pendingTasksCount > 0 ? t('Follow-ups & Action Items') : t('No pending tasks')}
           </span>
         </div>
 
@@ -942,7 +944,7 @@ export const CrmDashboard = () => {
 
           <div className="flex items-center justify-between gap-2" style={{ paddingTop: '2px' }}>
             <span style={{ fontSize: '11px', fontWeight: 750, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              DATA SYNC STATUS
+              {t('DATA SYNC STATUS')}
             </span>
             <span
               style={{
@@ -959,7 +961,7 @@ export const CrmDashboard = () => {
               }}
             >
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 6px #10b981' }} />
-              Live
+              {t('Live')}
             </span>
           </div>
 
@@ -973,11 +975,11 @@ export const CrmDashboard = () => {
               letterSpacing: '-0.025em',
             }}
           >
-            Synced
+            {t('Synced')}
           </div>
 
           <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: 500 }}>
-            {lastSyncTime}
+            {t(lastSyncTime) || lastSyncTime}
           </span>
         </div>
       </div>
@@ -990,7 +992,7 @@ export const CrmDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                  Sales Pipeline Distribution
+                  {t('Sales Pipeline Distribution')}
                 </h3>
               </div>
 
@@ -1000,7 +1002,7 @@ export const CrmDashboard = () => {
                 className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer"
                 style={{ background: 'none', border: 'none', color: '#1d4ed8' }}
               >
-                <span>View Kanban</span>
+                <span>{t('View Kanban')}</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -1011,7 +1013,7 @@ export const CrmDashboard = () => {
                 <div
                   key={stage.id}
                   onClick={() => {
-                    addToast({ title: 'Stage Details', message: `${stage.name}: ${stage.value} (${stage.dealsCount})`, type: 'info' });
+                    addToast({ title: t('Stage Details'), message: `${stage.name}: ${stage.value} (${stage.dealsCount})`, type: 'info' });
                     navigate('/crm/pipeline');
                   }}
                   className="dashboard-stage-item cursor-pointer hover:border-strong transition-all"
@@ -1054,8 +1056,8 @@ export const CrmDashboard = () => {
               className="flex items-center justify-between pt-3 text-xs"
               style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)', marginTop: '2px' }}
             >
-              <span>Total: <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue)}</strong></span>
-              <span>Weighted: <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue * 0.5)}</strong></span>
+              <span>{t('Total:')} <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue)}</strong></span>
+              <span>{t('Weighted:')} <strong className="text-primary font-bold">{formatCurrency(totalPipelineValue * 0.5)}</strong></span>
             </div>
           </div>
         </Card>
@@ -1066,7 +1068,7 @@ export const CrmDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                  Lead Sources & Attribution
+                  {t('Lead Sources & Attribution')}
                 </h3>
               </div>
               <button
@@ -1075,7 +1077,7 @@ export const CrmDashboard = () => {
                 className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer"
                 style={{ background: 'none', border: 'none', color: '#1d4ed8' }}
               >
-                <span>All Leads</span>
+                <span>{t('All Leads')}</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -1120,14 +1122,14 @@ export const CrmDashboard = () => {
               className="flex items-center justify-between pt-4 text-xs"
               style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)', marginTop: '4px' }}
             >
-              <span>Total Leads: <strong className="text-primary font-bold">{leads.length}</strong></span>
+              <span>{t('Total Leads:')} <strong className="text-primary font-bold">{leads.length}</strong></span>
               <button
                 type="button"
                 onClick={() => navigate('/crm/leads')}
                 className="px-3 py-1.5 rounded-md border-subtle surface hover:bg-hover transition-colors font-medium text-primary cursor-pointer"
                 style={{ fontSize: '11px', backgroundColor: 'var(--surface-secondary)', border: '1px solid var(--border)' }}
               >
-                View All Sources
+                {t('View All Sources')}
               </button>
             </div>
           </div>
@@ -1142,7 +1144,7 @@ export const CrmDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                  Live CRM Activity Audit
+                  {t('Live CRM Activity Audit')}
                 </h3>
               </div>
               <button
@@ -1151,7 +1153,7 @@ export const CrmDashboard = () => {
                 className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer"
                 style={{ background: 'none', border: 'none', color: '#1d4ed8' }}
               >
-                <span>View All</span>
+                <span>{t('View All')}</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -1168,7 +1170,7 @@ export const CrmDashboard = () => {
                   }`}
                   style={{ border: '1px solid var(--border)' }}
                 >
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  {t(cat.charAt(0).toUpperCase() + cat.slice(1))}
                 </button>
               ))}
             </div>
@@ -1178,8 +1180,8 @@ export const CrmDashboard = () => {
               {filteredActivities.length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-6 text-center text-tertiary">
                   <Activity size={28} className="mb-2 text-secondary opacity-60" />
-                  <span className="text-xs font-semibold text-primary">No Activity Logged</span>
-                  <span className="text-xs">Audit actions and CRM events will appear here in real-time.</span>
+                  <span className="text-xs font-semibold text-primary">{t('No Activity Logged')}</span>
+                  <span className="text-xs">{t('Audit actions and CRM events will appear here in real-time.')}</span>
                 </div>
               ) : (
                 filteredActivities.map((act) => (
@@ -1272,7 +1274,7 @@ export const CrmDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                  Upcoming Priority Tasks
+                  {t('Upcoming Priority Tasks')}
                 </h3>
               </div>
               <button
@@ -1281,7 +1283,7 @@ export const CrmDashboard = () => {
                 className="flex items-center gap-1 text-xs font-semibold text-primary hover:underline cursor-pointer"
                 style={{ background: 'none', border: 'none', color: '#1d4ed8' }}
               >
-                <span>View All Tasks</span>
+                <span>{t('View All Tasks')}</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -1290,9 +1292,9 @@ export const CrmDashboard = () => {
             <div className="flex items-center justify-between flex-wrap" style={{ gap: '10px' }}>
               <div className="flex items-center flex-wrap" style={{ gap: '6px' }}>
                 {[
-                  { id: 'all', label: `All (${tasks.length})` },
-                  { id: 'pending', label: `Pending (${tasks.filter((t) => t.status !== 'Completed').length})` },
-                  { id: 'completed', label: `Completed (${tasks.filter((t) => t.status === 'Completed').length})` },
+                  { id: 'all', label: `${t('All')} (${tasks.length})` },
+                  { id: 'pending', label: `${t('Pending')} (${tasks.filter((t) => t.status !== 'Completed').length})` },
+                  { id: 'completed', label: `${t('Completed')} (${tasks.filter((t) => t.status === 'Completed').length})` },
                 ].map((f) => (
                   <button
                     key={f.id}
@@ -1314,7 +1316,7 @@ export const CrmDashboard = () => {
                 className="text-xs font-semibold text-primary hover:underline cursor-pointer"
                 style={{ background: 'none', border: 'none', color: '#1d4ed8' }}
               >
-                + Quick Add
+                {t('+ Quick Add')}
               </button>
             </div>
 

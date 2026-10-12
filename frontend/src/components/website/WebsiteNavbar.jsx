@@ -179,10 +179,11 @@ export const WebsiteNavbar = ({
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title="Launch My Zunme VA Virtual Assistant"
+            title={t('Ask My Zunme — VA Virtual Assistant')}
           >
             <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
+            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
+            <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
           </button>
 
           {/* 6. SALES - chat eBox */}
@@ -231,7 +232,7 @@ export const WebsiteNavbar = ({
               justifyContent: 'center',
               cursor: 'pointer'
             }}
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
           </button>
@@ -252,6 +253,28 @@ export const WebsiteNavbar = ({
           >
             <LogIn size={14} />
             <span>{t('Sign In')}<span className="website-portal-text"> / {t('Portal')}</span></span>
+<<<<<<< HEAD
+=======
+          </button>
+
+          {/* DISTINCT CREATE ACCOUNT BUTTON */}
+          <button
+            type="button"
+            onClick={() => navigate('/crm/signup')}
+            className="website-signin-btn"
+            style={{
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              color: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <span>{t('Create Account')}</span>
+            <ArrowRight size={14} />
+>>>>>>> 3bda00d8dc15d577994b15d8718d523eb4ad4672
           </button>
 
           {/* Mobile Hamburger Toggle Button */}
