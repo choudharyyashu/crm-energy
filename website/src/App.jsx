@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
+import { ToastProvider } from './context/ToastContext';
 import { AppRoutes } from './routes/AppRoutes';
 
 import './styles/variables.css';
@@ -21,7 +22,9 @@ export function App() {
     >
       <LanguageProvider>
         <ThemeProvider>
-          <AppRoutes />
+          <ToastProvider>
+            <AppRoutes />
+          </ToastProvider>
         </ThemeProvider>
       </LanguageProvider>
     </BrowserRouter>
