@@ -568,18 +568,19 @@ export const ProfessionalServicesPage = () => {
             marginBottom: '1.75rem'
           }}>
             {/* Table Header */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(220px, 1fr) minmax(300px, 2fr)',
-              background: 'var(--web-surface-subtle)',
-              borderBottom: '1px solid var(--web-border)',
-              padding: '12px 18px',
-              fontWeight: 800,
-              fontSize: '12.5px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              color: 'var(--web-text-main)'
-            }}>
+            <div
+              className="website-responsive-table-grid website-responsive-table-header"
+              style={{
+                background: 'var(--web-surface-subtle)',
+                borderBottom: '1px solid var(--web-border)',
+                padding: '12px 18px',
+                fontWeight: 800,
+                fontSize: '12.5px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: 'var(--web-text-main)'
+              }}
+            >
               <span>{t('Business Type')}</span>
               <span>{t('How CRM nErgy Supports Them')}</span>
             </div>
@@ -590,14 +591,12 @@ export const ProfessionalServicesPage = () => {
               return (
                 <div
                   key={idx}
+                  className="website-responsive-table-grid"
                   style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(220px, 1fr) minmax(300px, 2fr)',
                     padding: '14px 18px',
                     borderBottom: idx === businessTypes.length - 1 ? 'none' : '1px solid var(--web-border)',
                     fontSize: '13.5px',
-                    backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(2, 132, 199, 0.015)',
-                    alignItems: 'center'
+                    backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(2, 132, 199, 0.015)'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -709,18 +708,19 @@ export const ProfessionalServicesPage = () => {
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
           marginBottom: '2.5rem'
         }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(200px, 1fr) minmax(300px, 2fr)',
-            background: 'var(--web-surface-subtle)',
-            borderBottom: '1px solid var(--web-border)',
-            padding: '12px 18px',
-            fontWeight: 800,
-            fontSize: '12.5px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            color: 'var(--web-text-main)'
-          }}>
+          <div
+            className="website-responsive-table-grid website-responsive-table-header"
+            style={{
+              background: 'var(--web-surface-subtle)',
+              borderBottom: '1px solid var(--web-border)',
+              padding: '12px 18px',
+              fontWeight: 800,
+              fontSize: '12.5px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: 'var(--web-text-main)'
+            }}
+          >
             <span>{t('Benefit Area')}</span>
             <span>{t('How CRM nErgy Helps?')}</span>
           </div>
@@ -730,14 +730,12 @@ export const ProfessionalServicesPage = () => {
             return (
               <div
                 key={idx}
+                className="website-responsive-table-grid"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(200px, 1fr) minmax(300px, 2fr)',
                   padding: '14px 18px',
                   borderBottom: idx === whiteLabelBenefits.length - 1 ? 'none' : '1px solid var(--web-border)',
                   fontSize: '13.5px',
-                  backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(99, 102, 241, 0.015)',
-                  alignItems: 'center'
+                  backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(99, 102, 241, 0.015)'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

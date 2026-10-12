@@ -116,13 +116,15 @@ export const InfluencersCrmPage = () => {
         borderBottom: '1px solid var(--web-border)',
         padding: '0.875rem 1.25rem'
       }}>
-        <div style={{
+        <div className="website-breadcrumb-bar" style={{
           maxWidth: '1280px',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          fontSize: '12.5px'
+          fontSize: '12.5px',
+          flexWrap: 'wrap',
+          gap: '8px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
             <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
@@ -322,7 +324,7 @@ export const InfluencersCrmPage = () => {
         backgroundColor: 'var(--web-surface)',
         borderBottom: '1px solid var(--web-border)'
       }}>
-        <div style={{ maxWidth: '1080px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1080px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '2.5rem', alignItems: 'center' }}>
           <div>
             <div style={{
               display: 'inline-flex',
@@ -431,7 +433,7 @@ export const InfluencersCrmPage = () => {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
             gap: '1.75rem'
           }}>
             {purposes.map((purpose, idx) => {

@@ -727,3 +727,109 @@
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.25rem;
 }
+
+/* ======================================================== */
+/* Responsive Table Grids & Two-Column Split Adaptations    */
+/* ======================================================== */
+.website-responsive-table-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(260px, 2fr);
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .website-responsive-table-grid {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  .website-responsive-table-header {
+    display: none !important;
+  }
+}
+
+/* Breadcrumb Bar Responsiveness */
+.website-breadcrumb-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+}
+
+@media (max-width: 480px) {
+  .website-breadcrumb-bar {
+    font-size: 11.5px;
+  }
+}
+
+/* Footer Responsive Adaptations */
+.website-footer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .website-footer-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .website-footer-header-actions > button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* Mobile Screen Navbar Adjustments (< 480px) */
+@media (max-width: 480px) {
+  .website-header-sticky {
+    height: 62px;
+  }
+  .website-nav-inner {
+    padding: 0 0.6rem;
+    gap: 4px;
+  }
+  .website-brand-title {
+    font-size: 15px !important;
+  }
+  .website-brand-sub {
+    display: none !important;
+  }
+  .website-signin-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .website-mobile-toggle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 360px) {
+  .website-brand-title {
+    font-size: 13.5px !important;
+  }
+  .website-signin-btn {
+    padding: 4px 6px;
+    font-size: 10.5px;
+  }
+}
+
+/* Mobile Modal Enhancements */
+@media (max-width: 480px) {
+  .website-modal-backdrop {
+    padding: 0.5rem;
+  }
+  .website-modal-window {
+    max-height: 94vh;
+    border-radius: 12px;
+    width: 100% !important;
+  }
+}
+

@@ -92,13 +92,15 @@ export const StartupsCrmPage = () => {
         borderBottom: '1px solid var(--web-border)',
         padding: '0.875rem 1.25rem'
       }}>
-        <div style={{
+        <div className="website-breadcrumb-bar" style={{
           maxWidth: '1280px',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          fontSize: '12.5px'
+          fontSize: '12.5px',
+          flexWrap: 'wrap',
+          gap: '8px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)' }}>
             <Link to="/" style={{ color: 'var(--web-text-muted)', textDecoration: 'none' }}>{t('Home')}</Link>
@@ -290,7 +292,7 @@ export const StartupsCrmPage = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {keyBenefits.map((item, idx) => {
@@ -343,7 +345,7 @@ export const StartupsCrmPage = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
           gap: '1.25rem'
         }}>
           {selectionCriteria.map((item, idx) => {

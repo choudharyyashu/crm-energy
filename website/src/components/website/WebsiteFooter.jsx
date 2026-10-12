@@ -65,7 +65,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales }) => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="website-footer-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               type="button"
               onClick={onOpenSales}
