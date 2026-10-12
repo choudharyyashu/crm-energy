@@ -181,9 +181,10 @@ export const WebsiteNavbar = ({
             onClick={onOpenZunme}
             title={t('Ask My Zunme — VA Virtual Assistant')}
           >
-            <Sparkles size={14} style={{ color: '#fef08a' }} />
-            <span>{t('Ask My Zunme — VA Virtual Assistant')}</span>
-            <span style={{ letterSpacing: '0.05em', fontWeight: 900 }}>&gt;&gt;</span>
+            <Sparkles size={14} style={{ color: '#fef08a', flexShrink: 0 }} />
+            <span className="website-zunme-full">{t('Ask My Zunme — VA Virtual Assistant')}</span>
+            <span className="website-zunme-short">{t('Ask My Zunme')}</span>
+            <span style={{ letterSpacing: '0.05em', fontWeight: 900, flexShrink: 0 }}>&gt;&gt;</span>
           </button>
 
           {/* 6. SALES - chat eBox */}
@@ -212,7 +213,7 @@ export const WebsiteNavbar = ({
         </nav>
 
         {/* Right Side Controls: Language Switcher, Theme Toggle & Sign In */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
           {/* 1-Click English ↔ Spanish Language Selector */}
           <div style={{ flexShrink: 0 }}>
             <LanguageToggle />
@@ -223,10 +224,10 @@ export const WebsiteNavbar = ({
             type="button"
             onClick={toggleTheme}
             style={{
-              width: '36px',
-              height: '36px',
-              minWidth: '36px',
-              minHeight: '36px',
+              width: '32px',
+              height: '32px',
+              minWidth: '32px',
+              minHeight: '32px',
               flexShrink: 0,
               borderRadius: '50%',
               background: 'var(--web-surface-subtle)',
@@ -239,7 +240,7 @@ export const WebsiteNavbar = ({
             }}
             title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} style={{ color: '#f59e0b' }} />}
+            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} style={{ color: '#f59e0b' }} />}
           </button>
 
           {/* DISTINCT LOGIN BUTTON */}
@@ -253,9 +254,9 @@ export const WebsiteNavbar = ({
               color: 'var(--web-text-main)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px',
-              padding: '6px 10px',
-              fontSize: '12px',
+              gap: '4px',
+              padding: '5px 8px',
+              fontSize: '11.5px',
               flexShrink: 0,
             }}
           >
@@ -276,8 +277,8 @@ export const WebsiteNavbar = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
-              padding: '6px 10px',
-              fontSize: '12px',
+              padding: '5px 9px',
+              fontSize: '11.5px',
               flexShrink: 0,
             }}
           >

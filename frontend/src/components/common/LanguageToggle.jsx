@@ -26,7 +26,7 @@ export const LanguageToggle = () => {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        padding: '3px',
+        padding: '2px',
         borderRadius: '20px',
         backgroundColor: 'var(--web-surface-subtle, var(--surface-secondary, rgba(15, 23, 42, 0.06)))',
         border: '1px solid var(--web-border, var(--border, rgba(148, 163, 184, 0.25)))',
@@ -34,15 +34,15 @@ export const LanguageToggle = () => {
         flexShrink: 0,
         whiteSpace: 'nowrap',
         userSelect: 'none',
-        height: '34px',
+        height: '32px',
         boxSizing: 'border-box',
       }}
       role="group"
       aria-label="Language Selector"
       title="1-Click Language Switcher (EN / ES)"
     >
-      <div style={{ display: 'flex', alignItems: 'center', padding: '0 4px 0 6px', color: '#0ea5e9', flexShrink: 0 }}>
-        <Globe size={14} />
+      <div style={{ display: 'flex', alignItems: 'center', padding: '0 3px 0 5px', color: '#0ea5e9', flexShrink: 0 }}>
+        <Globe size={13} />
       </div>
 
       <button
@@ -51,9 +51,9 @@ export const LanguageToggle = () => {
         style={{
           border: 'none',
           outline: 'none',
-          padding: '3px 9px',
-          borderRadius: '14px',
-          fontSize: '11.5px',
+          padding: '2px 8px',
+          borderRadius: '13px',
+          fontSize: '11px',
           fontWeight: 700,
           cursor: 'pointer',
           backgroundColor: language === 'EN' ? '#0ea5e9' : 'transparent',
@@ -74,9 +74,9 @@ export const LanguageToggle = () => {
         style={{
           border: 'none',
           outline: 'none',
-          padding: '3px 9px',
-          borderRadius: '14px',
-          fontSize: '11.5px',
+          padding: '2px 8px',
+          borderRadius: '13px',
+          fontSize: '11px',
           fontWeight: 700,
           cursor: 'pointer',
           backgroundColor: language === 'ES' ? '#0ea5e9' : 'transparent',
