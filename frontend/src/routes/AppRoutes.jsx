@@ -138,9 +138,17 @@ const OalDashboardDispatcher = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* CRM nErgy Public Website Routes */}
+      {/* Root Gateway Login Page for CRM ERP Software */}
+      <Route path="/" element={<UnifiedLogin mode="crm" />} />
+
+      {/* Gateway Login Pages */}
+      <Route path="/login" element={<UnifiedLogin mode="crm" />} />
+      <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
+      <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />
+
+      {/* CRM nErgy Public Website Routes (Fallback) */}
       <Route element={<WebsiteLayout />}>
-        <Route path="/" element={<WebsiteHome />} />
+        <Route path="/website" element={<WebsiteHome />} />
         <Route path="/features" element={<WebsiteHome />} />
         <Route path="/solutions" element={<WebsiteHome />} />
         <Route path="/industries" element={<WebsiteHome />} />
@@ -156,11 +164,6 @@ export const AppRoutes = () => {
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
         <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
       </Route>
-
-      {/* Gateway Login Pages */}
-      <Route path="/login" element={<UnifiedLogin mode="crm" />} />
-      <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
-      <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />
 
       <Route element={<CrmLayout />}>
         <Route path="/showcase" element={<Showcase />} />
