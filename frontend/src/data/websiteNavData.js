@@ -598,5 +598,23 @@ export const FAQ_QUESTIONS_DATA = [
     qEs: '¿Podemos integrar CRM nErgy con nuestras aplicaciones de terceros existentes?',
     a: 'Absolutely. We provide certified high-throughput API connectors for Salesforce, QuickBooks, SAP, Stripe, Google Workspace, Microsoft 365, and custom webhooks.',
     aEs: 'Por supuesto. Ofrecemos conectores API certificados de alto rendimiento para Salesforce, QuickBooks, SAP, Stripe, Google Workspace, Microsoft 365 y webhooks personalizados.'
+  },
+  {
+    q: 'How does the AI-powered centralized Knowledge Base with RAG enhance our FAQs?',
+    qEs: '¿Cómo mejora nuestras preguntas frecuentes la Base de Conocimiento centralizada con IA y RAG?',
+    a: 'Yes, we make FAQs much smarter than a normal FAQ system by using an AI-powered centralized Knowledge Base with RAG. All FAQs and product knowledge are managed from one central place, automatically serving 100+ website pages. Visitors ask questions naturally instead of searching manually, and AI answers based on your actual CRM/ERP verified data, reducing incorrect answers.',
+    aEs: 'Sí, hacemos que las preguntas frecuentes sean mucho más inteligentes que un sistema convencional mediante una Base de Conocimiento centralizada con IA y RAG. Todas las preguntas frecuentes y el conocimiento del producto se gestionan desde un solo lugar central, atendiendo automáticamente a más de 100 páginas web. Los visitantes preguntan de forma natural y la IA responde basándose en datos reales de su CRM/ERP, eliminando respuestas incorrectas.'
+  },
+  {
+    q: 'What are the main benefits of building one central AI knowledge system over a basic FAQ page?',
+    qEs: '¿Cuáles son los principales beneficios de construir un sistema central de conocimiento con IA sobre una página de preguntas básica?',
+    a: 'The key benefits are: 1) Centralized single-source management, 2) Automatic syndication to 100+ website pages, 3) Natural language inquiries, 4) Factual CRM/ERP grounding, 5) Instant live updates without altering pages, 6) Automatic discovery of unaddressed customer questions, 7) Shared foundation for website, CRM, ERP, and AI support agents, and 8) Open-source RAG technology with API connections only where needed to control ongoing costs.',
+    aEs: 'Los beneficios clave son: 1) Gestión centralizada de fuente única, 2) Distribución automática a más de 100 páginas, 3) Consultas en lenguaje natural, 4) Fundamentación en datos reales de CRM/ERP, 5) Actualizaciones instantáneas sin cambiar páginas, 6) Detección de preguntas no respondidas para cerrar brechas, 7) Base compartida para asistentes web, CRM, ERP y agentes de soporte, y 8) Tecnología RAG de código abierto para controlar costos recurrentes.'
+  },
+  {
+    q: 'Can we use open-source/free RAG technology to control ongoing AI costs?',
+    qEs: '¿Podemos utilizar tecnología RAG de código abierto para controlar los costos continuos de IA?',
+    a: 'Yes. We utilize high-efficiency open-source vector embeddings and local retrieval for the bulk of the system, connecting to commercial frontier AI APIs only when advanced reasoning or creative synthesis is required. This ensures maximum speed, complete data privacy, and minimal ongoing cloud expenses.',
+    aEs: 'Sí. Utilizamos incrustaciones vectoriales de código abierto y recuperación local para la mayor parte del sistema, conectándonos a APIs comerciales de IA únicamente cuando se requiere síntesis avanzada. Esto garantiza máxima velocidad, privacidad absoluta y costos continuos mínimos.'
   }
 ];
