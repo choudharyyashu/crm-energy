@@ -27,7 +27,15 @@ import {
   Database,
   Network,
   RefreshCw,
-  FileSearch
+  FileSearch,
+  LogIn,
+  Landmark,
+  FolderKanban,
+  ShoppingCart,
+  Store,
+  BookOpen,
+  UserCheck,
+  Factory
 } from 'lucide-react';
 import {
   CRM_FEATURES_DATA,
@@ -35,12 +43,13 @@ import {
   INDUSTRIES_DATA,
   FAQ_QUESTIONS_DATA
 } from '../../data/websiteNavData';
+import { getLoginUrl, getSignupUrl } from '../../config/portalConfig';
 
 export const WebsiteHome = () => {
   const navigate = useNavigate();
   const { language, t } = useLanguage();
   const isEs = language === 'ES';
-  const { onOpenZunme, onOpenSales, onSelectItem } = useOutletContext() || {};
+  const { onOpenZunme, onOpenSales, onOpenSignup, onSelectItem } = useOutletContext() || {};
 
   // Features filter tab
   const [featureCategory, setFeatureCategory] = useState('All');
@@ -179,6 +188,153 @@ export const WebsiteHome = () => {
     ? CRM_FEATURES_DATA
     : CRM_FEATURES_DATA.filter((f) => f.category === featureCategory);
 
+  const erpModules = [
+    {
+      id: 'analytic-accounting',
+      name: 'Accounting',
+      nameEs: 'Contabilidad',
+      tag: 'Core Ledger',
+      icon: Landmark,
+      color: '#0284c7',
+      bg: 'rgba(2, 132, 199, 0.1)',
+      desc: 'Multi-dimensional cost centers, analytical journal ledger, and automated financial statements.',
+      descEs: 'Centros de costos multidimensionales, libro diario analítico y balances financieros automatizados.',
+      route: '/features/analytic-accounting'
+    },
+    {
+      id: 'crm',
+      name: 'CRM',
+      nameEs: 'CRM',
+      tag: 'Pipelines & Leads',
+      icon: Users,
+      color: '#4f46e5',
+      bg: 'rgba(79, 70, 229, 0.1)',
+      desc: 'Lead qualification staging, 360° contact history, and deal progression workflows.',
+      descEs: 'Calificación de prospectos, historial 360° de contactos y flujo de cierre de negocios.',
+      route: '/features/contact-management'
+    },
+    {
+      id: 'hr',
+      name: 'HR',
+      nameEs: 'Recursos Humanos',
+      tag: 'Talent & Payroll',
+      icon: UserCheck,
+      color: '#10b981',
+      bg: 'rgba(16, 185, 129, 0.1)',
+      desc: 'Candidate onboarding, multi-tier staff records, shift scheduling, and salary calculation.',
+      descEs: 'Incorporación de personal, expedientes de colaboradores, turnos y nómina de sueldos.',
+      route: '/features/recruitment-onboarding'
+    },
+    {
+      id: 'project',
+      name: 'Project',
+      nameEs: 'Proyectos',
+      tag: 'Tasks & Sprints',
+      icon: FolderKanban,
+      color: '#f59e0b',
+      bg: 'rgba(245, 158, 11, 0.1)',
+      desc: 'Interactive Gantt charts, Kanban workboards, milestone delivery, and client billing time.',
+      descEs: 'Diagramas de Gantt, tableros Kanban, entrega por hitos y facturación por horas.',
+      route: '/features/project-management'
+    },
+    {
+      id: 'inventory',
+      name: 'Inventory',
+      nameEs: 'Inventario',
+      tag: 'Warehousing',
+      icon: Boxes,
+      color: '#06b6d4',
+      bg: 'rgba(6, 182, 212, 0.1)',
+      desc: 'Real-time multi-warehouse valuation, serial/lot tracking, barcode scanner, and replenishment.',
+      descEs: 'Valoración multialmacén en tiempo real, trazabilidad por lotes, código de barras y reposición.',
+      route: '/features/inventory-management'
+    },
+    {
+      id: 'manufacturing',
+      name: 'Manufacturing',
+      nameEs: 'Producción',
+      tag: 'BOM & Assembly',
+      icon: Factory,
+      color: '#8b5cf6',
+      bg: 'rgba(139, 92, 246, 0.1)',
+      desc: 'Multi-level Bill of Materials (BOM), routings, shop floor management, and costing models.',
+      descEs: 'Listas de materiales multinivel (BOM), rutas de fabricación, órdenes de planta y costeo.',
+      route: '/features/manufacturing'
+    },
+    {
+      id: 'ecommerce',
+      name: 'E-Commerce',
+      nameEs: 'Comercio Electrónico',
+      tag: 'Digital Sales',
+      icon: ShoppingCart,
+      color: '#ec4899',
+      bg: 'rgba(236, 72, 153, 0.1)',
+      desc: 'Synchronized online product catalogs, B2B customer pricing, and merchant checkout gateways.',
+      descEs: 'Catálogos de productos sincronizados, listas de precios B2B y pasarelas de pago digitales.',
+      action: 'features'
+    },
+    {
+      id: 'pdm',
+      name: 'PDM',
+      nameEs: 'Gestión de Producto (PDM)',
+      tag: 'Data Management',
+      icon: Layers,
+      color: '#6366f1',
+      bg: 'rgba(99, 102, 241, 0.1)',
+      desc: 'Product Data Management tracking technical specs, design revisions, and item master files.',
+      descEs: 'Control de versiones técnicas, especificaciones de ingeniería y archivo maestro de artículos.',
+      action: 'features'
+    },
+    {
+      id: 'km',
+      name: 'KM',
+      nameEs: 'Conocimiento (KM)',
+      tag: 'AI Knowledge Base',
+      icon: BookOpen,
+      color: '#14b8a6',
+      bg: 'rgba(20, 184, 166, 0.1)',
+      desc: 'Knowledge Management powered by Centralized AI RAG, corporate wikis, and SOP indexing.',
+      descEs: 'Gestión del conocimiento impulsada por RAG centralizado, wikis y manuales operativos indexados.',
+      action: 'faqs'
+    },
+    {
+      id: 'pos',
+      name: 'POS',
+      nameEs: 'Punto de Venta (POS)',
+      tag: 'Retail Checkout',
+      icon: Store,
+      color: '#f97316',
+      bg: 'rgba(249, 115, 22, 0.1)',
+      desc: 'Point of sale registers supporting touch terminals, receipt printing, and cashier shifts.',
+      descEs: 'Terminales punto de venta táctiles, impresión de recibos y arqueo de turnos de caja.',
+      action: 'features'
+    },
+    {
+      id: 'trade',
+      name: 'Trade',
+      nameEs: 'Comercio Exterior',
+      tag: 'Global Logistics',
+      icon: Globe,
+      color: '#0284c7',
+      bg: 'rgba(2, 132, 199, 0.1)',
+      desc: 'Import/export customs logistics, multimodal shipping, multi-currency invoicing, and tariffs.',
+      descEs: 'Logística de importación/exportación, transporte multimodal, facturación multidivisa y aranceles.',
+      action: 'solutions'
+    },
+    {
+      id: 'more',
+      name: 'More',
+      nameEs: 'Más Módulos',
+      tag: 'Ecosystem & AI',
+      icon: Sparkles,
+      color: '#d97706',
+      bg: 'rgba(217, 119, 6, 0.1)',
+      desc: 'ZUNME AI content generator, 23 vertical packs, lending marketplace, and extensible open APIs.',
+      descEs: 'Estudio generativo de IA ZUNME, 23 paquetes sectoriales, mercado de préstamos y APIs abiertas.',
+      action: 'features'
+    }
+  ];
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'hidden' }}>
       {/* ======================================================== */}
@@ -192,19 +348,19 @@ export const WebsiteHome = () => {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            padding: '6px 16px',
+            padding: '6px 18px',
             borderRadius: '24px',
             background: 'rgba(99, 102, 241, 0.08)',
             border: '1px solid rgba(99, 102, 241, 0.25)',
-            fontSize: 'clamp(11px, 2.6vw, 12.5px)',
-            fontWeight: 700,
+            fontSize: 'clamp(11px, 2.6vw, 13px)',
+            fontWeight: 800,
             color: '#4f46e5',
             maxWidth: '100%',
             textAlign: 'center',
             lineHeight: 1.4
           }}>
             <Sparkles size={14} style={{ color: '#f59e0b', flexShrink: 0 }} />
-            <span>{t('CRM Solutions Every Business Needs • “Make AI Your Bestie”')}</span>
+            <span>{isEs ? 'Inteligencia Artificial Avanzada • “Haz de la IA Tu Mejor Amigo”' : 'Advanced Artificial Intelligence • “Make AI Your Bestie”'}</span>
           </div>
 
           <h1 style={{
@@ -213,7 +369,8 @@ export const WebsiteHome = () => {
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
             color: 'var(--web-text-main)',
-            margin: 0
+            margin: 0,
+            textAlign: 'center'
           }}>
             {t('CRM Solutions Every Business Needs')}
           </h1>
@@ -245,10 +402,14 @@ export const WebsiteHome = () => {
           </p>
 
           {/* Action Buttons */}
-          <div className="website-hero-cta-group">
-            {/* Primary Features CTA */}
-            <a
-              href="#features"
+          <div className="website-hero-cta-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+            {/* 1. Direct Portal Sign Up / Create Account */}
+            <button
+              type="button"
+              onClick={() => {
+                if (onOpenSignup) onOpenSignup();
+                else window.location.href = getSignupUrl();
+              }}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -256,20 +417,48 @@ export const WebsiteHome = () => {
                 gap: '8px',
                 padding: '12px 24px',
                 borderRadius: '10px',
-                background: '#4f46e5',
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                 color: '#ffffff',
-                textDecoration: 'none',
+                border: 'none',
                 fontWeight: 700,
                 fontSize: '14px',
-                boxShadow: '0 4px 16px rgba(79, 70, 229, 0.35)',
-                transition: 'transform 0.2s ease'
+                boxShadow: '0 4px 16px rgba(2, 132, 199, 0.4)',
+                cursor: 'pointer',
+                transition: 'transform 0.15s ease'
               }}
             >
-              <span>{t('Explore 23 Features')}</span>
+              <span>{isEs ? 'Crear Cuenta / Registrarse' : 'Create Account / Sign Up'}</span>
               <ArrowRight size={16} />
-            </a>
+            </button>
 
-            {/* Ask My Zunme CTA */}
+            {/* 2. Direct Portal Login */}
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = getLoginUrl();
+              }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '12px 22px',
+                borderRadius: '10px',
+                background: 'var(--web-surface)',
+                border: '1px solid var(--web-border)',
+                color: 'var(--web-text-main)',
+                fontWeight: 700,
+                fontSize: '14px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+                cursor: 'pointer',
+                transition: 'transform 0.15s ease'
+              }}
+            >
+              <LogIn size={16} style={{ color: '#0284c7' }} />
+              <span>{isEs ? 'Iniciar Sesión' : 'Portal Login'}</span>
+            </button>
+
+            {/* 3. Ask Bestie CTA */}
             <button
               type="button"
               onClick={onOpenZunme}
@@ -284,11 +473,11 @@ export const WebsiteHome = () => {
               }}
             >
               <Bot size={17} style={{ color: '#fef08a', flexShrink: 0 }} />
-              <span>{isEs ? 'Preguntar a My Zunme — Asistente VA' : 'Ask My Zunme — VA Assistant'}</span>
+              <span>{isEs ? 'Preguntar a Bestie — Asistente VA' : 'Ask Bestie — VA Assistant'}</span>
               <span style={{ fontWeight: 900 }}>&gt;&gt;</span>
             </button>
 
-            {/* SALES chat eBox Button */}
+            {/* 4. SALES chat eBox Button */}
             <button
               type="button"
               onClick={onOpenSales}
@@ -335,6 +524,159 @@ export const WebsiteHome = () => {
               {t('23 Industry Configurations')}
             </span>
           </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 1.5 CLIENT 12-MODULE SHOWCASE (Reference: ERP5 Architecture) */}
+      {/* ======================================================== */}
+      <section id="erp-showcase" className="website-section-container" style={{ paddingTop: '1.5rem', paddingBottom: '2.5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2.25rem' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '4px 14px',
+            borderRadius: '20px',
+            background: 'rgba(2, 132, 199, 0.08)',
+            border: '1px solid rgba(2, 132, 199, 0.25)',
+            fontSize: '11px',
+            fontWeight: 800,
+            color: '#0284c7',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '0.75rem'
+          }}>
+            <Boxes size={14} />
+            <span>{isEs ? 'Núcleo Operativo Empresarial Unificado' : 'Unified Enterprise Operating Core'}</span>
+          </div>
+
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)',
+            fontWeight: 900,
+            color: 'var(--web-text-main)',
+            letterSpacing: '-0.02em',
+            margin: '0 0 0.75rem 0'
+          }}>
+            {isEs ? '12 Módulos de Software CRM y ERP' : '12-Module Enterprise Software Suite'}
+          </h2>
+
+          <p style={{
+            fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+            color: 'var(--web-text-muted)',
+            maxWidth: '820px',
+            margin: '0 auto',
+            lineHeight: 1.6
+          }}>
+            {isEs
+              ? 'Adoptado a nivel mundial para aplicaciones empresariales críticas y escalables. Su innovadora Arquitectura Unificada reduce la complejidad de configuración y amplía la flexibilidad operativa.'
+              : 'Adopted worldwide for scalable mission-critical enterprise applications. Its innovative Unified Architecture reduces complexity of configuration and increases operational flexibility.'}
+          </p>
+        </div>
+
+        {/* 12 Modules Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '16px',
+          maxWidth: '1240px',
+          margin: '0 auto'
+        }}>
+          {erpModules.map((mod) => {
+            const ModIcon = mod.icon;
+            return (
+              <div
+                key={mod.id}
+                onClick={() => {
+                  if (mod.route) navigate(mod.route);
+                  else if (mod.action === 'features') {
+                    const el = document.getElementById('features');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  } else if (mod.action === 'faqs') {
+                    const el = document.getElementById('faqs');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  } else if (mod.action === 'solutions') {
+                    const el = document.getElementById('solutions');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    const matchedFeature = CRM_FEATURES_DATA.find(f => f.id === mod.id);
+                    if (matchedFeature && onSelectItem) onSelectItem(matchedFeature);
+                  }
+                }}
+                style={{
+                  background: 'var(--web-surface)',
+                  border: '1px solid var(--web-border)',
+                  borderRadius: '12px',
+                  padding: '1.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)'
+                }}
+                className="hover:surface-secondary"
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '9px',
+                    background: mod.bg || 'rgba(2, 132, 199, 0.1)',
+                    color: mod.color || '#0284c7',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid var(--web-border)'
+                  }}>
+                    <ModIcon size={19} />
+                  </div>
+                  <span style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    color: 'var(--web-text-muted)',
+                    letterSpacing: '0.04em'
+                  }}>
+                    {mod.tag}
+                  </span>
+                </div>
+
+                <div>
+                  <h3 style={{
+                    fontSize: '16px',
+                    fontWeight: 800,
+                    color: 'var(--web-text-main)',
+                    margin: '0 0 4px 0'
+                  }}>
+                    {isEs ? mod.nameEs : mod.name}
+                  </h3>
+                  <p style={{
+                    fontSize: '12.5px',
+                    color: 'var(--web-text-muted)',
+                    lineHeight: 1.5,
+                    margin: 0
+                  }}>
+                    {isEs ? mod.descEs : mod.desc}
+                  </p>
+                </div>
+
+                <div style={{
+                  marginTop: 'auto',
+                  paddingTop: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  color: mod.color || '#0284c7'
+                }}>
+                  <span>{isEs ? 'Ver Módulo' : 'Explore Module'}</span>
+                  <ArrowRight size={13} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -453,7 +795,7 @@ export const WebsiteHome = () => {
               {t('Branding and Customization')}
             </span>
             <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
-              {t('“Make AI Your Friend”')}
+              {t('“Make AI Your Bestie”')}
             </span>
           </div>
 
@@ -479,7 +821,7 @@ export const WebsiteHome = () => {
 
           <div className="website-branding-bottom">
             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-              CRM NERGY — {t('“Make AI Your Friend”')}
+              CRM NERGY — {t('“Make AI Your Bestie”')}
             </span>
 
             <div className="website-branding-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -575,7 +917,7 @@ export const WebsiteHome = () => {
                 {isEs ? '[ Interfaz Arrastrar y Soltar ]' : '[ Drag-and-Drop Interface ]'}
               </span>
               <span style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b' }}>
-                {isEs ? '“Haga de la IA su Amigo”' : '“Make AI Your Friend”'}
+                {isEs ? '“Haz de la IA Tu Mejor Amigo”' : '“Make AI Your Bestie”'}
               </span>
             </div>
 

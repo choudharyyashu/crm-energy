@@ -405,13 +405,22 @@ export const CRM_SOLUTIONS_DATA = [
     route: '/solutions/business-crm',
     items: [
       {
+        id: 'crm-contact-ai',
+        name: 'Contact AI',
+        nameEs: 'Contact AI (Centro de Contacto con IA)',
+        icon: Bot,
+        desc: 'Intelligent omnichannel voice, chat, and automated customer routing powered by conversational AI.',
+        descEs: 'Canales inteligentes de voz, chat y enrutamiento automatizado de clientes con IA conversacional.',
+        route: '/solutions/contact-ai'
+      },
+      {
         id: 'crm-franchise',
         name: 'CRM Software for Franchise Businesses',
         nameEs: 'Software CRM para Franquicias',
         icon: Building2,
         desc: 'Multi-location inventory sync, centralized royalties tracking, and standardized brand operating procedures.',
         descEs: 'Control centralizado de sucursales, cálculo de regalías y procedimientos de marca estandarizados.',
-        route: '/solutions/franchise-crm'
+        route: '/solutions/franchise'
       },
       {
         id: 'crm-startups',
@@ -420,7 +429,7 @@ export const CRM_SOLUTIONS_DATA = [
         icon: Zap,
         desc: 'Frictionless fast onboarding, ultra-low CAC pipelines, and automated growth engine for agile teams.',
         descEs: 'Incorporación ágil y rápida, embudos de bajo CAC y motor de crecimiento automatizado.',
-        route: '/solutions/startups-crm'
+        route: '/solutions/startups'
       },
       {
         id: 'crm-small-mid-size',
@@ -429,7 +438,7 @@ export const CRM_SOLUTIONS_DATA = [
         icon: Boxes,
         desc: 'Right-sized modular ERP + CRM suites engineered for scaling mid-market enterprises.',
         descEs: 'Suites modulares de ERP y CRM diseñadas para empresas medianas en fase de expansión.',
-        route: '/solutions/mid-size-crm'
+        route: '/solutions/mid-size'
       },
       {
         id: 'crm-professional-services',
@@ -473,7 +482,7 @@ export const CRM_SOLUTIONS_DATA = [
         icon: Sparkles,
         desc: 'Brand sponsorship contract pipelines, media kit distribution, affiliate tracking, and audience metrics.',
         descEs: 'Gestión de contratos de patrocinio, kit de medios, comisiones de afiliados y analítica de audiencia.',
-        route: '/solutions/influencers-crm'
+        route: '/solutions/influencers'
       },
       {
         id: 'crm-real-estate-agents',

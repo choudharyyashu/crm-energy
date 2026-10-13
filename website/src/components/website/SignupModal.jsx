@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { UserPlus, X, ShieldCheck, CheckCircle2, Lock, Building2, Mail, Phone, User, ArrowRight, Sparkles } from 'lucide-react';
+import { UserPlus, X, ShieldCheck, CheckCircle2, Lock, Building2, Mail, Phone, User, ArrowRight, Sparkles, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { getLoginUrl, getSignupUrl, getPortalBaseUrl } from '../../config/portalConfig';
 
 export const SignupModal = ({ isOpen, onClose }) => {
   const { language, t } = useLanguage();
@@ -40,11 +41,11 @@ export const SignupModal = ({ isOpen, onClose }) => {
     if (!formData.companyName || !formData.email || !formData.password) return;
     setLoading(true);
 
-    // Simulate instant workspace provisioning
+    // Record inquiry submission without pretending a database user was provisioned
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-    }, 700);
+    }, 500);
   };
 
   const handleReset = () => {
@@ -59,8 +60,6 @@ export const SignupModal = ({ isOpen, onClose }) => {
       agreed: true
     });
   };
-
-  const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
 
   return (
     <div className="website-modal-backdrop" onClick={onClose}>
@@ -144,19 +143,19 @@ export const SignupModal = ({ isOpen, onClose }) => {
                 <CheckCircle2 size={32} />
               </div>
               <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', margin: '0 0 6px 0' }}>
-                {isEs ? '¡Registro Completado con Éxito!' : 'Workspace Created Successfully!'}
+                {isEs ? 'Solicitud de Incorporación Recibida' : 'Onboarding Inquiry Received!'}
               </h3>
-              <p style={{ fontSize: '13.5px', color: 'var(--web-text-muted)', lineHeight: 1.55, maxWidth: '420px', margin: '0 auto 1.5rem auto' }}>
+              <p style={{ fontSize: '13.5px', color: 'var(--web-text-muted)', lineHeight: 1.55, maxWidth: '440px', margin: '0 auto 1.5rem auto' }}>
                 {isEs
-                  ? `Se ha aprovisionado el entorno para ${formData.companyName || formData.email}. Puede iniciar sesión en la plataforma completa.`
-                  : `Your company workspace for ${formData.companyName || formData.email} is ready. You can now access your CRM ERP platform.`}
+                  ? `Hemos registrado los datos de consulta para ${formData.companyName || formData.email}. Para activar su cuenta de software en vivo de inmediato en el portal oficial, continúe al portal de registro:`
+                  : `Your consultation inquiry for ${formData.companyName || formData.email} has been recorded. To create and activate your live software tenant account right now, proceed directly to the CRM registration portal:`}
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '360px', margin: '0 auto' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '380px', margin: '0 auto' }}>
                 <button
                   type="button"
                   onClick={() => {
-                    window.location.href = `${CRM_APP_URL}/crm/login`;
+                    window.location.href = getSignupUrl();
                   }}
                   style={{
                     display: 'inline-flex',
@@ -174,8 +173,32 @@ export const SignupModal = ({ isOpen, onClose }) => {
                     boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)'
                   }}
                 >
+                  <span>{isEs ? 'Completar Registro en Portal Oficial' : 'Open Official Portal Registration'}</span>
+                  <ExternalLink size={15} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.location.href = getLoginUrl();
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    padding: '9px 18px',
+                    borderRadius: '8px',
+                    background: 'var(--web-surface)',
+                    border: '1px solid var(--web-border)',
+                    color: 'var(--web-text-main)',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
                   <span>{isEs ? 'Ir al Portal de Inicio de Sesión' : 'Proceed to Login Portal'}</span>
-                  <ArrowRight size={15} />
+                  <ArrowRight size={14} />
                 </button>
 
                 <button
@@ -185,34 +208,59 @@ export const SignupModal = ({ isOpen, onClose }) => {
                     background: 'none',
                     border: 'none',
                     color: 'var(--web-text-muted)',
-                    fontSize: '12.5px',
+                    fontSize: '12px',
                     cursor: 'pointer',
                     padding: '6px'
                   }}
                 >
-                  {isEs ? 'Registrar otra empresa' : 'Register another company'}
+                  {isEs ? 'Modificar datos de consulta' : 'Submit another inquiry'}
                 </button>
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* Direct Live Portal Link Banner */}
               <div style={{
-                background: 'rgba(2, 132, 199, 0.05)',
-                border: '1px solid rgba(2, 132, 199, 0.2)',
+                background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(79, 70, 229, 0.08) 100%)',
+                border: '1px solid rgba(2, 132, 199, 0.25)',
                 borderRadius: '8px',
-                padding: '0.75rem',
-                fontSize: '12px',
-                color: 'var(--web-text-muted)',
+                padding: '10px 12px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px'
+                justifyContent: 'space-between',
+                gap: '8px',
+                flexWrap: 'wrap'
               }}>
-                <ShieldCheck size={16} style={{ color: '#0284c7', flexShrink: 0 }} />
-                <span>
-                  {isEs
-                    ? 'Aprovisionamiento instantáneo de CRM, ERP y Asistente ZUNME AI con cifrado de grado bancario.'
-                    : 'Instant workspace setup with complete CRM, ERP, and ZUNME AI Studio with enterprise bank-grade security.'}
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={16} style={{ color: '#0284c7', flexShrink: 0 }} />
+                  <span style={{ fontSize: '12px', color: 'var(--web-text-main)', fontWeight: 600 }}>
+                    {isEs
+                      ? '¿Desea registrarse directamente en el software?'
+                      : 'Want to register directly in the live software?'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.location.href = getSignupUrl();
+                  }}
+                  style={{
+                    background: '#0284c7',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    padding: '5px 12px',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  <span>{isEs ? 'Registro en Portal' : 'Live Portal Registration'}</span>
+                  <ExternalLink size={12} />
+                </button>
               </div>
 
               {/* 2 Column Fields: Company Name & Full Name */}
@@ -442,7 +490,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    window.location.href = `${CRM_APP_URL}/crm/login`;
+                    window.location.href = getLoginUrl();
                   }}
                   style={{
                     background: 'none',

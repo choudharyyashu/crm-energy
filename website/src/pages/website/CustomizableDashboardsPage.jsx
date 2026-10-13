@@ -396,7 +396,7 @@ export const CustomizableDashboardsPage = () => {
               {isEs ? 'Visión Estratégica' : 'Executive Insights'}
             </span>
             <span style={{ fontSize: '13px', fontWeight: 700, color: '#f59e0b' }}>
-              CRM nErgy AI • “Make AI Your Friend”
+              CRM nErgy AI • {isEs ? '“Haz de la IA Tu Mejor Amigo”' : '“Make AI Your Bestie”'}
             </span>
           </div>
 

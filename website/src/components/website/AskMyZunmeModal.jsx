@@ -6,7 +6,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
     {
       id: 1,
       sender: 'zunme',
-      text: 'Hello! I am My Zunme — your VA Virtual Assistant for CRM nErgy. How can I help power your business today?'
+      text: 'Hello! I am Bestie — your VA Virtual Assistant for CRM nErgy. How can I help power your business today?'
     }
   ]);
   const [inputVal, setInputVal] = useState('');
@@ -17,7 +17,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
   const quickPrompts = [
     'What features are in CRM nErgy?',
     'How do the 4 CRM Solutions work?',
-    'What is Zunme Content Warehouse?',
+    'What is Bestie & Zunme AI?',
     'How do entrepreneurs save money with CRM nErgy?'
   ];
 
@@ -38,8 +38,8 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
         reply = 'CRM nErgy includes 23 core modules: Analytic & Financial Accounting, Contact Management, Customizable Dashboards, Inventory, Manufacturing, Lead & Sales Pipelines, and White Label CRM.';
       } else if (lower.includes('solution') || lower.includes('4 crm')) {
         reply = 'Our 4 Solution pillars are: (1) 4 Types of CRM (Analytical, Collaborative, Operational, Strategic), (2) Business CRM (Contact AI, Franchise, Influencers), (3) CRM for Entrepreneurs (Seeking Capital & Cost Saving), and (4) Third-Party Integrations.';
-      } else if (lower.includes('zunme') || lower.includes('content') || lower.includes('warehouse')) {
-        reply = 'Zunme is our generative AI superhouse with 1,000+ specialized templates for video ads, marketing copy, SEO blogs, and multimedia assets designed to 10x your output.';
+      } else if (lower.includes('bestie') || lower.includes('zunme') || lower.includes('content') || lower.includes('warehouse')) {
+        reply = 'Ask Bestie is your virtual assistant designed to simplify enterprise workflows. Powered by AI and our content superhouse, you can automate video ads, marketing copy, and customer inquiries with ease.';
       } else if (lower.includes('save money') || lower.includes('capital') || lower.includes('cost')) {
         reply = 'By eliminating fractured subscriptions (Salesforce, QuickBooks, Asana, Zapier) and replacing them with CRM nErgy, companies typically save 60-80% in operational software costs.';
       }
@@ -81,7 +81,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ fontWeight: 800, fontSize: '15px', color: 'var(--web-text-main)' }}>
-                  Ask My Zunme — VA Virtual Assistant
+                  Ask Bestie — VA Virtual Assistant
                 </span>
                 <span style={{
                   fontSize: '9.5px',
@@ -164,7 +164,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
           {isTyping && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--web-text-muted)', fontSize: '12px' }}>
               <Sparkles size={14} style={{ color: '#4f46e5' }} />
-              <span>Zunme is answering...</span>
+              <span>Bestie is answering...</span>
             </div>
           )}
         </div>
@@ -213,7 +213,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Ask anything about CRM nErgy or Zunme..."
+            placeholder="Ask Bestie anything about CRM nErgy..."
             style={{
               flex: 1,
               padding: '9px 12px',

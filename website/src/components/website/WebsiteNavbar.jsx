@@ -27,6 +27,7 @@ import {
   CRM_SOLUTIONS_DATA,
   INDUSTRIES_DATA
 } from '../../data/websiteNavData';
+import { getLoginUrl, getSignupUrl, getOalUrl } from '../../config/portalConfig';
 
 export const WebsiteNavbar = ({
   onOpenZunme,
@@ -95,18 +96,16 @@ export const WebsiteNavbar = ({
 
   const scrollToFaq = () => scrollToSection('faqs');
 
-  const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
-
   const handleLoginRedirect = () => {
     setActiveMenu(null);
     setMobileDrawerOpen(false);
-    window.location.href = `${CRM_APP_URL}/login`;
+    window.location.href = getLoginUrl();
   };
 
   const handleSignupRedirect = () => {
     setActiveMenu(null);
     setMobileDrawerOpen(false);
-    window.location.href = `${CRM_APP_URL}/crm/signup`;
+    window.location.href = getSignupUrl();
   };
 
   const handleCardClick = (item) => {
@@ -152,28 +151,43 @@ export const WebsiteNavbar = ({
           {/* 1. CRM Features */}
           <button
             type="button"
-            className="website-nav-btn"
-            onClick={() => scrollToSection('features')}
+            className={`website-nav-btn ${activeMenu === 'features' ? 'active' : ''}`}
+            onClick={() => toggleMenu('features')}
+            aria-expanded={activeMenu === 'features'}
           >
             <span>{t('CRM Features')}</span>
+            <ChevronDown size={13} style={{
+              transform: activeMenu === 'features' ? 'rotate(180deg)' : 'none',
+              transition: 'transform 0.2s ease'
+            }} />
           </button>
 
           {/* 2. CRM Solutions */}
           <button
             type="button"
-            className="website-nav-btn"
-            onClick={() => scrollToSection('solutions')}
+            className={`website-nav-btn ${activeMenu === 'solutions' ? 'active' : ''}`}
+            onClick={() => toggleMenu('solutions')}
+            aria-expanded={activeMenu === 'solutions'}
           >
             <span>{t('CRM Solutions')}</span>
+            <ChevronDown size={13} style={{
+              transform: activeMenu === 'solutions' ? 'rotate(180deg)' : 'none',
+              transition: 'transform 0.2s ease'
+            }} />
           </button>
 
           {/* 3. Industries */}
           <button
             type="button"
-            className="website-nav-btn"
-            onClick={() => scrollToSection('industries')}
+            className={`website-nav-btn ${activeMenu === 'industries' ? 'active' : ''}`}
+            onClick={() => toggleMenu('industries')}
+            aria-expanded={activeMenu === 'industries'}
           >
             <span>{t('Industries')}</span>
+            <ChevronDown size={13} style={{
+              transform: activeMenu === 'industries' ? 'rotate(180deg)' : 'none',
+              transition: 'transform 0.2s ease'
+            }} />
           </button>
 
           {/* 4. FAQs */}
@@ -185,15 +199,15 @@ export const WebsiteNavbar = ({
             <span>{t('FAQs')}</span>
           </button>
 
-          {/* 5. Ask My Zunme – VA Virtual Assistant >> */}
+          {/* 5. Ask Bestie – VA Virtual Assistant >> */}
           <button
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title={t('Ask My Zunme — VA Virtual Assistant')}
+            title={isEs ? 'Preguntar a Bestie — Asistente Virtual VA' : 'Ask Bestie — VA Virtual Assistant'}
           >
             <Sparkles size={14} className="website-zunme-sparkle" style={{ color: '#4f46e5', flexShrink: 0, transition: 'color 0.2s ease' }} />
-            <span>{isEs ? 'Preguntar a My Zunme — Asistente Virtual VA' : 'Ask My Zunme — VA Virtual Assistant'}</span>
+            <span>{isEs ? 'Ask Bestie – VA Virtual Assistant' : 'Ask Bestie – VA Virtual Assistant'}</span>
             <span style={{ letterSpacing: '0.02em', fontWeight: 900, fontSize: '11px', flexShrink: 0, marginLeft: '2px' }}>&gt;&gt;</span>
           </button>
 
@@ -213,16 +227,17 @@ export const WebsiteNavbar = ({
             type="button"
             className={`website-nav-btn ${activeMenu === 'more' ? 'active' : ''}`}
             onClick={() => toggleMenu('more')}
+            aria-expanded={activeMenu === 'more'}
           >
             <span>{t('MORE')}</span>
-            <ChevronDown size={14} style={{
+            <ChevronDown size={13} style={{
               transform: activeMenu === 'more' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
             }} />
           </button>
         </nav>
 
-        {/* Right Side Controls: Language Switcher, Theme Toggle & Sign In */}
+        {/* Right Side Controls: Language Switcher, Theme Toggle, Login & Sign Up */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
           {/* 1-Click English ↔ Spanish Language Selector */}
           <div style={{ flexShrink: 0 }}>
@@ -253,6 +268,29 @@ export const WebsiteNavbar = ({
             {theme === 'light' ? <Moon size={16} /> : <Sun size={16} style={{ color: '#f59e0b' }} />}
           </button>
 
+          {/* DISTINCT LOGIN BUTTON */}
+          <button
+            type="button"
+            onClick={handleLoginRedirect}
+            className="website-signin-btn"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--web-border)',
+              color: 'var(--web-text-main)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '6px 11px',
+              fontSize: '12px',
+              fontWeight: 600,
+              borderRadius: '8px',
+              flexShrink: 0,
+              cursor: 'pointer'
+            }}
+          >
+            <LogIn size={13} />
+            <span>{isEs ? 'Iniciar Sesión' : 'Login'}</span>
+          </button>
 
           {/* DISTINCT SIGN UP BUTTON */}
           <button
@@ -297,6 +335,206 @@ export const WebsiteNavbar = ({
 
 
 
+
+      {/* ======================================================== */}
+      {/* 1. FEATURES MEGA DROPDOWN                                */}
+      {/* ======================================================== */}
+      {activeMenu === 'features' && (
+        <div
+          className="website-mega-dropdown"
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'min(980px, 94vw)',
+            maxHeight: '80vh',
+            overflowY: 'auto'
+          }}
+        >
+          <div className="website-mega-header">
+            <div className="website-mega-header-title">
+              <Layers size={17} style={{ color: '#0284c7' }} />
+              <span>{isEs ? 'Módulos y Características de CRM (23 Módulos)' : 'CRM Enterprise Features & Capabilities (23 Modules)'}</span>
+            </div>
+            <button
+              type="button"
+              className="website-mega-header-link"
+              onClick={() => scrollToSection('features')}
+            >
+              <span>{isEs ? 'Ver Sección Completa en Página →' : 'View Full Features Section on Page →'}</span>
+            </button>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '8px'
+          }}>
+            {CRM_FEATURES_DATA.map((f) => {
+              const IconComp = f.icon || Layers;
+              return (
+                <div
+                  key={f.id}
+                  className="website-mega-item"
+                  onClick={() => handleCardClick(f)}
+                >
+                  <div className="website-mega-item-icon">
+                    <IconComp size={15} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="website-mega-item-name">
+                      {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
+                    </div>
+                    <div className="website-mega-item-sub" style={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 1,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden'
+                    }}>
+                      {(isEs && f.descEs) ? f.descEs : f.desc}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* 2. SOLUTIONS MEGA DROPDOWN                               */}
+      {/* ======================================================== */}
+      {activeMenu === 'solutions' && (
+        <div
+          className="website-mega-dropdown"
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'min(1080px, 96vw)',
+            maxHeight: '80vh',
+            overflowY: 'auto'
+          }}
+        >
+          <div className="website-mega-header">
+            <div className="website-mega-header-title">
+              <Briefcase size={17} style={{ color: '#4f46e5' }} />
+              <span>{isEs ? 'Soluciones Empresariales de CRM nErgy' : 'CRM nErgy Enterprise Solutions Matrix'}</span>
+            </div>
+            <button
+              type="button"
+              className="website-mega-header-link"
+              onClick={() => scrollToSection('solutions')}
+            >
+              <span>{isEs ? 'Ver Sección de Soluciones en Página →' : 'View Solutions Section on Page →'}</span>
+            </button>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '14px'
+          }}>
+            {CRM_SOLUTIONS_DATA.map((group, idx) => (
+              <div key={idx} style={{
+                background: 'var(--web-surface-subtle)',
+                borderRadius: '10px',
+                padding: '12px',
+                border: '1px solid var(--web-border)'
+              }}>
+                <div style={{
+                  fontSize: '11px',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  color: '#4f46e5',
+                  marginBottom: '10px',
+                  letterSpacing: '0.04em'
+                }}>
+                  {(isEs && group.groupTitleEs) ? group.groupTitleEs : t(group.groupTitle)}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  {group.items.map((item) => {
+                    const ItemIcon = item.icon || Sparkles;
+                    return (
+                      <div
+                        key={item.id}
+                        className="website-mega-item"
+                        style={{ padding: '6px 8px' }}
+                        onClick={() => handleCardClick({ ...item, groupTitle: (isEs && group.groupTitleEs) ? group.groupTitleEs : group.groupTitle })}
+                      >
+                        <div className="website-mega-item-icon" style={{ width: '22px', height: '22px', borderRadius: '5px' }}>
+                          <ItemIcon size={12} />
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div className="website-mega-item-name" style={{ fontSize: '11.5px' }}>
+                            {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* 3. INDUSTRIES MEGA DROPDOWN                              */}
+      {/* ======================================================== */}
+      {activeMenu === 'industries' && (
+        <div
+          className="website-mega-dropdown"
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'min(980px, 94vw)',
+            maxHeight: '80vh',
+            overflowY: 'auto'
+          }}
+        >
+          <div className="website-mega-header">
+            <div className="website-mega-header-title">
+              <Globe size={17} style={{ color: '#0f766e' }} />
+              <span>{isEs ? 'CRM Específico por Industria (23 Sectores)' : 'Industry-Specific CRM Ecosystem (23 Verticals)'}</span>
+            </div>
+            <button
+              type="button"
+              className="website-mega-header-link"
+              onClick={() => scrollToSection('industries')}
+            >
+              <span>{isEs ? 'Ver Sección de Industrias en Página →' : 'View Industries Section on Page →'}</span>
+            </button>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '6px'
+          }}>
+            {INDUSTRIES_DATA.map((ind) => {
+              const IndIcon = ind.icon || Globe;
+              return (
+                <div
+                  key={ind.id}
+                  className="website-mega-item"
+                  style={{ padding: '6px 8px' }}
+                  onClick={() => handleCardClick(ind)}
+                >
+                  <div className="website-mega-item-icon" style={{ width: '24px', height: '24px', borderRadius: '6px' }}>
+                    <IndIcon size={13} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="website-mega-item-name" style={{ fontSize: '12px' }}>
+                      {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* ======================================================== */}
       {/* 4. MORE DROPDOWN                                         */}
@@ -352,7 +590,7 @@ export const WebsiteNavbar = ({
           <div
             onClick={() => {
               setActiveMenu(null);
-              window.location.href = `${CRM_APP_URL}/oal`;
+              window.location.href = getOalUrl();
             }}
             style={{
               display: 'flex',
@@ -396,6 +634,30 @@ export const WebsiteNavbar = ({
             <MessageSquare size={16} style={{ color: '#0284c7' }} />
             <span>{t('Contact Executive Team')}</span>
           </div>
+
+          <div
+            onClick={() => {
+              setActiveMenu(null);
+              window.location.href = getLoginUrl();
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 10px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'var(--web-text-main)',
+              borderTop: '1px solid var(--web-border)',
+              marginTop: '4px'
+            }}
+            className="hover:surface-secondary"
+          >
+            <LogIn size={16} style={{ color: '#0284c7' }} />
+            <span>{t('Client Portal Login')}</span>
+          </div>
         </div>
       )}
 
@@ -437,7 +699,7 @@ export const WebsiteNavbar = ({
             </div>
 
             <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {/* Ask My Zunme Button */}
+              {/* Ask Bestie Button */}
               <button
                 type="button"
                 className="website-cta-zunme"
@@ -455,7 +717,7 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <Sparkles size={16} />
-                <span>{t('Ask My Zunme — VA Virtual Assistant >>')}</span>
+                <span>{isEs ? 'Preguntar a Bestie — Asistente Virtual VA >>' : 'Ask Bestie – VA Virtual Assistant >>'}</span>
               </button>
 
               {/* SALES button */}
@@ -609,6 +871,69 @@ export const WebsiteNavbar = ({
                         {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
                       </div>
                     ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Accordion: MORE */}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileExpandedSection(mobileExpandedSection === 'more' ? null : 'more')}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '10px 8px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: 'var(--web-text-main)',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <span>{t('MORE')}</span>
+                  <ChevronDown size={16} style={{
+                    transform: mobileExpandedSection === 'more' ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.2s'
+                  }} />
+                </button>
+                {mobileExpandedSection === 'more' && (
+                  <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div
+                      onClick={() => {
+                        setMobileDrawerOpen(false);
+                        navigate('/#about');
+                        const el = document.getElementById('about');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      style={{ padding: '6px 8px', fontSize: '13px', color: 'var(--web-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                      <ShieldCheck size={15} style={{ color: '#4f46e5' }} />
+                      <span>{t('Security & Compliance')}</span>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMobileDrawerOpen(false);
+                        window.location.href = getOalUrl();
+                      }}
+                      style={{ padding: '6px 8px', fontSize: '13px', color: 'var(--web-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                      <Globe size={15} style={{ color: '#0f766e' }} />
+                      <span>{t('OAL Lending Marketplace')}</span>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMobileDrawerOpen(false);
+                        onOpenSales();
+                      }}
+                      style={{ padding: '6px 8px', fontSize: '13px', color: 'var(--web-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                      <MessageSquare size={15} style={{ color: '#0284c7' }} />
+                      <span>{t('Contact Executive Team')}</span>
+                    </div>
                   </div>
                 )}
               </div>

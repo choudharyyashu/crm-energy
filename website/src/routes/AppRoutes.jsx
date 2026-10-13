@@ -22,11 +22,15 @@ export const AppRoutes = () => {
         {/* Dedicated Solutions Pages */}
         <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
         <Route path="/solutions/startups" element={<StartupsCrmPage />} />
+        <Route path="/solutions/startups-crm" element={<StartupsCrmPage />} />
         <Route path="/solutions/midsize" element={<MidSizeCrmPage />} />
         <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/mid-size-crm" element={<MidSizeCrmPage />} />
         <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
+        <Route path="/solutions/franchise-crm" element={<FranchiseCrmPage />} />
         <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
         <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
+        <Route path="/solutions/influencers-crm" element={<InfluencersCrmPage />} />
 
         {/* Dedicated Features Pages */}
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />

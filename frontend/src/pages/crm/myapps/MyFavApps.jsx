@@ -41,7 +41,21 @@ export const MyFavApps = () => {
   const [isBigScreenOpen, setIsBigScreenOpen] = useState(false);
   const [activeApp, setActiveApp] = useState(null);
 
-  const categories = ['All', 'Favorites', 'Business Operations', 'Communication', 'Finance & Payments', 'Productivity', 'Analytics'];
+  const categoryDefs = [
+    { id: 'All', label: 'All', icon: Grid },
+    { id: 'Favorites', label: 'Favorites', icon: Star },
+    { id: 'Business Operations', label: 'Business Operations', icon: Boxes },
+    { id: 'Communication', label: 'Communication', icon: MessageSquare },
+    { id: 'Finance & Payments', label: 'Finance & Payments', icon: DollarSign },
+    { id: 'Productivity', label: 'Productivity', icon: FileText },
+    { id: 'Analytics', label: 'Analytics', icon: TrendingUp },
+  ];
+
+  const getCategoryCount = (catId) => {
+    if (catId === 'All') return apps.length;
+    if (catId === 'Favorites') return apps.filter((a) => a.isFavorite).length;
+    return apps.filter((a) => a.category === catId).length;
+  };
 
   const [apps, setApps] = useState([
     { id: 'app-1', name: 'Slack Workplace', category: 'Communication', isFavorite: true, icon: MessageSquare, color: '#4a154b', url: 'https://slack.com', desc: 'Team communication and alerts webhook' },
@@ -115,26 +129,49 @@ export const MyFavApps = () => {
       </div>
 
       {/* Search & Category Filter Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 w-full md:w-auto scrollbar-thin">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
-                activeCategory === cat
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                  : 'bg-surface text-secondary border-border hover:border-sky-400'
-              }`}
-            >
-              {cat === 'Favorites' && <Star size={12} className="inline mr-1 fill-current text-amber-300" />}
-              {cat}
-            </button>
-          ))}
+      <div className="bg-surface border border-border rounded-2xl p-2.5 shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3">
+        <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 scrollbar-thin flex-nowrap">
+          {categoryDefs.map((cat) => {
+            const Icon = cat.icon;
+            const count = getCategoryCount(cat.id);
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setActiveCategory(cat.id)}
+                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer flex-shrink-0 select-none border ${
+                  isActive
+                    ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white border-sky-600 shadow-sm shadow-blue-500/20'
+                    : 'bg-surface text-secondary border-border hover:border-sky-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                }`}
+              >
+                <Icon
+                  size={14}
+                  className={
+                    isActive
+                      ? 'text-white'
+                      : cat.id === 'Favorites'
+                      ? 'text-amber-400 fill-amber-400'
+                      : 'text-slate-400'
+                  }
+                />
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                    isActive
+                      ? 'bg-white/20 text-white font-bold'
+                      : 'bg-slate-100 dark:bg-slate-800 text-tertiary font-semibold'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="w-full md:w-64">
+        <div className="w-full xl:w-64 flex-shrink-0">
           <Input
             placeholder="Search apps..."
             icon={Search}

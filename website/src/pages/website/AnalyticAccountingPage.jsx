@@ -197,7 +197,7 @@ export const AnalyticAccountingPage = () => {
             fontWeight: 700,
             margin: 0
           }}>
-            {t('“Make AI Your Friend”')}
+            {t('“Make AI Your Bestie”')}
           </p>
 
           <p style={{
@@ -426,7 +426,7 @@ export const AnalyticAccountingPage = () => {
               Branding and Customization
             </span>
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--web-text-muted)' }}>
-              “Make AI Your Friend”
+              “Make AI Your Bestie”
             </span>
           </div>
 

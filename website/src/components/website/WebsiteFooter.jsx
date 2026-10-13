@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, MessageSquare, LogIn } from 'lucide-react';
 import { AiEnergyLogo } from '../common/AiEnergyLogo';
 import { useLanguage } from '../../context/LanguageContext';
+import { getLoginUrl } from '../../config/portalConfig';
 
 export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
   const navigate = useNavigate();
@@ -90,8 +91,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
             <button
               type="button"
               onClick={() => {
-                const CRM_APP_URL = import.meta.env.VITE_CRM_APP_URL || 'http://localhost:3000';
-                window.location.href = `${CRM_APP_URL}/crm/login`;
+                window.location.href = getLoginUrl();
               }}
               style={{
                 display: 'inline-flex',
@@ -127,8 +127,8 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Help Center')}
             </span>
-            <a href="#knowledge-base" onClick={(e) => { e.preventDefault(); handleAnchor('#faqs'); }} style={linkStyle}>{t('Knowledge Base')}</a>
-            <a href="#academy" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Academy')}</a>
+            <a href="#faqs" onClick={(e) => { e.preventDefault(); handleAnchor('#faqs'); }} style={linkStyle}>{t('Knowledge Base')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Academy')}</button>
             <a href="#faqs" onClick={(e) => { e.preventDefault(); handleAnchor('#faqs'); }} style={linkStyle}>{t('FAQs')}</a>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Support')}</button>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', margin: '2px 0' }}>
@@ -144,9 +144,9 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
                 {t('● (Available now)')}
               </span>
             </div>
-            <a href="#resources" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Resources')}</a>
+            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Resources')}</a>
             <button type="button" onClick={onOpenZunme} style={{ ...btnLinkStyle, color: '#4f46e5', fontWeight: 700 }}>
-              {t('Virtual Assistant >>')}
+              {t('Ask Bestie — Virtual Assistant >>')}
             </button>
             <a href="/solutions/contact-ai" onClick={(e) => { e.preventDefault(); navigate('/solutions/contact-ai'); }} style={linkStyle}>{t('Contact Center AI')}</a>
           </div>
@@ -156,16 +156,16 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Check It Out')}
             </span>
-            <a href="#training" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('CRM nErgy Training')}</a>
-            <a href="#case-studies" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('Case studies')}</a>
-            <a href="#calculator" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('Commission calculator')}</a>
-            <a href="#videos" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Videos')}</a>
-            <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('What’s White Label?')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('CRM nErgy Training')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Case studies')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Commission calculator')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Videos')}</button>
+            <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('What’s White Label?')}</a>
             <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('What is a CRM?')}</a>
             <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('What is an ERP?')}</a>
             <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('What is an ERP – CRM?')}</a>
-            <a href="#events" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('CRM nErgy Events')}</a>
-            <a href="#reviews" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Reviews')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('CRM nErgy Events')}</button>
+            <a href="#about" onClick={(e) => { e.preventDefault(); handleAnchor('#about'); }} style={linkStyle}>{t('Reviews')}</a>
             <a href="#industries" onClick={(e) => { e.preventDefault(); handleAnchor('#industries'); }} style={linkStyle}>{t('Industries')}</a>
             <a href="/industries/professional-services" onClick={(e) => { e.preventDefault(); navigate('/industries/professional-services'); }} style={linkStyle}>{t('Professional Service Firms')}</a>
           </div>
@@ -175,18 +175,18 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Business Solutions')}
             </span>
-            <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('4 Types of CRMs')}</a>
+            <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('4 Types of CRMs')}</a>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('AAI - Sales More')}</button>
             <button type="button" onClick={onOpenZunme} style={btnLinkStyle}>{t('Marketing Genius')}</button>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Manufacturing')}</a>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Generating Leads')}</a>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Inventory Management')}</a>
+            <a href="#erp-showcase" onClick={(e) => { e.preventDefault(); handleAnchor('#erp-showcase'); }} style={linkStyle}>{t('Manufacturing')}</a>
+            <a href="/solutions/startups" onClick={(e) => { e.preventDefault(); navigate('/solutions/startups'); }} style={linkStyle}>{t('Generating Leads')}</a>
+            <a href="#erp-showcase" onClick={(e) => { e.preventDefault(); handleAnchor('#erp-showcase'); }} style={linkStyle}>{t('Inventory Management')}</a>
             <a href="/solutions/influencers" onClick={(e) => { e.preventDefault(); navigate('/solutions/influencers'); }} style={linkStyle}>{t('SM / Influencer Management')}</a>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Best Sales Commission')}</button>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Affiliate Marketing')}</a>
-            <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('White Label Software')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Affiliate Marketing')}</button>
+            <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('White Label Software')}</a>
             <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Features')}</a>
-            <a href="#security" onClick={(e) => { e.preventDefault(); handleAnchor('#about'); }} style={linkStyle}>{t('Privacy and security')}</a>
+            <a href="#about" onClick={(e) => { e.preventDefault(); handleAnchor('#about'); }} style={linkStyle}>{t('Privacy and security')}</a>
           </div>
 
           {/* Column 4: CRM nErgy */}
@@ -195,15 +195,15 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
               {t('CRM nErgy')}
             </span>
             <a href="#about" onClick={(e) => { e.preventDefault(); handleAnchor('#about'); }} style={linkStyle}>{t('Company')}</a>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Products')}</a>
-            <a href="#features" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Affiliate Partners')}</a>
-            <a href="#referrals" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Referral program')}</a>
-            <a href="#jobs" onClick={(e) => { e.preventDefault(); handleAnchor('#about'); }} style={linkStyle}>{t('Jobs')}</a>
-            <a href="#blog" onClick={(e) => { e.preventDefault(); handleAnchor('#features'); }} style={linkStyle}>{t('Blog')}</a>
+            <a href="#erp-showcase" onClick={(e) => { e.preventDefault(); handleAnchor('#erp-showcase'); }} style={linkStyle}>{t('Products')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Affiliate Partners')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Referral program')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Jobs')}</button>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Blog')}</button>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Pricing')}</button>
             <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('Contact')}</button>
-            <a href="#solutions" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('Third Party Integration')}</a>
-            <a href="#api" onClick={(e) => { e.preventDefault(); handleAnchor('#solutions'); }} style={linkStyle}>{t('API')}</a>
+            <a href="/solutions/business-crm" onClick={(e) => { e.preventDefault(); navigate('/solutions/business-crm'); }} style={linkStyle}>{t('Third Party Integration')}</a>
+            <button type="button" onClick={onOpenSales} style={btnLinkStyle}>{t('API')}</button>
           </div>
         </div>
 
