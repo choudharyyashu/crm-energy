@@ -11,6 +11,7 @@ import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
 import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 import { ProfessionalServicesPage } from '../pages/website/ProfessionalServicesPage';
 import { CustomizableDashboardsPage } from '../pages/website/CustomizableDashboardsPage';
+import { IndustryDetailPage } from '../pages/website/IndustryDetailPage';
 
 export const AppRoutes = () => {
   return (
@@ -39,6 +40,7 @@ export const AppRoutes = () => {
 
         {/* Dedicated Industries Pages */}
         <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
+        <Route path="/industries/:slug" element={<IndustryDetailPage />} />
 
         {/* Catch-all redirect to Home */}
         <Route path="*" element={<Navigate to="/" replace />} />
