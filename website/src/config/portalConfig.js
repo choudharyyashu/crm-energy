@@ -56,3 +56,20 @@ export function getOalUrl() {
   const base = getPortalBaseUrl().replace(/\/+$/, '');
   return `${base}/oal`;
 }
+
+export function getApiBaseUrl() {
+  const envApi = import.meta.env.VITE_API_URL;
+  if (envApi) return envApi.replace(/\/+$/, '');
+
+  const isLocalhost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === '[::1]');
+
+  if (isLocalhost) {
+    return 'http://localhost:5000/api';
+  }
+
+  return 'https://crm-energy-backend-production.up.railway.app/api';
+}

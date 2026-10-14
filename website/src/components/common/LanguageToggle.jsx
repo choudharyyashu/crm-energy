@@ -23,6 +23,7 @@ export const LanguageToggle = () => {
 
   return (
     <div
+      className="website-lang-toggle"
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -48,6 +49,7 @@ export const LanguageToggle = () => {
       <button
         id="lang-toggle-en"
         type="button"
+        className="website-lang-btn"
         aria-pressed={language === 'EN'}
         onClick={() => handleSelectLang('EN')}
         style={{
@@ -73,6 +75,7 @@ export const LanguageToggle = () => {
       <button
         id="lang-toggle-es"
         type="button"
+        className="website-lang-btn"
         aria-pressed={language === 'ES'}
         onClick={() => handleSelectLang('ES')}
         style={{

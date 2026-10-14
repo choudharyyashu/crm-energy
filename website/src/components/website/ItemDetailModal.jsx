@@ -18,20 +18,15 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
       <div
         className="website-modal-window"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: '560px', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
+        style={{ maxWidth: '560px', height: 'min(620px, 92dvh)', maxHeight: '92dvh', display: 'flex', flexDirection: 'column' }}
       >
         {/* Modal Header */}
-        <div style={{
-          padding: '1.25rem',
-          borderBottom: '1px solid var(--web-border)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+        <div className="website-modal-header" style={{
           background: 'var(--web-surface-subtle)',
           flexShrink: 0
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
+          <div className="website-modal-header-left">
+            <div className="website-modal-header-icon" style={{
               width: '44px',
               height: '44px',
               borderRadius: '12px',
@@ -40,15 +35,16 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(79, 70, 229, 0.3)'
+              boxShadow: '0 4px 12px rgba(79, 70, 229, 0.3)',
+              flexShrink: 0
             }}>
               <Icon size={22} />
             </div>
-            <div>
+            <div style={{ minWidth: 0, flex: 1 }}>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {(isEs && (item.categoryEs || item.groupTitleEs)) ? (item.categoryEs || item.groupTitleEs) : t(item.category || item.groupTitle || 'CRM nErgy Enterprise')}
               </span>
-              <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
+              <h3 className="website-modal-title" style={{ fontSize: '17px', fontWeight: 800, color: 'var(--web-text-main)', margin: '2px 0 0 0' }}>
                 {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
               </h3>
             </div>
@@ -57,13 +53,16 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
           <button
             type="button"
             onClick={onClose}
+            className="website-modal-close-btn"
             style={{
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               color: 'var(--web-text-muted)',
               padding: '6px',
-              borderRadius: '6px'
+              borderRadius: '6px',
+              flexShrink: 0,
+              marginLeft: '6px'
             }}
           >
             <X size={18} />
@@ -71,7 +70,7 @@ export const ItemDetailModal = ({ item, isOpen, onClose, onOpenSales, onOpenZunm
         </div>
 
         {/* Modal Scrollable Body */}
-        <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', overflowY: 'auto' }}>
+        <div className="website-modal-body" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', overflowY: 'auto' }}>
           <div>
             <h4 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--web-text-main)', marginBottom: '6px' }}>
               {t('Module Overview')}

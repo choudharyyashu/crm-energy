@@ -54,18 +54,13 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
 
   return (
     <div className="website-modal-backdrop" onClick={onClose}>
-      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ height: 'min(620px, 92vh)', display: 'flex', flexDirection: 'column' }}>
+      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ height: 'min(620px, 92dvh)', maxHeight: '92dvh', display: 'flex', flexDirection: 'column' }}>
         {/* Header */}
-        <div style={{
-          padding: '1.1rem 1.25rem',
-          borderBottom: '1px solid var(--web-border)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+        <div className="website-modal-header" style={{
           background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
+          <div className="website-modal-header-left">
+            <div className="website-modal-header-icon" style={{
               width: '38px',
               height: '38px',
               borderRadius: '10px',
@@ -74,27 +69,29 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)'
+              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)',
+              flexShrink: 0
             }}>
               <Bot size={20} />
             </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: 800, fontSize: '15px', color: 'var(--web-text-main)' }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <span className="website-modal-title" style={{ fontWeight: 800, fontSize: '15px', color: 'var(--web-text-main)' }}>
                   Ask Bestie — VA Virtual Assistant
                 </span>
-                <span style={{
+                <span className="website-modal-badge" style={{
                   fontSize: '9.5px',
                   fontWeight: 800,
                   background: 'rgba(99, 102, 241, 0.12)',
                   color: '#4f46e5',
                   padding: '2px 6px',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  whiteSpace: 'nowrap'
                 }}>
                   PUBLIC DEMO
                 </span>
               </div>
-              <span style={{ fontSize: '11.5px', color: 'var(--web-text-muted)' }}>
+              <span className="website-modal-subtitle" style={{ fontSize: '11.5px', color: 'var(--web-text-muted)', display: 'block', lineHeight: 1.3 }}>
                 Instant AI Intelligence for CRM nErgy Solutions
               </span>
             </div>
@@ -103,13 +100,16 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
           <button
             type="button"
             onClick={onClose}
+            className="website-modal-close-btn"
             style={{
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               color: 'var(--web-text-muted)',
               padding: '6px',
-              borderRadius: '6px'
+              borderRadius: '6px',
+              flexShrink: 0,
+              marginLeft: '6px'
             }}
           >
             <X size={18} />
@@ -117,7 +117,7 @@ export const AskMyZunmeModal = ({ isOpen, onClose, onOpenSales }) => {
         </div>
 
         {/* Chat Thread */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+        <div style={{ flex: 1, overflowY: 'auto', WebkitOverflowScrolling: 'touch', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           {messages.map((m) => {
             const isZunme = m.sender === 'zunme';
             return (

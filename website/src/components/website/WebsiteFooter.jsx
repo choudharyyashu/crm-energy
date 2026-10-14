@@ -114,16 +114,9 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
         </div>
 
         {/* 4 Client-Specified Columns */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          flexWrap: 'wrap',
-          gap: '2rem',
-          width: '100%'
-        }}>
+        <div className="website-footer-columns">
           {/* Column 1: Help Center */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '160px', flex: '0 1 auto' }}>
+          <div className="website-footer-col">
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Help Center')}
             </span>
@@ -152,7 +145,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
           </div>
 
           {/* Column 2: Check It Out */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '170px', flex: '0 1 auto' }}>
+          <div className="website-footer-col">
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Check It Out')}
             </span>
@@ -171,7 +164,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
           </div>
 
           {/* Column 3: Business Solutions */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '180px', flex: '0 1 auto' }}>
+          <div className="website-footer-col">
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('Business Solutions')}
             </span>
@@ -190,7 +183,7 @@ export const WebsiteFooter = ({ onOpenZunme, onOpenSales, onOpenSignup }) => {
           </div>
 
           {/* Column 4: CRM nErgy */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '160px', flex: '0 1 auto' }}>
+          <div className="website-footer-col">
             <span style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--web-text-main)', letterSpacing: '0.06em', marginBottom: '4px' }}>
               {t('CRM nErgy')}
             </span>

@@ -75,6 +75,19 @@ export const WebsiteNavbar = ({
     setMobileDrawerOpen(false);
   }, [location.pathname]);
 
+  // Prevent background page from scrolling while mobile drawer is open
+  useEffect(() => {
+    if (mobileDrawerOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [mobileDrawerOpen]);
+
   const toggleMenu = (menuName) => {
     setActiveMenu((prev) => (prev === menuName ? null : menuName));
   };
@@ -272,7 +285,7 @@ export const WebsiteNavbar = ({
           <button
             type="button"
             onClick={handleLoginRedirect}
-            className="website-signin-btn"
+            className="website-signin-btn website-header-login-btn"
             style={{
               background: 'transparent',
               border: '1px solid var(--web-border)',
@@ -300,7 +313,7 @@ export const WebsiteNavbar = ({
               if (onOpenSignup) onOpenSignup();
               else handleSignupRedirect();
             }}
-            className="website-signin-btn website-create-btn"
+            className="website-signin-btn website-create-btn website-header-signup-btn"
             style={{
               background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
               color: '#ffffff',
@@ -550,7 +563,8 @@ export const WebsiteNavbar = ({
           borderRadius: '12px',
           boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.2)',
           padding: '8px',
-          zIndex: 95
+          zIndex: 95,
+          animation: 'websiteMegaFadeIn 0.12s ease-out'
         }}>
           <div style={{
             fontSize: '10px',
@@ -587,31 +601,6 @@ export const WebsiteNavbar = ({
             <span>{t('Security & Compliance')}</span>
           </div>
 
-          <div
-            onClick={() => {
-              setActiveMenu(null);
-              window.location.href = getOalUrl();
-            }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '8px',
-              padding: '8px 10px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: 600,
-              color: 'var(--web-text-main)'
-            }}
-            className="hover:surface-secondary"
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Globe size={16} style={{ color: '#0f766e' }} />
-              <span>{t('OAL Lending Marketplace')}</span>
-            </div>
-            <ExternalLink size={12} style={{ color: 'var(--web-text-muted)' }} />
-          </div>
 
           <div
             onClick={() => {
@@ -913,16 +902,6 @@ export const WebsiteNavbar = ({
                     >
                       <ShieldCheck size={15} style={{ color: '#4f46e5' }} />
                       <span>{t('Security & Compliance')}</span>
-                    </div>
-                    <div
-                      onClick={() => {
-                        setMobileDrawerOpen(false);
-                        window.location.href = getOalUrl();
-                      }}
-                      style={{ padding: '6px 8px', fontSize: '13px', color: 'var(--web-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                    >
-                      <Globe size={15} style={{ color: '#0f766e' }} />
-                      <span>{t('OAL Lending Marketplace')}</span>
                     </div>
                     <div
                       onClick={() => {
