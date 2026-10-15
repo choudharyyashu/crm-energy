@@ -9,7 +9,7 @@
  * - Local Dev Server: http://localhost:3000 (when developing locally)
  */
 
-export const CONFIRMED_PRODUCTION_PORTAL = 'https://crm-energy.netlify.app';
+export const CONFIRMED_PRODUCTION_PORTAL = 'https://crm-energysoftware.netlify.app';
 export const LOCAL_PORTAL_DEFAULT = 'http://localhost:3000';
 
 export function getPortalBaseUrl() {
@@ -37,24 +37,38 @@ export function getPortalBaseUrl() {
   return CONFIRMED_PRODUCTION_PORTAL;
 }
 
+function getThemeQuery() {
+  if (typeof window !== 'undefined') {
+    const curTheme = localStorage.getItem('app_theme');
+    if (curTheme === 'light' || curTheme === 'dark') {
+      return `theme=${curTheme}`;
+    }
+  }
+  return '';
+}
+
 export function getLoginUrl() {
   const base = getPortalBaseUrl().replace(/\/+$/, '');
-  return `${base}/login`;
+  const tq = getThemeQuery();
+  return tq ? `${base}/login?${tq}` : `${base}/login`;
 }
 
 export function getCrmLoginUrl() {
   const base = getPortalBaseUrl().replace(/\/+$/, '');
-  return `${base}/crm/login`;
+  const tq = getThemeQuery();
+  return tq ? `${base}/crm/login?${tq}` : `${base}/crm/login`;
 }
 
 export function getSignupUrl() {
   const base = getPortalBaseUrl().replace(/\/+$/, '');
-  return `${base}/crm/signup`;
+  const tq = getThemeQuery();
+  return tq ? `${base}/crm/signup?${tq}` : `${base}/crm/signup`;
 }
 
 export function getOalUrl() {
   const base = getPortalBaseUrl().replace(/\/+$/, '');
-  return `${base}/oal`;
+  const tq = getThemeQuery();
+  return tq ? `${base}/oal?${tq}` : `${base}/oal`;
 }
 
 export function getApiBaseUrl() {

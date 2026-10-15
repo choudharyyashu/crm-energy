@@ -4,10 +4,27 @@ const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
+    // 1. Check URL query parameters (e.g. from marketing website redirect: ?theme=light or ?theme=dark)
+    if (typeof window !== 'undefined') {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryTheme = urlParams.get('theme');
+        if (queryTheme === 'light' || queryTheme === 'dark') {
+          localStorage.setItem('app_theme', queryTheme);
+          return queryTheme;
+        }
+      } catch (e) {
+        // Ignore URL parsing errors
+      }
+    }
+
+    // 2. Check saved theme in localStorage
     const savedTheme = localStorage.getItem('app_theme');
     if (savedTheme === 'light' || savedTheme === 'dark') {
       return savedTheme;
     }
+
+    // 3. Fallback to system preference
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';

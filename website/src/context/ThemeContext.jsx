@@ -8,9 +8,8 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme === 'light' || savedTheme === 'dark') {
       return savedTheme;
     }
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    // Default to the flagship ultra-modern Dark AI Cyber theme
+    return 'dark';
   });
 
   useEffect(() => {

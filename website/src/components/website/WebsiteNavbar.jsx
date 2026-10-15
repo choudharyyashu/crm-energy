@@ -136,103 +136,116 @@ export const WebsiteNavbar = ({
   return (
     <header className="website-header-sticky" ref={navRef}>
       <div className="website-nav-inner">
-        {/* Brand Logo */}
+        {/* Brand Block - Matching Reference Screenshot */}
         <div
           onClick={() => navigate('/')}
           style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', flexShrink: 0 }}
         >
-          <AiEnergyLogo size={34} showText={false} />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <AiEnergyLogo size={36} showText={false} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
             <span className="website-brand-title" style={{
               fontSize: '17px',
-              fontWeight: 800,
+              fontWeight: 900,
               fontFamily: 'var(--font-display)',
               color: 'var(--web-text-main)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.1
+              letterSpacing: '-0.025em',
+              lineHeight: 1.15
             }}>
-              CRM nErgy AI
+              CRM nErgy
             </span>
-            <span className="website-brand-sub" style={{ fontSize: '10px', fontWeight: 600, color: 'var(--web-text-muted)', lineHeight: 1.1 }}>
-              {t('Enterprise Platform')}
+            <span className="website-brand-tagline-ai" style={{
+              fontSize: '10px',
+              fontWeight: 800,
+              color: '#22d3ee',
+              letterSpacing: '0.03em',
+              textTransform: 'uppercase',
+              lineHeight: 1.2
+            }}>
+              {isEs ? 'Inteligencia Artificial Avanzada' : 'Advanced Artificial Intelligence'}
+            </span>
+            <span className="website-brand-sub" style={{
+              fontSize: '10.5px',
+              fontWeight: 600,
+              color: 'var(--web-text-muted)',
+              lineHeight: 1.2
+            }}>
+              {isEs ? 'Soluciones CRM que Toda Empresa Necesita' : 'CRM Solutions Every Business Needs'}
             </span>
           </div>
         </div>
 
-        {/* Desktop Main Navigation (7 Client Buttons) */}
+        {/* Desktop Main Navigation (Direct Section Page Routing) */}
         <nav className="website-main-nav">
-          {/* 1. CRM Features */}
+          {/* 1. Features -> /features */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'features' ? 'active' : ''}`}
-            onClick={() => toggleMenu('features')}
-            aria-expanded={activeMenu === 'features'}
+            className={`website-nav-btn ${location.pathname === '/features' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveMenu(null);
+              navigate('/features');
+            }}
           >
-            <span>{t('CRM Features')}</span>
-            <ChevronDown size={13} style={{
-              transform: activeMenu === 'features' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
+            <span>{isEs ? 'Características' : 'Features'}</span>
           </button>
 
-          {/* 2. CRM Solutions */}
+          {/* 2. Solutions -> /solutions */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'solutions' ? 'active' : ''}`}
-            onClick={() => toggleMenu('solutions')}
-            aria-expanded={activeMenu === 'solutions'}
+            className={`website-nav-btn ${location.pathname === '/solutions' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveMenu(null);
+              navigate('/solutions');
+            }}
           >
-            <span>{t('CRM Solutions')}</span>
-            <ChevronDown size={13} style={{
-              transform: activeMenu === 'solutions' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
+            <span>{isEs ? 'Soluciones' : 'Solutions'}</span>
           </button>
 
-          {/* 3. Industries */}
+          {/* 3. Industries -> /industries */}
           <button
             type="button"
-            className={`website-nav-btn ${activeMenu === 'industries' ? 'active' : ''}`}
-            onClick={() => toggleMenu('industries')}
-            aria-expanded={activeMenu === 'industries'}
+            className={`website-nav-btn ${location.pathname === '/industries' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveMenu(null);
+              navigate('/industries');
+            }}
           >
-            <span>{t('Industries')}</span>
-            <ChevronDown size={13} style={{
-              transform: activeMenu === 'industries' ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.2s ease'
-            }} />
+            <span>{isEs ? 'Industrias' : 'Industries'}</span>
           </button>
 
-          {/* 4. FAQs */}
+          {/* 4. FAQs -> /faqs */}
           <button
             type="button"
-            className="website-nav-btn"
-            onClick={() => scrollToSection('faqs')}
+            className={`website-nav-btn ${location.pathname === '/faqs' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveMenu(null);
+              navigate('/faqs');
+            }}
           >
-            <span>{t('FAQs')}</span>
+            <span>{isEs ? 'Preguntas Frecuentes' : 'FAQs'}</span>
           </button>
 
-          {/* 5. Ask Bestie – VA Virtual Assistant >> */}
+          {/* 5. Ask Best Friend – VA (Virtual Assistance) */}
           <button
             type="button"
             className="website-nav-btn website-cta-zunme"
             onClick={onOpenZunme}
-            title={isEs ? 'Preguntar a Bestie — Asistente Virtual VA' : 'Ask Bestie — VA Virtual Assistant'}
+            title={isEs ? 'Consultar a Mejor Amigo – Asistencia Virtual VA' : 'Ask Best Friend – VA (Virtual Assistance)'}
           >
-            <Sparkles size={14} className="website-zunme-sparkle" style={{ color: '#4f46e5', flexShrink: 0, transition: 'color 0.2s ease' }} />
-            <span>{isEs ? 'Ask Bestie – VA Virtual Assistant' : 'Ask Bestie – VA Virtual Assistant'}</span>
+            <Sparkles size={13} className="website-zunme-sparkle" style={{ color: '#4f46e5', flexShrink: 0, transition: 'color 0.2s ease' }} />
+            <span className="website-va-full-label">{isEs ? 'Ask Best Friend – VA (Virtual Assistance)' : 'Ask Best Friend – VA (Virtual Assistance)'}</span>
+            <span className="website-va-compact-label">{isEs ? 'Ask Best Friend – VA' : 'Ask Best Friend – VA'}</span>
             <span style={{ letterSpacing: '0.02em', fontWeight: 900, fontSize: '11px', flexShrink: 0, marginLeft: '2px' }}>&gt;&gt;</span>
           </button>
 
-          {/* 6. SALES - chat eBox */}
+          {/* 6. SALES */}
           <button
             type="button"
             className="website-nav-btn website-btn-sales"
             onClick={onOpenSales}
             title="Open Sales Consultation chat eBox"
           >
-            <MessageSquare size={14} />
-            <span>{t('SALES')}</span>
+            <MessageSquare size={13} />
+            <span>{isEs ? 'VENTAS' : 'SALES'}</span>
           </button>
 
           {/* 7. MORE */}
@@ -242,7 +255,7 @@ export const WebsiteNavbar = ({
             onClick={() => toggleMenu('more')}
             aria-expanded={activeMenu === 'more'}
           >
-            <span>{t('MORE')}</span>
+            <span>{isEs ? 'MÁS' : 'MORE'}</span>
             <ChevronDown size={13} style={{
               transform: activeMenu === 'more' ? 'rotate(180deg)' : 'none',
               transition: 'transform 0.2s ease'
@@ -251,88 +264,77 @@ export const WebsiteNavbar = ({
         </nav>
 
         {/* Right Side Controls: Language Switcher, Theme Toggle, Login & Sign Up */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+        <div className="website-header-right-controls" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
           {/* 1-Click English ↔ Spanish Language Selector */}
           <div style={{ flexShrink: 0 }}>
             <LanguageToggle />
           </div>
 
-          {/* Theme Toggle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            style={{
-              width: '32px',
-              height: '32px',
-              minWidth: '32px',
-              minHeight: '32px',
-              flexShrink: 0,
-              borderRadius: '50%',
-              background: 'var(--web-surface-subtle)',
-              border: '1px solid var(--web-border)',
-              color: 'var(--web-text-main)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer'
-            }}
-            title={theme === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
-          >
-            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} style={{ color: '#f59e0b' }} />}
-          </button>
 
-          {/* DISTINCT LOGIN BUTTON */}
-          <button
-            type="button"
-            onClick={handleLoginRedirect}
-            className="website-signin-btn website-header-login-btn"
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--web-border)',
-              color: 'var(--web-text-main)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              padding: '6px 11px',
-              fontSize: '12px',
-              fontWeight: 600,
-              borderRadius: '8px',
-              flexShrink: 0,
-              cursor: 'pointer'
-            }}
-          >
-            <LogIn size={13} />
-            <span>{isEs ? 'Iniciar Sesión' : 'Login'}</span>
-          </button>
-
-          {/* DISTINCT SIGN UP BUTTON */}
-          <button
-            type="button"
-            onClick={() => {
-              setActiveMenu(null);
-              if (onOpenSignup) onOpenSignup();
-              else handleSignupRedirect();
-            }}
-            className="website-signin-btn website-create-btn website-header-signup-btn"
-            style={{
-              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-              color: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '5px',
-              padding: '6px 12px',
-              fontSize: '12px',
-              fontWeight: 700,
-              borderRadius: '8px',
-              flexShrink: 0,
-              cursor: 'pointer'
-            }}
-          >
-            <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
-            <ArrowRight size={13} />
-          </button>
+          {/* DISTINCT [ Login / Create Account ] ACTION PILL (Matching Client Reference) */}
+          <div className="website-header-account-pill" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            background: 'rgba(16, 24, 43, 0.9)',
+            border: '1px solid rgba(139, 92, 246, 0.35)',
+            borderRadius: '9px',
+            padding: '2px 4px',
+            gap: '3px',
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.35)',
+            flexShrink: 0
+          }}>
+            <button
+              type="button"
+              onClick={handleLoginRedirect}
+              className="website-signin-btn website-header-login-btn"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--web-text-main)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '5px 10px',
+                fontSize: '12px',
+                fontWeight: 700,
+                borderRadius: '6px',
+                flexShrink: 0,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+              title={isEs ? 'Iniciar Sesión en el Portal' : 'Login to Portal'}
+            >
+              <LogIn size={13} style={{ color: '#22d3ee' }} />
+              <span>{isEs ? 'Iniciar Sesión' : 'Login'}</span>
+            </button>
+            <span style={{ color: 'rgba(139, 92, 246, 0.4)', fontWeight: 300, fontSize: '12px' }}>/</span>
+            <button
+              type="button"
+              onClick={handleSignupRedirect}
+              className="website-signin-btn website-create-btn website-header-signup-btn"
+              style={{
+                background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
+                color: '#ffffff',
+                border: 'none',
+                boxShadow: '0 2px 8px rgba(139, 92, 246, 0.4)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '5px 11px',
+                fontSize: '12px',
+                fontWeight: 800,
+                borderRadius: '6px',
+                flexShrink: 0,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+                whiteSpace: 'nowrap'
+              }}
+              title={isEs ? 'Crear Nueva Cuenta' : 'Create New Account'}
+            >
+              <span>{isEs ? 'Crear Cuenta' : 'Create Account'}</span>
+              <ArrowRight size={12} />
+            </button>
+          </div>
 
           {/* Mobile Hamburger Toggle Button */}
           <button
@@ -349,205 +351,7 @@ export const WebsiteNavbar = ({
 
 
 
-      {/* ======================================================== */}
-      {/* 1. FEATURES MEGA DROPDOWN                                */}
-      {/* ======================================================== */}
-      {activeMenu === 'features' && (
-        <div
-          className="website-mega-dropdown"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'min(980px, 94vw)',
-            maxHeight: '80vh',
-            overflowY: 'auto'
-          }}
-        >
-          <div className="website-mega-header">
-            <div className="website-mega-header-title">
-              <Layers size={17} style={{ color: '#0284c7' }} />
-              <span>{isEs ? 'Módulos y Características de CRM (23 Módulos)' : 'CRM Enterprise Features & Capabilities (23 Modules)'}</span>
-            </div>
-            <button
-              type="button"
-              className="website-mega-header-link"
-              onClick={() => scrollToSection('features')}
-            >
-              <span>{isEs ? 'Ver Sección Completa en Página →' : 'View Full Features Section on Page →'}</span>
-            </button>
-          </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '8px'
-          }}>
-            {CRM_FEATURES_DATA.map((f) => {
-              const IconComp = f.icon || Layers;
-              return (
-                <div
-                  key={f.id}
-                  className="website-mega-item"
-                  onClick={() => handleCardClick(f)}
-                >
-                  <div className="website-mega-item-icon">
-                    <IconComp size={15} />
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className="website-mega-item-name">
-                      {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
-                    </div>
-                    <div className="website-mega-item-sub" style={{
-                      display: '-webkit-box',
-                      WebkitLineClamp: 1,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
-                    }}>
-                      {(isEs && f.descEs) ? f.descEs : f.desc}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* 2. SOLUTIONS MEGA DROPDOWN                               */}
-      {/* ======================================================== */}
-      {activeMenu === 'solutions' && (
-        <div
-          className="website-mega-dropdown"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'min(1080px, 96vw)',
-            maxHeight: '80vh',
-            overflowY: 'auto'
-          }}
-        >
-          <div className="website-mega-header">
-            <div className="website-mega-header-title">
-              <Briefcase size={17} style={{ color: '#4f46e5' }} />
-              <span>{isEs ? 'Soluciones Empresariales de CRM nErgy' : 'CRM nErgy Enterprise Solutions Matrix'}</span>
-            </div>
-            <button
-              type="button"
-              className="website-mega-header-link"
-              onClick={() => scrollToSection('solutions')}
-            >
-              <span>{isEs ? 'Ver Sección de Soluciones en Página →' : 'View Solutions Section on Page →'}</span>
-            </button>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '14px'
-          }}>
-            {CRM_SOLUTIONS_DATA.map((group, idx) => (
-              <div key={idx} style={{
-                background: 'var(--web-surface-subtle)',
-                borderRadius: '10px',
-                padding: '12px',
-                border: '1px solid var(--web-border)'
-              }}>
-                <div style={{
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  color: '#4f46e5',
-                  marginBottom: '10px',
-                  letterSpacing: '0.04em'
-                }}>
-                  {(isEs && group.groupTitleEs) ? group.groupTitleEs : t(group.groupTitle)}
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                  {group.items.map((item) => {
-                    const ItemIcon = item.icon || Sparkles;
-                    return (
-                      <div
-                        key={item.id}
-                        className="website-mega-item"
-                        style={{ padding: '6px 8px' }}
-                        onClick={() => handleCardClick({ ...item, groupTitle: (isEs && group.groupTitleEs) ? group.groupTitleEs : group.groupTitle })}
-                      >
-                        <div className="website-mega-item-icon" style={{ width: '22px', height: '22px', borderRadius: '5px' }}>
-                          <ItemIcon size={12} />
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div className="website-mega-item-name" style={{ fontSize: '11.5px' }}>
-                            {(isEs && item.nameEs) ? item.nameEs : t(item.name)}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* 3. INDUSTRIES MEGA DROPDOWN                              */}
-      {/* ======================================================== */}
-      {activeMenu === 'industries' && (
-        <div
-          className="website-mega-dropdown"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'min(980px, 94vw)',
-            maxHeight: '80vh',
-            overflowY: 'auto'
-          }}
-        >
-          <div className="website-mega-header">
-            <div className="website-mega-header-title">
-              <Globe size={17} style={{ color: '#0f766e' }} />
-              <span>{isEs ? 'CRM Específico por Industria (23 Sectores)' : 'Industry-Specific CRM Ecosystem (23 Verticals)'}</span>
-            </div>
-            <button
-              type="button"
-              className="website-mega-header-link"
-              onClick={() => scrollToSection('industries')}
-            >
-              <span>{isEs ? 'Ver Sección de Industrias en Página →' : 'View Industries Section on Page →'}</span>
-            </button>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '6px'
-          }}>
-            {INDUSTRIES_DATA.map((ind) => {
-              const IndIcon = ind.icon || Globe;
-              return (
-                <div
-                  key={ind.id}
-                  className="website-mega-item"
-                  style={{ padding: '6px 8px' }}
-                  onClick={() => handleCardClick(ind)}
-                >
-                  <div className="website-mega-item-icon" style={{ width: '24px', height: '24px', borderRadius: '6px' }}>
-                    <IndIcon size={13} />
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className="website-mega-item-name" style={{ fontSize: '12px' }}>
-                      {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       {/* ======================================================== */}
       {/* 4. MORE DROPDOWN                                         */}
@@ -688,7 +492,7 @@ export const WebsiteNavbar = ({
             </div>
 
             <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {/* Ask Bestie Button */}
+              {/* 5. Ask Best Friend – VA (Virtual Assistance) */}
               <button
                 type="button"
                 className="website-cta-zunme"
@@ -706,10 +510,10 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <Sparkles size={16} />
-                <span>{isEs ? 'Preguntar a Bestie — Asistente Virtual VA >>' : 'Ask Bestie – VA Virtual Assistant >>'}</span>
+                <span>{isEs ? 'Ask Best Friend – VA (Virtual Assistance) >>' : 'Ask Best Friend – VA (Virtual Assistance) >>'}</span>
               </button>
 
-              {/* SALES button */}
+              {/* 6. SALES */}
               <button
                 type="button"
                 className="website-btn-sales"
@@ -728,143 +532,96 @@ export const WebsiteNavbar = ({
                 }}
               >
                 <MessageSquare size={16} />
-                <span>{t('SALES — chat eBox')}</span>
+                <span>{isEs ? 'VENTAS' : 'SALES'}</span>
               </button>
 
               <div style={{ height: '1px', background: 'var(--web-border)', margin: '8px 0' }} />
 
-              {/* Mobile Accordion: CRM Features */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setMobileExpandedSection(mobileExpandedSection === 'features' ? null : 'features')}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '10px 8px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--web-text-main)',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <span>{t('CRM Features')} (23)</span>
-                  <ChevronDown size={16} style={{
-                    transform: mobileExpandedSection === 'features' ? 'rotate(180deg)' : 'none',
-                    transition: 'transform 0.2s'
-                  }} />
-                </button>
-                {mobileExpandedSection === 'features' && (
-                  <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    {CRM_FEATURES_DATA.map((f) => (
-                      <div
-                        key={f.id}
-                        onClick={() => handleCardClick(f)}
-                        style={{
-                          padding: '6px 8px',
-                          fontSize: '12px',
-                          color: 'var(--web-text-muted)',
-                          cursor: 'pointer',
-                          borderRadius: '6px'
-                        }}
-                      >
-                        {(isEs && f.nameEs) ? f.nameEs : t(f.name)}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* 1. Features */}
+              <div
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  navigate('/features');
+                }}
+                style={{
+                  padding: '10px 8px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: 'var(--web-text-main)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <span>{isEs ? 'Características' : 'Features'} (23)</span>
+                <ArrowRight size={14} style={{ color: '#8b5cf6' }} />
               </div>
 
-              {/* Mobile Accordion: CRM Solutions */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setMobileExpandedSection(mobileExpandedSection === 'solutions' ? null : 'solutions')}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '10px 8px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--web-text-main)',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <span>{t('CRM Solutions')} (4)</span>
-                  <ChevronDown size={16} style={{
-                    transform: mobileExpandedSection === 'solutions' ? 'rotate(180deg)' : 'none',
-                    transition: 'transform 0.2s'
-                  }} />
-                </button>
-                {mobileExpandedSection === 'solutions' && (
-                  <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    {CRM_SOLUTIONS_DATA.map((g, idx) => (
-                      <div key={idx} style={{ marginBottom: '4px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#4f46e5' }}>{(isEs && g.groupTitleEs) ? g.groupTitleEs : t(g.groupTitle)}</span>
-                        {g.items.map((i) => (
-                          <div
-                            key={i.id}
-                            onClick={() => handleCardClick({ ...i, groupTitle: (isEs && g.groupTitleEs) ? g.groupTitleEs : g.groupTitle })}
-                            style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
-                          >
-                            • {(isEs && i.nameEs) ? i.nameEs : t(i.name)}
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* 2. Solutions */}
+              <div
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  navigate('/solutions');
+                }}
+                style={{
+                  padding: '10px 8px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: 'var(--web-text-main)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <span>{isEs ? 'Soluciones' : 'Solutions'} (4)</span>
+                <ArrowRight size={14} style={{ color: '#0284c7' }} />
               </div>
 
-              {/* Mobile Accordion: Industries */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setMobileExpandedSection(mobileExpandedSection === 'industries' ? null : 'industries')}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '10px 8px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--web-text-main)',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <span>{t('Industries')} (23)</span>
-                  <ChevronDown size={16} style={{
-                    transform: mobileExpandedSection === 'industries' ? 'rotate(180deg)' : 'none',
-                    transition: 'transform 0.2s'
-                  }} />
-                </button>
-                {mobileExpandedSection === 'industries' && (
-                  <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    {INDUSTRIES_DATA.map((ind) => (
-                      <div
-                        key={ind.id}
-                        onClick={() => handleCardClick(ind)}
-                        style={{ padding: '6px 8px', fontSize: '12px', color: 'var(--web-text-muted)', cursor: 'pointer' }}
-                      >
-                        {(isEs && ind.nameEs) ? ind.nameEs : t(ind.name)}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* 3. Industries */}
+              <div
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  navigate('/industries');
+                }}
+                style={{
+                  padding: '10px 8px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: 'var(--web-text-main)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <span>{isEs ? 'Industrias' : 'Industries'} (23)</span>
+                <ArrowRight size={14} style={{ color: '#10b981' }} />
               </div>
 
-              {/* Mobile Accordion: MORE */}
+              {/* 4. FAQs */}
+              <div
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  navigate('/faqs');
+                }}
+                style={{
+                  padding: '10px 8px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: 'var(--web-text-main)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <span>{isEs ? 'Preguntas Frecuentes' : 'FAQs'}</span>
+                <ArrowRight size={14} style={{ color: '#f97316' }} />
+              </div>
+
+              {/* 7. MORE */}
               <div>
                 <button
                   type="button"
@@ -883,7 +640,7 @@ export const WebsiteNavbar = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>{t('MORE')}</span>
+                  <span>{isEs ? 'MÁS' : 'MORE'}</span>
                   <ChevronDown size={16} style={{
                     transform: mobileExpandedSection === 'more' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s'
@@ -917,7 +674,7 @@ export const WebsiteNavbar = ({
                 )}
               </div>
 
-              {/* FAQs */}
+              {/* 4. FAQs */}
               <div
                 onClick={() => {
                   setMobileDrawerOpen(false);
@@ -931,7 +688,7 @@ export const WebsiteNavbar = ({
                   cursor: 'pointer'
                 }}
               >
-                {t('FAQs')}
+                {isEs ? 'Preguntas Frecuentes' : 'FAQs'}
               </div>
 
               <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--web-border)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -955,16 +712,12 @@ export const WebsiteNavbar = ({
                   }}
                 >
                   <LogIn size={15} />
-                  <span>{t('Sign In')} / {t('Portal')}</span>
+                  <span>{isEs ? 'Iniciar Sesión en el Portal' : 'Login / Portal'}</span>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    if (onOpenSignup) onOpenSignup();
-                    else handleSignupRedirect();
-                  }}
+                  onClick={handleSignupRedirect}
                   style={{
                     width: '100%',
                     background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
@@ -981,7 +734,7 @@ export const WebsiteNavbar = ({
                     gap: '6px'
                   }}
                 >
-                  <span>{isEs ? 'Registrarse' : 'Sign Up'}</span>
+                  <span>{isEs ? 'Crear Cuenta' : 'Create Account'}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>

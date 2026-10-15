@@ -3,7 +3,32 @@
  * Automatically handles baseURL, headers, JWT bearer tokens, and standardized errors.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Automatic environment-aware API URL:
+// 1. If explicit env variable is set and valid, use it.
+// 2. If running in browser on localhost/127.0.0.1, use localhost:5000/api.
+// 3. If deployed on Netlify or production domain, use live Railway backend.
+function resolveApiBaseUrl() {
+  const envUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL;
+
+  const isLocalhost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === '[::1]');
+
+  if (isLocalhost) {
+    return envUrl || 'http://localhost:5000/api';
+  }
+
+  // Production / Netlify deployment
+  if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+    return envUrl;
+  }
+
+  return 'https://crm-energy-backend-production.up.railway.app/api';
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
 
 class ApiClient {
   constructor(baseUrl) {

@@ -12,6 +12,11 @@ import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage'
 import { ProfessionalServicesPage } from '../pages/website/ProfessionalServicesPage';
 import { CustomizableDashboardsPage } from '../pages/website/CustomizableDashboardsPage';
 import { IndustryDetailPage } from '../pages/website/IndustryDetailPage';
+import { FeatureDetailPage } from '../pages/website/FeatureDetailPage';
+import { FeaturesPage } from '../pages/website/FeaturesPage';
+import { SolutionsPage } from '../pages/website/SolutionsPage';
+import { IndustriesPage } from '../pages/website/IndustriesPage';
+import { FaqsPage } from '../pages/website/FaqsPage';
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +24,12 @@ export const AppRoutes = () => {
       <Route element={<WebsiteLayout />}>
         {/* Main Landing / Homepage */}
         <Route path="/" element={<WebsiteHome />} />
+
+        {/* Dedicated Main Section Pages */}
+        <Route path="/features" element={<FeaturesPage />} />
+        <Route path="/solutions" element={<SolutionsPage />} />
+        <Route path="/industries" element={<IndustriesPage />} />
+        <Route path="/faqs" element={<FaqsPage />} />
 
         {/* Dedicated Solutions Pages */}
         <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
@@ -37,6 +48,7 @@ export const AppRoutes = () => {
         <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
         <Route path="/features/customizable-dashboards" element={<CustomizableDashboardsPage />} />
         <Route path="/features/dashboards" element={<CustomizableDashboardsPage />} />
+        <Route path="/features/:slug" element={<FeatureDetailPage />} />
 
         {/* Dedicated Industries Pages */}
         <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
