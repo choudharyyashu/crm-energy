@@ -88,11 +88,11 @@ export const FeaturesPage = () => {
       <section style={{
         position: 'relative',
         padding: '3.5rem 1.25rem 2.5rem 1.25rem',
-        backgroundImage: 'radial-gradient(ellipse at 50% 20%, rgba(7, 11, 22, 0.75) 0%, rgba(7, 11, 22, 0.94) 100%), url("/bg-features.jpg")',
+        backgroundImage: 'var(--web-hero-overlay), url("/bg-features.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        borderBottom: '1px solid rgba(139, 92, 246, 0.3)',
+        borderBottom: '1px solid var(--web-border)',
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>

@@ -1,40 +1,10 @@
 /* CRM nErgy Public Website — Dedicated Isolated Theme & Navigation Styles */
 
-.crm-website-theme {
-  --web-primary: #8b5cf6;
-  --web-primary-glow: #7c3aed;
-  --web-accent-cyan: #22d3ee;
-  --web-accent-orange: #f97316;
-  --web-accent-emerald: #34d399;
-  
-  /* Defaults: Flagship Futuristic Dark AI Theme */
-  --web-bg: #050816;
-  --web-surface: #10182b;
-  --web-surface-subtle: #0a1020;
-  --web-surface-card: #10182b;
-  --web-border: rgba(139, 92, 246, 0.22);
-  --web-border-hover: rgba(34, 211, 238, 0.45);
-  
-  /* Text tokens */
-  --web-text-main: #f8fafc;
-  --web-text-muted: #a7b2c7;
-  --web-text-light: #64748b;
-  
-  --web-gradient-hero: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #06b6d4 100%);
-  --web-gradient-energy: linear-gradient(135deg, #7c3aed 0%, #06b6d4 50%, #10b981 100%);
-  --web-gradient-card-hover: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-  --web-box-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+/* ====================================================
+   1. CORE THEME TOKENS — LIGHT & DARK MODES
+   ==================================================== */
 
-  color: var(--web-text-main);
-  background-color: var(--web-bg);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* Theme Tokens: The flagship CRM nErgy platform runs in dark cybernetic AI theme */
+:root,
 [data-theme="dark"] .crm-website-theme,
 .crm-website-theme {
   --web-primary: #8b5cf6;
@@ -43,36 +13,91 @@
   --web-accent-orange: #f97316;
   --web-accent-emerald: #34d399;
 
+  /* Defaults: Flagship Futuristic Dark AI Theme */
   --web-bg: #050816;
-  --web-surface: #10182b;
-  --web-surface-subtle: #0a1020;
-  --web-surface-card: #10182b;
+  --web-surface: #0b1120;
+  --web-surface-subtle: #070c18;
+  --web-surface-card: #0f172a;
+  --web-surface-hover: #1e293b;
   --web-border: rgba(139, 92, 246, 0.22);
-  --web-border-hover: rgba(34, 211, 238, 0.45);
+  --web-border-strong: rgba(139, 92, 246, 0.4);
+  --web-border-hover: rgba(34, 211, 238, 0.55);
+
+  /* Text tokens */
   --web-text-main: #f8fafc;
-  --web-text-muted: #a7b2c7;
+  --web-text-muted: #94a3b8;
   --web-text-light: #64748b;
-  --web-box-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+  --web-gradient-hero: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #06b6d4 100%);
+  --web-gradient-energy: linear-gradient(135deg, #7c3aed 0%, #06b6d4 50%, #10b981 100%);
+  --web-gradient-neon: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
+  --web-gradient-card-hover: linear-gradient(180deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.9) 100%);
+  --web-box-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.55);
+
+  --web-nav-bg: rgba(5, 8, 22, 0.9);
+  --web-nav-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+
+  --web-glass-bg: rgba(15, 23, 42, 0.75);
+  --web-glass-card: rgba(15, 23, 42, 0.85);
+  --web-glass-border: rgba(139, 92, 246, 0.28);
+  --web-glass-highlight: rgba(255, 255, 255, 0.08);
+
+  --web-hero-overlay: radial-gradient(ellipse at 50% 10%, rgba(5, 8, 22, 0.78) 0%, rgba(5, 8, 22, 0.96) 100%);
+  --web-stats-bar-bg: rgba(15, 23, 42, 0.78);
+  --web-stats-bar-border: rgba(139, 92, 246, 0.28);
+  --web-orb-glow: 0 0 80px rgba(139, 92, 246, 0.45), 0 0 140px rgba(6, 182, 212, 0.25);
 }
 
-/* Dark mode compatibility maintains the futuristic deep midnight theme */
-[data-theme="dark"] .crm-website-theme {
-  --web-primary: #8b5cf6;
-  --web-primary-glow: #7c3aed;
-  --web-accent-cyan: #22d3ee;
-  --web-accent-orange: #f97316;
-  --web-accent-emerald: #34d399;
+[data-theme="light"] .crm-website-theme {
+  --web-primary: #6366f1;
+  --web-primary-glow: #4f46e5;
+  --web-accent-cyan: #0891b2;
+  --web-accent-orange: #ea580c;
+  --web-accent-emerald: #059669;
 
-  --web-bg: #050816;
-  --web-surface: #10182b;
-  --web-surface-subtle: #0a1020;
-  --web-surface-card: #10182b;
-  --web-border: rgba(139, 92, 246, 0.22);
-  --web-border-hover: rgba(34, 211, 238, 0.45);
-  --web-text-main: #f8fafc;
-  --web-text-muted: #a7b2c7;
+  /* Crisp Modern Fintech Light Theme */
+  --web-bg: #f8fafc;
+  --web-surface: #ffffff;
+  --web-surface-subtle: #f1f5f9;
+  --web-surface-card: #ffffff;
+  --web-surface-hover: #f1f5f9;
+  --web-border: rgba(99, 102, 241, 0.16);
+  --web-border-strong: rgba(99, 102, 241, 0.32);
+  --web-border-hover: rgba(99, 102, 241, 0.45);
+
+  /* High-Contrast Readable Typography */
+  --web-text-main: #0f172a;
+  --web-text-muted: #475569;
   --web-text-light: #64748b;
-  --web-box-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+  --web-gradient-hero: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #06b6d4 100%);
+  --web-gradient-energy: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #10b981 100%);
+  --web-gradient-neon: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #0891b2 100%);
+  --web-gradient-card-hover: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  --web-box-shadow-card: 0 4px 20px rgba(15, 23, 42, 0.08);
+
+  --web-nav-bg: rgba(255, 255, 255, 0.9);
+  --web-nav-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+
+  --web-glass-bg: rgba(255, 255, 255, 0.88);
+  --web-glass-card: rgba(255, 255, 255, 0.94);
+  --web-glass-border: rgba(99, 102, 241, 0.18);
+  --web-glass-highlight: rgba(255, 255, 255, 0.95);
+
+  --web-hero-overlay: radial-gradient(ellipse at 50% 15%, rgba(248, 250, 252, 0.85) 0%, rgba(241, 245, 249, 0.96) 100%);
+  --web-stats-bar-bg: rgba(255, 255, 255, 0.92);
+  --web-stats-bar-border: rgba(99, 102, 241, 0.18);
+  --web-orb-glow: 0 0 60px rgba(99, 102, 241, 0.2), 0 0 100px rgba(6, 182, 212, 0.15);
+}
+
+.crm-website-theme {
+  color: var(--web-text-main);
+  background-color: var(--web-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  transition: background-color 0.28s ease, color 0.28s ease;
 }
 
 /* Navbar Top Container */
@@ -80,11 +105,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(5, 8, 22, 0.92);
+  background: var(--web-nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--web-border);
+  box-shadow: var(--web-nav-shadow);
   height: 72px;
   display: flex;
   align-items: center;
@@ -436,23 +461,445 @@
   box-shadow: 0 4px 16px rgba(34, 211, 238, 0.4) !important;
 }
 
-/* Dolibarr-Inspired Futuristic Card Component */
+/* ====================================================
+   ADVANCED HERO, BUTTON & CARD MOTION SYSTEM
+   ==================================================== */
+
+/* ====================================================
+   ULTRA-PREMIUM NEON GLOWING BUTTON SYSTEM (ALL BUTTONS)
+   Matching User Reference Screenshot
+   ==================================================== */
+
+/* Universal Neon Hover Glow for Buttons */
+.neon-energy-btn,
+.website-cta-zunme,
+.hero-cta-zunme,
+.website-header-signup-btn,
+.website-header-login-btn,
+.website-btn-sales,
+.frosted-hero-btn,
+.website-showcase-va-btn,
+.website-showcase-sales-btn,
+.website-showcase-nav-btn {
+  position: relative !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+}
+
+/* Base styling for Primary Neon Button (Matching Reference Image) */
+.neon-energy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #1c0825 0%, #0c0211 100%) !important;
+  border-radius: 9999px !important;
+  border: 1.5px solid rgba(255, 42, 133, 0.65) !important;
+  box-shadow: 
+    0 0 14px rgba(255, 42, 133, 0.35),
+    0 0 28px rgba(236, 72, 153, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+/* Master Neon Glow Hover State — Matching Reference Screenshot With Lateral Flares */
+.neon-energy-btn:hover,
+.website-cta-zunme:hover,
+.hero-cta-zunme:hover,
+.website-header-signup-btn:hover,
+.website-header-login-btn:hover,
+.website-btn-sales:hover,
+.frosted-hero-btn:hover,
+.website-showcase-va-btn:hover,
+.website-showcase-sales-btn:hover,
+.website-showcase-nav-btn:hover,
+.website-nav-btn.website-cta-zunme:hover,
+.website-branding-actions button:hover,
+.website-branding-actions a:hover,
+.website-whitelabel-actions button:hover,
+.website-whitelabel-actions a:hover,
+.website-zunme-actions button:hover {
+  transform: translateY(-2px) scale(1.025) !important;
+  border-color: #ff2a85 !important;
+  color: #ffffff !important;
+  box-shadow: 
+    0 0 18px #ff2a85,
+    0 0 38px #f43f5e,
+    0 0 75px rgba(236, 72, 153, 0.75),
+    -42px 0 45px -8px rgba(255, 42, 133, 0.8), /* Brilliant Left Horizontal Beam */
+    42px 0 45px -8px rgba(255, 42, 133, 0.8),  /* Brilliant Right Horizontal Beam */
+    inset 0 0 16px rgba(255, 42, 133, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.75) !important;
+  text-shadow: 0 0 8px rgba(255, 42, 133, 0.8), 0 0 18px rgba(236, 72, 153, 0.5) !important;
+  z-index: 10;
+}
+
+/* Note: White shimmer sweep REMOVED — caused unwanted white shadow on buttons */
+
+.neon-energy-btn:active,
+.website-cta-zunme:active,
+.hero-cta-zunme:active,
+.website-header-signup-btn:active,
+.website-btn-sales:active,
+.frosted-hero-btn:active {
+  transform: translateY(0) scale(0.99) !important;
+}
+
+.neon-energy-btn .btn-arrow-icon {
+  transition: transform 0.22s ease;
+}
+
+.neon-energy-btn:hover .btn-arrow-icon {
+  transform: translateX(4px);
+  color: #fbcfe8 !important;
+}
+
+/* Secondary Frosted Hero Button */
+.frosted-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--web-text-main) !important;
+  background: var(--web-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--web-glass-border);
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ====================================================
+   CENTERED AMBIENT 3D BACKGROUND ORB ("bg mee ball lightt krke round krwa doo")
+   ==================================================== */
+@keyframes continuousOrbSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes continuousOrbCounterSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+@keyframes ambientPulseGlow {
+  0%, 100% {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  50% {
+    opacity: 0.52;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+.hero-ambient-orb-bg {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(360px, 46vw, 560px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-ambient-orb-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.32) 0%, rgba(139, 92, 246, 0.22) 40%, rgba(34, 211, 238, 0.12) 65%, transparent 75%);
+  filter: blur(48px);
+  animation: ambientPulseGlow 6s ease-in-out infinite;
+}
+
+.hero-ambient-orb-rings-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 114%;
+  height: 114%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(34, 211, 238, 0.45);
+  animation: continuousOrbSpin 45s linear infinite;
+}
+
+.hero-ambient-orb-rings-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 102%;
+  height: 102%;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  border-top-color: #22d3ee;
+  border-bottom-color: #f97316;
+  animation: continuousOrbCounterSpin 30s linear infinite;
+}
+
+.hero-ambient-orb-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 86%;
+  height: 86%;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.34;
+  filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.55)) brightness(1.1);
+  animation: continuousOrbSpin 45s linear infinite;
+  mix-blend-mode: screen;
+}
+
+[data-theme="light"] .hero-ambient-orb-img {
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.25));
+}
+
+.hero-orb-image {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: var(--web-orb-glow);
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.4));
+  transition: transform 0.4s ease;
+}
+
+.hero-orb-wrapper:hover .hero-orb-image {
+  transform: scale(1.03);
+}
+
+/* Floating Frosted Glass AI Insights Card (Matching Reference Screenshot) */
+.hero-ai-insights-card {
+  position: absolute;
+  top: 10%;
+  right: -5%;
+  z-index: 10;
+  width: 220px;
+  background: var(--web-glass-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--web-glass-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45), 0 0 20px rgba(139, 92, 246, 0.15);
+  animation: orbLevitate 5s ease-in-out infinite reverse;
+  transition: all 0.25s ease;
+}
+
+.hero-ai-insights-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--web-accent-cyan);
+  box-shadow: 0 20px 45px -8px rgba(6, 182, 212, 0.35);
+}
+
+.hero-ai-status-pill {
+  position: absolute;
+  bottom: 8%;
+  left: -8%;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--web-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--web-glass-border);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--web-text-main);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  animation: orbLevitate 7s ease-in-out infinite;
+}
+
+/* Floating Bottom Trust / Metric Bar */
+.hero-trust-bar-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-trust-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 24px;
+  border-radius: 20px;
+  background: var(--web-stats-bar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--web-stats-bar-border);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-trust-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--web-primary);
+  border: 1px solid var(--web-glass-border);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.hero-trust-item:hover .hero-trust-icon-box {
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.4);
+}
+
+.hero-trust-metric {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--web-text-main);
+  line-height: 1.2;
+}
+
+.hero-trust-label {
+  font-size: 11.5px;
+  color: var(--web-text-muted);
+  font-weight: 500;
+}
+
+/* Theme Switcher Pill inside Trust Bar */
+.hero-theme-switch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px 5px 6px;
+  border-radius: 9999px;
+  background: var(--web-surface-subtle);
+  border: 1px solid var(--web-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.hero-theme-switch-pill:hover {
+  border-color: var(--web-primary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25);
+}
+
+.hero-theme-toggle-knob {
+  width: 44px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--web-surface-card);
+  border: 1px solid var(--web-border);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.hero-theme-toggle-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .hero-theme-toggle-dot {
+  transform: translateX(20px);
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+}
+
+/* =====================================================
+   PREMIUM ANIMATED CARD SYSTEM — All Pages
+   (Smooth lift, aurora border, icon glow, no white shadows)
+   ===================================================== */
+
+/* Aurora shimmer border keyframe */
+@keyframes auroraShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating card rise keyframe */
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Dolibarr-Inspired Futuristic Card Component (Features / Industries / Solutions) */
 .dolibarr-card {
   display: flex;
   flex-direction: column;
-  padding: 1.1rem;
-  background: #10182b;
-  border: 1px solid rgba(139, 92, 246, 0.16);
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  padding: 1.15rem;
+  background: var(--web-surface-card);
+  border: 1px solid var(--web-border);
+  border-radius: 14px;
+  box-shadow: var(--web-box-shadow-card);
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease,
+              background 0.28s ease;
   text-decoration: none;
   text-align: left;
   position: relative;
   overflow: hidden;
+  animation: cardEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Animated neon top-edge line */
 .dolibarr-card::before {
   content: '';
   position: absolute;
@@ -460,60 +907,110 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), rgba(34, 211, 238, 0.4), transparent);
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee, #ec4899, #8b5cf6);
+  background-size: 300% 100%;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
+  border-radius: 14px 14px 0 0;
+}
+
+/* Subtle radial glow behind card on hover */
+.dolibarr-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .dolibarr-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(34, 211, 238, 0.45);
-  box-shadow: 0 8px 28px -4px rgba(34, 211, 238, 0.18), 0 0 14px rgba(139, 92, 246, 0.15);
-  background: #131c33;
+  transform: translateY(-5px) scale(1.012);
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 
+    0 16px 40px -8px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(139, 92, 246, 0.22),
+    0 0 14px rgba(34, 211, 238, 0.15);
+  background: var(--web-surface-hover);
 }
 
 .dolibarr-card:hover::before {
   opacity: 1;
+  animation: auroraShift 2.5s ease infinite;
+}
+
+.dolibarr-card:hover::after {
+  opacity: 1;
 }
 
 .dolibarr-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(139, 92, 246, 0.12);
-  color: #a78bfa;
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: var(--web-primary);
+  border: 1px solid var(--web-border);
   margin-bottom: 0.65rem;
-  transition: all 0.2s ease;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
 }
 
 .dolibarr-card:hover .dolibarr-icon-box {
-  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
   color: #ffffff;
   border-color: transparent;
-  transform: scale(1.06);
-  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+  transform: scale(1.12) rotate(-4deg);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.5), 0 0 8px rgba(139, 92, 246, 0.4);
 }
 
 .dolibarr-title {
   font-size: 13.5px;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--web-text-main);
   line-height: 1.25;
   margin-bottom: 4px;
+  transition: color 0.2s ease;
+}
+
+.dolibarr-card:hover .dolibarr-title {
+  color: var(--web-accent-cyan);
 }
 
 .dolibarr-desc {
   font-size: 11.5px;
-  color: #a7b2c7;
-  line-height: 1.45;
+  color: var(--web-text-muted);
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ─── Branding / Banner Info Cards ─── */
+.website-branding-box {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.website-branding-box:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 32px rgba(139, 92, 246, 0.2), inset 0 0 20px rgba(139, 92, 246, 0.08) !important;
+}
+
+/* ─── White-Label Info Cards ─── */
+.website-whitelabel-box {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.website-whitelabel-box:hover {
+  transform: translateY(-3px);
+  border-color: rgba(34, 211, 238, 0.65) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 28px rgba(34, 211, 238, 0.2) !important;
 }
 
 /* Mega-Menu Overlay & Dropdown Body */
@@ -887,6 +1384,7 @@
   flex-direction: column;
   gap: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(139, 92, 246, 0.05);
+  /* transition already added to card system above */
 }
 
 .website-branding-bottom {
@@ -927,6 +1425,7 @@
   flex-direction: column;
   gap: 0.75rem;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 15px rgba(34, 211, 238, 0.1);
+  /* transition already added to card system above */
 }
 
 .website-whitelabel-bottom {
@@ -1724,12 +2223,12 @@ div[id],
   flex-wrap: wrap;
   gap: 8px;
   padding: 8px 12px;
-  background: rgba(16, 24, 43, 0.85);
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: var(--web-surface-card);
+  border: 1px solid var(--web-border);
   border-radius: 14px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--web-box-shadow-card);
 }
 
 .website-showcase-nav-btn {
@@ -1768,58 +2267,582 @@ div[id],
   color: #ffffff !important;
 }
 
-/* Mobile Screens Adjustments (< 768px) */
+
+
+
+/* ========================================================
+   UNIVERSAL ANIMATED CARD SYSTEM — ALL PAGES
+   Smooth premium hover: lift + aurora border + icon glow
+   ======================================================== */
+
+/* ─── Security / Trust Cards (used in WebsiteHome security section) ─── */
+.website-security-card,
+[class*="security-card"],
+.website-trust-card {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.website-security-card:hover,
+[class*="security-card"]:hover,
+.website-trust-card:hover {
+  transform: translateY(-4px) scale(1.015) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.4),
+              0 0 22px rgba(34, 211, 238, 0.2) !important;
+  border-color: rgba(34, 211, 238, 0.5) !important;
+}
+
+/* ─── FAQ Accordion Items ─── */
+.website-faq-item,
+[class*="faq-item"],
+[class*="faq-accordion"] {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.website-faq-item:hover,
+[class*="faq-item"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.25),
+              0 0 14px rgba(139, 92, 246, 0.18) !important;
+  border-color: rgba(139, 92, 246, 0.45) !important;
+}
+
+/* ─── Solutions / Solution Detail Cards ─── */
+.website-solution-card,
+[class*="solution-card"] {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.28s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.website-solution-card:hover,
+[class*="solution-card"]:hover {
+  transform: translateY(-5px) scale(1.012) !important;
+  box-shadow: 0 18px 44px -8px rgba(0, 0, 0, 0.35),
+              0 0 28px rgba(99, 102, 241, 0.22),
+              0 0 14px rgba(34, 211, 238, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.55) !important;
+}
+
+/* ─── Feature / Module Detail Sub-Cards ─── */
+.website-feature-card,
+[class*="feature-card"],
+.website-module-card,
+[class*="module-card"] {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease !important;
+}
+
+.website-feature-card:hover,
+[class*="feature-card"]:hover,
+.website-module-card:hover,
+[class*="module-card"]:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+  box-shadow: 0 14px 36px -6px rgba(0, 0, 0, 0.35),
+              0 0 22px rgba(139, 92, 246, 0.2) !important;
+  border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
+/* ─── Industry Cards ─── */
+.website-industry-card,
+[class*="industry-card"] {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.website-industry-card:hover,
+[class*="industry-card"]:hover {
+  transform: translateY(-5px) scale(1.012) !important;
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.4),
+              0 0 24px rgba(16, 185, 129, 0.2) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+/* ─── Pricing / Plan Cards ─── */
+.website-plan-card,
+[class*="plan-card"],
+.website-pricing-card,
+[class*="pricing-card"] {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.28s ease !important;
+}
+
+.website-plan-card:hover,
+[class*="plan-card"]:hover,
+.website-pricing-card:hover,
+[class*="pricing-card"]:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+  box-shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.4),
+              0 0 32px rgba(139, 92, 246, 0.25) !important;
+  border-color: rgba(139, 92, 246, 0.6) !important;
+}
+
+/* ─── Stat / Metric Cards (Quick insight blocks) ─── */
+.website-stat-card,
+[class*="stat-card"],
+.website-metric-card,
+[class*="metric-card"] {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s ease !important;
+}
+
+.website-stat-card:hover,
+[class*="stat-card"]:hover,
+.website-metric-card:hover,
+[class*="metric-card"]:hover {
+  transform: translateY(-3px) scale(1.025) !important;
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.3),
+              0 0 16px rgba(34, 211, 238, 0.2) !important;
+}
+
+/* ─── All inline card-like div/section with border-radius ─── */
+/* Catches any card styled with inline styles across pages */
+@media (prefers-reduced-motion: no-preference) {
+  .erp-module-card {
+    animation: cardEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  }
+}
+
+/* ========================================================
+   COMPREHENSIVE MOBILE RESPONSIVE ENGINE — CRM nErgy
+   100% Responsive for Smartphones (320px–480px), Phablets (481px–768px) & Tablets (769px–992px)
+   ======================================================== */
+
+/* ─── Global Mobile Container & Viewport Hygiene ─── */
+html,
+body,
+#root,
+.crm-website-theme {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Safe area padding for notches and modern mobile devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .website-header-sticky {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ─── TABLETS & SMALL LAPTOPS (< 992px) ─── */
+@media (max-width: 992px) {
+  .website-main-nav {
+    display: none !important;
+  }
+
+  .website-mobile-toggle {
+    display: flex !important;
+  }
+
+  .website-section-container {
+    padding: 2.5rem 1rem !important;
+  }
+
+  .features-mega-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .solutions-mega-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  .website-security-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+}
+
+/* ─── PHABLETS & LARGE SMARTPHONES (< 768px) ─── */
 @media (max-width: 768px) {
+  /* Header & Navigation */
+  .website-header-sticky {
+    height: 64px !important;
+    padding: 0 0.75rem !important;
+  }
+
+  .website-nav-inner {
+    padding: 0 !important;
+    gap: 8px !important;
+  }
+
+  .website-brand-sub {
+    display: none !important;
+  }
+
+  .website-brand-title {
+    font-size: 15px !important;
+  }
+
+  .website-brand-tagline-ai {
+    font-size: 9px !important;
+  }
+
+  /* Hero Section */
+  .website-hero-section {
+    padding: 2.5rem 0.875rem 1.75rem 0.875rem !important;
+  }
+
+  .hero-ambient-orb-bg {
+    width: clamp(240px, 72vw, 360px) !important;
+    opacity: 0.75 !important;
+  }
+
+  .ai-hero-quote {
+    font-size: clamp(1.2rem, 4.2vw, 1.55rem) !important;
+    line-height: 1.4 !important;
+    padding: 0 4px !important;
+  }
+
+  /* Hero Trust / Stats Bar */
+  .hero-trust-bar-container {
+    margin-top: 1.5rem !important;
+    padding: 0 !important;
+  }
+
+  .hero-trust-bar {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px 10px !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .hero-trust-item {
+    gap: 8px !important;
+  }
+
+  .hero-trust-icon-box {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 8px !important;
+  }
+
+  .hero-trust-metric {
+    font-size: 13.5px !important;
+  }
+
+  .hero-trust-label {
+    font-size: 10.5px !important;
+  }
+
+  .hero-theme-switch-pill {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: 4px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Showcase Section */
+  .website-product-showcase-container {
+    margin-top: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+
+  .website-preview-command-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+  }
+
+  .website-preview-command-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .website-showcase-modules-row {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Showcase In-Hero Navigation Buttons */
   .website-showcase-nav-inner {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 6px !important;
-    padding: 8px !important;
+    padding: 8px 6px !important;
   }
 
   .website-showcase-nav-btn {
     width: 100% !important;
-    padding: 8px 10px !important;
+    padding: 10px 8px !important;
     font-size: 12px !important;
     text-align: center !important;
     justify-content: center !important;
+    min-height: 40px !important;
   }
 
   .website-showcase-va-btn {
     grid-column: 1 / -1 !important;
+    font-size: 12.5px !important;
   }
 
+  .website-showcase-sales-btn {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* 12-Module Enterprise Suite Grid */
+  #erp-showcase {
+    padding: 1.5rem 0.875rem 2rem 0.875rem !important;
+  }
+
+  .erp-modules-container-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .erp-module-card {
+    padding: 1.1rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* Security Architecture Grid */
   .website-security-grid {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
   }
 
-  .website-footer-main-grid {
-    grid-template-columns: 1fr !important;
+  /* Footer Responsiveness */
+  .website-footer-header-actions {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .website-footer-header-actions > button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .website-footer-columns {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem !important;
   }
 }
 
-/* Small Smartphone Adjustments (< 480px) */
-@media (max-width: 480px) {
-  .ai-hero-quote {
-    font-size: 1.1rem !important;
-    line-height: 1.4 !important;
+/* ─── STANDARD SMARTPHONES (< 600px) ─── */
+@media (max-width: 600px) {
+  /* Header Elements */
+  .website-brand-tagline-ai {
+    display: none !important;
   }
 
-  .website-header-sticky {
-    height: 64px !important;
-    padding: 0 0.5rem !important;
+  .website-header-account-pill {
+    padding: 2px 3px !important;
   }
 
-  .website-showcase-nav-inner {
+  .website-header-login-btn {
+    padding: 5px 7px !important;
+    font-size: 11px !important;
+  }
+
+  .website-header-signup-btn span {
+    display: none !important;
+  }
+
+  .website-header-signup-btn {
+    padding: 6px 8px !important;
+  }
+
+  /* Hero CTA Buttons Stack Vertically & Full Width */
+  .website-hero-cta-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0.75rem auto 0 auto !important;
+    gap: 10px !important;
+  }
+
+  .website-hero-cta-group > * {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 44px !important;
+    padding: 11px 18px !important;
+    font-size: 13.5px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* All Page Cards Mega Grids Collapse to 1 Column */
+  .features-mega-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .solutions-mega-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .erp-modules-container-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .website-showcase-modules-row {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 
-  .erp-module-card {
-    padding: 1rem !important;
+  /* Category Filter Pills — Smooth Horizontal Touch Scrolling */
+  .website-filter-pills,
+  .website-faq-tabs {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding: 4px 2px 8px 2px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .website-filter-pills::-webkit-scrollbar,
+  .website-faq-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .website-filter-pill-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    padding: 6px 12px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* White Label & Branding Callout Boxes */
+  .website-whitelabel-box,
+  .website-branding-box {
+    padding: 1.15rem 1rem !important;
+    border-radius: 12px !important;
+  }
+
+  .website-whitelabel-bottom,
+  .website-branding-bottom {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .website-whitelabel-bottom > button,
+  .website-branding-bottom > button,
+  .website-branding-actions > button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* FAQs Page: RAG AI Search Bar & Spotlight */
+  .faq-strategic-benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .website-zunme-card-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .website-zunme-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+
+  .website-zunme-actions > button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Mobile Input: Prevent iOS Safari Auto-Zoom with font-size >= 16px */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"] {
+    font-size: 16px !important;
+  }
+
+  /* Footer Columns to 1 Column Stack */
+  .website-footer-columns {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.75rem !important;
+  }
+
+  .website-footer-col {
+    width: 100% !important;
   }
 }
 
+/* ─── SMALL SMARTPHONES (< 440px) ─── */
+@media (max-width: 440px) {
+  .ai-hero-quote {
+    font-size: 1.12rem !important;
+    line-height: 1.38 !important;
+  }
 
+  .website-header-sticky {
+    height: 60px !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .website-brand-title {
+    font-size: 14px !important;
+  }
+
+  .hero-trust-bar {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px 6px !important;
+    padding: 10px 8px !important;
+  }
+
+  .hero-trust-metric {
+    font-size: 12px !important;
+  }
+
+  .hero-trust-label {
+    font-size: 9.5px !important;
+  }
+
+  .hero-theme-switch-pill span {
+    font-size: 10px !important;
+  }
+
+  .website-showcase-modules-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .erp-module-card {
+    padding: 0.9rem !important;
+  }
+
+  .dolibarr-card:hover {
+    transform: translateY(-2px) scale(1.005) !important;
+  }
+
+  .website-modal-window {
+    width: 96vw !important;
+    padding: 1rem !important;
+  }
+}
 

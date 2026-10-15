@@ -60,11 +60,11 @@ export const SolutionsPage = () => {
       <section style={{
         position: 'relative',
         padding: '3.5rem 1.25rem 2.5rem 1.25rem',
-        backgroundImage: 'radial-gradient(ellipse at 50% 20%, rgba(6, 13, 31, 0.75) 0%, rgba(6, 13, 31, 0.94) 100%), url("/bg-solutions.jpg")',
+        backgroundImage: 'var(--web-hero-overlay), url("/bg-solutions.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        borderBottom: '1px solid rgba(2, 132, 199, 0.35)',
+        borderBottom: '1px solid var(--web-border)',
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>

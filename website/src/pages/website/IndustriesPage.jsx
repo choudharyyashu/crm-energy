@@ -58,11 +58,11 @@ export const IndustriesPage = () => {
       <section style={{
         position: 'relative',
         padding: '3.5rem 1.25rem 2.5rem 1.25rem',
-        backgroundImage: 'radial-gradient(ellipse at 50% 20%, rgba(6, 20, 26, 0.75) 0%, rgba(6, 20, 26, 0.94) 100%), url("/bg-industries.jpg")',
+        backgroundImage: 'var(--web-hero-overlay), url("/bg-industries.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        borderBottom: '1px solid rgba(16, 185, 129, 0.35)',
+        borderBottom: '1px solid var(--web-border)',
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>

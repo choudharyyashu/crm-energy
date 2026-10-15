@@ -233,11 +233,11 @@ export const FaqsPage = () => {
       <section style={{
         position: 'relative',
         padding: '3.5rem 1.25rem 2.5rem 1.25rem',
-        backgroundImage: 'radial-gradient(ellipse at 50% 20%, rgba(8, 12, 24, 0.75) 0%, rgba(8, 12, 24, 0.94) 100%), url("/bg-faqs.jpg")',
+        backgroundImage: 'var(--web-hero-overlay), url("/bg-faqs.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        borderBottom: '1px solid rgba(249, 115, 22, 0.35)',
+        borderBottom: '1px solid var(--web-border)',
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
@@ -516,7 +516,7 @@ export const FaqsPage = () => {
             <h4 style={{ fontSize: '13px', fontWeight: 800, color: 'var(--web-text-main)', textTransform: 'uppercase', letterSpacing: '0.04em', margin: '0 0 1rem 0' }}>
               {isEs ? '8 Razones para un Sistema de Conocimiento Centralizado con RAG' : '8 Strategic Benefits of a Centralized Knowledge System with RAG'}
             </h4>
-            <div style={{
+            <div className="faq-strategic-benefits-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
               gap: '12px'

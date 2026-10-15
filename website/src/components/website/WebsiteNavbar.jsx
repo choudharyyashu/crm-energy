@@ -264,23 +264,51 @@ export const WebsiteNavbar = ({
         </nav>
 
         {/* Right Side Controls: Language Switcher, Theme Toggle, Login & Sign Up */}
-        <div className="website-header-right-controls" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+        <div className="website-header-right-controls" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
           {/* 1-Click English ↔ Spanish Language Selector */}
           <div style={{ flexShrink: 0 }}>
             <LanguageToggle />
           </div>
 
+          {/* Theme Mode Toggle (Moon / Sun) */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="website-theme-toggle-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '34px',
+              height: '34px',
+              borderRadius: '9px',
+              background: 'var(--web-surface-subtle)',
+              border: '1px solid var(--web-border)',
+              color: 'var(--web-text-main)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              flexShrink: 0
+            }}
+            title={theme === 'dark' ? (isEs ? 'Cambiar a modo claro' : 'Switch to light mode') : (isEs ? 'Cambiar a modo oscuro' : 'Switch to dark mode')}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun size={15} style={{ color: '#f59e0b' }} />
+            ) : (
+              <Moon size={15} style={{ color: '#6366f1' }} />
+            )}
+          </button>
 
           {/* DISTINCT [ Login / Create Account ] ACTION PILL (Matching Client Reference) */}
           <div className="website-header-account-pill" style={{
             display: 'inline-flex',
             alignItems: 'center',
-            background: 'rgba(16, 24, 43, 0.9)',
-            border: '1px solid rgba(139, 92, 246, 0.35)',
+            background: 'var(--web-surface-card)',
+            border: '1px solid var(--web-border)',
             borderRadius: '9px',
             padding: '2px 4px',
             gap: '3px',
-            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.35)',
+            boxShadow: 'var(--web-box-shadow-card)',
             flexShrink: 0
           }}>
             <button
@@ -307,7 +335,7 @@ export const WebsiteNavbar = ({
               <LogIn size={13} style={{ color: '#22d3ee' }} />
               <span>{isEs ? 'Iniciar Sesión' : 'Login'}</span>
             </button>
-            <span style={{ color: 'rgba(139, 92, 246, 0.4)', fontWeight: 300, fontSize: '12px' }}>/</span>
+            <span style={{ color: 'var(--web-border-strong)', fontWeight: 300, fontSize: '12px' }}>/</span>
             <button
               type="button"
               onClick={handleSignupRedirect}
@@ -474,8 +502,28 @@ export const WebsiteNavbar = ({
                   CRM nErgy AI
                 </span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LanguageToggle />
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  style={{
+                    background: 'var(--web-surface-subtle)',
+                    border: '1px solid var(--web-border)',
+                    borderRadius: '8px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: 'var(--web-text-main)'
+                  }}
+                  aria-label="Toggle theme"
+                  title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                  {theme === 'dark' ? <Sun size={14} style={{ color: '#f59e0b' }} /> : <Moon size={14} style={{ color: '#6366f1' }} />}
+                </button>
                 <button
                   type="button"
                   onClick={() => setMobileDrawerOpen(false)}
@@ -483,8 +531,13 @@ export const WebsiteNavbar = ({
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
-                    color: 'var(--web-text-muted)'
+                    color: 'var(--web-text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '4px'
                   }}
+                  aria-label="Close menu"
                 >
                   <X size={20} />
                 </button>

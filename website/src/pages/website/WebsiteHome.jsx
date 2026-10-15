@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 import {
   Sparkles,
   ArrowRight,
@@ -35,7 +36,9 @@ import {
   Store,
   BookOpen,
   UserCheck,
-  Factory
+  Factory,
+  Sun,
+  Moon
 } from 'lucide-react';
 import {
   CRM_FEATURES_DATA,
@@ -48,6 +51,7 @@ import { getLoginUrl, getSignupUrl } from '../../config/portalConfig';
 export const WebsiteHome = () => {
   const navigate = useNavigate();
   const { language, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const isEs = language === 'ES';
   const { onOpenZunme, onOpenSales, onOpenSignup, onSelectItem } = useOutletContext() || {};
 
@@ -204,36 +208,82 @@ export const WebsiteHome = () => {
       {/* 1. HERO SECTION                                          */}
       {/* ======================================================== */}
       {/* ======================================================== */}
-      {/* 1. HERO SECTION — EXACT REFERENCE CONTENT ORDER          */}
+      {/* ======================================================== */}
+      {/* 1. HERO SECTION — IMMERSIVE FUTURISTIC AI EXPERIENCE    */}
+      {/* ======================================================== */}
       <section
         className="website-hero-section"
         style={{
           position: 'relative',
-          padding: '2.5rem 1rem 1.75rem 1rem',
-          backgroundImage: 'radial-gradient(ellipse at 50% 10%, rgba(6, 9, 19, 0.72) 0%, rgba(6, 9, 19, 0.92) 100%), url("/ai-bg.jpg")',
+          padding: '3.25rem 1rem 2rem 1rem',
+          backgroundImage: 'var(--web-hero-overlay), url("/ai-bg.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
-          borderBottom: '1px solid rgba(139, 92, 246, 0.25)'
+          borderBottom: '1px solid var(--web-border)',
+          overflow: 'hidden'
         }}
       >
-        <div style={{ maxWidth: '980px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.25rem' }}>
-          
-          {/* Approved Hero Message (Centered Horizontally) with AI Shimmer Glow & Breathing Room */}
+        {/* AMBIENT 3D ROTATING ORB IN BACKGROUND ("bg mee yee ball lightt krke round krwa doo") */}
+        <div className="hero-ambient-orb-bg" aria-hidden="true">
+          <div className="hero-ambient-orb-halo" />
+          <div className="hero-ambient-orb-rings-outer" />
+          <div className="hero-ambient-orb-rings-inner" />
+          <img
+            src="/hero-ai-orb.jpg"
+            alt="AI Energy Sphere Rotating Background"
+            className="hero-ambient-orb-img"
+            loading="eager"
+          />
+        </div>
+
+        {/* CENTERED HERO CONTENT CONTAINER (ORIGINAL APPROVED ORDER RESTORED) */}
+        <div style={{
+          maxWidth: '1080px',
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: '1.15rem',
+          position: 'relative',
+          zIndex: 3
+        }}>
+          {/* Pill Badge */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '6px 18px',
+            borderRadius: '9999px',
+            background: 'rgba(139, 92, 246, 0.12)',
+            border: '1px solid var(--web-border-strong)',
+            fontSize: '12px',
+            fontWeight: 800,
+            color: 'var(--web-accent-cyan)',
+            letterSpacing: '0.02em',
+            boxShadow: '0 0 16px rgba(139, 92, 246, 0.2)'
+          }}>
+            <Sparkles size={14} style={{ color: '#22d3ee', flexShrink: 0 }} />
+            <span>{t('Next-Gen AI-Powered Business Platform • “Make AI Your Bestie”')}</span>
+          </div>
+
+          {/* Approved Hero Message (Centered Horizontally with High Contrast) */}
           <blockquote
             className="ai-hero-quote"
             style={{
-              fontSize: 'clamp(1.4rem, 2.9vw, 2.15rem)',
+              fontSize: 'clamp(1.4rem, 2.9vw, 2.2rem)',
               fontWeight: 800,
               fontStyle: 'normal',
-              lineHeight: 1.5,
+              lineHeight: 1.45,
               maxWidth: '1040px',
               textAlign: 'center',
-              margin: '0.5rem 0 0 0',
+              margin: '0.25rem auto 0 auto',
               padding: '0 1rem',
               borderLeft: 'none',
               letterSpacing: '0.005em',
-              wordSpacing: '0.04em'
+              wordSpacing: '0.03em',
+              color: 'var(--web-text-main)'
             }}
           >
             {t('“Delivering the most relevant CRM ERP software for your business to thrive and honing our AAI development to effectively prepare you to scale.”')}
@@ -241,9 +291,9 @@ export const WebsiteHome = () => {
 
           <p style={{
             fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
-            color: '#cbd5e1',
+            color: 'var(--web-text-muted)',
             lineHeight: 1.75,
-            maxWidth: '760px',
+            maxWidth: '780px',
             margin: '0 auto',
             textAlign: 'center',
             letterSpacing: '0.015em'
@@ -251,26 +301,119 @@ export const WebsiteHome = () => {
             {t('A complete enterprise operating system combining all 23 core CRM features, 4 tailored solution frameworks, and 23 industry modules with the autonomous power of the ZUNME AI Studio.')}
           </p>
 
-          {/* Quick CTA Action (Bestie VA) */}
-          <div className="website-hero-cta-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+          {/* Centered CTA Buttons with Universal Neon Glow on Hover */}
+          <div className="website-hero-cta-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+            {/* Primary Neon CTA Button (Matching Reference Image) */}
             <button
               type="button"
               onClick={onOpenZunme}
-              className="website-cta-zunme hero-cta-zunme"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '11px 26px',
-                fontSize: '14px',
-                borderRadius: '12px',
-                cursor: 'pointer'
-              }}
+              className="neon-energy-btn hero-cta-zunme"
+              title={isEs ? 'Consultar a Mejor Amigo – Asistencia Virtual VA' : 'Ask Best Friend – VA (Virtual Assistance)'}
             >
               <Sparkles size={16} style={{ color: '#fef08a', flexShrink: 0 }} />
               <span>{isEs ? 'Ask Best Friend – VA >>' : 'Ask Best Friend – VA >>'}</span>
+              <ArrowRight size={16} className="btn-arrow-icon" style={{ flexShrink: 0 }} />
             </button>
+
+            {/* Secondary Button */}
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById('erp-showcase');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="frosted-hero-btn"
+            >
+              <LayoutDashboard size={16} style={{ color: '#22d3ee', flexShrink: 0 }} />
+              <span>{isEs ? 'Ver Suite de 12 Módulos' : 'See How It Works'}</span>
+            </button>
+
+            {/* Sales Button */}
+            <button
+              type="button"
+              onClick={onOpenSales}
+              className="website-btn-sales"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 24px',
+                borderRadius: '9999px',
+                fontSize: '14px',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+              title="Open Sales Consultation chat eBox"
+            >
+              <MessageSquare size={15} style={{ flexShrink: 0 }} />
+              <span>{isEs ? 'VENTAS' : 'SALES'}</span>
+            </button>
+          </div>
+        </div>
+
+
+        {/* Floating Bottom Trust / Metric Bar (Matching Reference Screenshot) */}
+        <div className="hero-trust-bar-container">
+          <div className="hero-trust-bar">
+            {/* 1. Core Modules */}
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon-box">
+                <Boxes size={18} />
+              </div>
+              <div>
+                <div className="hero-trust-metric">12+ Modules</div>
+                <div className="hero-trust-label">{isEs ? 'CRM y ERP Integrados' : 'Core Business Suite'}</div>
+              </div>
+            </div>
+
+            {/* 2. Platform Uptime */}
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon-box">
+                <TrendingUp size={18} />
+              </div>
+              <div>
+                <div className="hero-trust-metric">99.99%</div>
+                <div className="hero-trust-label">{isEs ? 'Disponibilidad Continua' : 'Platform Uptime'}</div>
+              </div>
+            </div>
+
+            {/* 3. Security */}
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon-box">
+                <ShieldCheck size={18} />
+              </div>
+              <div>
+                <div className="hero-trust-metric">{isEs ? 'Bóveda SHA-256' : 'Enterprise Vault'}</div>
+                <div className="hero-trust-label">{isEs ? 'Aislamiento de Datos' : 'Security & Compliance'}</div>
+              </div>
+            </div>
+
+            {/* 4. Industries */}
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon-box">
+                <Globe size={18} />
+              </div>
+              <div>
+                <div className="hero-trust-metric">23+ Verticals</div>
+                <div className="hero-trust-label">{isEs ? 'Sectores Especializados' : 'Tailored Industries'}</div>
+              </div>
+            </div>
+
+            {/* 5. Theme Toggle Pill (Matching Reference) */}
+            <div
+              className="hero-theme-switch-pill"
+              onClick={toggleTheme}
+              title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            >
+              <div className="hero-theme-toggle-knob">
+                <div className="hero-theme-toggle-dot">
+                  {theme === 'dark' ? <Moon size={11} /> : <Sun size={11} />}
+                </div>
+              </div>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--web-text-main)' }}>
+                {isEs ? 'Modo Claro o Oscuro' : 'Beautiful in Light or Dark'}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -278,13 +421,13 @@ export const WebsiteHome = () => {
         {/* 2. CRM/ERP PRODUCT SHOWCASE (MATCHING REFERENCE SCREENSHOT) */}
         {/* ======================================================== */}
         <div className="website-product-showcase-container" style={{
-          maxWidth: '1120px',
+          maxWidth: '1200px',
           width: '100%',
-          margin: '1.5rem auto 0 auto',
+          margin: '2rem auto 0 auto',
           borderRadius: '18px',
-          background: 'linear-gradient(180deg, rgba(16, 24, 43, 0.95) 0%, rgba(10, 16, 32, 0.98) 100%)',
-          border: '1px solid rgba(139, 92, 246, 0.3)',
-          boxShadow: '0 24px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(139, 92, 246, 0.15)',
+          background: 'var(--web-surface-card)',
+          border: '1px solid var(--web-border)',
+          boxShadow: 'var(--web-box-shadow-card)',
           overflow: 'hidden',
           position: 'relative'
         }}>
@@ -292,28 +435,28 @@ export const WebsiteHome = () => {
           <div style={{
             position: 'absolute',
             top: 0,
-            left: '15%',
-            right: '15%',
+            left: '10%',
+            right: '10%',
             height: '2px',
-            background: 'linear-gradient(90deg, transparent, #8b5cf6, #22d3ee, transparent)'
+            background: 'linear-gradient(90deg, transparent, var(--web-primary), var(--web-accent-cyan), transparent)'
           }} />
 
           {/* Top Showcase Branding: CRM nErgy / "Make AI Your Bestie" */}
           <div style={{
             padding: '1.1rem 1.5rem',
-            borderBottom: '1px solid rgba(139, 92, 246, 0.2)',
+            borderBottom: '1px solid var(--web-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
-            background: 'rgba(7, 11, 22, 0.6)'
+            background: 'var(--web-surface-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <span style={{
                 fontSize: 'clamp(1.15rem, 2.2vw, 1.45rem)',
                 fontWeight: 900,
-                color: '#f8fafc',
+                color: 'var(--web-text-main)',
                 letterSpacing: '-0.02em',
                 fontFamily: 'var(--font-display)'
               }}>
@@ -333,7 +476,7 @@ export const WebsiteHome = () => {
               <span style={{
                 fontSize: '11px',
                 fontWeight: 800,
-                color: '#34d399',
+                color: 'var(--web-accent-emerald)',
                 background: 'rgba(52, 211, 153, 0.12)',
                 padding: '4px 12px',
                 borderRadius: '16px',
@@ -351,28 +494,28 @@ export const WebsiteHome = () => {
           {/* Central Product Preview UI (ERP & CRM High-Tech Dashboard) */}
           <div style={{
             padding: 'clamp(1rem, 2.5vw, 1.75rem)',
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 70%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08) 0%, transparent 70%)'
           }}>
             {/* Search / Command Bar inside Preview */}
-            <div style={{
+            <div className="website-preview-command-bar" style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: 'rgba(7, 11, 22, 0.85)',
-              border: '1px solid rgba(139, 92, 246, 0.25)',
+              background: 'var(--web-surface)',
+              border: '1px solid var(--web-border)',
               borderRadius: '12px',
               padding: '9px 15px',
               marginBottom: '1rem',
               gap: '12px',
               flexWrap: 'wrap'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1', minWidth: '220px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1', minWidth: 'min(220px, 100%)' }}>
                 <Search size={15} style={{ color: '#22d3ee' }} />
                 <span style={{ fontSize: '12.5px', color: 'var(--web-text-muted)', fontWeight: 500 }}>
                   {isEs ? 'Buscar módulos de contabilidad, prospectos, inventario o consultar a Bestie VA...' : 'Search enterprise ledgers, contacts, supply chain, or consult Bestie VA...'}
                 </span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '11px', color: '#94a3b8' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '11px', color: 'var(--web-text-muted)', flexWrap: 'wrap' }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
                   <Cpu size={13} style={{ color: '#8b5cf6' }} />
                   {isEs ? 'IA Operativa' : 'Neural Core: Active'}
@@ -385,7 +528,7 @@ export const WebsiteHome = () => {
             </div>
 
             {/* Central Dashboard Command Capabilities Grid */}
-            <div style={{
+            <div className="website-preview-command-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: '12px',
@@ -393,11 +536,11 @@ export const WebsiteHome = () => {
             }}>
               {/* Box 1: AI Lead Qualification */}
               <div style={{
-                background: 'rgba(7, 11, 22, 0.75)',
-                border: '1px solid rgba(139, 92, 246, 0.2)',
+                background: 'var(--web-surface-subtle)',
+                border: '1px solid var(--web-border)',
                 borderRadius: '12px',
                 padding: '12px 15px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--web-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
@@ -405,21 +548,21 @@ export const WebsiteHome = () => {
                   </span>
                   <TrendingUp size={14} style={{ color: '#22d3ee' }} />
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
                   {isEs ? 'Puntuación y Etapas Inteligentes' : 'Intelligent Stage Scoring'}
                 </div>
-                <div style={{ fontSize: '11px', color: '#34d399', fontWeight: 600, marginTop: '3px' }}>
+                <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 600, marginTop: '3px' }}>
                   {isEs ? 'Flujos automatizados de avance de prospectos' : 'Automated deal progression pipelines'}
                 </div>
               </div>
 
               {/* Box 2: Connected ERP Modules */}
               <div style={{
-                background: 'rgba(7, 11, 22, 0.75)',
-                border: '1px solid rgba(139, 92, 246, 0.2)',
+                background: 'var(--web-surface-subtle)',
+                border: '1px solid var(--web-border)',
                 borderRadius: '12px',
                 padding: '12px 15px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--web-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
@@ -427,32 +570,32 @@ export const WebsiteHome = () => {
                   </span>
                   <Boxes size={14} style={{ color: '#8b5cf6' }} />
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
                   {isEs ? 'Suite Operativa de 12 Módulos' : '12 Unified Operating Modules'}
                 </div>
-                <div style={{ fontSize: '11px', color: '#22d3ee', fontWeight: 600, marginTop: '3px' }}>
+                <div style={{ fontSize: '11px', color: '#06b6d4', fontWeight: 600, marginTop: '3px' }}>
                   {isEs ? 'Libro mayor y logística en tiempo real' : 'Real-time ledger, inventory & accounting'}
                 </div>
               </div>
 
               {/* Box 3: Vault Encryption */}
               <div style={{
-                background: 'rgba(7, 11, 22, 0.75)',
-                border: '1px solid rgba(139, 92, 246, 0.2)',
+                background: 'var(--web-surface-subtle)',
+                border: '1px solid var(--web-border)',
                 borderRadius: '12px',
                 padding: '12px 15px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--web-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     {isEs ? 'Arquitectura de Seguridad' : 'Security Architecture'}
                   </span>
-                  <ShieldCheck size={14} style={{ color: '#34d399' }} />
+                  <ShieldCheck size={14} style={{ color: '#10b981' }} />
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--web-text-main)', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
                   {isEs ? 'Aislamiento Multi-Inquilino' : 'Isolated Multi-Tenant Vault'}
                 </div>
-                <div style={{ fontSize: '11px', color: '#34d399', fontWeight: 600, marginTop: '3px' }}>
+                <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 600, marginTop: '3px' }}>
                   {isEs ? 'Control de acceso empresarial y auditoría' : 'Enterprise role-based access governance'}
                 </div>
               </div>
@@ -462,8 +605,8 @@ export const WebsiteHome = () => {
           {/* WIDE SUBTLY-TINTED MODULE STRIP UNDERNEATH PREVIEW WITH EXACTLY 6 CARDS */}
           {/* Matching Reference: Accounting, CRM, HR, Project, Inventory, Manufacturing */}
           <div style={{
-            background: 'rgba(13, 20, 38, 0.95)',
-            borderTop: '1px solid rgba(139, 92, 246, 0.25)',
+            background: 'var(--web-surface-subtle)',
+            borderTop: '1px solid var(--web-border)',
             padding: '1.25rem clamp(1rem, 2vw, 1.5rem)'
           }}>
             <div style={{
@@ -475,7 +618,7 @@ export const WebsiteHome = () => {
               <span style={{
                 fontSize: '11.5px',
                 fontWeight: 800,
-                color: '#c4b5fd',
+                color: 'var(--web-primary)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase'
               }}>
@@ -491,7 +634,7 @@ export const WebsiteHome = () => {
                 style={{
                   fontSize: '11.5px',
                   fontWeight: 700,
-                  color: '#22d3ee',
+                  color: 'var(--web-accent-cyan)',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -503,7 +646,7 @@ export const WebsiteHome = () => {
             </div>
 
             {/* Exactly 6 Visible Module Cards in Initial Showcase Row */}
-            <div style={{
+            <div className="website-showcase-modules-row" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
               gap: '10px'
@@ -521,8 +664,8 @@ export const WebsiteHome = () => {
                       }
                     }}
                     style={{
-                      background: 'rgba(17, 27, 48, 0.85)',
-                      border: '1px solid rgba(139, 92, 246, 0.2)',
+                      background: 'var(--web-surface-card)',
+                      border: '1px solid var(--web-border)',
                       borderRadius: '10px',
                       padding: '12px 10px',
                       display: 'flex',
@@ -532,7 +675,7 @@ export const WebsiteHome = () => {
                       gap: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
+                      boxShadow: 'var(--web-box-shadow-card)'
                     }}
                     className="hover:scale-102 hover:border-cyan-400"
                     title={isEs ? mod.descEs : mod.desc}
@@ -541,19 +684,19 @@ export const WebsiteHome = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '8px',
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      color: mod.color || '#22d3ee',
+                      background: 'rgba(139, 92, 246, 0.12)',
+                      color: mod.color || 'var(--web-accent-cyan)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      border: '1px solid rgba(139, 92, 246, 0.3)'
+                      border: '1px solid var(--web-border)'
                     }}>
                       <ModIcon size={18} />
                     </div>
                     <span style={{
                       fontSize: '13px',
                       fontWeight: 800,
-                      color: '#f8fafc',
+                      color: 'var(--web-text-main)',
                       letterSpacing: '-0.01em',
                       lineHeight: 1.2
                     }}>
@@ -561,7 +704,7 @@ export const WebsiteHome = () => {
                     </span>
                     <span style={{
                       fontSize: '10px',
-                      color: '#94a3b8',
+                      color: 'var(--web-text-muted)',
                       fontWeight: 600,
                       textTransform: 'uppercase',
                       letterSpacing: '0.04em'
@@ -684,7 +827,7 @@ export const WebsiteHome = () => {
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)',
             fontWeight: 900,
-            color: '#f8fafc',
+            color: 'var(--web-text-main)',
             letterSpacing: '-0.02em',
             margin: '0 0 0.75rem 0'
           }}>
@@ -705,7 +848,7 @@ export const WebsiteHome = () => {
         </div>
 
         {/* 12 Modules Grid */}
-        <div style={{
+        <div className="erp-modules-container-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: '16px',
@@ -725,15 +868,15 @@ export const WebsiteHome = () => {
                   else navigate(`/features/${mod.id}`);
                 }}
                 style={{
-                  background: 'rgba(16, 24, 43, 0.88)',
-                  border: '1px solid rgba(139, 92, 246, 0.25)',
+                  background: 'var(--web-surface-card)',
+                  border: '1px solid var(--web-border)',
                   borderRadius: '14px',
                   padding: '1.25rem',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '10px',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 18px rgba(0, 0, 0, 0.25)',
+                  boxShadow: 'var(--web-box-shadow-card)',
                   backdropFilter: 'blur(12px)',
                   position: 'relative'
                 }}
@@ -751,7 +894,7 @@ export const WebsiteHome = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      border: '1px solid rgba(139, 92, 246, 0.28)',
+                      border: '1px solid var(--web-border)',
                       boxShadow: '0 0 10px rgba(139, 92, 246, 0.15)'
                     }}
                   >
@@ -776,7 +919,7 @@ export const WebsiteHome = () => {
                   <h3 style={{
                     fontSize: '16px',
                     fontWeight: 800,
-                    color: '#f8fafc',
+                    color: 'var(--web-text-main)',
                     margin: '0 0 4px 0'
                   }}>
                     {isEs ? mod.nameEs : mod.name}
