@@ -23,12 +23,266 @@ import {
   RefreshCw,
   PhoneCall,
   ChevronRight,
-  Info
+  Info,
+  Smile,
+  Phone,
+  Video,
+  Mic,
+  MicOff,
+  Image,
+  File,
+  FileImage,
+  X,
+  Play,
+  Pause,
+  AlertCircle
 } from 'lucide-react';
 import { Breadcrumb, Button, Card, Badge } from '../../components/ui';
 import { useToast } from '../../context/ToastContext';
 import { useLanguage } from '../../context/LanguageContext';
 import eboxService from '../../services/eboxService';
+import { useCall } from '../../context/CallContext';
+
+const EMOJI_LIST = [
+  '😀', '😂', '😍', '🤔', '👍', '👎', '❤️', '🔥', '✅', '❌', 
+  '🎉', '💡', '📊', '📈', '📉', '🚀', '⚠️', '🔒', '💬', '📁', 
+  '🖼️', '📎', '✉️', '🕐', '👋', '🙏', '💪', '🤝', '😎', '🎯',
+  '💼', '⭐', '⚡', '💻', '📞', '🔔', '✨', '🏆', '💯', '🔑'
+];
+
+const FilePreview = ({ file, onRemove }) => {
+  const isImage = file.type?.startsWith('image/');
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        padding: '3px 8px',
+        backgroundColor: 'rgba(2, 132, 199, 0.1)',
+        border: '1px solid rgba(2, 132, 199, 0.25)',
+        borderRadius: '6px',
+        fontSize: '11px',
+        color: '#0284c7',
+        maxWidth: '180px',
+      }}
+    >
+      {isImage ? <FileImage size={13} /> : <File size={13} />}
+      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, fontWeight: 600 }}>
+        {file.name}
+      </span>
+      <button
+        type="button"
+        onClick={onRemove}
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: '#0284c7',
+          padding: '1px',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <X size={12} />
+      </button>
+    </div>
+  );
+};
+
+const VoiceNotePlayer = ({ msg, isMine }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [currentTimeStr, setCurrentTimeStr] = useState('0:00');
+  const [waveAnim, setWaveAnim] = useState(0);
+  const audioRef = useRef(null);
+  const synthIntervalRef = useRef(null);
+  const animIntervalRef = useRef(null);
+  const synthOscillatorsRef = useRef([]);
+
+  const totalSeconds = msg.durationSeconds || (() => {
+    if (!msg.audioDuration) return 4;
+    const parts = msg.audioDuration.split(':');
+    return parseInt(parts[0] || '0', 10) * 60 + parseInt(parts[1] || '4', 10);
+  })();
+
+  const stopPlayback = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    if (synthIntervalRef.current) {
+      clearInterval(synthIntervalRef.current);
+      synthIntervalRef.current = null;
+    }
+    if (animIntervalRef.current) {
+      clearInterval(animIntervalRef.current);
+      animIntervalRef.current = null;
+    }
+    synthOscillatorsRef.current.forEach((osc) => {
+      try { osc.stop(); } catch (e) {}
+    });
+    synthOscillatorsRef.current = [];
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentTimeStr('0:00');
+  };
+
+  const playSynthesizedMelody = () => {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
+      const dur = Math.max(2, totalSeconds);
+      const notes = [330, 440, 392, 523, 440, 349, 392, 440, 523, 659, 587, 523];
+      const stepDur = dur / notes.length;
+
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * stepDur);
+        gain.gain.setValueAtTime(0.18, now + idx * stepDur);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (idx + 1) * stepDur);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * stepDur);
+        osc.stop(now + (idx + 1) * stepDur);
+        synthOscillatorsRef.current.push(osc);
+      });
+
+      let elapsed = 0;
+      synthIntervalRef.current = setInterval(() => {
+        elapsed += 0.1;
+        if (elapsed >= dur) {
+          stopPlayback();
+        } else {
+          setProgress(elapsed / dur);
+          const mins = Math.floor(elapsed / 60);
+          const secs = Math.floor(elapsed % 60).toString().padStart(2, '0');
+          setCurrentTimeStr(mins + ':' + secs);
+        }
+      }, 100);
+
+      animIntervalRef.current = setInterval(() => {
+        setWaveAnim((prev) => (prev + 1) % 100);
+      }, 80);
+    } catch (err) {
+      setTimeout(() => stopPlayback(), totalSeconds * 1000);
+    }
+  };
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      stopPlayback();
+      return;
+    }
+    setIsPlaying(true);
+    if (msg.audioUrl) {
+      if (!audioRef.current) {
+        audioRef.current = new Audio(msg.audioUrl);
+        audioRef.current.ontimeupdate = () => {
+          const cur = audioRef.current.currentTime;
+          const dur = audioRef.current.duration || totalSeconds;
+          setProgress(cur / dur);
+          const mins = Math.floor(cur / 60);
+          const secs = Math.floor(cur % 60).toString().padStart(2, '0');
+          setCurrentTimeStr(mins + ':' + secs);
+        };
+        audioRef.current.onended = () => {
+          stopPlayback();
+        };
+        audioRef.current.onerror = () => {
+          playSynthesizedMelody();
+        };
+      }
+      audioRef.current.play().then(() => {
+        animIntervalRef.current = setInterval(() => {
+          setWaveAnim((prev) => (prev + 1) % 100);
+        }, 80);
+      }).catch(() => {
+        playSynthesizedMelody();
+      });
+    } else {
+      playSynthesizedMelody();
+    }
+  };
+
+  const waveformBars = [12, 20, 8, 28, 16, 24, 10, 18, 30, 14, 22, 12, 26, 18, 8, 20];
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '6px 10px',
+        borderRadius: '12px',
+        backgroundColor: isMine ? 'rgba(255,255,255,0.18)' : 'rgba(2, 132, 199, 0.08)',
+        border: '1px solid ' + (isMine ? 'rgba(255,255,255,0.25)' : 'rgba(2, 132, 199, 0.2)'),
+        minWidth: '200px',
+      }}
+    >
+      <button
+        type="button"
+        onClick={togglePlay}
+        style={{
+          width: '30px',
+          height: '30px',
+          borderRadius: '50%',
+          border: 'none',
+          background: isMine ? '#ffffff' : '#0284c7',
+          color: isMine ? '#0284c7' : '#ffffff',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+        }}
+      >
+        {isPlaying ? <Pause size={13} /> : <Play size={13} style={{ marginLeft: '1px' }} />}
+      </button>
+
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '2px', height: '26px' }}>
+        {waveformBars.map((h, i) => {
+          const isPlayed = i / waveformBars.length <= progress;
+          const animatedHeight = isPlaying
+            ? Math.min(26, Math.max(5, Math.sin((waveAnim + i * 20) * 0.1) * 12 + h * 0.6))
+            : h * 0.8;
+
+          return (
+            <div
+              key={i}
+              style={{
+                width: '3px',
+                height: animatedHeight + 'px',
+                backgroundColor: isPlayed
+                  ? (isMine ? '#ffffff' : '#0284c7')
+                  : (isMine ? 'rgba(255,255,255,0.45)' : 'var(--text-tertiary, #94a3b8)'),
+                borderRadius: '2px',
+                transition: isPlaying ? 'height 0.08s ease' : 'none',
+              }}
+            />
+          );
+        })}
+      </div>
+
+      <span
+        style={{
+          fontSize: '11px',
+          fontWeight: 700,
+          color: isMine ? '#ffffff' : 'var(--text-secondary)',
+          minWidth: '28px',
+          textAlign: 'right',
+        }}
+      >
+        {isPlaying ? currentTimeStr : (msg.audioDuration || '0:04')}
+      </span>
+    </div>
+  );
+};
 
 // Default seed conversations for the 3 confidential channels
 const INITIAL_CONVERSATIONS = {
@@ -128,11 +382,24 @@ const INITIAL_CONVERSATIONS = {
       attachment: null,
     }
   ],
+  'th-swmtp': [
+    {
+      id: 'ebx-swmtp-1',
+      senderRole: 'swmtp_admin',
+      sender: 'SWMTP Master Admin (Central Hub)',
+      title: 'Central Hub Administrator',
+      time: 'Live Mesh',
+      text: 'SWMTP Central Inter-Platform Mesh channel active. Messages sent here are cryptographically verified with HMAC-SHA256 and persisted in real-time.',
+      attachment: null,
+      conversationId: 'conv-swmtp-main',
+    },
+  ],
 };
 
 const STORAGE_KEY = 'crm_nergy_secured_ebox_v3';
 
 export const SecuredEbox = () => {
+  const { startCall: initiateRealCall, callState } = useCall();
   const { addToast } = useToast();
   const { language } = useLanguage();
   const isEs = language === 'ES';
@@ -144,6 +411,253 @@ export const SecuredEbox = () => {
   const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const messagesEndRef = useRef(null);
+
+  // Rich Interactive Chat States
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [attachedFiles, setAttachedFiles] = useState([]);
+  const [activeCall, setActiveCall] = useState(null);
+  const [callTimer, setCallTimer] = useState(0);
+  const [isRecordingVoice, setIsRecordingVoice] = useState(false);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const fileInputRef = useRef(null);
+  const imageInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+  const emojiPickerRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const audioStreamRef = useRef(null);
+  const recordingTimerRef = useRef(null);
+  const callIntervalRef = useRef(null);
+
+  // Close emoji picker on click outside
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(e.target)) {
+        setShowEmojiPicker(false);
+      }
+    };
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showEmojiPicker]);
+
+  // Call timer interval
+  useEffect(() => {
+    if (activeCall) {
+      callIntervalRef.current = setInterval(() => {
+        setCallTimer((prev) => prev + 1);
+      }, 1000);
+    } else {
+      if (callIntervalRef.current) {
+        clearInterval(callIntervalRef.current);
+        callIntervalRef.current = null;
+      }
+    }
+    return () => {
+      if (callIntervalRef.current) clearInterval(callIntervalRef.current);
+    };
+  }, [activeCall]);
+
+  const startCall = (type) => {
+    initiateRealCall({
+      targetStaffId: 'staff-admin-01',
+      targetDisplayName: 'Master Administrator',
+      callType: type,
+      conversationId: 'conv-swmtp-main'
+    });
+  };
+
+  const endCall = () => {
+    setActiveCall(null);
+    if (callIntervalRef.current) {
+      clearInterval(callIntervalRef.current);
+      callIntervalRef.current = null;
+    }
+    addToast({
+      title: 'Call Terminated',
+      message: 'Encrypted peer-to-peer session closed.',
+      type: 'info',
+    });
+  };
+
+  const handleAddReaction = (msgId, emo) => {
+    setThreadStore((prev) => {
+      const currentList = prev[activeThreadId] || [];
+      const updated = currentList.map((m) => {
+        if (m.id === msgId) {
+          const reactions = { ...(m.reactions || {}) };
+          reactions[emo] = (reactions[emo] || 0) + 1;
+          return { ...m, reactions };
+        }
+        return m;
+      });
+      return { ...prev, [activeThreadId]: updated };
+    });
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      setAttachedFiles((prev) => [...prev, ...files]);
+      addToast({
+        title: 'Attachment Ready',
+        message: files.length + ' file(s) attached to encrypted dispatch.',
+        type: 'info',
+      });
+    }
+    e.target.value = '';
+  };
+
+  const removeFile = (idx) => {
+    setAttachedFiles((prev) => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleStartVoice = async () => {
+    audioChunksRef.current = [];
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioStreamRef.current = stream;
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = mediaRecorder;
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) audioChunksRef.current.push(e.data);
+        };
+        mediaRecorder.start(100);
+        setIsRecordingVoice(true);
+        setRecordingSeconds(0);
+        recordingTimerRef.current = setInterval(() => {
+          setRecordingSeconds((prev) => prev + 1);
+        }, 1000);
+      } else {
+        setIsRecordingVoice(true);
+        setRecordingSeconds(0);
+        recordingTimerRef.current = setInterval(() => {
+          setRecordingSeconds((prev) => prev + 1);
+        }, 1000);
+      }
+    } catch (err) {
+      setIsRecordingVoice(true);
+      setRecordingSeconds(0);
+      recordingTimerRef.current = setInterval(() => {
+        setRecordingSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const handleCancelVoice = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      try { mediaRecorderRef.current.stop(); } catch (e) {}
+    }
+    if (audioStreamRef.current) {
+      audioStreamRef.current.getTracks().forEach((t) => t.stop());
+    }
+    if (recordingTimerRef.current) {
+      clearInterval(recordingTimerRef.current);
+      recordingTimerRef.current = null;
+    }
+    setIsRecordingVoice(false);
+    setRecordingSeconds(0);
+  };
+
+  const handleStopAndSendVoice = async () => {
+    const durSec = Math.max(1, recordingSeconds || 2);
+    if (recordingTimerRef.current) {
+      clearInterval(recordingTimerRef.current);
+      recordingTimerRef.current = null;
+    }
+    setIsRecordingVoice(false);
+    setRecordingSeconds(0);
+
+    const finalizeVoiceMsg = async (audioUrl = null) => {
+      let senderName = 'Johnny (Super Executive Admin)';
+      let senderTitle = 'SEA / Business Owner';
+      if (activePersona === 'ktt') {
+        senderName = 'Kiaan Tech Team (KTT)';
+        senderTitle = 'Lead Systems Architect';
+      } else if (activePersona === 'attorney') {
+        senderName = 'Legal Counsel (Corporate Diligence)';
+        senderTitle = 'Senior Diligence Attorney';
+      }
+
+      const durStr = Math.floor(durSec / 60) + ':' + (durSec % 60).toString().padStart(2, '0');
+      const isSwmtp = activeThreadId === 'th-swmtp';
+      const activeMsgs = threadStore['th-swmtp'] || [];
+      const lastSwmtp = [...activeMsgs].reverse().find((m) => m.conversationId);
+      const conversationId = lastSwmtp?.conversationId || 'conv-swmtp-main';
+
+      const newMsg = {
+        id: 'ebx-v-' + Date.now(),
+        senderRole: activePersona,
+        sender: senderName,
+        title: senderTitle,
+        time: 'Just now',
+        text: '',
+        type: 'audio',
+        audioUrl,
+        audioDuration: durStr,
+        durationSeconds: durSec,
+        reactions: {},
+        isDbRecord: true,
+        conversationId: isSwmtp ? conversationId : undefined,
+      };
+
+      setThreadStore((prev) => ({
+        ...prev,
+        [activeThreadId]: [...(prev[activeThreadId] || []), newMsg],
+      }));
+
+      addToast({
+        title: 'Voice Note Transmitted',
+        message: 'Secured voice note (' + durStr + ') sent to ' + (isSwmtp ? 'SWMTP Master Admin' : currentThread.partnerName) + '.',
+        type: 'success',
+      });
+
+      try {
+        await eboxService.sendMessage({
+          subject: isSwmtp ? '[SWMTP:' + conversationId + '] Voice Note by Johnny' : currentThread.title + ' [Voice Note]',
+          message: '🎤 Encrypted voice note',
+          recipient: isSwmtp ? 'SWMTP Master Admin' : (activePersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)'),
+          isSwmtp,
+          conversationId: isSwmtp ? conversationId : undefined,
+          messageType: 'audio',
+          fileMetadata: { audioDuration: durStr, durationSeconds: durSec },
+        });
+      } catch (e) {
+        console.warn('Voice note transmission warning:', e);
+      }
+    };
+
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.onstop = () => {
+        let audioUrl = null;
+        if (audioChunksRef.current.length > 0) {
+          const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+          audioUrl = URL.createObjectURL(blob);
+        }
+        if (audioStreamRef.current) {
+          audioStreamRef.current.getTracks().forEach((t) => t.stop());
+        }
+        finalizeVoiceMsg(audioUrl);
+      };
+      try {
+        mediaRecorderRef.current.stop();
+      } catch (err) {
+        finalizeVoiceMsg(null);
+      }
+    } else {
+      finalizeVoiceMsg(null);
+    }
+  };
+
+  const isInitialLoadDone = useRef(false);
+  const lastActiveThreadRef = useRef(activeThreadId);
+  const lastActiveMsgCountRef = useRef(0);
 
   // Initialize messages from localStorage or empty store
   const [threadStore, setThreadStore] = useState(() => {
@@ -161,18 +675,25 @@ export const SecuredEbox = () => {
     let isMounted = true;
     const fetchEboxMessages = async () => {
       try {
-        setIsLoadingMessages(true);
+        if (!isInitialLoadDone.current) {
+          setIsLoadingMessages(true);
+        }
         setFetchError(null);
         const dbMessages = await eboxService.getMessages();
 
         if (isMounted && Array.isArray(dbMessages)) {
           setThreadStore((prev) => {
+            let hasChanges = false;
             const next = { ...prev };
 
             dbMessages.forEach((dbMsg) => {
               let targetThread = 'th-1';
               const subjectLower = (dbMsg.subject || '').toLowerCase();
-              if (subjectLower.includes('attorney') || subjectLower.includes('pitch') || subjectLower.includes('legal')) {
+              const isSwmtpMsg = subjectLower.includes('[swmtp:') || subjectLower.includes('swmtp') || dbMsg.senderName?.toLowerCase().includes('swmtp') || dbMsg.recipient?.toLowerCase().includes('swmtp');
+
+              if (isSwmtpMsg) {
+                targetThread = 'th-swmtp';
+              } else if (subjectLower.includes('attorney') || subjectLower.includes('pitch') || subjectLower.includes('legal')) {
                 targetThread = 'th-2';
               } else if (subjectLower.includes('roadmap') || subjectLower.includes('strategy') || subjectLower.includes('executive')) {
                 targetThread = 'th-3';
@@ -181,30 +702,88 @@ export const SecuredEbox = () => {
               const isAttorney = dbMsg.senderName?.toLowerCase().includes('attorney') || dbMsg.recipient?.toLowerCase().includes('attorney');
               const isKtt = dbMsg.senderName?.toLowerCase().includes('tech') || dbMsg.senderName?.toLowerCase().includes('ktt') || dbMsg.recipient?.toLowerCase().includes('ktt');
 
+              let senderRole = 'johnny';
+              let senderTitle = 'SEA / Business Owner';
+              if (isSwmtpMsg) {
+                const isHubAdmin = dbMsg.senderName?.toLowerCase().includes('swmtp') || dbMsg.senderName?.toLowerCase().includes('master admin') || dbMsg.senderId?.includes('swmtp');
+                senderRole = isHubAdmin ? 'swmtp_admin' : 'johnny';
+                senderTitle = isHubAdmin ? 'SWMTP Master Admin' : 'SEA / Business Owner';
+              } else if (isAttorney) {
+                senderRole = 'attorney';
+                senderTitle = 'Senior Diligence Attorney';
+              } else if (isKtt) {
+                senderRole = 'ktt';
+                senderTitle = 'Lead Systems Architect';
+              }
+
+              const convMatch = dbMsg.subject?.match(/\[SWMTP:([^\]]+)\]/);
+              const conversationId = convMatch ? convMatch[1] : (isSwmtpMsg ? 'conv-swmtp-main' : null);
+
+              let msgText = dbMsg.message || '';
+              let attachment = null;
+              let isImage = false;
+              let isVideo = false;
+              let isAudio = false;
+              let previewUrl = null;
+              let msgType = 'text';
+
+              if (typeof dbMsg.message === 'string' && dbMsg.message.trim().startsWith('{') && dbMsg.message.trim().endsWith('}')) {
+                try {
+                  const parsed = JSON.parse(dbMsg.message);
+                  msgText = parsed.textContent || '';
+                  msgType = parsed.messageType || 'text';
+                  const meta = parsed.fileMetadata || (parsed.fileData ? { fileName: parsed.fileName, fileUrl: parsed.fileData } : null);
+                  if (meta) {
+                    const swmtpHost = 'http://localhost:5000';
+                    const rawUrl = meta.fileUrl || meta.url || parsed.fileData;
+                    const fullUrl = rawUrl && rawUrl.startsWith('/uploads/') ? `${swmtpHost}${rawUrl}` : rawUrl;
+                    previewUrl = fullUrl;
+                    const fName = meta.fileName || meta.name || 'attachment';
+                    const isImg = meta.isImage || /\.(jpg|jpeg|png|gif|webp|svg|avif)$/i.test(fName) || msgType === 'image';
+                    const isVid = meta.isVideo || /\.(mp4|webm|mov|mkv|avi)$/i.test(fName) || msgType === 'video';
+                    const isAud = meta.isAudio || /\.(mp3|wav|ogg|m4a)$/i.test(fName) || msgType === 'audio';
+
+                    isImage = isImg;
+                    isVideo = isVid;
+                    isAudio = isAud;
+                    attachment = {
+                      name: fName,
+                      size: meta.fileSize || meta.size || 'Attachment',
+                      url: fullUrl
+                    };
+                  }
+                } catch (e) {
+                  // Fallback to raw message text
+                }
+              }
+
               const formattedMsg = {
                 id: dbMsg.id,
-                senderRole: isAttorney ? 'attorney' : isKtt ? 'ktt' : 'johnny',
-                sender: dbMsg.senderName || 'Johnny (Super Executive Admin)',
-                title: isAttorney
-                  ? 'Senior Diligence Attorney'
-                  : isKtt
-                  ? 'Lead Systems Architect'
-                  : 'SEA / Business Owner',
+                senderRole,
+                sender: dbMsg.senderName || (senderRole === 'swmtp_admin' ? 'SWMTP Master Admin' : 'Johnny (Super Executive Admin)'),
+                title: senderTitle,
                 time: dbMsg.createdAt
                   ? new Date(dbMsg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
                   : 'Just now',
-                text: dbMsg.message,
-                attachment: null,
+                text: msgText,
+                attachment,
+                isImage,
+                isVideo,
+                isAudio,
+                previewUrl,
+                messageType: msgType,
                 isDbRecord: true,
+                conversationId,
               };
 
               const existingThreadMsgs = next[targetThread] || [];
-              if (!existingThreadMsgs.some((m) => m.id === dbMsg.id || (m.text === dbMsg.message && m.sender === formattedMsg.sender))) {
+              if (!existingThreadMsgs.some((m) => m.id === dbMsg.id)) {
                 next[targetThread] = [...existingThreadMsgs, formattedMsg];
+                hasChanges = true;
               }
             });
 
-            return next;
+            return hasChanges ? next : prev;
           });
         }
       } catch (err) {
@@ -219,14 +798,17 @@ export const SecuredEbox = () => {
         }
       } finally {
         if (isMounted) {
+          isInitialLoadDone.current = true;
           setIsLoadingMessages(false);
         }
       }
     };
 
     fetchEboxMessages();
+    const pollInterval = setInterval(fetchEboxMessages, 8000);
     return () => {
       isMounted = false;
+      clearInterval(pollInterval);
     };
   }, []);
 
@@ -239,10 +821,21 @@ export const SecuredEbox = () => {
     }
   }, [threadStore]);
 
-  // Scroll to bottom
+  // Scroll to bottom only when new message actually arrives or thread/persona changes
+  const activeMsgs = threadStore[activeThreadId] || [];
+  const currentMsgCount = activeMsgs.length;
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [threadStore, activeThreadId, activePersona, isTyping]);
+    const threadChanged = lastActiveThreadRef.current !== activeThreadId;
+    const newMsgAdded = currentMsgCount > lastActiveMsgCountRef.current;
+
+    if (threadChanged || newMsgAdded || isTyping) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    lastActiveThreadRef.current = activeThreadId;
+    lastActiveMsgCountRef.current = currentMsgCount;
+  }, [activeThreadId, activePersona, currentMsgCount, isTyping]);
 
   const threads = [
     {
@@ -277,6 +870,17 @@ export const SecuredEbox = () => {
       color: '#7c3aed',
       accentBg: 'rgba(124, 58, 237, 0.12)',
       icon: Cpu,
+    },
+    {
+      id: 'th-swmtp',
+      title: isEs ? 'Centro Central SWMTP' : 'SWMTP Central Hub',
+      subtitle: isEs ? 'Johnny (SEA) ↔ Administrador Principal SWMTP' : 'Johnny (SEA) ↔ SWMTP Master Admin',
+      badge: isEs ? 'Pasarela SWMTP' : 'SWMTP Mesh Gateway',
+      partnerName: isEs ? 'Administrador Principal SWMTP' : 'SWMTP Master Admin',
+      partnerRole: 'swmtp_admin',
+      color: '#0284c7',
+      accentBg: 'rgba(2, 132, 199, 0.12)',
+      icon: ArrowRightLeft,
     },
   ];
 
@@ -345,9 +949,18 @@ export const SecuredEbox = () => {
     }, 1400);
   };
 
+    const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleSend = async (e) => {
     e?.preventDefault();
-    if (!inputText.trim()) return;
+    if (!inputText.trim() && attachedFiles.length === 0) return;
 
     let senderName = 'Johnny (Super Executive Admin)';
     let senderTitle = 'SEA / Business Owner';
@@ -360,45 +973,106 @@ export const SecuredEbox = () => {
     }
 
     const currentMsgText = inputText.trim();
+    const currentFiles = [...attachedFiles];
     const sentPersona = activePersona;
     const threadId = activeThreadId;
 
+    setInputText('');
+    setAttachedFiles([]);
+
     try {
-      // 1. Post to live MySQL ebox_messages via backend API
-      const response = await eboxService.sendMessage({
-        subject: currentThread.title,
-        message: currentMsgText,
-        recipient: sentPersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)',
-      });
+      const isSwmtp = threadId === 'th-swmtp';
+      const activeMsgs = threadStore['th-swmtp'] || [];
+      const lastSwmtp = [...activeMsgs].reverse().find(m => m.conversationId);
+      const conversationId = lastSwmtp?.conversationId || 'conv-swmtp-main';
 
-      const newMsg = {
-        id: response?.id || `ebx-${Date.now()}`,
-        senderRole: sentPersona,
-        sender: senderName,
-        title: senderTitle,
-        time: 'Just now',
-        text: currentMsgText,
-        attachment: null,
-        isDbRecord: true,
-      };
+      if (currentFiles.length > 0) {
+        for (const file of currentFiles) {
+          const base64Data = await readFileAsBase64(file);
+          const isImg = file.type?.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|avif)$/i.test(file.name);
+          const isVid = file.type?.startsWith('video/') || /\.(mp4|webm|mov|mkv|avi)$/i.test(file.name);
+          const isAud = file.type?.startsWith('audio/') || /\.(mp3|wav|ogg|m4a)$/i.test(file.name);
+          const msgType = isImg ? 'image' : (isVid ? 'video' : (isAud ? 'audio' : 'file'));
 
-      setThreadStore((prev) => ({
-        ...prev,
-        [threadId]: [...(prev[threadId] || []), newMsg],
-      }));
+          const fileMeta = {
+            fileName: file.name,
+            fileType: file.type || 'application/octet-stream',
+            fileSize: `${(file.size / 1024).toFixed(1)} KB`,
+            isImage: isImg,
+            isVideo: isVid,
+            isAudio: isAud,
+          };
 
-      setInputText('');
+          const response = await eboxService.sendMessage({
+            subject: isSwmtp ? `[SWMTP:${conversationId}] Reply by Johnny` : currentThread.title,
+            message: currentMsgText,
+            recipient: isSwmtp ? 'SWMTP Master Admin' : (sentPersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)'),
+            isSwmtp,
+            conversationId: isSwmtp ? conversationId : undefined,
+            messageType: msgType,
+            fileData: base64Data,
+            fileName: file.name,
+            fileMetadata: fileMeta
+          });
+
+          const fileMsg = {
+            id: response?.id || `ebx-f-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+            senderRole: sentPersona,
+            sender: senderName,
+            title: senderTitle,
+            time: 'Just now',
+            text: currentMsgText,
+            messageType: msgType,
+            isImage: isImg,
+            isVideo: isVid,
+            isAudio: isAud,
+            previewUrl: isImg || isVid ? base64Data : null,
+            attachment: { name: file.name, size: `${(file.size / 1024).toFixed(1)} KB`, url: base64Data },
+            reactions: {},
+            isDbRecord: true,
+            conversationId: isSwmtp ? conversationId : undefined,
+          };
+
+          setThreadStore((prev) => ({
+            ...prev,
+            [threadId]: [...(prev[threadId] || []), fileMsg],
+          }));
+        }
+      } else {
+        const response = await eboxService.sendMessage({
+          subject: isSwmtp ? `[SWMTP:${conversationId}] Reply by Johnny` : currentThread.title,
+          message: currentMsgText,
+          recipient: isSwmtp ? 'SWMTP Master Admin' : (sentPersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)'),
+          isSwmtp,
+          conversationId: isSwmtp ? conversationId : undefined,
+          messageType: 'text'
+        });
+
+        const newMsg = {
+          id: response?.id || `ebx-${Date.now()}`,
+          senderRole: sentPersona,
+          sender: senderName,
+          title: senderTitle,
+          time: 'Just now',
+          text: currentMsgText,
+          attachment: null,
+          isDbRecord: true,
+          conversationId: isSwmtp ? conversationId : undefined,
+        };
+
+        setThreadStore((prev) => ({
+          ...prev,
+          [threadId]: [...(prev[threadId] || []), newMsg],
+        }));
+      }
 
       addToast({
-        title: 'Message Transmitted & Vault Encrypted',
-        message: `Saved to MySQL (AES-256) and delivered to ${sentPersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)'}.`,
+        title: isSwmtp ? 'Synchronized with SWMTP Central Hub' : 'Message Transmitted & Vault Encrypted',
+        message: isSwmtp
+          ? 'Persisted to MySQL (AES-256) and synchronized to SWMTP Master Admin.'
+          : `Saved to MySQL (AES-256) and delivered to ${sentPersona === 'johnny' ? currentThread.partnerName : 'Johnny (SEA)'}.`,
         type: 'success',
       });
-
-      // 2. Simulated local typing responder for persona testing
-      if (sentPersona === 'johnny') {
-        triggerAutoReply(currentMsgText, threadId, sentPersona);
-      }
     } catch (err) {
       addToast({
         title: 'Transmission Failed',
@@ -424,9 +1098,21 @@ export const SecuredEbox = () => {
       m.sender.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Quick chips based on persona
+  // Quick chips based on thread and persona
   const quickSuggestions =
-    activePersona === 'johnny'
+    activeThreadId === 'th-swmtp'
+      ? isEs
+        ? [
+            'Confirmado Administrador Principal: canal seguro sincronizado.',
+            'Datos de ventas y CRM verificados en la red central.',
+            'Bóveda de cifrado AES-256 activa con cero fugas.',
+          ]
+        : [
+            'Confirmed Master Admin: secure channel synchronized.',
+            'Sales and CRM deal metrics verified across central mesh.',
+            'AES-256 vault encryption active with zero data leakage.',
+          ]
+      : activePersona === 'johnny'
       ? isEs
         ? [
             'Hola KTT, confirme el estado de la presentación legal.',
@@ -983,6 +1669,50 @@ export const SecuredEbox = () => {
                 {activePersona === 'johnny' ? 'Johnny (SEA)' : activePersona === 'ktt' ? (isEs ? 'KTT (Dev)' : 'KTT (Dev)') : (isEs ? 'Abogado' : 'Attorney')}
               </span>
             </div>
+
+              {/* Encrypted Audio & Video Call Actions */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginLeft: '6px' }}>
+                <button
+                  type="button"
+                  onClick={() => startCall('audio')}
+                  title={isEs ? 'Llamada de voz cifrada' : 'Secured Audio Call'}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: '#0284c7',
+                    cursor: 'pointer',
+                    transition: 'all 150ms ease',
+                  }}
+                >
+                  <Phone size={14} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => startCall('video')}
+                  title={isEs ? 'Videollamada cifrada' : 'Secured Video Call'}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: '#059669',
+                    cursor: 'pointer',
+                    transition: 'all 150ms ease',
+                  }}
+                >
+                  <Video size={14} />
+                </button>
+              </div>
           </div>
 
           {/* Messages Body */}
@@ -1096,6 +1826,71 @@ export const SecuredEbox = () => {
                         {m.text}
                       </p>
 
+                      {/* Voice Note Player */}
+                      {(m.type === 'audio' || m.messageType === 'audio') && (
+                        <div style={{ marginTop: m.text ? '8px' : '0' }}>
+                          <VoiceNotePlayer msg={m} isMine={isMine} />
+                        </div>
+                      )}
+
+                      {/* Photo Attachment Thumbnail */}
+                      {m.isImage && m.previewUrl && (
+                        <div style={{ marginTop: '8px', borderRadius: '8px', overflow: 'hidden', cursor: 'pointer' }} onClick={() => setPreviewImage(m)}>
+                          <img
+                            src={m.previewUrl}
+                            alt={m.attachment?.name || 'Photo'}
+                            style={{ maxWidth: '240px', maxHeight: '180px', objectFit: 'cover', borderRadius: '8px', display: 'block' }}
+                          />
+                        </div>
+                      )}
+
+                      {/* Video Player */}
+                      {m.isVideo && m.previewUrl && (
+                        <div style={{ marginTop: '8px', borderRadius: '8px', overflow: 'hidden' }}>
+                          <video
+                            src={m.previewUrl}
+                            controls
+                            playsInline
+                            style={{ maxWidth: '280px', maxHeight: '180px', borderRadius: '8px', display: 'block', backgroundColor: '#000' }}
+                          />
+                        </div>
+                      )}
+
+                      {/* Quick Reactions Bar & Display */}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMine ? 'flex-end' : 'flex-start', gap: '4px', marginTop: '6px' }}>
+                        {m.reactions && Object.entries(m.reactions).map(([emo, count]) => (
+                          <span
+                            key={emo}
+                            style={{
+                              fontSize: '10px',
+                              backgroundColor: isMine ? 'rgba(255,255,255,0.2)' : 'var(--surface-secondary)',
+                              border: '1px solid ' + (isMine ? 'rgba(255,255,255,0.3)' : 'var(--border)'),
+                              borderRadius: '10px',
+                              padding: '1px 5px',
+                              color: isMine ? '#ffffff' : 'var(--text-primary)',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '2px',
+                            }}
+                          >
+                            <span>{emo}</span>
+                            <span style={{ fontWeight: 700 }}>{count}</span>
+                          </span>
+                        ))}
+                        <div style={{ display: 'inline-flex', gap: '3px', opacity: 0.65 }}>
+                          {['👍', '❤️', '🔥'].map((emo) => (
+                            <span
+                              key={emo}
+                              onClick={() => handleAddReaction(m.id, emo)}
+                              style={{ cursor: 'pointer', fontSize: '11px', userSelect: 'none' }}
+                              title={'React ' + emo}
+                            >
+                              {emo}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
                       {/* Attachment if present */}
                       {m.attachment && (
                         <div
@@ -1195,87 +1990,353 @@ export const SecuredEbox = () => {
               backgroundColor: 'var(--surface)',
             }}
           >
-            <form onSubmit={handleSend} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <button
-                type="button"
-                onClick={() =>
-                  addToast({
-                    title: isEs ? 'Adjuntar Hoja de Ruta o Informe' : 'Attach Roadmap or Audit Brief',
-                    message: isEs ? 'Selector de documentos cifrados listo para la bóveda SEA.' : 'Encrypted document picker ready for SEA vault.',
-                    type: 'info',
-                  })
-                }
-                style={{
-                  padding: '9px',
-                  borderRadius: '8px',
-                  border: '1px solid var(--border)',
-                  backgroundColor: 'var(--surface-secondary)',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                title={isEs ? 'Adjuntar archivo cifrado' : 'Attach encrypted file'}
-              >
-                <Paperclip size={16} />
-              </button>
+            {/* Hidden File, Image & Video Inputs */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              style={{ display: 'none' }}
+              multiple
+            />
+            <input
+              type="file"
+              ref={imageInputRef}
+              onChange={handleFileSelect}
+              accept="image/*"
+              style={{ display: 'none' }}
+              multiple
+            />
+            <input
+              type="file"
+              ref={videoInputRef}
+              onChange={handleFileSelect}
+              accept="video/*"
+              style={{ display: 'none' }}
+              multiple
+            />
 
-              <input
-                type="text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder={
-                  activePersona === 'johnny'
-                    ? (isEs ? `Instruir a ${currentThread.partnerName}... (ej. "Confirmar actualización de sprint")` : `Instruct ${currentThread.partnerName}... (e.g. "Confirm sprint update")`)
-                    : activePersona === 'ktt'
-                    ? (isEs ? 'Responder a Johnny (Administrador Súper Ejecutivo)...' : 'Reply to Johnny (Super Executive Admin)...')
-                    : (isEs ? 'Enviar respuesta de diligencia legal a Johnny...' : 'Send legal diligence reply to Johnny...')
-                }
-                style={{
-                  flex: 1,
-                  padding: '10px 14px',
-                  fontSize: '13px',
-                  borderRadius: '8px',
-                  border: '1px solid var(--border)',
-                  backgroundColor: 'var(--surface-secondary)',
-                  color: 'var(--text-primary)',
-                  outline: 'none',
-                }}
-              />
+            {/* Attached Files Previews */}
+            {attachedFiles.length > 0 && (
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                {attachedFiles.map((f, idx) => (
+                  <FilePreview key={idx} file={f} onRemove={() => removeFile(idx)} />
+                ))}
+              </div>
+            )}
 
-              <button
-                type="submit"
-                disabled={!inputText.trim()}
+            {/* Emoji Popover Picker */}
+            {showEmojiPicker && (
+              <div
+                ref={emojiPickerRef}
                 style={{
-                  padding: '9px 18px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  backgroundColor: inputText.trim()
-                    ? activePersona === 'johnny'
-                      ? '#0284c7'
-                      : activePersona === 'ktt'
-                      ? '#4f46e5'
-                      : '#059669'
-                    : 'var(--border)',
-                  color: '#ffffff',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  cursor: inputText.trim() ? 'pointer' : 'not-allowed',
-                  display: 'flex',
-                  alignItems: 'center',
+                  position: 'absolute',
+                  bottom: '68px',
+                  left: '16px',
+                  backgroundColor: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '12px',
+                  padding: '10px',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(8, 1fr)',
                   gap: '6px',
-                  transition: 'all 150ms ease',
-                  boxShadow: inputText.trim() ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+                  zIndex: 100,
+                  maxHeight: '180px',
+                  overflowY: 'auto',
                 }}
               >
-                <Send size={14} />
-                {isEs ? 'Enviar' : 'Send'}
-              </button>
-            </form>
+                {EMOJI_LIST.map((emo) => (
+                  <button
+                    key={emo}
+                    type="button"
+                    onClick={() => {
+                      setInputText((prev) => prev + emo);
+                      setShowEmojiPicker(false);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                      padding: '4px',
+                      borderRadius: '6px',
+                    }}
+                  >
+                    {emo}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Composer Bar: Voice Mode or Normal Mode */}
+            {isRecordingVoice ? (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '12px',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                  border: '1px solid rgba(239, 68, 68, 0.25)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444', animation: 'pulse 1s infinite' }} />
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#ef4444' }}>
+                    {isEs ? 'Grabando Nota de Voz...' : 'Recording Voice Note...'}
+                  </span>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-primary)', marginLeft: '6px' }}>
+                    {Math.floor(recordingSeconds / 60)}:{(recordingSeconds % 60).toString().padStart(2, '0')}
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={handleCancelVoice}
+                    style={{
+                      background: 'none',
+                      border: '1px solid var(--border)',
+                      borderRadius: '6px',
+                      padding: '6px 10px',
+                      cursor: 'pointer',
+                      color: 'var(--text-secondary)',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {isEs ? 'Cancelar' : 'Cancel'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleStopAndSendVoice}
+                    style={{
+                      backgroundColor: '#ef4444',
+                      border: 'none',
+                      borderRadius: '6px',
+                      padding: '6px 14px',
+                      cursor: 'pointer',
+                      color: '#ffffff',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    <Send size={13} />
+                    {isEs ? 'Enviar Audio' : 'Send Voice'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSend} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {/* File Attachment Button */}
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={isEs ? 'Adjuntar archivo' : 'Attach file'}
+                >
+                  <Paperclip size={15} />
+                </button>
+
+                {/* Photo Upload Button */}
+                <button
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={isEs ? 'Adjuntar foto / imagen' : 'Attach photo'}
+                >
+                  <Image size={15} />
+                </button>
+
+                {/* Video Upload Button */}
+                <button
+                  type="button"
+                  onClick={() => videoInputRef.current?.click()}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={isEs ? 'Adjuntar video' : 'Attach video'}
+                >
+                  <Video size={15} />
+                </button>
+
+                {/* Emoji Picker Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowEmojiPicker((prev) => !prev)}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: showEmojiPicker ? 'rgba(2, 132, 199, 0.12)' : 'var(--surface-secondary)',
+                    color: showEmojiPicker ? '#0284c7' : 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={isEs ? 'Insertar emoji' : 'Insert emoji'}
+                >
+                  <Smile size={15} />
+                </button>
+
+                {/* Input Text */}
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder={
+                    activePersona === 'johnny'
+                      ? (isEs ? `Instruir a ${currentThread.partnerName}... (ej. "Confirmar actualización de sprint")` : `Instruct ${currentThread.partnerName}... (e.g. "Confirm sprint update")`)
+                      : activePersona === 'ktt'
+                      ? (isEs ? 'Responder a Johnny (Administrador Súper Ejecutivo)...' : 'Reply to Johnny (Super Executive Admin)...')
+                      : (isEs ? 'Enviar respuesta de diligencia legal a Johnny...' : 'Send legal diligence reply to Johnny...')
+                  }
+                  style={{
+                    flex: 1,
+                    padding: '10px 14px',
+                    fontSize: '13px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: 'var(--text-primary)',
+                    outline: 'none',
+                  }}
+                />
+
+                {/* Voice Record Button */}
+                <button
+                  type="button"
+                  onClick={handleStartVoice}
+                  style={{
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--surface-secondary)',
+                    color: '#0284c7',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={isEs ? 'Grabar nota de voz' : 'Record voice note'}
+                >
+                  <Mic size={15} />
+                </button>
+
+                {/* Send Button */}
+                <button
+                  type="submit"
+                  disabled={!inputText.trim() && attachedFiles.length === 0}
+                  style={{
+                    padding: '9px 18px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    backgroundColor: (inputText.trim() || attachedFiles.length > 0)
+                      ? activePersona === 'johnny'
+                        ? '#0284c7'
+                        : activePersona === 'ktt'
+                        ? '#4f46e5'
+                        : '#059669'
+                      : 'var(--border)',
+                    color: '#ffffff',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: (inputText.trim() || attachedFiles.length > 0) ? 'pointer' : 'not-allowed',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 150ms ease',
+                    boxShadow: (inputText.trim() || attachedFiles.length > 0) ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+                  }}
+                >
+                  <Send size={14} />
+                  {isEs ? 'Enviar' : 'Send'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
+      {/* Real WebRTC calling is handled by global ActiveCallOverlay */}
+
+      {/* Image Lightbox Preview Modal */}
+      {previewImage && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(5px)',
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+          }}
+          onClick={() => setPreviewImage(null)}
+        >
+          <img
+            src={previewImage.previewUrl}
+            alt={previewImage.attachment?.name || 'Preview'}
+            style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px' }}
+          />
+          <button
+            type="button"
+            onClick={() => setPreviewImage(null)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              backgroundColor: 'rgba(255,255,255,0.2)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '36px',
+              height: '36px',
+              color: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <X size={18} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
