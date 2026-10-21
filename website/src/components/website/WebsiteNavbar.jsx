@@ -270,35 +270,6 @@ export const WebsiteNavbar = ({
             <LanguageToggle />
           </div>
 
-          {/* Theme Mode Toggle (Moon / Sun) */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="website-theme-toggle-btn"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '34px',
-              height: '34px',
-              borderRadius: '9px',
-              background: 'var(--web-surface-subtle)',
-              border: '1px solid var(--web-border)',
-              color: 'var(--web-text-main)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              flexShrink: 0
-            }}
-            title={theme === 'dark' ? (isEs ? 'Cambiar a modo claro' : 'Switch to light mode') : (isEs ? 'Cambiar a modo oscuro' : 'Switch to dark mode')}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? (
-              <Sun size={15} style={{ color: '#f59e0b' }} />
-            ) : (
-              <Moon size={15} style={{ color: '#6366f1' }} />
-            )}
-          </button>
-
           {/* DISTINCT [ Login / Create Account ] ACTION PILL (Matching Client Reference) */}
           <div className="website-header-account-pill" style={{
             display: 'inline-flex',
@@ -504,26 +475,6 @@ export const WebsiteNavbar = ({
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LanguageToggle />
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  style={{
-                    background: 'var(--web-surface-subtle)',
-                    border: '1px solid var(--web-border)',
-                    borderRadius: '8px',
-                    width: '32px',
-                    height: '32px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: 'var(--web-text-main)'
-                  }}
-                  aria-label="Toggle theme"
-                  title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                >
-                  {theme === 'dark' ? <Sun size={14} style={{ color: '#f59e0b' }} /> : <Moon size={14} style={{ color: '#6366f1' }} />}
-                </button>
                 <button
                   type="button"
                   onClick={() => setMobileDrawerOpen(false)}

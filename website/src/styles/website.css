@@ -48,47 +48,7 @@
   --web-orb-glow: 0 0 80px rgba(139, 92, 246, 0.45), 0 0 140px rgba(6, 182, 212, 0.25);
 }
 
-[data-theme="light"] .crm-website-theme {
-  --web-primary: #6366f1;
-  --web-primary-glow: #4f46e5;
-  --web-accent-cyan: #0891b2;
-  --web-accent-orange: #ea580c;
-  --web-accent-emerald: #059669;
 
-  /* Crisp Modern Fintech Light Theme */
-  --web-bg: #f8fafc;
-  --web-surface: #ffffff;
-  --web-surface-subtle: #f1f5f9;
-  --web-surface-card: #ffffff;
-  --web-surface-hover: #f1f5f9;
-  --web-border: rgba(99, 102, 241, 0.16);
-  --web-border-strong: rgba(99, 102, 241, 0.32);
-  --web-border-hover: rgba(99, 102, 241, 0.45);
-
-  /* High-Contrast Readable Typography */
-  --web-text-main: #0f172a;
-  --web-text-muted: #475569;
-  --web-text-light: #64748b;
-
-  --web-gradient-hero: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #06b6d4 100%);
-  --web-gradient-energy: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #10b981 100%);
-  --web-gradient-neon: linear-gradient(135deg, #6366f1 0%, #0284c7 50%, #0891b2 100%);
-  --web-gradient-card-hover: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  --web-box-shadow-card: 0 4px 20px rgba(15, 23, 42, 0.08);
-
-  --web-nav-bg: rgba(255, 255, 255, 0.9);
-  --web-nav-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
-
-  --web-glass-bg: rgba(255, 255, 255, 0.88);
-  --web-glass-card: rgba(255, 255, 255, 0.94);
-  --web-glass-border: rgba(99, 102, 241, 0.18);
-  --web-glass-highlight: rgba(255, 255, 255, 0.95);
-
-  --web-hero-overlay: radial-gradient(ellipse at 50% 15%, rgba(248, 250, 252, 0.85) 0%, rgba(241, 245, 249, 0.96) 100%);
-  --web-stats-bar-bg: rgba(255, 255, 255, 0.92);
-  --web-stats-bar-border: rgba(99, 102, 241, 0.18);
-  --web-orb-glow: 0 0 60px rgba(99, 102, 241, 0.2), 0 0 100px rgba(6, 182, 212, 0.15);
-}
 
 .crm-website-theme {
   color: var(--web-text-main);
@@ -679,11 +639,6 @@
   mix-blend-mode: screen;
 }
 
-[data-theme="light"] .hero-ambient-orb-img {
-  opacity: 0.18;
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.25));
-}
 
 .hero-orb-image {
   width: 90%;
@@ -810,55 +765,7 @@
   font-weight: 500;
 }
 
-/* Theme Switcher Pill inside Trust Bar */
-.hero-theme-switch-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 5px 12px 5px 6px;
-  border-radius: 9999px;
-  background: var(--web-surface-subtle);
-  border: 1px solid var(--web-border);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-}
 
-.hero-theme-switch-pill:hover {
-  border-color: var(--web-primary);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25);
-}
-
-.hero-theme-toggle-knob {
-  width: 44px;
-  height: 24px;
-  border-radius: 9999px;
-  background: var(--web-surface-card);
-  border: 1px solid var(--web-border);
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  position: relative;
-  transition: all 0.25s ease;
-}
-
-.hero-theme-toggle-dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-theme="light"] .hero-theme-toggle-dot {
-  transform: translateX(20px);
-  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
-}
 
 /* =====================================================
    PREMIUM ANIMATED CARD SYSTEM — All Pages
@@ -2501,7 +2408,10 @@ body,
   }
 
   .hero-ambient-orb-bg {
-    width: clamp(240px, 72vw, 360px) !important;
+    top: 48% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: clamp(260px, 78vw, 360px) !important;
     opacity: 0.75 !important;
   }
 
@@ -2543,18 +2453,15 @@ body,
     font-size: 10.5px !important;
   }
 
-  .hero-theme-switch-pill {
-    grid-column: 1 / -1 !important;
-    width: 100% !important;
-    justify-content: center !important;
-    margin-top: 4px !important;
-    padding: 6px 12px !important;
-  }
-
   /* Showcase Section */
   .website-product-showcase-container {
     margin-top: 1.25rem !important;
     border-radius: 14px !important;
+  }
+
+  .website-product-showcase-header {
+    padding: 0.85rem 1rem !important;
+    gap: 8px !important;
   }
 
   .website-preview-command-bar {
@@ -2821,10 +2728,6 @@ body,
 
   .hero-trust-label {
     font-size: 9.5px !important;
-  }
-
-  .hero-theme-switch-pill span {
-    font-size: 10px !important;
   }
 
   .website-showcase-modules-row {

@@ -224,21 +224,8 @@ export const WebsiteHome = () => {
           overflow: 'hidden'
         }}
       >
-        {/* AMBIENT 3D ROTATING ORB IN BACKGROUND ("bg mee yee ball lightt krke round krwa doo") */}
-        <div className="hero-ambient-orb-bg" aria-hidden="true">
-          <div className="hero-ambient-orb-halo" />
-          <div className="hero-ambient-orb-rings-outer" />
-          <div className="hero-ambient-orb-rings-inner" />
-          <img
-            src="/hero-ai-orb.jpg"
-            alt="AI Energy Sphere Rotating Background"
-            className="hero-ambient-orb-img"
-            loading="eager"
-          />
-        </div>
-
         {/* CENTERED HERO CONTENT CONTAINER (ORIGINAL APPROVED ORDER RESTORED) */}
-        <div style={{
+        <div className="hero-main-content-wrap" style={{
           maxWidth: '1080px',
           margin: '0 auto',
           display: 'flex',
@@ -249,6 +236,18 @@ export const WebsiteHome = () => {
           position: 'relative',
           zIndex: 3
         }}>
+          {/* AMBIENT 3D ROTATING ORB IN BACKGROUND ("bg mee yee ball lightt krke round krwa doo") */}
+          <div className="hero-ambient-orb-bg" aria-hidden="true">
+            <div className="hero-ambient-orb-halo" />
+            <div className="hero-ambient-orb-rings-outer" />
+            <div className="hero-ambient-orb-rings-inner" />
+            <img
+              src="/hero-ai-orb.jpg"
+              alt="AI Energy Sphere Rotating Background"
+              className="hero-ambient-orb-img"
+              loading="eager"
+            />
+          </div>
           {/* Pill Badge */}
           <div style={{
             display: 'inline-flex',
@@ -399,21 +398,6 @@ export const WebsiteHome = () => {
               </div>
             </div>
 
-            {/* 5. Theme Toggle Pill (Matching Reference) */}
-            <div
-              className="hero-theme-switch-pill"
-              onClick={toggleTheme}
-              title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-            >
-              <div className="hero-theme-toggle-knob">
-                <div className="hero-theme-toggle-dot">
-                  {theme === 'dark' ? <Moon size={11} /> : <Sun size={11} />}
-                </div>
-              </div>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--web-text-main)' }}>
-                {isEs ? 'Modo Claro o Oscuro' : 'Beautiful in Light or Dark'}
-              </span>
-            </div>
           </div>
         </div>
 
@@ -442,7 +426,7 @@ export const WebsiteHome = () => {
           }} />
 
           {/* Top Showcase Branding: CRM nErgy / "Make AI Your Bestie" */}
-          <div style={{
+          <div className="website-product-showcase-header" style={{
             padding: '1.1rem 1.5rem',
             borderBottom: '1px solid var(--web-border)',
             display: 'flex',
