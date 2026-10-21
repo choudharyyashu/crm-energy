@@ -11,6 +11,8 @@ import { OalProvider } from './context/OalContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { AppRoutes } from './routes/AppRoutes';
+import { CallProvider } from './context/CallContext';
+import { ActiveCallOverlay } from './components/call/ActiveCallOverlay';
 
 import './styles/variables.css';
 import './styles/global.css';
@@ -36,7 +38,10 @@ export function App() {
                     <HrProvider>
                       <SupportProvider>
                         <OalProvider>
-                          <AppRoutes />
+                          <CallProvider>
+                            <AppRoutes />
+                            <ActiveCallOverlay />
+                          </CallProvider>
                         </OalProvider>
                       </SupportProvider>
                     </HrProvider>
