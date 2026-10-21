@@ -30,18 +30,13 @@ export const SalesChatEboxModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="website-modal-backdrop" onClick={onClose}>
-      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px' }}>
+      <div className="website-modal-window" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px', height: 'min(640px, 92dvh)', maxHeight: '92dvh', display: 'flex', flexDirection: 'column' }}>
         {/* Header */}
-        <div style={{
-          padding: '1.1rem 1.25rem',
-          borderBottom: '1px solid var(--web-border)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+        <div className="website-modal-header" style={{
           background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
+          <div className="website-modal-header-left">
+            <div className="website-modal-header-icon" style={{
               width: '38px',
               height: '38px',
               borderRadius: '10px',
@@ -50,27 +45,29 @@ export const SalesChatEboxModal = ({ isOpen, onClose }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(2, 132, 199, 0.35)'
+              boxShadow: '0 4px 12px rgba(2, 132, 199, 0.35)',
+              flexShrink: 0
             }}>
               <MessageSquare size={20} />
             </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: 800, fontSize: '15px', color: 'var(--web-text-main)' }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <span className="website-modal-title" style={{ fontWeight: 800, fontSize: '15px', color: 'var(--web-text-main)' }}>
                   SALES — chat eBox
                 </span>
-                <span style={{
+                <span className="website-modal-badge" style={{
                   fontSize: '9.5px',
                   fontWeight: 800,
                   background: 'rgba(2, 132, 199, 0.12)',
                   color: '#0284c7',
                   padding: '2px 6px',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  whiteSpace: 'nowrap'
                 }}>
                   PUBLIC INQUIRY DESK
                 </span>
               </div>
-              <span style={{ fontSize: '11.5px', color: 'var(--web-text-muted)' }}>
+              <span className="website-modal-subtitle" style={{ fontSize: '11.5px', color: 'var(--web-text-muted)', display: 'block', lineHeight: 1.3 }}>
                 Direct Consultations & Enterprise Deployment Team
               </span>
             </div>
@@ -79,13 +76,16 @@ export const SalesChatEboxModal = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={onClose}
+            className="website-modal-close-btn"
             style={{
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               color: 'var(--web-text-muted)',
               padding: '6px',
-              borderRadius: '6px'
+              borderRadius: '6px',
+              flexShrink: 0,
+              marginLeft: '6px'
             }}
           >
             <X size={18} />
@@ -93,7 +93,7 @@ export const SalesChatEboxModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Content Body */}
-        <div style={{ padding: '1.25rem', overflowY: 'auto', maxHeight: '72vh' }}>
+        <div className="website-modal-body" style={{ padding: '1.25rem', overflowY: 'auto' }}>
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
               <div style={{

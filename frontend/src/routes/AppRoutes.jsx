@@ -19,6 +19,12 @@ import { InfluencersCrmPage } from '../pages/website/InfluencersCrmPage';
 import { AnalyticAccountingPage } from '../pages/website/AnalyticAccountingPage';
 import { ProfessionalServicesPage } from '../pages/website/ProfessionalServicesPage';
 import { CustomizableDashboardsPage } from '../pages/website/CustomizableDashboardsPage';
+import { FeaturesPage } from '../pages/website/FeaturesPage';
+import { SolutionsPage } from '../pages/website/SolutionsPage';
+import { IndustriesPage } from '../pages/website/IndustriesPage';
+import { FaqsPage } from '../pages/website/FaqsPage';
+import { FeatureDetailPage } from '../pages/website/FeatureDetailPage';
+import { IndustryDetailPage } from '../pages/website/IndustryDetailPage';
 
 // Gateway Login Pages
 import { UnifiedLogin } from '../pages/UnifiedLogin';
@@ -139,34 +145,46 @@ const OalDashboardDispatcher = () => {
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Root Gateway Login Page for CRM ERP Software */}
-      <Route path="/" element={<UnifiedLogin mode="crm" />} />
+      {/* CRM nErgy Public Website Routes (Landing Page & Solutions) */}
+      <Route element={<WebsiteLayout />}>
+        {/* Main Landing / Homepage */}
+        <Route path="/" element={<WebsiteHome />} />
+        <Route path="/website" element={<WebsiteHome />} />
+
+        {/* Dedicated Main Section Pages */}
+        <Route path="/features" element={<FeaturesPage />} />
+        <Route path="/solutions" element={<SolutionsPage />} />
+        <Route path="/industries" element={<IndustriesPage />} />
+        <Route path="/faqs" element={<FaqsPage />} />
+
+        {/* Dedicated Solutions Pages */}
+        <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
+        <Route path="/solutions/startups" element={<StartupsCrmPage />} />
+        <Route path="/solutions/startups-crm" element={<StartupsCrmPage />} />
+        <Route path="/solutions/midsize" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/mid-size-crm" element={<MidSizeCrmPage />} />
+        <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
+        <Route path="/solutions/franchise-crm" element={<FranchiseCrmPage />} />
+        <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
+        <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
+        <Route path="/solutions/influencers-crm" element={<InfluencersCrmPage />} />
+
+        {/* Dedicated Features Pages */}
+        <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
+        <Route path="/features/customizable-dashboards" element={<CustomizableDashboardsPage />} />
+        <Route path="/features/dashboards" element={<CustomizableDashboardsPage />} />
+        <Route path="/features/:slug" element={<FeatureDetailPage />} />
+
+        {/* Dedicated Industries Pages */}
+        <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
+        <Route path="/industries/:slug" element={<IndustryDetailPage />} />
+      </Route>
 
       {/* Gateway Login Pages */}
       <Route path="/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/crm/login" element={<UnifiedLogin mode="crm" />} />
       <Route path="/oal/login" element={<UnifiedLogin mode="oal" />} />
-
-      {/* CRM nErgy Public Website Routes (Fallback) */}
-      <Route element={<WebsiteLayout />}>
-        <Route path="/website" element={<WebsiteHome />} />
-        <Route path="/features" element={<WebsiteHome />} />
-        <Route path="/solutions" element={<WebsiteHome />} />
-        <Route path="/industries" element={<WebsiteHome />} />
-        <Route path="/faqs" element={<WebsiteHome />} />
-
-        {/* Phase 3: Dedicated CRM nErgy Content Pages */}
-        <Route path="/solutions/business-crm" element={<BusinessCrmPage />} />
-        <Route path="/solutions/franchise" element={<FranchiseCrmPage />} />
-        <Route path="/solutions/startups" element={<StartupsCrmPage />} />
-        <Route path="/solutions/mid-size" element={<MidSizeCrmPage />} />
-        <Route path="/solutions/contact-ai" element={<ContactAiPage />} />
-        <Route path="/solutions/influencers" element={<InfluencersCrmPage />} />
-        <Route path="/features/analytic-accounting" element={<AnalyticAccountingPage />} />
-        <Route path="/features/customizable-dashboards" element={<CustomizableDashboardsPage />} />
-        <Route path="/features/dashboards" element={<CustomizableDashboardsPage />} />
-        <Route path="/industries/professional-services" element={<ProfessionalServicesPage />} />
-      </Route>
 
       <Route element={<CrmLayout />}>
         <Route path="/showcase" element={<Showcase />} />
@@ -333,7 +351,7 @@ export const AppRoutes = () => {
         <Route path="/oal/*" element={<Navigate to="/crm/dashboard" replace />} />
       )}
 
-      <Route path="*" element={<Navigate to="/crm/login" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

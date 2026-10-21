@@ -255,7 +255,7 @@ export const CustomizableDashboardsPage = () => {
           {/* Breadcrumb Back Link */}
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginBottom: '0.25rem' }}>
             <Link
-              to="/website"
+              to="/"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -396,7 +396,7 @@ export const CustomizableDashboardsPage = () => {
               {isEs ? 'Visión Estratégica' : 'Executive Insights'}
             </span>
             <span style={{ fontSize: '13px', fontWeight: 700, color: '#f59e0b' }}>
-              CRM nErgy AI • “Make AI Your Friend”
+              CRM nErgy AI • {isEs ? '“Haz de la IA Tu Mejor Amigo”' : '“Make AI Your Bestie”'}
             </span>
           </div>
 
@@ -1422,7 +1422,7 @@ export const CustomizableDashboardsPage = () => {
             </button>
             <button
               type="button"
-              onClick={() => navigate('/crm/pipeline')}
+              onClick={() => navigate('/')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -1437,7 +1437,7 @@ export const CustomizableDashboardsPage = () => {
                 cursor: 'pointer'
               }}
             >
-              <span>{isEs ? 'Abrir Embudo de Ventas (CRM)' : 'Open CRM Pipeline'}</span>
+              <span>{isEs ? 'Volver a Funciones' : 'Explore All Features'}</span>
               <ArrowRight size={16} />
             </button>
           </div>

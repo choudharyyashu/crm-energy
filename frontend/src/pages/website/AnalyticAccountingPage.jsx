@@ -197,7 +197,7 @@ export const AnalyticAccountingPage = () => {
             fontWeight: 700,
             margin: 0
           }}>
-            {t('“Make AI Your Friend”')}
+            {t('“Make AI Your Bestie”')}
           </p>
 
           <p style={{
@@ -271,7 +271,7 @@ export const AnalyticAccountingPage = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
           gap: '1.5rem'
         }}>
           {pillars.map((p, idx) => {
@@ -341,18 +341,19 @@ export const AnalyticAccountingPage = () => {
           overflow: 'hidden',
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)'
         }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(160px, 240px) 1fr',
-            background: 'var(--web-surface-subtle)',
-            borderBottom: '1px solid var(--web-border)',
-            padding: '12px 18px',
-            fontSize: '12px',
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            color: 'var(--web-text-main)'
-          }}>
+          <div
+            className="website-responsive-table-grid website-responsive-table-header"
+            style={{
+              background: 'var(--web-surface-subtle)',
+              borderBottom: '1px solid var(--web-border)',
+              padding: '12px 18px',
+              fontSize: '12px',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: 'var(--web-text-main)'
+            }}
+          >
             <div>{t('Business Type')}</div>
             <div>{t('How Analytical CRM Helps')}</div>
           </div>
@@ -360,14 +361,11 @@ export const AnalyticAccountingPage = () => {
           {businessTypes.map((b, idx) => (
             <div
               key={idx}
+              className="website-responsive-table-grid"
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(160px, 240px) 1fr',
                 padding: '14px 18px',
                 borderBottom: idx === businessTypes.length - 1 ? 'none' : '1px solid var(--web-border)',
                 fontSize: '13.5px',
-                alignItems: 'center',
-                gap: '12px',
                 backgroundColor: idx % 2 === 1 ? 'var(--web-surface-subtle)' : 'var(--web-surface)'
               }}
             >
@@ -428,7 +426,7 @@ export const AnalyticAccountingPage = () => {
               Branding and Customization
             </span>
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--web-text-muted)' }}>
-              “Make AI Your Friend”
+              “Make AI Your Bestie”
             </span>
           </div>
 
